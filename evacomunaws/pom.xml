@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cr.ac.una</groupId>
+    <artifactId>evacomuna</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>evacomunaws</name>
+    
+    <properties>
+        <maven.compiler.release>11</maven.compiler.release>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <jakartaee>9.1.0</jakartaee>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>2.3</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <compilerArgs>
+                        <args>-Djava.endorsed.dirs=${endorsed.dir}</args>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${endorsed.dir}</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>jakarta.platform</groupId>
+                                    <artifactId>jakarta.jakartaee-api</artifactId>
+                                    <version>${jakartaee}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -61,19 +140,25 @@
       <artifactId>jaxws-tools</artifactId>
       <version>2.2.10</version>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish.metro</groupId>
+      <artifactId>webservices-rt</artifactId>
+      <version>2.3</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>evacomuna</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to
-      parent pom) -->
+    <pluginManagement> lock down plugins versions to avoid using Maven defaults (may be moved to
+      parent pom) 
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- see
-        http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+         see
+        http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging 
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
@@ -104,4 +189,4 @@
       </plugins>
     </pluginManagement>
   </build>
-</project>
+</project>-->
