@@ -1,4 +1,4 @@
-package cr.ac.una.domain;
+package cr.ac.una.model;
 
 public class User {
     private int id;
