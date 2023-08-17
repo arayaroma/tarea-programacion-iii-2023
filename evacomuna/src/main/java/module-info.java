@@ -1,7 +1,7 @@
-module cr.ac.una {
+module ac.cr.una.evacomuna {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens cr.ac.una to javafx.fxml;
-    exports cr.ac.una;
+    opens ac.cr.una.evacomuna to javafx.fxml;
+    exports ac.cr.una.evacomuna;
 }
