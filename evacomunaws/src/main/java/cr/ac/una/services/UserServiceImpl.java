@@ -4,7 +4,7 @@ import jakarta.jws.WebService;
 
 import cr.ac.una.model.User;
 
-@WebService(endpointInterface = "cr.ac.una.service.UserService")
+@WebService(serviceName = "user")
 public class UserServiceImpl implements UserService {
     
     @Override
