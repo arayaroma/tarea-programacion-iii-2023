@@ -8,6 +8,8 @@ module Evacomuna {
     
     opens cr.ac.una.evacomuna to javafx.fxml;
     opens cr.ac.una.services;
+    opens cr.ac.una.controller to javafx.fxml;
     exports cr.ac.una.evacomuna;
+    exports cr.ac.una.controller;
 
 }

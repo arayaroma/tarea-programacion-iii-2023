@@ -19,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(new Pane(), 640, 480);
+        scene = new Scene(loadFXML("Login"));
         stage.setScene(scene);
         stage.show();
     }
@@ -29,8 +29,14 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/" + fxml + ".fxml"));
+//        try{
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/cr/ac/una/evacomuna/view/"+fxml + ".fxml"));
         return fxmlLoader.load();
+//        }catch(Exception ex){
+//            System.out.println(ex.toString());
+//            return new Pane();
+//        }
+//        return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
