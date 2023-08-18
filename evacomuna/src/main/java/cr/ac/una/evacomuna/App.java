@@ -1,4 +1,4 @@
-package ac.cr.una.evacomuna;
+package cr.ac.una.evacomuna;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+
+import cr.ac.una.util.RequestExample;
 import javafx.scene.layout.Pane;
 
 /**
@@ -27,11 +29,12 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
+        RequestExample.request();
         launch();
     }
 

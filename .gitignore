@@ -1,3 +1,5 @@
 .vscode
-/evacomunaws/target/
 /evacomuna/target/
+/evacomuna/nbactions.xml
+/evacomunaws/target/
+/evacomunaws/nb-configuration.xml
