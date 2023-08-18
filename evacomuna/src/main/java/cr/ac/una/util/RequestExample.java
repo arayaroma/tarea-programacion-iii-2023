@@ -23,8 +23,9 @@ public class RequestExample {
 
         // Process the response
         System.out.println("Response: " + user.toString());
+        
     }
-    public static void soapClient(){
-       
-    }
+//    public static void soapClient(){
+//     
+//    }
 }
