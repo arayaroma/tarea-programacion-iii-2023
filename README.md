@@ -14,7 +14,11 @@ docker run -d -p 1521:1521 --name oracle -e ORACLE_PASSWORD=tremendisimo -e APP_
 docker run -d --name payara -p 4848:4848 -p 8080:8080 payara/server-full:6.2023.2-jdk17
 ```
 ### Agregar Driver Oracle ojdbc11.jar
-Luego tienen que agregar el driver de Oracle ojdbc11.jar al Payara Server, para esto tienen que entrar al contenedor de Payara Server y copiar el driver en la carpeta `appserver/glassfish/lib`
+Luego tienen que agregar el driver de Oracle ojdbc11.jar al Payara Server, para esto tienen que entrar al contenedor de Payara Server y copiar el driver en la carpeta `/opt/payara/appserver/glassfish/lib`
+
+```docker
+docker cp <path-to-ojdbc11.jar> payara:/opt/payara/appserver/glassfish/lib
+```
 
 Esencialmente se utilizaran las siguientes im&aacute;genes:
 - [Oracle 21c XE](https://hub.docker.com/r/gvenzl/oracle-xe)
