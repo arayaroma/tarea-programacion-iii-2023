@@ -5,7 +5,7 @@ Tarea Programada sobre Sistema de Evaluaciones de Competencias 360
 Se utilizar&aacute; Docker para el desarrollo del proyecto, por lo que se debe tener instalado Docker.
 
 ```docker
-docker run -d -p 1521:1521 --name oracle -e ORACLE_PASSWORD=tremendisimo -e APP_USER=una -e APP_USER_PASSWORD=una -v oracle-volume:/opt/oracle/oradata gvenzl/oracle-xe:latest
+docker run -d -p 1521:1521 --name oracle -e ORACLE_PASSWORD=tremendisimo -e APP_USER=EvaComUNA -e APP_USER_PASSWORD=una -v oracle-volume:/opt/oracle/oradata gvenzl/oracle-xe:latest
 ```
 
 Esencialmente se utilizaran las siguientes im&aacute;genes:
