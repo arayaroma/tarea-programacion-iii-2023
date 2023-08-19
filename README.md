@@ -1,6 +1,19 @@
 # tarea-programacion-iii-2023
 Tarea Programada sobre Sistema de Evaluaciones de Competencias 360
 
+## Docker
+Se utilizar&aacute; Docker para el desarrollo del proyecto, por lo que se debe tener instalado Docker.
+
+```docker
+docker run -d -p 1521:1521 --name oracle -e ORACLE_PASSWORD=tremendisimo -e APP_USER=una -e APP_USER_PASSWORD=una -v oracle-volume:/opt/oracle/oradata gvenzl/oracle-xe:latest
+```
+
+Esencialmente se utilizaran las siguientes im&aacute;genes:
+- [Oracle 21c XE](https://hub.docker.com/r/gvenzl/oracle-xe)
+- [Payara Server](https://hub.docker.com/r/payara/server-full)
+
+Cualquier otra imagen que puede facilitar el desarrollo, se puede implementar.
+
 ## Git
 Se estar&aacute; trabajando con un enfoque de ramas de corta y larga duraci&oacute;n. La primera para ramas temporales, que se vayan creando mientras se va desarrollando, la segunda para ramas principales.
 
@@ -51,16 +64,6 @@ Para las ramas de corta duraci&oacute;n, se utilizar&aacute; la siguiente conven
 
 #### Merge Conflicts:
 Para los merge coflicts, deben de estar al menos 2 personas presentes para resolverlos. Preferiblemente, se debe de resolver en conjunto con la persona que hizo el commit.
-
-
-## Docker
-Se utilizar&aacute; Docker para el desarrollo del proyecto, por lo que se debe tener instalado Docker.
-
-Esencialmente se utilizaran las siguientes im&aacute;genes:
-- [Oracle 21c XE](https://hub.docker.com/r/gvenzl/oracle-xe)
-- [Payara Server](https://hub.docker.com/r/payara/server-full)
-
-Cualquier otra imagen que puede facilitar el desarrollo, se puede implementar.
 
 ## Herramientas
 - [Git](https://git-scm.com/)
