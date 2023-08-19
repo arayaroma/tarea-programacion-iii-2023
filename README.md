@@ -4,9 +4,17 @@ Tarea Programada sobre Sistema de Evaluaciones de Competencias 360
 ## Docker
 Se utilizar&aacute; Docker para el desarrollo del proyecto, por lo que se debe tener instalado Docker.
 
+### Oracle 21c XE Container
 ```docker
 docker run -d -p 1521:1521 --name oracle -e ORACLE_PASSWORD=tremendisimo -e APP_USER=EvaComUNA -e APP_USER_PASSWORD=una -v oracle-volume:/opt/oracle/oradata gvenzl/oracle-xe:latest
 ```
+
+### Payara Server Full 6.2023.2-jdk17 Container
+```docker
+docker run -d --name payara -p 4848:4848 -p 8080:8080 payara/server-full:6.2023.2-jdk17
+```
+### Agregar Driver Oracle ojdbc11.jar
+Luego tienen que agregar el driver de Oracle ojdbc11.jar al Payara Server, para esto tienen que entrar al contenedor de Payara Server y copiar el driver en la carpeta `appserver/glassfish/lib`
 
 Esencialmente se utilizaran las siguientes im&aacute;genes:
 - [Oracle 21c XE](https://hub.docker.com/r/gvenzl/oracle-xe)
