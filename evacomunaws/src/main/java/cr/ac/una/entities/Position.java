@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import cr.ac.una.dto.PositionDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,4 +40,17 @@ public class Position implements Serializable {
 
     @OneToMany(mappedBy = "POSITION")
     private List<User> users = new ArrayList<>();
+
+    public Position(PositionDto position) {
+        this.id = position.getId();
+        updatePosition(position);
+    }
+
+    public void updatePosition(PositionDto position) {
+        this.name = position.getName();
+        this.state = position.getState();
+        position.getUsers().forEach(user -> {
+            this.users.add(new User(user));
+        });
+    }
 }

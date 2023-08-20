@@ -1,5 +1,6 @@
 package cr.ac.una.dto;
 
+import cr.ac.una.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,21 @@ public class UserDto {
     private String isActive;
     private String isAdmin;
     private PositionDto position;
+
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.lastname = user.getLastname();
+        this.secondLastname = user.getSecondLastname();
+        this.identification = user.getIdentification();
+        this.email = user.getEmail();
+        this.landlineNumber = user.getLandlineNumber();
+        this.phoneNumber = user.getPhoneNumber();
+        this.profilePhoto = user.getProfilePhoto();
+        this.isActive = user.getIsActive();
+        this.isAdmin = user.getIsAdmin();
+        this.position = new PositionDto(user.getPosition());
+    }
 }

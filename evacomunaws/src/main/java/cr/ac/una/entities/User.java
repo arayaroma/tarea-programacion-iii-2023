@@ -2,6 +2,7 @@ package cr.ac.una.entities;
 
 import java.io.Serializable;
 
+import cr.ac.una.dto.UserDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -107,4 +108,25 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "POSITION")
     private Position position;
+
+    public User(UserDto user) {
+        this.id = user.getId();
+        updateUser(user);
+    }
+
+    public void updateUser(UserDto user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.name = user.getName();
+        this.lastname = user.getLastname();
+        this.secondLastname = user.getSecondLastname();
+        this.identification = user.getIdentification();
+        this.email = user.getEmail();
+        this.landlineNumber = user.getLandlineNumber();
+        this.phoneNumber = user.getPhoneNumber();
+        this.profilePhoto = user.getProfilePhoto();
+        this.isActive = user.getIsActive();
+        this.isAdmin = user.getIsAdmin();
+        this.position = new Position(user.getPosition());
+    }
 }

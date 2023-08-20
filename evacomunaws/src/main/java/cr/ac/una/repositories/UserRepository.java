@@ -1,13 +1,14 @@
 package cr.ac.una.repositories;
 
-import cr.ac.una.entities.User;
+import cr.ac.una.dto.UserDto;
+import cr.ac.una.util.Response;
 
 public interface UserRepository {
-    User createUser(User user);
+    Response createUser(UserDto user);
 
-    User getUserById(Long id);
+    Response getUserById(Long id);
 
-    void updateUser(User user);
+    Response updateUser(UserDto user);
 
-    void deleteUser(Long id);
+    Response deleteUser(Long id);
 }

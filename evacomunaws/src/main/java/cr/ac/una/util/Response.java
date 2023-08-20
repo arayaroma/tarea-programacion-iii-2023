@@ -1,8 +1,6 @@
 package cr.ac.una.util;
 
 import java.io.Serializable;
-import java.util.HashMap;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +13,5 @@ public class Response implements Serializable {
     private Boolean state;
     private ResponseCode code;
     private String message;
-    private HashMap<String, Object> data = new HashMap<>();
+    private Object data;
 }
