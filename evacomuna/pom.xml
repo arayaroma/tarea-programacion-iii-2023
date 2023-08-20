@@ -43,6 +43,13 @@
             <artifactId>jaxws-rt</artifactId>
             <version>4.0.1</version>
         </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -58,10 +65,12 @@
                             <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/user.wsdl</wsdl>
-                                    <extraargs>
-                                        <extraarg>-impl</extraarg>
-                                    </extraargs>
+                                    <wsdl>${project.basedir}/src/main/resources/wsdl/user.wsdl</wsdl>
+                                    <!-- 
+                                        <extraargs>
+                                            <extraarg>-impl</extraarg>
+                                        </extraargs>
+                                    -->
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
