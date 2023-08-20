@@ -1,14 +1,19 @@
 package cr.ac.una.util;
 
-import cr.ac.una.services.*;
+import cr.ac.una.dto.UserDto;
+import cr.ac.una.services.impl.*;
 
 public class RequestExample {
     public static void request() {
         User_Service userService = new User_Service();
         UserServiceImpl port = userService.getUserServiceImplPort();
-        GetUser request = new GetUser();
-        request.setArg0(1);
-        User user = port.getUser(1);
-        System.out.println("UserID: " + user.getId() + "Name: " + user.getName());
+
+        UserDto userDto = new UserDto("darayaroma@gmail.com",
+                0L, "901140423", "Y", "Y", "86420240", "Araya", "Daniel",
+                "arayaroma", "86420240", null, null, "Roman", "arayaroma");
+        User user = userDto.toUser(userDto);
+
+        port.createUser(user);
+        System.out.println(user.toString());
     }
 }
