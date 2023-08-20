@@ -1,3 +1,8 @@
+cr/ac/una/dto/PositionDto.class
+cr/ac/una/entities/User.class
 cr/ac/una/services/UserService.class
-cr/ac/una/services/UserServiceImpl.class
-cr/ac/una/model/User.class
+cr/ac/una/entities/Position.class
+cr/ac/una/services/impl/UserServiceImpl.class
+cr/ac/una/repositories/UserRepository.class
+cr/ac/una/dto/UserDto.class
+cr/ac/una/repositories/impl/JpaUserRepository.class
