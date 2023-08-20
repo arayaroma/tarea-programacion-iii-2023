@@ -30,6 +30,12 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Jakarta Enterprise Beans API -->
+        <dependency>
+            <groupId>jakarta.ejb</groupId>
+            <artifactId>jakarta.ejb-api</artifactId>
+            <version>4.0.1</version>
+        </dependency>
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
