@@ -2,7 +2,7 @@ version: "3"
 services:
   payara:
     container_name: payara
-    image: payara/server-full:6.2023.2-jdk17
+    image: payara/server-full:6.2023.8-jdk17
     ports:
       - 4848:4848
       - 8080:8080
