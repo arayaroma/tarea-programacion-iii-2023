@@ -1,0 +1,27 @@
+version: "3"
+services:
+  payara:
+    container_name: payara
+    image: payara/server-full:6.2023.2-jdk17
+    ports:
+      - 4848:4848
+      - 8080:8080
+      - 8181:8181
+    volumes:
+      - ./ojdbc11.jar:/opt/payara/appserver/glassfish/lib/ojdbc11.jar
+      - payara-volume:/opt/payara/appserver/glassfish/domains
+  oracle:
+    container_name: oracle
+    image: gvenzl/oracle-xe:latest
+    ports:
+      - 1521:1521
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=EvaComUNA
+      - APP_USER_PASSWORD=una
+    volumes:
+      - oracle-volume:/opt/oracle/oradata
+
+volumes:
+  payara-volume:
+  oracle-volume:
