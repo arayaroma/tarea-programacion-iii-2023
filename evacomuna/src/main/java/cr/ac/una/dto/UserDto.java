@@ -38,6 +38,7 @@ public class UserDto {
         if (userDto.getPosition() != null) {
             user.setPosition(userDto.getPosition().toPosition());
         }
+        user.setPhoneNumber(userDto.getPhoneNumber());
         user.setProfilePhoto(userDto.getProfilePhoto());
         user.setSecondLastname(userDto.getSecondLastname());
         user.setUsername(userDto.getUsername());
