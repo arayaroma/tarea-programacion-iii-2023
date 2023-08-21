@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -47,6 +47,8 @@ public class LoginController implements Initializable {
     @FXML
     private TextField txfPhoneNumberRegister;
     @FXML
+    private TextField txfEmailForgotYourPassword;
+    @FXML
     private TextField txfUser;
     @FXML
     private ComboBox<String> cbRoleRegister;
@@ -54,6 +56,8 @@ public class LoginController implements Initializable {
     private HBox loginView;
     @FXML
     private HBox registerView;
+    @FXML
+    private HBox forgotYourPasswordView;
     @FXML
     private ImageView imgPhoto;
 
@@ -64,12 +68,13 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        imgPhoto.setClip(new Circle(imgPhoto.getFitWidth()/2, imgPhoto.getFitHeight()/2,75));
+        //Cut over the photo to make a circula effect
+        imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
     }
 
     @FXML
     private void forgotPassword(MouseEvent event) {
-
+        forgotYourPasswordView.toFront();
     }
 
     @FXML
@@ -83,8 +88,9 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void backToLogin(ActionEvent event) {
+    private void backToLogin(MouseEvent event) {
         cleanFieldsRegisterView();
+        cleanFieldsForgotYourPasswordView();
         loginView.toFront();
     }
 
@@ -109,13 +115,16 @@ public class LoginController implements Initializable {
 
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
         }
+    }
+
+    @FXML
+    private void requestPasswordReset(ActionEvent event) {
     }
 
     private void cleanFieldsRegisterView() {
@@ -129,6 +138,10 @@ public class LoginController implements Initializable {
         txfUserRegister.setText(null);
         txfPhoneNumberRegister.setText(null);
         cbRoleRegister.setValue(null);
+    }
+
+    private void cleanFieldsForgotYourPasswordView() {
+        txfEmailForgotYourPassword.setText(null);
     }
 
 }
