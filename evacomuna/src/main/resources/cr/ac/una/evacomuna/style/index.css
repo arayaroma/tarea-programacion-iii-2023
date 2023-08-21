@@ -13,7 +13,7 @@
     -fx-font-weight: bold;
 }
 .p{
-    -fx-text-fill:#6B7073;
+    -fx-text-fill:#565a5c;
 }
 .a{
     -fx-text-fill:#4660f4;
@@ -37,16 +37,14 @@
     -fx-background-color: #c8cffc;
     -fx-text-fill: #6B7073;
 }
-.form-select{
-    -fx-background-color: #c8cffc;
-    -fx-text-fill: #6B7073;
-}
+
 .form-select:hover{
-    -fx-background-color:#8c91b0; 
+    -fx-background-color:#8c91b0;
     -fx-cursor: hand;
 }
 .form TextField, .form PasswordField {
     -fx-background-color: transparent;
+    -fx-prompt-text-fill:#606568;
 }
 .form-field{
     -fx-background-color: #c8cffc;
