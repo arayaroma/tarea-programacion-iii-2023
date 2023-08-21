@@ -16,7 +16,7 @@ XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. -->
     <types>
         <xsd:schema>
             <xsd:import namespace="http://impl.services.una.ac.cr/"
-                schemaLocation="http://localhost:8080/evacomunaws/UserService?xsd=1" />
+                schemaLocation="http://localhost:8080/evacomuna-1.0/UserService?xsd=1" />
         </xsd:schema>
     </types>
     <message name="updateUserById">
@@ -114,7 +114,7 @@ XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. -->
     </binding>
     <service name="UserService">
         <port name="UserServiceImplPort" binding="tns:UserServiceImplPortBinding">
-            <soap:address location="http://localhost:8080/evacomunaws/UserService" />
+            <soap:address location="http://localhost:8080/evacomuna-1.0/UserService" />
         </port>
     </service>
 </definitions>

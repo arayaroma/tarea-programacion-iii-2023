@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para updateUserById complex type.
+ * <p>Java class for updateUserById complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="updateUserById"&gt;
@@ -37,7 +37,7 @@ public class UpdateUserById {
     protected UserDto arg1;
 
     /**
-     * Obtiene el valor de la propiedad arg0.
+     * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class UpdateUserById {
     }
 
     /**
-     * Define el valor de la propiedad arg0.
+     * Sets the value of the arg0 property.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class UpdateUserById {
     }
 
     /**
-     * Obtiene el valor de la propiedad arg1.
+     * Gets the value of the arg1 property.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class UpdateUserById {
     }
 
     /**
-     * Define el valor de la propiedad arg1.
+     * Sets the value of the arg1 property.
      * 
      * @param value
      *     allowed object is
