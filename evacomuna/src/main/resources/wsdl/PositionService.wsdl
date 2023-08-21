@@ -16,7 +16,7 @@ XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. -->
     <types>
         <xsd:schema>
             <xsd:import namespace="http://impl.services.una.ac.cr/"
-                schemaLocation="http://localhost:8080/evacomuna-1.0/PositionService?xsd=1" />
+                schemaLocation="http://localhost:8080/evacomunaws/PositionService?xsd=1" />
         </xsd:schema>
     </types>
     <message name="getPositionById">
@@ -118,7 +118,7 @@ XMLB-Impl/4.0.0 XMLB-API/4.0.0 git-revision#18da659. -->
     </binding>
     <service name="PositionService">
         <port name="PositionServiceImplPort" binding="tns:PositionServiceImplPortBinding">
-            <soap:address location="http://localhost:8080/evacomuna-1.0/PositionService" />
+            <soap:address location="http://localhost:8080/evacoumnaws/PositionService" />
         </port>
     </service>
 </definitions>

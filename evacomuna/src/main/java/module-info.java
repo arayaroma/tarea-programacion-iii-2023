@@ -5,7 +5,7 @@ module Evacomuna {
     requires javafx.fxml;
     requires jakarta.xml.bind;
     requires jakarta.xml.ws;
-    requires lombok;
+//    requires lombok;
 
     opens cr.ac.una.evacomuna to javafx.fxml;
     opens cr.ac.una.services.impl;

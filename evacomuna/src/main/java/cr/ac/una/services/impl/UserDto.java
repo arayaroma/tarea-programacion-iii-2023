@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for userDto complex type.
+ * <p>Clase Java para userDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="userDto"&gt;
@@ -73,7 +73,7 @@ public class UserDto {
     protected String username;
 
     /**
-     * Gets the value of the email property.
+     * Obtiene el valor de la propiedad email.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the email property.
+     * Define el valor de la propiedad email.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the identification property.
+     * Obtiene el valor de la propiedad identification.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the identification property.
+     * Define el valor de la propiedad identification.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the isActive property.
+     * Obtiene el valor de la propiedad isActive.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the isActive property.
+     * Define el valor de la propiedad isActive.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the isAdmin property.
+     * Obtiene el valor de la propiedad isAdmin.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the isAdmin property.
+     * Define el valor de la propiedad isAdmin.
      * 
      * @param value
      *     allowed object is
@@ -193,7 +193,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the landlineNumber property.
+     * Obtiene el valor de la propiedad landlineNumber.
      * 
      * @return
      *     possible object is
@@ -205,7 +205,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the landlineNumber property.
+     * Define el valor de la propiedad landlineNumber.
      * 
      * @param value
      *     allowed object is
@@ -217,7 +217,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the lastname property.
+     * Obtiene el valor de la propiedad lastname.
      * 
      * @return
      *     possible object is
@@ -229,7 +229,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the lastname property.
+     * Define el valor de la propiedad lastname.
      * 
      * @param value
      *     allowed object is
@@ -241,7 +241,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the name property.
+     * Obtiene el valor de la propiedad name.
      * 
      * @return
      *     possible object is
@@ -253,7 +253,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the name property.
+     * Define el valor de la propiedad name.
      * 
      * @param value
      *     allowed object is
@@ -265,7 +265,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the password property.
+     * Obtiene el valor de la propiedad password.
      * 
      * @return
      *     possible object is
@@ -277,7 +277,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the password property.
+     * Define el valor de la propiedad password.
      * 
      * @param value
      *     allowed object is
@@ -289,7 +289,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the phoneNumber property.
+     * Obtiene el valor de la propiedad phoneNumber.
      * 
      * @return
      *     possible object is
@@ -301,7 +301,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the phoneNumber property.
+     * Define el valor de la propiedad phoneNumber.
      * 
      * @param value
      *     allowed object is
@@ -313,7 +313,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the position property.
+     * Obtiene el valor de la propiedad position.
      * 
      * @return
      *     possible object is
@@ -325,7 +325,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the position property.
+     * Define el valor de la propiedad position.
      * 
      * @param value
      *     allowed object is
@@ -337,7 +337,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the profilePhoto property.
+     * Obtiene el valor de la propiedad profilePhoto.
      * 
      * @return
      *     possible object is
@@ -348,7 +348,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the profilePhoto property.
+     * Define el valor de la propiedad profilePhoto.
      * 
      * @param value
      *     allowed object is
@@ -359,7 +359,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the secondLastname property.
+     * Obtiene el valor de la propiedad secondLastname.
      * 
      * @return
      *     possible object is
@@ -371,7 +371,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the secondLastname property.
+     * Define el valor de la propiedad secondLastname.
      * 
      * @param value
      *     allowed object is
@@ -383,7 +383,7 @@ public class UserDto {
     }
 
     /**
-     * Gets the value of the username property.
+     * Obtiene el valor de la propiedad username.
      * 
      * @return
      *     possible object is
@@ -395,7 +395,7 @@ public class UserDto {
     }
 
     /**
-     * Sets the value of the username property.
+     * Define el valor de la propiedad username.
      * 
      * @param value
      *     allowed object is
