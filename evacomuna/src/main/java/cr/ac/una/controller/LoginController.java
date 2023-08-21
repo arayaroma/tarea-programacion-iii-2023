@@ -118,7 +118,7 @@ public class LoginController implements Initializable {
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));

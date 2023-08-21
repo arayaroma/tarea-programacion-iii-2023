@@ -5,7 +5,6 @@
     -fx-dark-blue: #3f56dc;
     -fx-white: #fff;
     -fx-gray: #565a5c;
-/*    -fx-main-font: "Arial Black";*/
 }
 .bg-blue{
     -fx-background-color:-fx-blue;
