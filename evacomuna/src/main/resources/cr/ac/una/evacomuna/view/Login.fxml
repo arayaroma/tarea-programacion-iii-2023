@@ -2,71 +2,172 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/index.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.LoginController">
+<StackPane styleClass="body" stylesheets="@../style/index.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.LoginController">
    <children>
-      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="bg-blue" HBox.hgrow="ALWAYS">
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-      </VBox>
-      <VBox alignment="TOP_CENTER" spacing="10.0" styleClass="form" HBox.hgrow="ALWAYS">
+      <HBox fx:id="registerView" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../style/index.css">
          <children>
-            <ImageView fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../img/hogar.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </ImageView>
-            <Label styleClass="h1" text="Welcome to EvaComUNA!" />
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="form-field" VBox.vgrow="NEVER">
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="bg-blue" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" spacing="30.0" styleClass="bg-white" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
                <children>
-                  <TextField fx:id="txfUser" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="User" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </TextField>
+                  <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="175.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#backToLogin" styleClass="btn" text="Back" />
+                        <Label styleClass="h1" text="Register!" />
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="imgPhoto" fitHeight="50.0" fitWidth="75.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../img/usuario.png" />
+                     </image>
+                  </ImageView>
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" spacing="20.0" styleClass="form" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfUserRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="User*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfPasswordRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Password*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfNameRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Name*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfLastNameRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Last Name*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="20.0" styleClass="form" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfPhoneRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Phone*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfEmailRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Email*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <ComboBox fx:id="cbRoleRegister" maxWidth="1.7976931348623157E308" promptText="Role" styleClass="form-select" />
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#choosePhotoProfile" styleClass="form-select" text="Select Your Photo Profile" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#registerUser" styleClass="btn" text="Register User" />
                </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="form-field" VBox.vgrow="NEVER">
-               <children>
-                  <PasswordField fx:id="txfPassword" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Password" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </PasswordField>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label onMouseClicked="#forgotPassword" styleClass="a" text="Forgot Your Password?" />
-               </children>
-            </HBox>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logIn" styleClass="btn" text="Log In">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </Button>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Label styleClass="p" text="Don't have an account yet?" />
-                  <Label onMouseClicked="#signUp" styleClass="a" text="Sign Up" />
-               </children>
-            </HBox>
+            </VBox>
          </children>
-         <HBox.margin>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </HBox.margin>
-      </VBox>
+      </HBox>
+      <HBox fx:id="loginView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../style/index.css">
+         <children>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="bg-blue" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="10.0" styleClass="form" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../img/hogar.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label styleClass="h1" text="Welcome to EvaComUNA!" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="form-field" VBox.vgrow="NEVER">
+                     <children>
+                        <TextField fx:id="txfUser1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="User" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="form-field" VBox.vgrow="NEVER">
+                     <children>
+                        <PasswordField fx:id="txfPassword" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Password" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label onMouseClicked="#forgotPassword" styleClass="a" text="Forgot Your Password?" />
+                     </children>
+                  </HBox>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logIn" styleClass="btn" text="Log In">
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label styleClass="p" text="Don't have an account yet?" />
+                        <Label onMouseClicked="#signUp" styleClass="a" text="Sign Up" />
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
    </children>
-</HBox>
+</StackPane>
