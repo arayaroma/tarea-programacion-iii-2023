@@ -1,8 +1,16 @@
+*{
+    -fx-blue: #4660f4;
+    -fx-white-white-blue:#b5bffb;
+    -fx-white-blue: #7e90f7;
+    -fx-dark-blue: #3f56dc;
+    -fx-white: #fff;
+    -fx-gray: #565a5c;
+}
 .bg-blue{
-    -fx-background-color:#4660f4;
+    -fx-background-color:-fx-blue;
 }
 .bg-white{
-    -fx-background-color:#fff;
+    -fx-background-color:-fx-white;
 }
 .h1{
     -fx-font-size: 20px;
@@ -13,40 +21,40 @@
     -fx-font-weight: bold;
 }
 .p{
-    -fx-text-fill:#565a5c;
+    -fx-text-fill:-fx-gray;
 }
 .a{
-    -fx-text-fill:#4660f4;
+    -fx-text-fill:-fx-blue;
 }
 .a:hover{
-    -fx-text-fill:#3f56dc;
+    -fx-text-fill:-fx-dark-blue;
     -fx-cursor: hand;
 }
 .btn{
-    -fx-background-color: #4660f4;
-    -fx-text-fill:#fff;
+    -fx-background-color: -fx-blue;
+    -fx-text-fill:-fx-white;
 }
 .btn:hover{
-    -fx-background-color:#3f56dc;
+    -fx-background-color:-fx-dark-blue;
     -fx-cursor: hand;
 }
 .body{
     -fx-background-color: white;
 }
 .form-select{
-    -fx-background-color: #c8cffc;
-    -fx-text-fill: #6B7073;
+    -fx-background-color: -fx-white-white-blue;
+    -fx-text-fill: -fx-gray;
 }
 
 .form-select:hover{
-    -fx-background-color:#8c91b0;
+    -fx-background-color:-fx-white-blue;
     -fx-cursor: hand;
 }
 .form TextField, .form PasswordField {
     -fx-background-color: transparent;
-    -fx-prompt-text-fill:#606568;
+    -fx-prompt-text-fill:-fx-gray;
 }
 .form-field{
-    -fx-background-color: #c8cffc;
+    -fx-background-color: -fx-white-white-blue;
     -fx-background-radius: 10px;
 }

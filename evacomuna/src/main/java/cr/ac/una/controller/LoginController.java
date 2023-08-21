@@ -1,7 +1,9 @@
 package cr.ac.una.controller;
 
+import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.services.impl.UserDto;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -10,9 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -57,6 +64,7 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        imgPhoto.setClip(new Circle(imgPhoto.getFitWidth()/2, imgPhoto.getFitHeight()/2,75));
     }
 
     @FXML
@@ -66,6 +74,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void logIn(ActionEvent event) {
+
     }
 
     @FXML
@@ -75,13 +84,14 @@ public class LoginController implements Initializable {
 
     @FXML
     private void backToLogin(ActionEvent event) {
+        cleanFieldsRegisterView();
         loginView.toFront();
     }
 
     @FXML
     private void registerUser(ActionEvent event) {
         String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(), ced = txfCedRegister.getText(), name = txfNameRegister.getText(), lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(), phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(), role = cbRoleRegister.getValue();
-        if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank() || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role.isBlank()) {
+        if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank() || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role != null) {
             System.out.println("You must to fill all the fields");
             return;
         }
@@ -99,6 +109,26 @@ public class LoginController implements Initializable {
 
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
+        }
+    }
+
+    private void cleanFieldsRegisterView() {
+        imgPhoto.setImage(new Image(App.class.getResource("/cr/ac/una/evacomuna/img/usuario.png").toString()));
+        txfCedRegister.setText(null);
+        txfEmailRegister.setText(null);
+        txfPasswordRegister.setText(null);
+        txfNameRegister.setText(null);
+        txfSecondLastNameRegister.setText(null);
+        txfLastNameRegister.setText(null);
+        txfUserRegister.setText(null);
+        txfPhoneNumberRegister.setText(null);
+        cbRoleRegister.setValue(null);
     }
 
 }

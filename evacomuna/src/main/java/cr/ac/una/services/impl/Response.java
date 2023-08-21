@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for response complex type.
+ * <p>Clase Java para response complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="response"&gt;
@@ -45,7 +45,7 @@ public class Response {
     protected Boolean state;
 
     /**
-     * Gets the value of the code property.
+     * Obtiene el valor de la propiedad code.
      * 
      * @return
      *     possible object is
@@ -57,7 +57,7 @@ public class Response {
     }
 
     /**
-     * Sets the value of the code property.
+     * Define el valor de la propiedad code.
      * 
      * @param value
      *     allowed object is
@@ -69,7 +69,7 @@ public class Response {
     }
 
     /**
-     * Gets the value of the data property.
+     * Obtiene el valor de la propiedad data.
      * 
      * @return
      *     possible object is
@@ -81,7 +81,7 @@ public class Response {
     }
 
     /**
-     * Sets the value of the data property.
+     * Define el valor de la propiedad data.
      * 
      * @param value
      *     allowed object is
@@ -93,7 +93,7 @@ public class Response {
     }
 
     /**
-     * Gets the value of the message property.
+     * Obtiene el valor de la propiedad message.
      * 
      * @return
      *     possible object is
@@ -105,7 +105,7 @@ public class Response {
     }
 
     /**
-     * Sets the value of the message property.
+     * Define el valor de la propiedad message.
      * 
      * @param value
      *     allowed object is
@@ -117,7 +117,7 @@ public class Response {
     }
 
     /**
-     * Gets the value of the state property.
+     * Obtiene el valor de la propiedad state.
      * 
      * @return
      *     possible object is
@@ -129,7 +129,7 @@ public class Response {
     }
 
     /**
-     * Sets the value of the state property.
+     * Define el valor de la propiedad state.
      * 
      * @param value
      *     allowed object is

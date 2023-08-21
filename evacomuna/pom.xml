@@ -59,7 +59,7 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>
-                                        ${project.basedir}/src/main/resources/wsdl/UserService.wsdl</wsdl>
+                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
                                     <!-- 
                                         <extraargs>
                                             <extraarg>-impl</extraarg>
@@ -68,7 +68,7 @@
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-                                        ${project.basedir}/src/main/resources/wsdl/PositionService.wsdl</wsdl>
+                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
