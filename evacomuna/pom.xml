@@ -65,12 +65,17 @@
                             <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/wsdl/user.wsdl</wsdl>
+                                    <wsdl>
+                                        ${project.basedir}/src/main/resources/wsdl/UserService.wsdl</wsdl>
                                     <!-- 
                                         <extraargs>
                                             <extraarg>-impl</extraarg>
                                         </extraargs>
                                     -->
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        ${project.basedir}/src/main/resources/wsdl/PositionService.wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://impl.services.una.ac.cr/}user" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://impl.services.una.ac.cr/}response" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,17 +33,17 @@ import jakarta.xml.bind.annotation.XmlType;
 public class GetUserByIdResponse {
 
     @XmlElement(name = "return")
-    protected User _return;
+    protected Response _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link User }
+     *     {@link Response }
      *     
      */
-    public User getReturn() {
+    public Response getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class GetUserByIdResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link User }
+     *     {@link Response }
      *     
      */
-    public void setReturn(User value) {
+    public void setReturn(Response value) {
         this._return = value;
     }
 

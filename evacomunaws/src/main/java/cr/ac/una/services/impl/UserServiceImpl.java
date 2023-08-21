@@ -8,7 +8,7 @@ import cr.ac.una.util.ResponseCode;
 import jakarta.inject.Inject;
 import jakarta.jws.WebService;
 
-@WebService(serviceName = "User")
+@WebService(serviceName = "UserService")
 public class UserServiceImpl implements UserService {
 
     @Inject
