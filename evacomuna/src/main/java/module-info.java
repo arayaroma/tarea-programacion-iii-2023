@@ -12,6 +12,7 @@ module Evacomuna {
     opens cr.ac.una.services.impl;
     opens cr.ac.una.controller to javafx.fxml;
     
+    
     exports cr.ac.una.evacomuna;
     exports cr.ac.una.controller;
 

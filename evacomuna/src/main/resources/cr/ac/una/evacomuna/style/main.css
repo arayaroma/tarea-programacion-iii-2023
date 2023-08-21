@@ -6,3 +6,23 @@
     -fx-white: #fff;
     -fx-gray: #565a5c;
 }
+
+.icon{
+    -fx-background-color: transparent;
+    -fx-cursor:hand;
+    -fx-background-radius:50%;
+}
+.icon:hover{
+       -fx-background-color: -fx-dark-blue;
+}
+.button-hover{
+    -fx-background-color: transparent;
+    
+}
+.button-hover:hover{
+    -fx-cursor: hand;
+    -fx-background-color: -fx-dark-blue;
+}
+.left-screen{
+    -fx-background-radius: 0px 20px 20px 0px;
+}

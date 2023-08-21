@@ -7,9 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-import cr.ac.una.util.RequestExample;
-import javafx.scene.layout.Pane;
-
 /**
  * JavaFX App
  */
@@ -19,23 +16,24 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Login"));
-        scene.getRoot().setStyle("-fx-font-family: 'Arial Black';");
+        scene = new Scene(loadFXML("Main"));
+        scene.getRoot().setStyle("-fx-font-family: 'Trebuchet MS';");
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
+        scene.getRoot().setStyle("-fx-font-family: 'Trebuchet MS';");
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/cr/ac/una/evacomuna/view/"+fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/cr/ac/una/evacomuna/view/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
-        //RequestExample.request();
         launch();
     }
 

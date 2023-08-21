@@ -6,11 +6,13 @@ import cr.ac.una.services.impl.UserDto;
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -80,8 +82,8 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void logIn(ActionEvent event) {
-
+    private void logIn(ActionEvent event) throws IOException {
+        App.setRoot("Main");
     }
 
     @FXML
@@ -132,6 +134,7 @@ public class LoginController implements Initializable {
             Message.showNotification("UPS", MessageType.ERROR, "You must to write a valid email");
             return;
         }
+        
         //send request here
     }
 
