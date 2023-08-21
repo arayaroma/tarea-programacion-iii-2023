@@ -21,7 +21,6 @@ public class RequestExample {
         userDto.setProfilePhoto(null);
         userDto.setSecondLastname("Roman");
         userDto.setUsername("arayaroma");
-
         port.createUser(userDto);
         System.out.println(userDto.toString());
     }

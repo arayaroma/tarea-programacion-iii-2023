@@ -1,8 +1,9 @@
 package cr.ac.una.controller;
 
+import cr.ac.una.evacomuna.services.User;
+import cr.ac.una.services.impl.UserDto;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -45,7 +45,8 @@ public class LoginController implements Initializable {
     private HBox registerView;
     @FXML
     private ImageView imgPhoto;
-
+    
+    private User userService = new User();
     /**
      * Initializes the controller class.
      */
@@ -78,12 +79,19 @@ public class LoginController implements Initializable {
 
     @FXML
     private void registerUser(ActionEvent event) {
-        String user = txfUserRegister.getText(), password = txfPasswordRegister.getText(), name = txfNameRegister.getText(), lastName = txfLastNameRegister.getText(), phoneNumber = txfPhoneRegister.getText(), email = txfEmailRegister.getText();
-        if (user.isBlank() || password.isBlank() || name.isBlank() || lastName.isBlank() || phoneNumber.isBlank() || email.isBlank()) {
+        String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(), name = txfNameRegister.getText(), lastName = txfLastNameRegister.getText(), phoneNumber = txfPhoneRegister.getText(), email = txfEmailRegister.getText();
+        if (userName.isBlank() || password.isBlank() || name.isBlank() || lastName.isBlank() || phoneNumber.isBlank() || email.isBlank()) {
             System.out.println("You must to fill all the fields");
             return;
         }
-        //Send a new User
+        UserDto user = new UserDto();
+        user.setEmail(email);
+        user.setName(name);
+        user.setLastname(lastName);
+        user.setPassword(password);
+        user.setUsername(userName);
+        user.setPhoneNumber(phoneNumber);
+        userService.createUser(user);
     }
 
 }
