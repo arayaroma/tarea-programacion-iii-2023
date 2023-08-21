@@ -3,6 +3,8 @@ package cr.ac.una.controller;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.services.impl.UserDto;
+import cr.ac.una.util.Message;
+import cr.ac.una.util.MessageType;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -97,8 +99,8 @@ public class LoginController implements Initializable {
     @FXML
     private void registerUser(ActionEvent event) {
         String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(), ced = txfCedRegister.getText(), name = txfNameRegister.getText(), lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(), phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(), role = cbRoleRegister.getValue();
-        if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank() || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role != null) {
-            System.out.println("You must to fill all the fields");
+        if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank() || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role == null) {
+            Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
             return;
         }
         UserDto user = new UserDto();
@@ -125,23 +127,29 @@ public class LoginController implements Initializable {
 
     @FXML
     private void requestPasswordReset(ActionEvent event) {
+        String email = txfEmailForgotYourPassword.getText();
+        if (email.isBlank()) {
+            Message.showNotification("UPS", MessageType.ERROR, "You must to write a valid email");
+            return;
+        }
+        //send request here
     }
 
     private void cleanFieldsRegisterView() {
         imgPhoto.setImage(new Image(App.class.getResource("/cr/ac/una/evacomuna/img/usuario.png").toString()));
-        txfCedRegister.setText(null);
-        txfEmailRegister.setText(null);
-        txfPasswordRegister.setText(null);
-        txfNameRegister.setText(null);
-        txfSecondLastNameRegister.setText(null);
-        txfLastNameRegister.setText(null);
-        txfUserRegister.setText(null);
-        txfPhoneNumberRegister.setText(null);
+        txfCedRegister.setText("");
+        txfEmailRegister.setText("");
+        txfPasswordRegister.setText("");
+        txfNameRegister.setText("");
+        txfSecondLastNameRegister.setText("");
+        txfLastNameRegister.setText("");
+        txfUserRegister.setText("");
+        txfPhoneNumberRegister.setText("");
         cbRoleRegister.setValue(null);
     }
 
     private void cleanFieldsForgotYourPasswordView() {
-        txfEmailForgotYourPassword.setText(null);
+        txfEmailForgotYourPassword.setText("");
     }
 
 }
