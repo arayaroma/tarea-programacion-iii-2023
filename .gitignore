@@ -1,7 +1,7 @@
 .vscode
 /evacomuna/target/
 /evacomuna/nbactions.xml
-# *.wsdl
+*.wsdl
 /evacomunaws/target/
 /evacomunaws/nb-configuration.xml
 .DS_Store
