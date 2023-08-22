@@ -1,0 +1,23 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:user="http://controller.una.ac.cr/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <user:createUser>
+            <user:userDto>
+                <user:email>darayaroma@gmail.com</user:email>
+                <user:id>0</user:id>
+                <user:identification>901140423</user:identification>
+                <user:isActive>Y</user:isActive>
+                <user:landlineNumber>86420240</user:landlineNumber>
+                <user:lastname>Araya</user:lastname>
+                <user:name>Daniel</user:name>
+                <user:password>arayaroma</user:password>
+                <user:phoneNumber>86420240</user:phoneNumber>
+                <user:position/>
+                <user:profilePhoto/>
+                <user:secondLastname>Roman</user:secondLastname>
+                <user:username>arayaroma</user:username>
+            </user:userDto>
+        </user:createUser>
+    </soapenv:Body>
+</soapenv:Envelope>
