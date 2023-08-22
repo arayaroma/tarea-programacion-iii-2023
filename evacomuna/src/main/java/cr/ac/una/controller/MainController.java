@@ -46,6 +46,7 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        App.setMainController(this);
         //Cut over the photo to make a circula effect
         imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
         if (Data.isPasswordChanged()) {

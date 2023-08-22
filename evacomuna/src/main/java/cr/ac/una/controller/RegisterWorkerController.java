@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cr.ac.una.controller;
 
 import cr.ac.una.evacomuna.App;
@@ -61,6 +57,7 @@ public class RegisterWorkerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        App.setRegisterWorkerController(this);
         //Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
     }

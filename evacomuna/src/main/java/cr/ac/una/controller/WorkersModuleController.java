@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
  * @author estebannajera
  */
 public class WorkersModuleController implements Initializable {
-
+    
     @FXML
     private ImageView searchWorker;
     @FXML
@@ -30,6 +30,7 @@ public class WorkersModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        App.setWorkersModuleController(this);
         List<UserDto> users = new ArrayList();
         for (int i = 0; i < 50; i++) {
             try {
@@ -38,17 +39,17 @@ public class WorkersModuleController implements Initializable {
                 WorkerController controller = loader.getController();
                 controller.setData(getUser());
                 users.add(getUser());
-
+                
             } catch (Exception e) {
                 System.out.println(e.toString());
             }
         }
     }
-
+    
     @FXML
     private void newWorker(ActionEvent event) {
     }
-
+    
     public UserDto getUser() {
         UserDto user = new UserDto();
         user.setName("Esteban");
@@ -58,5 +59,5 @@ public class WorkersModuleController implements Initializable {
         user.setPhoneNumber("61918721");
         return user;
     }
-
+    
 }

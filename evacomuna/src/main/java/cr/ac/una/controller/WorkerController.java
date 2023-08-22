@@ -1,5 +1,6 @@
 package cr.ac.una.controller;
 
+import cr.ac.una.evacomuna.App;
 import cr.ac.una.services.impl.UserDto;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +32,7 @@ public class WorkerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        App.setWorkerController(this);
     }    
     
     @FXML
