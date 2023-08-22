@@ -3,18 +3,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
     <persistence-unit name="EvaComUNA" transaction-type="JTA">
-        <description>Hibernate JPA Persitence</description>
         <jta-data-source>jdbc/EvaCom</jta-data-source>
-        <class>cr.ac.una.evacomuna.entities.User</class>
-        <class>cr.ac.una.evacomuna.entities.Position</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect" />
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
-            <property name="javax.persistence.jdbc.url"
-                value="jdbc:oracle:thin:@//oracle:1521/XEPDB1" />
-            <property name="javax.persistence.jdbc.user" value="EvaComUNA" />
-            <property name="javax.persistence.jdbc.password" value="una" />
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.logger" value="JavaLogger" />
+            <property name="eclipselink.logging.level" value="FINE" />
         </properties>
     </persistence-unit>
 </persistence>
