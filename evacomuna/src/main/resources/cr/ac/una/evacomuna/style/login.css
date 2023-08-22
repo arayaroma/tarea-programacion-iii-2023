@@ -5,16 +5,13 @@
     -fx-dark-blue: #3f56dc;
     -fx-white: #fff;
     -fx-gray: #565a5c;
+    -fx-green:#23AA2A;
+    -fx-red:#AA2323;
+    -fx-dark-red:#881c1c;
+    -fx-dark-green:#1c8822;
 }
 
-.btn{
-    -fx-background-color: -fx-blue;
-    -fx-text-fill:-fx-white;
-}
-.btn:hover{
-    -fx-background-color:-fx-dark-blue;
-    -fx-cursor: hand;
-}
+
 
 .form-select{
     -fx-background-color: -fx-white-white-blue;

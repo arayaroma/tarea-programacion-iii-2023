@@ -39,6 +39,11 @@
 }
 .btn{
     -fx-text-fill:-fx-white;
+    -fx-background-color: -fx-blue;
+}
+.btn:hover{
+    -fx-background-color:-fx-dark-blue;
+    -fx-cursor: hand;
 }
 .error-color{
     -fx-background-color: -fx-red;

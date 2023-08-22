@@ -9,11 +9,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
@@ -23,7 +25,7 @@ import javafx.scene.shape.Circle;
  * @author estebannajera
  */
 public class MainController implements Initializable {
-    
+
     @FXML
     private ImageView imgProfilePhoto;
     @FXML
@@ -36,6 +38,8 @@ public class MainController implements Initializable {
     private Label lblChangePasswordInfo;
     @FXML
     private VBox menuPane;
+    @FXML
+    private StackPane mainScreen;
 
     /**
      * Initializes the controller class.
@@ -52,29 +56,39 @@ public class MainController implements Initializable {
         changePasswordView.setVisible(false);
         menuPane.setDisable(false);
     }
-    
+
     @FXML
     private void btnWorkersModule(ActionEvent event) {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("WorkersModule");
+            mainScreen.getChildren().clear();
+            mainScreen.getChildren().add(loader.load());
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
     }
-    
+
     @FXML
     private void btnEvaluationModule(ActionEvent event) {
+        mainScreen.getChildren().clear();
     }
-    
+
     @FXML
     private void btnGeneralInformationModule(ActionEvent event) {
+        mainScreen.getChildren().clear();
     }
-    
+
     @FXML
     private void logOut(ActionEvent event) throws IOException {
         App.setRoot("Login");
     }
-    
+
     @FXML
     private void discardChangesNewPassword(ActionEvent event) throws IOException {
         App.setRoot("Login");
     }
-    
+
     @FXML
     private void submitChangesNewPassword(ActionEvent event) {
         Message.showNotification("Succeed", MessageType.INFO, "Your password have been changed succesfully");
@@ -83,14 +97,14 @@ public class MainController implements Initializable {
         menuPane.setDisable(false);
         Data.setPasswordChanged(false);
     }
-    
+
     @FXML
     private void passwordsEquals(KeyEvent event) {
         if (txfNewPassword.getText().equals(txfPasswordConfirm.getText()) && !txfNewPassword.getText().isBlank()) {
             lblChangePasswordInfo.setText("The password and confirm is equals");
             lblChangePasswordInfo.getStyleClass().remove("error-color-label");
             lblChangePasswordInfo.getStyleClass().add("confirm-color-label");
-            
+
         } else if (txfNewPassword.getText().isBlank() && txfPasswordConfirm.getText().isBlank()) {
             lblChangePasswordInfo.setText("");
         } else {
@@ -99,5 +113,5 @@ public class MainController implements Initializable {
             lblChangePasswordInfo.getStyleClass().add("error-color-label");
         }
     }
-    
+
 }

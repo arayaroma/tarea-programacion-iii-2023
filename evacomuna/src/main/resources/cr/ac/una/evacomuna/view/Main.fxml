@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1280.0" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.MainController">
    <left>
       <VBox fx:id="menuPane" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER_RIGHT">
          <children>
@@ -120,9 +120,9 @@
       <URL value="@../style/index.css" />
    </stylesheets>
    <center>
-      <StackPane BorderPane.alignment="CENTER">
+      <StackPane fx:id="mainScreen" BorderPane.alignment="CENTER">
          <children>
-            <Group styleClass="recovery-screen">
+            <Group styleClass="recovery-screen" visible="false">
                <children>
                   <VBox fx:id="changePasswordView" alignment="CENTER">
                      <children>

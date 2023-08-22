@@ -27,10 +27,14 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
         scene.getRoot().setStyle("-fx-font-family: 'Trebuchet MS';");
     }
+    
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/cr/ac/una/evacomuna/view/" + fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+    public static FXMLLoader getFXMLLoader(String fxml){
+    return new FXMLLoader(App.class.getResource("/cr/ac/una/evacomuna/view/" + fxml + ".fxml"));
     }
 
     public static void main(String[] args) {

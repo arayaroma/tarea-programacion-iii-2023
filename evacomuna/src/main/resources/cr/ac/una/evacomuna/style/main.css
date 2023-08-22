@@ -4,8 +4,11 @@
     -fx-white-blue: #7e90f7;
     -fx-dark-blue: #3f56dc;
     -fx-white: #fff;
-    -fx-black: #000;
     -fx-gray: #565a5c;
+    -fx-green:#23AA2A;
+    -fx-red:#AA2323;
+    -fx-dark-red:#881c1c;
+    -fx-dark-green:#1c8822;
 }
 
 .icon{
@@ -33,5 +36,6 @@
 .form-field{
     -fx-background-color: transparent;
     -fx-prompt-text-fill:-fx-gray;
+    -fx-text-fill:-fx-white;
     -fx-background-color: -fx-white-blue;
 }
