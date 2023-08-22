@@ -29,7 +29,18 @@ public class WorkerController implements Initializable {
     private Label lblPhoneNumber;
     @FXML
     private HBox parent;
+
     private UserDto worker;
+
+    private String idController;
+
+    public String getIdController() {
+        return idController;
+    }
+
+    public void setIdController(String idController) {
+        this.idController = idController;
+    }
 
     public void setWorker(UserDto worker) {
         this.worker = worker;
@@ -63,6 +74,7 @@ public class WorkerController implements Initializable {
         lblName.setText(user.getName());
         lblPhoneNumber.setText(user.getPhoneNumber());
         lblLastName.setText(user.getLastname());
+        idController = user.getIdentification();
         worker = user;
     }
 }

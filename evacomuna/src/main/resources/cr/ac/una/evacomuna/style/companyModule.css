@@ -1,0 +1,25 @@
+*{
+    -fx-blue: #4660f4;
+    -fx-white-white-blue:#b5bffb;
+    -fx-white-blue: #7e90f7;
+    -fx-dark-blue: #3f56dc;
+    -fx-white: #fff;
+    -fx-gray: #565a5c;
+    -fx-green:#23AA2A;
+    -fx-red:#AA2323;
+    -fx-dark-red:#881c1c;
+    -fx-dark-green:#1c8822;
+}
+.form-select{
+    -fx-background-color: -fx-white-white-blue;
+    -fx-text-fill: -fx-gray;
+}
+
+.form-select:hover{
+    -fx-background-color:-fx-white-blue;
+    -fx-cursor: hand;
+}
+.search-icon:hover{
+     -fx-effect: innershadow(gaussian, rgba(134, 41, 240, 0.5), 101, 76, 44, 0);
+     -fx-cursor: hand;
+}

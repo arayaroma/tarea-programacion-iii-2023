@@ -34,21 +34,13 @@ public class RegisterWorkerController implements Initializable {
     private ImageView imgPhoto;
     @FXML
     private TextField txfUserRegister;
-    @FXML
     private PasswordField txfPasswordRegister;
-    @FXML
     private TextField txfCedRegister;
-    @FXML
     private TextField txfNameRegister;
-    @FXML
     private TextField txfLastNameRegister;
-    @FXML
     private TextField txfSecondLastNameRegister;
-    @FXML
     private TextField txfEmailRegister;
-    @FXML
     private TextField txfPhoneNumberRegister;
-    @FXML
     private ComboBox<String> cbRoleRegister;
 
     @FXML
@@ -60,6 +52,8 @@ public class RegisterWorkerController implements Initializable {
 
     private UserDto userModified;
     private WorkerController controlerUser;
+    @FXML
+    private TextField txfUserRegister1;
 
     /**
      * Initializes the controller class.
@@ -81,7 +75,6 @@ public class RegisterWorkerController implements Initializable {
         }
     }
 
-    @FXML
     private void backToLogin(MouseEvent event) throws IOException {
         if (isFromLogin) {
             App.setRoot("Login");
@@ -98,27 +91,32 @@ public class RegisterWorkerController implements Initializable {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
             }
-            UserDto user = new UserDto();
-            user.setEmail(email);
-            user.setIdentification(ced);
-            user.setSecondLastname(secondLastName);
-            user.setName(name);
-            user.setLastname(lastName);
-            user.setPassword(password);
-            user.setUsername(userName);
-            user.setPhoneNumber(phoneNumber);
+            UserDto user = createUser(userName, password, name, lastName, secondLastName, ced, email, phoneNumber);
             if (userModified == null) {
-
-//        userService.createUser(user);
+//                userService.createUser(user);
 //                return;
             } else {
                 userModified = user;
                 controlerUser.setData(userModified);
+//                userService.updateUser(Long.MIN_VALUE, user)
             }
             backToLogin(null);
         } catch (IOException e) {
             System.out.println(e.toString());
         }
+    }
+
+    public UserDto createUser(String... args) {
+        UserDto user = new UserDto();
+        user.setUsername(args[0]);
+        user.setPassword(args[1]);
+        user.setName(args[2]);
+        user.setLastname(args[3]);
+        user.setSecondLastname(args[4]);
+        user.setIdentification(args[5]);
+        user.setEmail(args[6]);
+        user.setPhoneNumber(args[7]);
+        return user;
     }
 
     public void initializeView(boolean isFromLogin, UserDto user, WorkerController controller) {

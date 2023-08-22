@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -31,18 +32,19 @@
             <Insets left="5.0" right="5.0" />
          </VBox.margin>
       </HBox>
-      <HBox alignment="CENTER_RIGHT">
+      <HBox alignment="CENTER_RIGHT" spacing="20.0">
          <children>
             <HBox prefWidth="211.0" style="-fx-background-radius: 20;" styleClass="form-field">
                <children>
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Search Here" styleClass="form-field" HBox.hgrow="ALWAYS" />
-                  <ImageView fx:id="searchWorker" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" smooth="false">
+                  <TextField fx:id="txfSearch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Search Here" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#searchWorker" pickOnBounds="true" smooth="false" styleClass="search-icon">
                      <image>
                         <Image url="@../img/lupa.png" />
                      </image>
                   </ImageView>
                </children>
             </HBox>
+            <ComboBox fx:id="cbSearchParameter" prefWidth="150.0" promptText="Search Parameter" styleClass="form-select" />
          </children>
          <VBox.margin>
             <Insets left="20.0" right="20.0" />
@@ -71,5 +73,6 @@
    <stylesheets>
       <URL value="@../style/main.css" />
       <URL value="@../style/index.css" />
+      <URL value="@../style/companyModule.css" />
    </stylesheets>
 </VBox>

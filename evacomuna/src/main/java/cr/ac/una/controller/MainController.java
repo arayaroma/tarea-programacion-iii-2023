@@ -47,6 +47,9 @@ public class MainController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,7 +71,7 @@ public class MainController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("WorkersModule");
             mainScreen.getChildren().clear();
             mainScreen.getChildren().add(loader.load());
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.toString());
         }
 
@@ -81,7 +84,13 @@ public class MainController implements Initializable {
 
     @FXML
     private void btnGeneralInformationModule(ActionEvent event) {
-        mainScreen.getChildren().clear();
+        try {
+            mainScreen.getChildren().clear();
+            FXMLLoader loader = App.getFXMLLoader("CompanyModule");
+            mainScreen.getChildren().add(loader.load());
+        } catch (Exception e) {
+        }
+
     }
 
     @FXML
@@ -122,6 +131,7 @@ public class MainController implements Initializable {
     public void removeMainView(Node node) {
         parent.getChildren().remove(node);
     }
+
     //WorkerModuleController ACTIONS
     public void editWorker(UserDto user, WorkerController workerController) {
         RegisterWorkerController controller = loadRegisterView();
@@ -139,7 +149,7 @@ public class MainController implements Initializable {
             parent.getChildren().add(loader.load());
             RegisterWorkerController controller = loader.getController();
             return controller;
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.toString());
             return null;
         }
