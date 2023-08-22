@@ -1,20 +1,17 @@
 package cr.ac.una.services;
 
 import cr.ac.una.dto.UserDto;
-import cr.ac.una.util.Response;
-import jakarta.jws.WebMethod;
+import cr.ac.una.util.ResponseWrapper;
+import jakarta.ejb.Local;
 
+@Local
 public interface UserService {
-    @WebMethod(operationName = "createUser")
-    public Response createUser(UserDto user);
+    public ResponseWrapper createUser(UserDto userDto);
 
-    @WebMethod(operationName = "getUserById")
-    public Response getUserById(Long id);
+    public ResponseWrapper getUserById(Long id);
 
-    @WebMethod(operationName = "updateUserById")
-    public Response updateUserById(Long id, UserDto user);
+    public ResponseWrapper updateUserById(Long id, UserDto userDto);
 
-    @WebMethod(operationName = "deleteUserById")
-    public Response deleteUserById(Long id);
+    public ResponseWrapper deleteUserById(Long id);
 
 }

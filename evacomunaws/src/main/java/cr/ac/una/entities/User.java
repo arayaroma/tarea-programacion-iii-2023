@@ -1,7 +1,6 @@
 package cr.ac.una.entities;
 
 import java.io.Serializable;
-
 import cr.ac.una.dto.UserDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -109,24 +108,24 @@ public class User implements Serializable {
     @JoinColumn(name = "POSITION")
     private Position position;
 
-    public User(UserDto user) {
-        this.id = user.getId();
-        updateUser(user);
+    public User(UserDto userDto) {
+        this.id = userDto.getId();
+        updateUser(userDto);
     }
 
-    public void updateUser(UserDto user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.name = user.getName();
-        this.lastname = user.getLastname();
-        this.secondLastname = user.getSecondLastname();
-        this.identification = user.getIdentification();
-        this.email = user.getEmail();
-        this.landlineNumber = user.getLandlineNumber();
-        this.phoneNumber = user.getPhoneNumber();
-        this.profilePhoto = user.getProfilePhoto();
-        this.isActive = user.getIsActive();
-        this.isAdmin = user.getIsAdmin();
-        this.position = new Position(user.getPosition());
+    public void updateUser(UserDto userDto) {
+        this.username = userDto.getUsername();
+        this.password = userDto.getPassword();
+        this.name = userDto.getName();
+        this.lastname = userDto.getLastname();
+        this.secondLastname = userDto.getSecondLastname();
+        this.identification = userDto.getIdentification();
+        this.email = userDto.getEmail();
+        this.landlineNumber = userDto.getLandlineNumber();
+        this.phoneNumber = userDto.getPhoneNumber();
+        this.profilePhoto = userDto.getProfilePhoto();
+        this.isActive = userDto.getIsActive();
+        this.isAdmin = userDto.getIsAdmin();
+        this.position = new Position(userDto.getPosition());
     }
 }
