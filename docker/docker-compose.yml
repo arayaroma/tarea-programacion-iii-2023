@@ -7,6 +7,9 @@ services:
       - 4848:4848
       - 8080:8080
       - 8181:8181
+      - 9009:9009
+    environment:
+      PAYARA_ARGS: "--debug"
     volumes:
       - ./ojdbc11.jar:/opt/payara/appserver/glassfish/lib/ojdbc11.jar
       - payara-volume:/opt/payara/appserver/glassfish/domains
