@@ -3,6 +3,7 @@ package cr.ac.una.controller;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.services.impl.UserDto;
+import cr.ac.una.util.Data;
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;
 import java.io.File;
@@ -83,6 +84,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private void logIn(ActionEvent event) throws IOException {
+        String user = txfUser.getText(), password = txfPassword.getText();
+        //User verification here
         App.setRoot("Main");
     }
 
@@ -134,8 +137,11 @@ public class LoginController implements Initializable {
             Message.showNotification("UPS", MessageType.ERROR, "You must to write a valid email");
             return;
         }
-        
-        //send request here
+        //send request new password here
+        Data.setPasswordChanged(true);
+        Message.showNotification("Info", MessageType.INFO, "Request sent");
+        loginView.toFront();
+
     }
 
     private void cleanFieldsRegisterView() {

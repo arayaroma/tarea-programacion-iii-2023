@@ -4,6 +4,7 @@
     -fx-white-blue: #7e90f7;
     -fx-dark-blue: #3f56dc;
     -fx-white: #fff;
+    -fx-black: #000;
     -fx-gray: #565a5c;
 }
 
@@ -25,4 +26,12 @@
 }
 .left-screen{
     -fx-background-radius: 0px 20px 20px 0px;
+}
+.recovery-screen{
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+.form-field{
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill:-fx-gray;
+    -fx-background-color: -fx-white-blue;
 }

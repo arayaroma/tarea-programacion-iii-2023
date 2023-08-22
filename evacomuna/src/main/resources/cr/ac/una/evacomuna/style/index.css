@@ -5,6 +5,10 @@
     -fx-dark-blue: #3f56dc;
     -fx-white: #fff;
     -fx-gray: #565a5c;
+    -fx-green:#23AA2A;
+    -fx-red:#AA2323;
+    -fx-dark-red:#881c1c;
+    -fx-dark-green:#1c8822;
 }
 .body{
     -fx-background-color: white;
@@ -32,4 +36,25 @@
 .a:hover{
     -fx-text-fill:-fx-dark-blue;
     -fx-cursor: hand;
+}
+.btn{
+    -fx-text-fill:-fx-white;
+}
+.error-color{
+    -fx-background-color: -fx-red;
+}
+.error-color:hover{
+    -fx-background-color: -fx-dark-red;
+}
+.error-color-label{
+    -fx-text-fill: -fx-red;
+}
+.confirm-color{
+    -fx-background-color: -fx-green;
+}
+.confirm-color:hover{
+    -fx-background-color: -fx-dark-green;
+}
+.confirm-color-label{
+    -fx-text-fill: -fx-green;
 }
