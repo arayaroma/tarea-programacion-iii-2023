@@ -3,7 +3,6 @@ package cr.ac.una.evacomuna;
 import cr.ac.una.controller.LoginController;
 import cr.ac.una.controller.MainController;
 import cr.ac.una.controller.RegisterWorkerController;
-import cr.ac.una.controller.WorkerController;
 import cr.ac.una.controller.WorkersModuleController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +18,11 @@ public class App extends Application {
 
     private static Scene scene;
     private static LoginController loginController;
-    private static WorkerController workerController;
+
     private static RegisterWorkerController registerWorkerController;
     private static WorkersModuleController workersModuleController;
     private static MainController mainController;
-    
+
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("Login"));
@@ -59,6 +58,10 @@ public class App extends Application {
         return registerWorkerController;
     }
 
+    public static WorkersModuleController getWorkersModuleController() {
+        return workersModuleController;
+    }
+
     public static void setLoginController(LoginController loginController) {
         App.loginController = loginController;
     }
@@ -71,14 +74,9 @@ public class App extends Application {
         App.registerWorkerController = registerWorkerController;
     }
 
-    public static void setWorkerController(WorkerController workerController) {
-        App.workerController = workerController;
-    }
-
     public static void setWorkersModuleController(WorkersModuleController workersModuleController) {
         App.workersModuleController = workersModuleController;
     }
-    
 
     public static void main(String[] args) {
         launch();

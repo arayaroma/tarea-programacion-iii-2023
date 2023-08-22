@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -15,7 +16,7 @@ import javafx.scene.control.Label;
  * @author estebannajera
  */
 public class WorkerController implements Initializable {
-    
+
     @FXML
     private Label lblUserName;
     @FXML
@@ -26,28 +27,42 @@ public class WorkerController implements Initializable {
     private Label lblLastName;
     @FXML
     private Label lblPhoneNumber;
+    @FXML
+    private HBox parent;
+    private UserDto worker;
+
+    public void setWorker(UserDto worker) {
+        this.worker = worker;
+    }
+
+    public UserDto getWorker() {
+        return worker;
+    }
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        App.setWorkerController(this);
-    }    
-    
+        WorkersModuleController.addWorkerController(this);
+    }
+
     @FXML
     private void editWorker(ActionEvent event) {
+        App.getWorkersModuleController().editWorker(worker, this);
     }
-    
+
     @FXML
     private void deleteWorker(ActionEvent event) {
+        App.getWorkersModuleController().deleteWorker(parent);
     }
-    
+
     public void setData(UserDto user) {
         lblUserName.setText(user.getUsername());
         lblCed.setText(user.getIdentification());
         lblName.setText(user.getName());
         lblPhoneNumber.setText(user.getPhoneNumber());
         lblLastName.setText(user.getLastname());
+        worker = user;
     }
 }

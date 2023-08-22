@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
@@ -19,11 +20,21 @@ import javafx.scene.layout.VBox;
  * @author estebannajera
  */
 public class WorkersModuleController implements Initializable {
-    
+
+    private static List<WorkerController> workerControllers = new ArrayList();
+
     @FXML
     private ImageView searchWorker;
     @FXML
     private VBox workersContainer;
+
+    public static void addWorkerController(WorkerController controller) {
+        WorkersModuleController.workerControllers.add(controller);
+    }
+
+    public static List<WorkerController> getWorkerControllers() {
+        return workerControllers;
+    }
 
     /**
      * Initializes the controller class.
@@ -39,17 +50,18 @@ public class WorkersModuleController implements Initializable {
                 WorkerController controller = loader.getController();
                 controller.setData(getUser());
                 users.add(getUser());
-                
+
             } catch (Exception e) {
                 System.out.println(e.toString());
             }
         }
     }
-    
+
     @FXML
     private void newWorker(ActionEvent event) {
+        App.getMainController().newWorker();
     }
-    
+
     public UserDto getUser() {
         UserDto user = new UserDto();
         user.setName("Esteban");
@@ -57,7 +69,19 @@ public class WorkersModuleController implements Initializable {
         user.setIdentification("118650568");
         user.setUsername("enajera");
         user.setPhoneNumber("61918721");
+        user.setSecondLastname("Morales");
+        user.setEmail("estebannajera42@gmail.com");
+        user.setPassword("123");
         return user;
     }
-    
+
+    //WorkerController ACTIONS
+    public void deleteWorker(Node node) {
+        workersContainer.getChildren().remove(node);
+    }
+
+    public void editWorker(UserDto user, WorkerController controller) {
+        App.getMainController().editWorker(user, controller);
+    }
+
 }

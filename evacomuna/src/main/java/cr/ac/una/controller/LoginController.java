@@ -67,8 +67,9 @@ public class LoginController implements Initializable {
             registerView = loader.load();
             mainScreen.getChildren().add(registerView);
             registerView.toFront();
+            App.getRegisterWorkerController().initializeView(true, null, null);
         } catch (Exception e) {
-
+            System.out.println(e.toString());
         }
     }
 

@@ -1,6 +1,7 @@
 package cr.ac.una.controller;
 
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.services.impl.UserDto;
 import cr.ac.una.util.Data;
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
@@ -40,6 +42,8 @@ public class MainController implements Initializable {
     private VBox menuPane;
     @FXML
     private StackPane mainScreen;
+    @FXML
+    private StackPane parent;
 
     /**
      * Initializes the controller class.
@@ -115,4 +119,29 @@ public class MainController implements Initializable {
         }
     }
 
+    public void removeMainView(Node node) {
+        parent.getChildren().remove(node);
+    }
+    //WorkerModuleController ACTIONS
+    public void editWorker(UserDto user, WorkerController workerController) {
+        RegisterWorkerController controller = loadRegisterView();
+        controller.initializeView(false, user, workerController);
+    }
+
+    public void newWorker() {
+        RegisterWorkerController controller = loadRegisterView();
+        controller.initializeView(false, null, null);
+    }
+
+    private RegisterWorkerController loadRegisterView() {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("RegisterWorker");
+            parent.getChildren().add(loader.load());
+            RegisterWorkerController controller = loader.getController();
+            return controller;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }
