@@ -3,10 +3,8 @@ package cr.ac.una.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.dto.PositionDto;
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +37,7 @@ public class Position implements Serializable {
     private String name;
     private String state;
 
-    @OneToMany(mappedBy = "position", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "position")
     private List<User> users = new ArrayList<>();
 
     public Position(PositionDto positionDto) {

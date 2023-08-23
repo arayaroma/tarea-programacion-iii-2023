@@ -3,6 +3,7 @@ package cr.ac.una.entities;
 import java.io.Serializable;
 import cr.ac.una.dto.UserDto;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ import jakarta.persistence.NamedQuery;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u")})
+        @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u") })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -108,7 +109,7 @@ public class User implements Serializable {
     @Column(name = "ISADMIN")
     private String isAdmin;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "POSITION")
     private Position position;
 
