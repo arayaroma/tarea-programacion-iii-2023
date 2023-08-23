@@ -12,8 +12,7 @@ public class UserController {
     @EJB
     private UserService userService;
 
-    public ResponseWrapper createUser(
-            UserDto userDto) {
+    public ResponseWrapper createUser(UserDto userDto) {
         return userService.createUser(userDto);
     }
 

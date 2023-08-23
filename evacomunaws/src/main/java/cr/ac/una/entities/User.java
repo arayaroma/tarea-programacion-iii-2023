@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.GenerationType;
 
 @Entity
-@Table(name = " TBL_USER", schema = "EvaComUNA")
+@Table(name = "TBL_USER", schema = "EvaComUNA")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

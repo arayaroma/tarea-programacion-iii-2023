@@ -17,25 +17,12 @@ public class UserServiceImpl implements UserService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
-    @Override
+   @Override
     public ResponseWrapper createUser(UserDto userDto) {
         try {
             User user;
-            if (userDto.getId() != null && userDto.getId() > 0) {
-                user = em.find(User.class, userDto.getId());
-                if (user == null) {
-                    return new ResponseWrapper(
-                            ResponseCode.NOT_FOUND.getCode(),
-                            ResponseCode.NOT_FOUND,
-                            "User not found.",
-                            null);
-                }
-                user.updateUser(userDto);
-                user = em.merge(user);
-            } else {
-                user = new User(userDto);
-                em.persist(user);
-            }
+            user = new User(userDto);
+            em.persist(user);
             em.flush();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -50,6 +37,7 @@ public class UserServiceImpl implements UserService {
                     null);
         }
     }
+
 
     @Override
     public ResponseWrapper getUserById(Long id) {
