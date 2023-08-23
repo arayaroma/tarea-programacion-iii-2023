@@ -34,13 +34,21 @@ public class RegisterWorkerController implements Initializable {
     private ImageView imgPhoto;
     @FXML
     private TextField txfUserRegister;
+    @FXML
     private PasswordField txfPasswordRegister;
+    @FXML
     private TextField txfCedRegister;
+    @FXML
     private TextField txfNameRegister;
+    @FXML
     private TextField txfLastNameRegister;
+    @FXML
     private TextField txfSecondLastNameRegister;
+    @FXML
     private TextField txfEmailRegister;
+    @FXML
     private TextField txfPhoneNumberRegister;
+    @FXML
     private ComboBox<String> cbRoleRegister;
 
     @FXML
@@ -52,8 +60,6 @@ public class RegisterWorkerController implements Initializable {
 
     private UserDto userModified;
     private WorkerController controlerUser;
-    @FXML
-    private TextField txfUserRegister1;
 
     /**
      * Initializes the controller class.
@@ -74,7 +80,7 @@ public class RegisterWorkerController implements Initializable {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
         }
     }
-
+    @FXML
     private void backToLogin(MouseEvent event) throws IOException {
         if (isFromLogin) {
             App.setRoot("Login");
