@@ -18,12 +18,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 
 @Entity
 @Table(name = "TBL_USER", schema = "EvaComUNA")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+    @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -6,6 +6,7 @@ import java.util.List;
 
 import cr.ac.una.dto.PositionDto;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,19 +39,21 @@ public class Position implements Serializable {
     private String name;
     private String state;
 
-    @OneToMany(mappedBy = "position")
+    @OneToMany(mappedBy = "position", cascade = CascadeType.PERSIST)
     private List<User> users = new ArrayList<>();
 
-    public Position(PositionDto position) {
-        this.id = position.getId();
-        updatePosition(position);
+    public Position(PositionDto positionDto) {
+        this.id = positionDto.getId();
+        updatePosition(positionDto);
     }
 
-    public void updatePosition(PositionDto position) {
-        this.name = position.getName();
-        this.state = position.getState();
-        position.getUsers().forEach(user -> {
-            this.users.add(new User(user));
+    public void updatePosition(PositionDto positionDto) {
+        this.name = positionDto.getName();
+        this.state = positionDto.getState();
+        positionDto.getUsers().forEach(userDto -> {
+            User user = new User(userDto);
+            user.setPosition(this);
+            users.add(user);
         });
     }
 }

@@ -8,6 +8,8 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 @Stateless
@@ -17,7 +19,12 @@ public class UserServiceImpl implements UserService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
+<<<<<<< HEAD
    @Override
+=======
+    @Override
+    @Transactional
+>>>>>>> 45c85a1 ([fix] debugging db connection)
     public ResponseWrapper createUser(UserDto userDto) {
         try {
             User user;
