@@ -1,23 +1,29 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:user="http://controller.una.ac.cr/">
-    <soapenv:Header/>
+    xmlns:tns="http://controller.una.ac.cr/">
+    <soapenv:Header />
     <soapenv:Body>
-        <user:createUser>
-            <user:userDto>
-                <user:email>darayaroma@gmail.com</user:email>
-                <user:id>0</user:id>
-                <user:identification>901140423</user:identification>
-                <user:isActive>Y</user:isActive>
-                <user:landlineNumber>86420240</user:landlineNumber>
-                <user:lastname>Araya</user:lastname>
-                <user:name>Daniel</user:name>
-                <user:password>arayaroma</user:password>
-                <user:phoneNumber>86420240</user:phoneNumber>
-                <user:position/>
-                <user:profilePhoto/>
-                <user:secondLastname>Roman</user:secondLastname>
-                <user:username>arayaroma</user:username>
-            </user:userDto>
-        </user:createUser>
+        <tns:createUser>
+            <arg0>
+                <email>darayaroma@gmail.com</email>
+                <id>1</id>
+                <identification>901140423</identification>
+                <isActive>Y</isActive>
+                <isAdmin>N</isAdmin>
+                <landlineNumber>86420240</landlineNumber>
+                <lastname>Araya</lastname>
+                <name>Daniel</name>
+                <password>arayaroma</password>
+                <phoneNumber>86420240</phoneNumber>
+                <!-- position element, if applicable -->
+                <position>
+                    <id>123</id>
+                    <name>Some Position</name>
+                    <state>Active</state>
+                </position>
+                <profilePhoto>BASE64_ENCODED_DATA</profilePhoto>
+                <secondLastname>Roman</secondLastname>
+                <username>arayaroma</username>
+            </arg0>
+        </tns:createUser>
     </soapenv:Body>
 </soapenv:Envelope>

@@ -38,7 +38,7 @@ public class Position implements Serializable {
     private String name;
     private String state;
 
-    @OneToMany(mappedBy = "POSITION")
+    @OneToMany(mappedBy = "position")
     private List<User> users = new ArrayList<>();
 
     public Position(PositionDto position) {
