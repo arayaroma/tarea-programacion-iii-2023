@@ -9,7 +9,6 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 @Stateless
@@ -19,12 +18,8 @@ public class UserServiceImpl implements UserService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
-<<<<<<< HEAD
-   @Override
-=======
     @Override
     @Transactional
->>>>>>> 45c85a1 ([fix] debugging db connection)
     public ResponseWrapper createUser(UserDto userDto) {
         try {
             User user;
@@ -45,20 +40,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
     @Override
     public ResponseWrapper getUserById(Long id) {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
     }
 
     @Override
-    public ResponseWrapper updateUserById(Long id, UserDto user) {
-        return null;
+    public ResponseWrapper updateUserById(Long id, UserDto userDto) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateUserById'");
     }
 
     @Override
     public ResponseWrapper deleteUserById(Long id) {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteUserById'");
     }
 
 }

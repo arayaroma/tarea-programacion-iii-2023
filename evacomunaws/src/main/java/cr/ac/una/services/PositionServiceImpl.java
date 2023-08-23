@@ -2,9 +2,6 @@ package cr.ac.una.services;
 
 import cr.ac.una.dto.PositionDto;
 import cr.ac.una.util.ResponseWrapper;
-import cr.ac.una.util.ResponseCode;
-import jakarta.ejb.EJB;
-import jakarta.jws.WebService;
 
 public class PositionServiceImpl implements PositionService {
 
@@ -32,5 +29,4 @@ public class PositionServiceImpl implements PositionService {
         throw new UnsupportedOperationException("Unimplemented method 'deletePositionById'");
     }
 
-   
 }
