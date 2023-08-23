@@ -28,3 +28,21 @@
         </tns:createUser>
     </soapenv:Body>
 </soapenv:Envelope>
+
+<!--Company Request-->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.una.ac.cr/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <con:createCompany>
+         <!--Optional:-->
+         <arg0>
+            <!--Optional:-->
+            <email>estebannajera42@gmail.com</email>
+            <!--Optional:-->
+            <name>EstebanCompany</name>
+            <!--Optional:-->
+            <photo>cid:671038741862</photo>
+         </arg0>
+      </con:createCompany>
+   </soapenv:Body>
+</soapenv:Envelope>
