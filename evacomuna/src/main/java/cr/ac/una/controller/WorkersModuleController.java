@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +50,7 @@ public class WorkersModuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         App.setWorkersModuleController(this);
-        //Load the workers
+        // Load the workers
         for (int i = 0; i < 10; i++) {
             users.add(getUser());
         }
@@ -108,22 +110,38 @@ public class WorkersModuleController implements Initializable {
         List<UserDto> usersFiltered = null;
         switch (parameter) {
             case "Name":
-                usersFiltered = users.stream().filter(user -> user.getName().equals(key)).toList();
+                users
+                        .stream()
+                        .filter(user -> user.getName().equals(key))
+                        .collect(Collectors.toList());
                 break;
             case "Last Name":
-                usersFiltered = users.stream().filter(user -> user.getLastname().equals(key)).toList();
+                usersFiltered = users
+                        .stream()
+                        .filter(user -> user.getLastname().equals(key))
+                        .collect(Collectors.toList());
                 break;
             case "Second Last Name":
-                usersFiltered = users.stream().filter(user -> user.getSecondLastname().equals(key)).toList();
+                usersFiltered = users.stream()
+                        .filter(user -> user.getSecondLastname().equals(key))
+                        .collect(Collectors.toList());
                 break;
             case "Email":
-                usersFiltered = users.stream().filter(user -> user.getEmail().equals(key)).toList();
+                usersFiltered = users.stream()
+                        .filter(user -> user.getEmail().equals(key))
+                        .collect(Collectors.toList());
                 break;
             case "Phone":
-                usersFiltered = users.stream().filter(user -> user.getPhoneNumber().equals(key)).toList();
+                usersFiltered = users
+                        .stream()
+                        .filter(user -> user.getPhoneNumber().equals(key))
+                        .collect(Collectors.toList());
                 break;
             case "User Name":
-                usersFiltered = users.stream().filter(user -> user.getUsername().equals(key)).toList();
+                usersFiltered = users
+                        .stream()
+                        .filter(user -> user.getUsername().equals(key))
+                        .collect(Collectors.toList());
                 break;
         }
         return usersFiltered;
@@ -135,7 +153,7 @@ public class WorkersModuleController implements Initializable {
         }
     }
 
-    //WorkerController ACTIONS
+    // WorkerController ACTIONS
     public void deleteWorker(Node node) {
         workersContainer.getChildren().remove(node);
     }
