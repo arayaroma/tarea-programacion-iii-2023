@@ -14,11 +14,12 @@
                 <name>Daniel</name>
                 <password>arayaroma</password>
                 <phoneNumber>86420240</phoneNumber>
-                <!-- position element, if applicable -->
                 <position>
                     <id>123</id>
                     <name>Some Position</name>
-                    <state>Active</state>
+                    <!-- check constraint -->
+                    <!-- inactive or active -->
+                    <state>active</state>
                 </position>
                 <profilePhoto>BASE64_ENCODED_DATA</profilePhoto>
                 <secondLastname>Roman</secondLastname>
