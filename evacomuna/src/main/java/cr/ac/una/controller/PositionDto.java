@@ -10,9 +10,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for positionDto complex type.
+ * <p>Clase Java para positionDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="positionDto"&gt;
@@ -47,7 +47,7 @@ public class PositionDto {
     protected List<UserDto> users;
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -59,7 +59,7 @@ public class PositionDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -71,7 +71,7 @@ public class PositionDto {
     }
 
     /**
-     * Gets the value of the name property.
+     * Obtiene el valor de la propiedad name.
      * 
      * @return
      *     possible object is
@@ -83,7 +83,7 @@ public class PositionDto {
     }
 
     /**
-     * Sets the value of the name property.
+     * Define el valor de la propiedad name.
      * 
      * @param value
      *     allowed object is
@@ -95,7 +95,7 @@ public class PositionDto {
     }
 
     /**
-     * Gets the value of the state property.
+     * Obtiene el valor de la propiedad state.
      * 
      * @return
      *     possible object is
@@ -107,7 +107,7 @@ public class PositionDto {
     }
 
     /**
-     * Sets the value of the state property.
+     * Define el valor de la propiedad state.
      * 
      * @param value
      *     allowed object is

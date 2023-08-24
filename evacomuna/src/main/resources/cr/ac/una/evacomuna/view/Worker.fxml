@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="parent" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="100.0" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.WorkerController">
+<HBox fx:id="parent" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="100.0" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.WorkerController">
    <children>
       <Label fx:id="lblUserName" styleClass="h2" text="enajera" />
       <Label fx:id="lblCed" styleClass="h2" text="118650568" />

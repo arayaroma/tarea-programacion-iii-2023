@@ -64,17 +64,13 @@
                             <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/wsdl/UserController.wsdl</wsdl>
-                                    <!-- 
-                                        <extraargs>
-                                            <extraarg>-impl</extraarg>
-                                        </extraargs>
-                                    -->
+                                    <wsdl>${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/wsdl/CompanyController.wsdl</wsdl>
+                                    <wsdl>${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CompanyService.wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

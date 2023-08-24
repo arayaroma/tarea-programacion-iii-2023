@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="mainScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="900.0" styleClass="body" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.LoginController">
+<StackPane fx:id="mainScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="900.0" styleClass="body" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.LoginController">
    <children>
       <HBox fx:id="forgotYourPasswordView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../style/index.css">
          <children>

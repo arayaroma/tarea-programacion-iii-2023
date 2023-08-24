@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.controller.WorkersModuleController">
+<VBox alignment="TOP_CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.WorkersModuleController">
    <children>
       <Label styleClass="h1" text="Workers" />
       <HBox>

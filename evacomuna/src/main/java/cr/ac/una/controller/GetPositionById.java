@@ -7,16 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para createCompany complex type.
+ * <p>Clase Java para getPositionById complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="createCompany"&gt;
+ * &lt;complexType name="getPositionById"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://controller.una.ac.cr/}companyDto" minOccurs="0"/&gt;
+ *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,22 +26,22 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "createCompany", propOrder = {
+@XmlType(name = "getPositionById", propOrder = {
     "arg0"
 })
-public class CreateCompany {
+public class GetPositionById {
 
-    protected CompanyDto arg0;
+    protected Long arg0;
 
     /**
      * Obtiene el valor de la propiedad arg0.
      * 
      * @return
      *     possible object is
-     *     {@link CompanyDto }
+     *     {@link Long }
      *     
      */
-    public CompanyDto getArg0() {
+    public Long getArg0() {
         return arg0;
     }
 
@@ -50,10 +50,10 @@ public class CreateCompany {
      * 
      * @param value
      *     allowed object is
-     *     {@link CompanyDto }
+     *     {@link Long }
      *     
      */
-    public void setArg0(CompanyDto value) {
+    public void setArg0(Long value) {
         this.arg0 = value;
     }
 

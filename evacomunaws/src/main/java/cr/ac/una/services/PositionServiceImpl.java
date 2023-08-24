@@ -1,9 +1,19 @@
 package cr.ac.una.services;
 
 import cr.ac.una.dto.PositionDto;
+import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import cr.ac.una.util.ResponseWrapper;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
+@Stateless
+@LocalBean
 public class PositionServiceImpl implements PositionService {
+
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
+    private EntityManager em;
 
     @Override
     public ResponseWrapper createPosition(PositionDto position) {

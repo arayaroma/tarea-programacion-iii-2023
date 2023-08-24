@@ -1,6 +1,6 @@
-package cr.ac.una.controller;
+package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.dto.UserDto;
+import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;
@@ -119,8 +119,8 @@ public class RegisterWorkerController implements Initializable {
         }
     }
 
-    public cr.ac.una.controller.UserDto createUser(String... args) {
-        cr.ac.una.controller.UserDto user = new cr.ac.una.controller.UserDto();
+    public UserDto createUser(String... args) {
+        UserDto user = new UserDto();
         user.setUsername(args[0]);
         user.setPassword(args[1]);
         user.setName(args[2]);
@@ -132,7 +132,7 @@ public class RegisterWorkerController implements Initializable {
         return user;
     }
 
-    public void initializeView(boolean isFromLogin, cr.ac.una.controller.UserDto user, WorkerController controller) {
+    public void initializeView(boolean isFromLogin, UserDto user, WorkerController controller) {
         this.isFromLogin = isFromLogin;
 
         if (user != null) {

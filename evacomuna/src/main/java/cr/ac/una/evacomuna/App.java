@@ -1,9 +1,9 @@
 package cr.ac.una.evacomuna;
 
-import cr.ac.una.controller.LoginController;
-import cr.ac.una.controller.MainController;
-import cr.ac.una.controller.RegisterWorkerController;
-import cr.ac.una.controller.WorkersModuleController;
+import cr.ac.una.evacomuna.controller.LoginController;
+import cr.ac.una.evacomuna.controller.MainController;
+import cr.ac.una.evacomuna.controller.RegisterWorkerController;
+import cr.ac.una.evacomuna.controller.WorkersModuleController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

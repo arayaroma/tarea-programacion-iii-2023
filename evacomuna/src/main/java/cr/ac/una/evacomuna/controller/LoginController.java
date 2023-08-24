@@ -1,4 +1,4 @@
-package cr.ac.una.controller;
+package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.util.Data;

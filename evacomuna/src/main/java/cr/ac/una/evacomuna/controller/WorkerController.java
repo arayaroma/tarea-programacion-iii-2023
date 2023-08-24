@@ -1,5 +1,6 @@
-package cr.ac.una.controller;
+package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
 import java.net.URL;
 import java.util.ResourceBundle;

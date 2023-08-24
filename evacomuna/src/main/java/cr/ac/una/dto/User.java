@@ -8,12 +8,12 @@ import cr.ac.una.controller.UserController_Service;
  *
  * @author estebannajera
  */
-public class UserDto {
+public class User {
 
-    UserController_Service service;
-    UserController port;
+    private UserController_Service service;
+    private UserController port;
 
-    public UserDto() {
+    public User() {
         service = new UserController_Service();
         port = service.getUserControllerPort();
     }

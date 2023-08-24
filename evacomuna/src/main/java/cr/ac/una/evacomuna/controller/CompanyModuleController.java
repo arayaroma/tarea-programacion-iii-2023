@@ -1,4 +1,4 @@
-package cr.ac.una.controller;
+package cr.ac.una.evacomuna.controller;
 
 import java.io.File;
 import java.net.URL;
