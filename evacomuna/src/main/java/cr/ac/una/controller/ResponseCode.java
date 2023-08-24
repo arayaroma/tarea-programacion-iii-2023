@@ -1,14 +1,14 @@
 
-package cr.ac.una.services.impl;
+package cr.ac.una.controller;
 
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para responseCode.
+ * <p>Java class for responseCode.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * <pre>
  * &lt;simpleType name="responseCode"&gt;
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;

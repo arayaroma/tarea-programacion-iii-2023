@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cr.ac.una</groupId>
     <artifactId>evacomuna</artifactId>
@@ -65,7 +65,7 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
+                                        ${project.basedir}/src/main/resources/wsdl/UserController.wsdl</wsdl>
                                     <!-- 
                                         <extraargs>
                                             <extraarg>-impl</extraarg>
@@ -74,7 +74,7 @@
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
+                                        ${project.basedir}/src/main/resources/wsdl/CompanyController.wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

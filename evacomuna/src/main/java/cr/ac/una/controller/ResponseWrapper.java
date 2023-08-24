@@ -1,5 +1,5 @@
 
-package cr.ac.una.services.impl;
+package cr.ac.una.controller;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -8,19 +8,19 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para response complex type.
+ * <p>Java class for responseWrapper complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="response"&gt;
+ * &lt;complexType name="responseWrapper"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="code" type="{http://impl.services.una.ac.cr/}responseCode" minOccurs="0"/&gt;
+ *         &lt;element name="code" type="{http://controller.una.ac.cr/}responseCode" minOccurs="0"/&gt;
  *         &lt;element name="data" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/&gt;
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -30,22 +30,22 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "response", propOrder = {
+@XmlType(name = "responseWrapper", propOrder = {
     "code",
     "data",
     "message",
-    "state"
+    "status"
 })
-public class Response {
+public class ResponseWrapper {
 
     @XmlSchemaType(name = "string")
     protected ResponseCode code;
     protected Object data;
     protected String message;
-    protected Boolean state;
+    protected Integer status;
 
     /**
-     * Obtiene el valor de la propiedad code.
+     * Gets the value of the code property.
      * 
      * @return
      *     possible object is
@@ -57,7 +57,7 @@ public class Response {
     }
 
     /**
-     * Define el valor de la propiedad code.
+     * Sets the value of the code property.
      * 
      * @param value
      *     allowed object is
@@ -69,7 +69,7 @@ public class Response {
     }
 
     /**
-     * Obtiene el valor de la propiedad data.
+     * Gets the value of the data property.
      * 
      * @return
      *     possible object is
@@ -81,7 +81,7 @@ public class Response {
     }
 
     /**
-     * Define el valor de la propiedad data.
+     * Sets the value of the data property.
      * 
      * @param value
      *     allowed object is
@@ -93,7 +93,7 @@ public class Response {
     }
 
     /**
-     * Obtiene el valor de la propiedad message.
+     * Gets the value of the message property.
      * 
      * @return
      *     possible object is
@@ -105,7 +105,7 @@ public class Response {
     }
 
     /**
-     * Define el valor de la propiedad message.
+     * Sets the value of the message property.
      * 
      * @param value
      *     allowed object is
@@ -117,27 +117,27 @@ public class Response {
     }
 
     /**
-     * Obtiene el valor de la propiedad state.
+     * Gets the value of the status property.
      * 
      * @return
      *     possible object is
-     *     {@link Boolean }
+     *     {@link Integer }
      *     
      */
-    public Boolean isState() {
-        return state;
+    public Integer getStatus() {
+        return status;
     }
 
     /**
-     * Define el valor de la propiedad state.
+     * Sets the value of the status property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Boolean }
+     *     {@link Integer }
      *     
      */
-    public void setState(Boolean value) {
-        this.state = value;
+    public void setStatus(Integer value) {
+        this.status = value;
     }
 
 }

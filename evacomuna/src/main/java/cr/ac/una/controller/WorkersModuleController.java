@@ -1,7 +1,6 @@
 package cr.ac.una.controller;
 
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.services.impl.UserDto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ import javafx.scene.layout.VBox;
  */
 public class WorkersModuleController implements Initializable {
 
-    private static List<WorkerController> workerControllers = new ArrayList();
-    private static List<UserDto> users = new ArrayList();
+    private static List<WorkerController> workerControllers = new ArrayList<>();
+    private static List<UserDto> users = new ArrayList<>();
 
     @FXML
     private VBox workersContainer;

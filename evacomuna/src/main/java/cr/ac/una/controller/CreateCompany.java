@@ -1,5 +1,5 @@
 
-package cr.ac.una.services.impl;
+package cr.ac.una.controller;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -7,16 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para getPositionById complex type.
+ * <p>Java class for createCompany complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getPositionById"&gt;
+ * &lt;complexType name="createCompany"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
+ *         &lt;element name="arg0" type="{http://controller.una.ac.cr/}companyDto" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,34 +26,34 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getPositionById", propOrder = {
+@XmlType(name = "createCompany", propOrder = {
     "arg0"
 })
-public class GetPositionById {
+public class CreateCompany {
 
-    protected Long arg0;
+    protected CompanyDto arg0;
 
     /**
-     * Obtiene el valor de la propiedad arg0.
+     * Gets the value of the arg0 property.
      * 
      * @return
      *     possible object is
-     *     {@link Long }
+     *     {@link CompanyDto }
      *     
      */
-    public Long getArg0() {
+    public CompanyDto getArg0() {
         return arg0;
     }
 
     /**
-     * Define el valor de la propiedad arg0.
+     * Sets the value of the arg0 property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Long }
+     *     {@link CompanyDto }
      *     
      */
-    public void setArg0(Long value) {
+    public void setArg0(CompanyDto value) {
         this.arg0 = value;
     }
 

@@ -1,7 +1,6 @@
 package cr.ac.una.controller;
 
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.services.impl.UserDto;
 import cr.ac.una.util.Data;
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;

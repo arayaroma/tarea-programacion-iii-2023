@@ -1,8 +1,7 @@
 package cr.ac.una.controller;
 
+import cr.ac.una.dto.UserDto;
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.services.User;
-import cr.ac.una.services.impl.UserDto;
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;
 import java.io.File;
@@ -54,11 +53,11 @@ public class RegisterWorkerController implements Initializable {
     @FXML
     private HBox parent;
 
-    private User userService = new User();
+    private UserDto userService = new UserDto();
 
     private boolean isFromLogin;
 
-    private UserDto userModified;
+    private cr.ac.una.controller.UserDto userModified;
     private WorkerController controlerUser;
 
     /**
@@ -67,19 +66,21 @@ public class RegisterWorkerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         App.setRegisterWorkerController(this);
-        //Cut over the photo to make a circula effect
+        // Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
     }
 
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg"));
+        fileChooser.getExtensionFilters()
+                .add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
         }
     }
+
     @FXML
     private void backToLogin(MouseEvent event) throws IOException {
         if (isFromLogin) {
@@ -92,19 +93,25 @@ public class RegisterWorkerController implements Initializable {
     @FXML
     private void registerUser(ActionEvent event) {
         try {
-            String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(), ced = txfCedRegister.getText(), name = txfNameRegister.getText(), lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(), phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(), role = cbRoleRegister.getValue();
-            if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank() || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role == null) {
+            String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(),
+                    ced = txfCedRegister.getText(), name = txfNameRegister.getText(),
+                    lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(),
+                    phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(),
+                    role = cbRoleRegister.getValue();
+            if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank()
+                    || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role == null) {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
             }
-            UserDto user = createUser(userName, password, name, lastName, secondLastName, ced, email, phoneNumber);
+            cr.ac.una.controller.UserDto user = createUser(userName, password, name, lastName, secondLastName, ced,
+                    email, phoneNumber);
             if (userModified == null) {
-//                userService.createUser(user);
-//                return;
+                // userService.createUser(user);
+                // return;
             } else {
                 userModified = user;
                 controlerUser.setData(userModified);
-//                userService.updateUser(Long.MIN_VALUE, user)
+                // userService.updateUser(Long.MIN_VALUE, user)
             }
             backToLogin(null);
         } catch (IOException e) {
@@ -112,8 +119,8 @@ public class RegisterWorkerController implements Initializable {
         }
     }
 
-    public UserDto createUser(String... args) {
-        UserDto user = new UserDto();
+    public cr.ac.una.controller.UserDto createUser(String... args) {
+        cr.ac.una.controller.UserDto user = new cr.ac.una.controller.UserDto();
         user.setUsername(args[0]);
         user.setPassword(args[1]);
         user.setName(args[2]);
@@ -125,7 +132,7 @@ public class RegisterWorkerController implements Initializable {
         return user;
     }
 
-    public void initializeView(boolean isFromLogin, UserDto user, WorkerController controller) {
+    public void initializeView(boolean isFromLogin, cr.ac.una.controller.UserDto user, WorkerController controller) {
         this.isFromLogin = isFromLogin;
 
         if (user != null) {
