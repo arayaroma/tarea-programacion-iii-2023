@@ -1,5 +1,9 @@
 package cr.ac.una.evacomuna;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 53171f5 ([fix]moved controllers)
 import cr.ac.una.evacomuna.controller.LoginController;
 import cr.ac.una.evacomuna.controller.MainController;
 import cr.ac.una.evacomuna.controller.RegisterWorkerController;

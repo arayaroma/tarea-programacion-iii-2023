@@ -2,6 +2,10 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+<<<<<<< HEAD
+=======
+import cr.ac.una.evacomuna.services.User;
+>>>>>>> 53171f5 ([fix]moved controllers)
 import cr.ac.una.util.Message;
 import cr.ac.una.util.MessageType;
 import java.io.File;
