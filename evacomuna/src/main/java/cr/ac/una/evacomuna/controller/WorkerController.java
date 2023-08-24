@@ -2,10 +2,6 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
-<<<<<<< HEAD
-=======
-
->>>>>>> 53171f5 ([fix]moved controllers)
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
