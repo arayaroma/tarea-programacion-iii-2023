@@ -19,7 +19,6 @@ public class App extends Application {
 
     private static Scene scene;
     private static LoginController loginController;
-
     private static RegisterWorkerController registerWorkerController;
     private static WorkersModuleController workersModuleController;
     private static MainController mainController;
