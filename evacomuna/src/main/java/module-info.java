@@ -9,7 +9,7 @@ module Evacomuna {
     requires org.controlsfx.controls;
 
     opens cr.ac.una.evacomuna to javafx.fxml;
-    opens cr.ac.una.util to javafx.fxml;
+    opens cr.ac.una.evacomuna.util to javafx.fxml;
     opens cr.ac.una.evacomuna.controller to javafx.fxml;
 
     exports cr.ac.una.evacomuna;

@@ -22,6 +22,11 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.2</version>
+        </dependency>
         <!-- Jakarta EE dependencies -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -43,12 +48,6 @@
             <artifactId>jaxws-rt</artifactId>
             <version>4.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.1.2</version>
-        </dependency>
-
     </dependencies>
     <build>
         <plugins>
@@ -64,13 +63,16 @@
                             <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
+                                    <wsdl>
+                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CompanyService.wsdl</wsdl>
+                                    <wsdl>
+                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CompanyService.wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
+                                    <wsdl>
+                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

@@ -3,9 +3,10 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.util.Data;
-import cr.ac.una.util.Message;
-import cr.ac.una.util.MessageType;
+import cr.ac.una.evacomuna.util.Data;
+import cr.ac.una.evacomuna.util.Message;
+import cr.ac.una.evacomuna.util.MessageType;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

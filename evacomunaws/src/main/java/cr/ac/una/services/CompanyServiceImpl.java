@@ -27,7 +27,11 @@ public class CompanyServiceImpl implements CompanyService {
             Company company = new Company(companyDto);
             em.persist(company);
             em.flush();
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Company created successfully.", companyDto);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Company created successfully.",
+                    companyDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -42,7 +46,8 @@ public class CompanyServiceImpl implements CompanyService {
         try {
         } catch (Exception e) {
         }
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+                                                                       // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
