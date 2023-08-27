@@ -1,6 +1,5 @@
 package cr.ac.una.evacomuna.controller;
 
-
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.util.Data;
@@ -96,6 +95,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    private void btnRoleModule(ActionEvent event) {
+        try {
+            mainScreen.getChildren().clear();
+            FXMLLoader loader = App.getFXMLLoader("RoleModule");
+            mainScreen.getChildren().add(loader.load());
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
     private void logOut(ActionEvent event) throws IOException {
         App.setRoot("Login");
     }
@@ -156,4 +165,5 @@ public class MainController implements Initializable {
             return null;
         }
     }
+
 }
