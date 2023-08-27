@@ -145,6 +145,15 @@
                                     </TextField>
                                  </children>
                               </HBox>
+                              <HBox styleClass="form-field">
+                                 <children>
+                                    <TextField fx:id="txfLandLineNumberRegister" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="LandLine Number*" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
                               <ComboBox fx:id="cbRoleRegister" promptText="Role" styleClass="form-select" />
                            </children>
                         </HBox>

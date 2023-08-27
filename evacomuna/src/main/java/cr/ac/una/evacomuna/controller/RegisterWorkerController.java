@@ -1,7 +1,9 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 
@@ -49,16 +51,18 @@ public class RegisterWorkerController implements Initializable {
     @FXML
     private TextField txfPhoneNumberRegister;
     @FXML
+    private TextField txfLandLineNumberRegister;
+    @FXML
     private ComboBox<String> cbRoleRegister;
 
     @FXML
     private HBox parent;
 
-    private UserDto userService = new UserDto();
+    private User userService;
 
     private boolean isFromLogin;
 
-    private cr.ac.una.controller.UserDto userModified;
+    private UserDto userModified;
     private WorkerController controlerUser;
 
     /**
@@ -66,9 +70,12 @@ public class RegisterWorkerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         App.setRegisterWorkerController(this);
+        userService = new User();
         // Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
+
     }
 
     @FXML
@@ -98,19 +105,19 @@ public class RegisterWorkerController implements Initializable {
                     ced = txfCedRegister.getText(), name = txfNameRegister.getText(),
                     lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(),
                     phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(),
-                    role = cbRoleRegister.getValue();
+                    role = cbRoleRegister.getValue(), landLineNumber = txfLandLineNumberRegister.getText();
             if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank()
-                    || secondLastName.isBlank() || phoneNumber.isBlank() || email.isBlank() || role == null) {
+                    || secondLastName.isBlank() || phoneNumber.isBlank() || landLineNumber.isBlank() || email.isBlank()) {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
             }
-            cr.ac.una.controller.UserDto user = createUser(userName, password, name, lastName, secondLastName, ced,
-                    email, phoneNumber);
+            UserDto userDto = createUser(userName, password, name, lastName, secondLastName, ced,
+                    email, phoneNumber, landLineNumber, role);
             if (userModified == null) {
-                // userService.createUser(user);
-                // return;
+                System.out.println(userService.createUser(userDto).getMessage());
+                return;
             } else {
-                userModified = user;
+                userModified = userDto;
                 controlerUser.setData(userModified);
                 // userService.updateUser(Long.MIN_VALUE, user)
             }
@@ -130,6 +137,8 @@ public class RegisterWorkerController implements Initializable {
         user.setIdentification(args[5]);
         user.setEmail(args[6]);
         user.setPhoneNumber(args[7]);
+        user.setLandlineNumber(args[8]);
+        user.setPosition(new PositionDto());
         return user;
     }
 

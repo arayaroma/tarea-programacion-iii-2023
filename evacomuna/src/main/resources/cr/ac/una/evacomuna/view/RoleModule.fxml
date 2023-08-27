@@ -19,7 +19,7 @@
             <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button mnemonicParsing="false" onAction="#btnBackToMain" styleClass="btn" text="Back" />
-                  <TextField fx:id="txfRoleNameRegister" promptText="Role Name" />
+                  <TextField fx:id="txfRoleNameRegister" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Role Name" />
                   <Label styleClass="h1" text="Skills" />
                   <HBox spacing="20.0">
                      <children>

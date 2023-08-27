@@ -43,6 +43,7 @@ public class RoleModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //Load lists
     }
 
     @FXML
@@ -66,6 +67,7 @@ public class RoleModuleController implements Initializable {
 
     @FXML
     private void cbRoles(ActionEvent event) {
+        //Filter roles
     }
 
 }
