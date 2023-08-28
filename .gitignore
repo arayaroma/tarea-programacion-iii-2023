@@ -1,4 +1,5 @@
 .vscode
+.idea
 /evacomuna/target/
 /evacomuna/nbactions.xml
 *.wsdl
