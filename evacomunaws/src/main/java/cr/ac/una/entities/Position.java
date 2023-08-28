@@ -33,12 +33,10 @@ public class Position implements Serializable {
     @NotNull
     @Column(name = "ID")
     private Long id;
-
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "STATE")
     private String state;
-
-    @OneToMany(mappedBy = "position")
-    private List<User> users = new ArrayList<>();
 
     public Position(PositionDto positionDto) {
         this.id = positionDto.getId();
@@ -48,10 +46,5 @@ public class Position implements Serializable {
     public void updatePosition(PositionDto positionDto) {
         this.name = positionDto.getName();
         this.state = positionDto.getState();
-        positionDto.getUsers().forEach(userDto -> {
-            User user = new User(userDto);
-            user.setPosition(this);
-            users.add(user);
-        });
     }
 }

@@ -12,7 +12,7 @@ public class UserController {
 
     @EJB
     private UserService userService;
-    
+
     @WebMethod(operationName = "createUser")
     public ResponseWrapper createUser(UserDto userDto) {
         return userService.createUser(userDto);

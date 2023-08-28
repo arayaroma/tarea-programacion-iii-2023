@@ -109,9 +109,8 @@ public class User implements Serializable {
     @Column(name = "ISADMIN")
     private String isAdmin;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "POSITION")
-    private Position position;
+    @Column(name = "USERPOSITIONID")
+    private Long userPositionId;
 
     public User(UserDto userDto) {
         this.id = userDto.getId();
@@ -131,6 +130,6 @@ public class User implements Serializable {
         this.profilePhoto = userDto.getProfilePhoto();
         this.isActive = userDto.getIsActive();
         this.isAdmin = userDto.getIsAdmin();
-        this.position = new Position(userDto.getPosition());
+        this.userPositionId = userDto.getUserPositionId();
     }
 }

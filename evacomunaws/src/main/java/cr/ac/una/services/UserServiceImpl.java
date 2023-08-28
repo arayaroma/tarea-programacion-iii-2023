@@ -6,9 +6,11 @@ import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ResponseCode;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 @Stateless
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
+    @Inject
+    EmailService emailService;
+
     @Override
     @Transactional
     public ResponseWrapper createUser(UserDto userDto) {
@@ -26,6 +31,8 @@ public class UserServiceImpl implements UserService {
             user = new User(userDto);
             em.persist(user);
             em.flush();
+            emailService.sendEmail(user.getEmail(), "Welcome to EvaCom",
+                    "Welcome to EvaCom, " + user.getName() + " " + user.getLastname() + "!");
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

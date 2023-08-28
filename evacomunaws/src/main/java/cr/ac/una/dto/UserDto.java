@@ -22,7 +22,7 @@ public class UserDto {
     private byte[] profilePhoto;
     private String isActive;
     private String isAdmin;
-    private PositionDto position;
+    private Long userPositionId;
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -38,6 +38,6 @@ public class UserDto {
         this.profilePhoto = user.getProfilePhoto();
         this.isActive = user.getIsActive();
         this.isAdmin = user.getIsAdmin();
-        this.position = new PositionDto(user.getPosition());
+        this.userPositionId = user.getUserPositionId();
     }
 }
