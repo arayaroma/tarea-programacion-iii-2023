@@ -14,15 +14,9 @@
                 <name>Daniel</name>
                 <password>arayaroma</password>
                 <phoneNumber>86420240</phoneNumber>
-                <position>
-                    <id>123</id>
-                    <name>Some Position</name>
-                    <!-- check constraint -->
-                    <!-- inactive or active -->
-                    <state>active</state>
-                </position>
                 <profilePhoto>BASE64_ENCODED_DATA</profilePhoto>
                 <secondLastname>Roman</secondLastname>
+                <userPositionId>1</userPositionId>
                 <username>arayaroma</username>
             </arg0>
         </tns:createUser>
