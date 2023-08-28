@@ -17,5 +17,4 @@ public class UserController {
     public ResponseWrapper createUser(UserDto userDto) {
         return userService.createUser(userDto);
     }
-
 }
