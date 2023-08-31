@@ -18,10 +18,26 @@
                 <secondLastname>Roman</secondLastname>
                 <userPositionId>1</userPositionId>
                 <username>arayaroma</username>
+                <evaluatorId>1</evaluatorId>
+                <evaluatedId>1</evaluatedId>
+                <activationCode>90</activationCode>
+
             </arg0>
         </tns:createUser>
     </soapenv:Body>
 </soapenv:Envelope>
+
+<!--Get user by Id-->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.una.ac.cr/">
+<soapenv:Header/>
+<soapenv:Body>
+    <con:getUserById>
+        <!--Optional:-->
+        <arg0>?</arg0>
+    </con:getUserById>
+</soapenv:Body>
+</soapenv:Envelope>
+
 
 <!--Company Request-->
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://controller.una.ac.cr/">
