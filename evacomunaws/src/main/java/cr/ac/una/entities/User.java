@@ -112,6 +112,19 @@ public class User implements Serializable {
     @Column(name = "USERPOSITIONID")
     private Long userPositionId;
 
+    @Column(name = "EVALUATORID")
+    @NotNull
+    private Long evaluatedId;
+
+    @Column(name = "EVALUATEDID")
+    @NotNull
+    private Long evaluatorId;
+
+    @Column(name = "ACTIVATIONCODE")
+    private String activationCode;
+
+
+
     public User(UserDto userDto) {
         this.id = userDto.getId();
         updateUser(userDto);
@@ -131,5 +144,9 @@ public class User implements Serializable {
         this.isActive = userDto.getIsActive();
         this.isAdmin = userDto.getIsAdmin();
         this.userPositionId = userDto.getUserPositionId();
+        this.evaluatedId = userDto.getEvaluatedId();
+        this.evaluatorId = userDto.getEvaluatorId();
+        this.activationCode = userDto.getActivationCode();
+
     }
 }

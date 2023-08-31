@@ -23,6 +23,10 @@ public class UserDto {
     private String isActive;
     private String isAdmin;
     private Long userPositionId;
+    private Long evaluatedId;
+    private Long evaluatorId;
+    private String activationCode;
+
 
     public UserDto(User user) {
         this.id = user.getId();
@@ -39,5 +43,8 @@ public class UserDto {
         this.isActive = user.getIsActive();
         this.isAdmin = user.getIsAdmin();
         this.userPositionId = user.getUserPositionId();
+        this.evaluatorId = user.getEvaluatorId();
+        this.evaluatedId = user.getEvaluatedId();
+        this.activationCode = user.getActivationCode();
     }
 }
