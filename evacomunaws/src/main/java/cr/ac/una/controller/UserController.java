@@ -17,4 +17,9 @@ public class UserController {
     public ResponseWrapper createUser(UserDto userDto) {
         return userService.createUser(userDto);
     }
+
+    @WebMethod(operationName = "getUserById")
+    public ResponseWrapper getUserById(Long id) {
+        return userService.getUserById(id);
+    }
 }
