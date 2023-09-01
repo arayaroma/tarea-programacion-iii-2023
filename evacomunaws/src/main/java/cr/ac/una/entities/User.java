@@ -123,8 +123,6 @@ public class User implements Serializable {
     @Column(name = "ACTIVATIONCODE")
     private String activationCode;
 
-
-
     public User(UserDto userDto) {
         this.id = userDto.getId();
         updateUser(userDto);

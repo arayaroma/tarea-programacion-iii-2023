@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
                     "User not found, id null.",
                     null);
         }
-
         try {
             User user;
             user = em.find(User.class, id);
@@ -77,16 +76,14 @@ public class UserServiceImpl implements UserService {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
                         ResponseCode.NOT_FOUND,
-                        "User not found, id: " + id.toString()+")",
+                        "User not found, id: " + id.toString() + ")",
                         null);
             }
-
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User retrieved successfully.",
                     new UserDto(user));
-
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -94,9 +91,7 @@ public class UserServiceImpl implements UserService {
                     "Exception occurred while retrieving user: " + ex.getMessage(),
                     null);
         }
-        
     }
-
 
     @Override
     public ResponseWrapper updateUserById(Long id, UserDto userDto) {
