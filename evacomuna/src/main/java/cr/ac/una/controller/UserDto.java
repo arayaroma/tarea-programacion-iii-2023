@@ -26,9 +26,9 @@ import jakarta.xml.bind.annotation.XmlType;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="phoneNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="position" type="{http://controller.una.ac.cr/}positionDto" minOccurs="0"/&gt;
  *         &lt;element name="profilePhoto" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/&gt;
  *         &lt;element name="secondLastname" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="userPositionId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -50,9 +50,9 @@ import jakarta.xml.bind.annotation.XmlType;
     "name",
     "password",
     "phoneNumber",
-    "position",
     "profilePhoto",
     "secondLastname",
+    "userPositionId",
     "username"
 })
 public class UserDto {
@@ -67,9 +67,9 @@ public class UserDto {
     protected String name;
     protected String password;
     protected String phoneNumber;
-    protected PositionDto position;
     protected byte[] profilePhoto;
     protected String secondLastname;
+    protected Long userPositionId;
     protected String username;
 
     /**
@@ -313,30 +313,6 @@ public class UserDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad position.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PositionDto }
-     *     
-     */
-    public PositionDto getPosition() {
-        return position;
-    }
-
-    /**
-     * Define el valor de la propiedad position.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PositionDto }
-     *     
-     */
-    public void setPosition(PositionDto value) {
-        this.position = value;
-    }
-
-    /**
      * Obtiene el valor de la propiedad profilePhoto.
      * 
      * @return
@@ -380,6 +356,30 @@ public class UserDto {
      */
     public void setSecondLastname(String value) {
         this.secondLastname = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad userPositionId.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getUserPositionId() {
+        return userPositionId;
+    }
+
+    /**
+     * Define el valor de la propiedad userPositionId.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setUserPositionId(Long value) {
+        this.userPositionId = value;
     }
 
     /**

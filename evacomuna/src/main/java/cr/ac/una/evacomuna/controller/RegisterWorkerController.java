@@ -1,6 +1,4 @@
 package cr.ac.una.evacomuna.controller;
-
-import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
@@ -138,7 +136,7 @@ public class RegisterWorkerController implements Initializable {
         user.setEmail(args[6]);
         user.setPhoneNumber(args[7]);
         user.setLandlineNumber(args[8]);
-        user.setPosition(new PositionDto());
+        user.setUserPositionId(Long.MAX_VALUE);
         return user;
     }
 

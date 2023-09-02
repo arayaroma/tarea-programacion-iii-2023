@@ -1,11 +1,8 @@
 
 package cr.ac.una.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -22,7 +19,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="users" type="{http://controller.una.ac.cr/}userDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -35,16 +31,13 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "positionDto", propOrder = {
     "id",
     "name",
-    "state",
-    "users"
+    "state"
 })
 public class PositionDto {
 
     protected Long id;
     protected String name;
     protected String state;
-    @XmlElement(nillable = true)
-    protected List<UserDto> users;
 
     /**
      * Obtiene el valor de la propiedad id.
@@ -116,35 +109,6 @@ public class PositionDto {
      */
     public void setState(String value) {
         this.state = value;
-    }
-
-    /**
-     * Gets the value of the users property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the users property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getUsers().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link UserDto }
-     * 
-     * 
-     */
-    public List<UserDto> getUsers() {
-        if (users == null) {
-            users = new ArrayList<UserDto>();
-        }
-        return this.users;
     }
 
 }

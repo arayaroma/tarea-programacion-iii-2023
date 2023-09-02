@@ -113,14 +113,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UserDto }
-     * 
-     */
-    public UserDto createUserDto() {
-        return new UserDto();
-    }
-
-    /**
      * Create an instance of {@link ResponseWrapper }
      * 
      */
