@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -28,10 +29,6 @@
                         <Label styleClass="h1" text="Company Maintenance Module" />
                      </children>
                   </HBox>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" spacing="20.0">
-               <children>
                   <StackPane>
                      <children>
                         <ImageView fx:id="imgPhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" smooth="false">
@@ -42,44 +39,83 @@
                         <Circle fill="#1f93ff00" radius="75.0" stroke="#7e90f7" strokeType="INSIDE" strokeWidth="2.0" />
                      </children>
                   </StackPane>
-                  <VBox alignment="CENTER" spacing="20.0">
+               </children>
+            </VBox>
+            <HBox>
+               <children>
+                  <VBox alignment="CENTER" spacing="30.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#selectPhotoProfile" styleClass="form-select" text="Select Your Profile Photo" />
-                        <HBox>
+                        <VBox alignment="CENTER" spacing="20.0">
                            <children>
-                              <TextField fx:id="txfCompanyName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Company Name*" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                              </TextField>
+                              <VBox alignment="CENTER" spacing="20.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#selectPhotoProfile" styleClass="form-select" text="Select Your Profile Photo" />
+                                    <HBox>
+                                       <children>
+                                          <TextField fx:id="txfCompanyName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Company Name" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="form" />
+                                          <String fx:value="form-field" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <TextField fx:id="txfEmail" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Company Email" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="form" />
+                                          <String fx:value="form-field" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <TextField fx:id="txfPhoneNumber" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Company Phone Number" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="form" />
+                                          <String fx:value="form-field" />
+                                       </styleClass>
+                                    </HBox>
+                                    <TextArea fx:id="txaDescription" prefHeight="50.0" promptText="Description" styleClass="form-field">
+                                       <padding>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </padding>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
                            </children>
-                           <styleClass>
-                              <String fx:value="form" />
-                              <String fx:value="form-field" />
-                           </styleClass>
-                        </HBox>
-                        <HBox>
+                           <VBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="20.0">
                            <children>
-                              <TextField fx:id="txfDescription" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Company Email*" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                              </TextField>
+                              <HBox alignment="CENTER" spacing="20.0">
+                                 <children>
+                                    <ComboBox fx:id="cbHTMLTemplates" prefWidth="150.0" promptText="HTML Template" styleClass="form-select" />
+                                    <Button mnemonicParsing="false" onAction="#chooseHTMLTemplateAction" styleClass="btn" text="Choose" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="lblURLTemplate" styleClass="h2" text="URL: " />
                            </children>
-                           <styleClass>
-                              <String fx:value="form" />
-                              <String fx:value="form-field" />
-                           </styleClass>
-                        </HBox>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Description" styleClass="form-field">
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                           </padding>
-                        </TextArea>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
-            </VBox>
+            </HBox>
             <Button mnemonicParsing="false" onAction="#saveChanges" styleClass="btn" text="Save Changes" />
          </children>
       </VBox>

@@ -4,7 +4,7 @@ import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-
+import cr.ac.una.evacomuna.util.Utilities;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -78,10 +76,7 @@ public class RegisterWorkerController implements Initializable {
 
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters()
-                .add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg"));
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        File selectedFile = Utilities.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
         if (selectedFile != null) {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
         }
@@ -142,7 +137,6 @@ public class RegisterWorkerController implements Initializable {
 
     public void initializeView(boolean isFromLogin, UserDto user, WorkerController controller) {
         this.isFromLogin = isFromLogin;
-
         if (user != null) {
             userModified = user;
             controlerUser = controller;
