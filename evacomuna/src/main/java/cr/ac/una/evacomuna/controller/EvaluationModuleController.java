@@ -40,8 +40,6 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private ListView<?> listEvaluatorsFix;
     @FXML
-    private TextField txfSearchEvaluated;
-    @FXML
     private ListView<?> listEvaluated;
     @FXML
     private ListView<?> listEvaluatedFix;
@@ -70,6 +68,14 @@ public class EvaluationModuleController implements Initializable {
 
     @FXML
     private void btnDeleteEvaluated(ActionEvent event) {
+    }
+
+    @FXML
+    private void searchByRoleAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void saveChangesAction(ActionEvent event) {
     }
     
 }
