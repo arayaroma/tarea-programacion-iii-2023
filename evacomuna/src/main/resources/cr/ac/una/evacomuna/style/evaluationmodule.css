@@ -1,0 +1,46 @@
+*{
+    -fx-blue: #4660f4;
+    -fx-white-white-blue:#b5bffb;
+    -fx-white-blue: #7e90f7;
+    -fx-dark-blue: #3f56dc;
+    -fx-white: #fff;
+    -fx-gray: #565a5c;
+    -fx-green:#23AA2A;
+    -fx-red:#AA2323;
+    -fx-dark-red:#881c1c;
+    -fx-dark-green:#1c8822;
+}
+.tab-header-background {
+    -fx-background-color: -fx-white-white-blue;
+}
+.tab-label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.tab{
+    -fx-background-color: -fx-white-blue;
+    -fx-text-fill:white;
+}
+.tab:selected{
+    -fx-background-color: -fx-blue;
+}
+.list{
+    /*    -fx-border-color: -fx-blue;*/
+    -fx-effect:dropshadow(gaussian,-fx-blue,5,0,0,0);
+    /*    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);*/
+}
+/*.date-picker{
+    -fx-background-color: -fx-blue;
+}*/
+.date-picker .arrow-button .arrow {
+    -fx-background-color: -fx-blue;
+}
+.date-picker .arrow-button {
+    -fx-background-color: white;
+}
+.date-picker .cell {
+    -fx-background-color: -fx-blue;
+}
+.date-picker .cell:hover {
+    -fx-background-color: -fx-white-blue;
+}

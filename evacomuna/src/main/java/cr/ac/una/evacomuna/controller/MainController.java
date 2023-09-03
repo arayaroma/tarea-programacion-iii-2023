@@ -80,7 +80,13 @@ public class MainController implements Initializable {
 
     @FXML
     private void btnEvaluationModule(ActionEvent event) {
-        mainScreen.getChildren().clear();
+        try {
+            mainScreen.getChildren().clear();
+            FXMLLoader loader = App.getFXMLLoader("EvaluationModule");
+            mainScreen.getChildren().add(loader.load());
+        } catch (Exception e) {
+        }
+        
     }
 
     @FXML
