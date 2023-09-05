@@ -3,6 +3,9 @@ package cr.ac.una.services;
 import cr.ac.una.dto.PositionDto;
 import cr.ac.una.util.ResponseWrapper;
 
+/**
+ * @author arayaroma
+ */
 public interface PositionService {
     public ResponseWrapper createPosition(PositionDto position);
 
