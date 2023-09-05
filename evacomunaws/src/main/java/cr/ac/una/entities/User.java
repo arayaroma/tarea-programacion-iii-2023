@@ -132,7 +132,7 @@ public class User implements Serializable {
     @Basic(optional = false)
     @JoinColumn(name = "USERPOSITIONID")
     @Column(name = "USERPOSITIONID")
-    private Long userPositionId;
+    private Position userPositionId;
 
     @Lob
     @Column(name = "PROFILEPHOTO")
@@ -145,8 +145,6 @@ public class User implements Serializable {
     private List<Evaluator> evaluatorList;
 
     @Version
-    @NotNull
-    @Basic(optional = false)
     @Column(name = "VERSION")
     private Long version;
 
@@ -175,7 +173,7 @@ public class User implements Serializable {
         this.isAdmin = userDto.getIsAdmin();
         this.passwordChanged = userDto.getPasswordChanged();
         this.activationCode = userDto.getActivationCode();
-        this.userPositionId = userDto.getUserPositionId();
+        this.userPositionId = new Position(userDto.getUserPositionId());
         this.profilePhoto = userDto.getProfilePhoto();
         this.version = userDto.getVersion();
     }
