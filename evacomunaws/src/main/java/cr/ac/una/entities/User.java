@@ -1,6 +1,8 @@
 package cr.ac.una.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
 import cr.ac.una.dto.UserDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -21,6 +23,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
 
@@ -133,6 +137,12 @@ public class User implements Serializable {
     @Lob
     @Column(name = "PROFILEPHOTO")
     private byte[] profilePhoto;
+
+    @OneToMany(mappedBy = "evaluatedId")
+    private List<Evaluated> evaluatedList;
+
+    @OneToMany(mappedBy = "evaluatorId")
+    private List<Evaluator> evaluatorList;
 
     @Version
     @NotNull
