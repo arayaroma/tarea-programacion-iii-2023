@@ -69,8 +69,6 @@ public class GeneralInformation implements Serializable {
     private String htmltemplate;
 
     @Version
-    @NotNull
-    @Basic(optional = false)
     @Column(name = "VERSION")
     private Long version;
 
