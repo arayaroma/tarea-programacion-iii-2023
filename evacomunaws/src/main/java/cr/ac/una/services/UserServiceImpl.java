@@ -15,6 +15,10 @@ import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 import cr.ac.una.util.HtmlFileReader;
 
+/**
+ * 
+ * @author arayaroma
+ */
 @Stateless
 @LocalBean
 public class UserServiceImpl implements UserService {
