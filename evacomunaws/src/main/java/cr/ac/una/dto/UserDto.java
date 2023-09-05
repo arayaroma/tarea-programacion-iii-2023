@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author arayaroma
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,12 +25,14 @@ public class UserDto {
     private byte[] profilePhoto;
     private String isActive;
     private String isAdmin;
-    private Long userPositionId;
-    private Long evaluatedId;
-    private Long evaluatorId;
+    private String passwordChanged;
     private String activationCode;
+    private Long userPositionId;
+    private Long version;
 
-
+    /**
+     * @param user constructor from entity to dto
+     */
     public UserDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -42,9 +47,9 @@ public class UserDto {
         this.profilePhoto = user.getProfilePhoto();
         this.isActive = user.getIsActive();
         this.isAdmin = user.getIsAdmin();
-        this.userPositionId = user.getUserPositionId();
-        this.evaluatorId = user.getEvaluatorId();
-        this.evaluatedId = user.getEvaluatedId();
+        this.passwordChanged = user.getPasswordChanged();
         this.activationCode = user.getActivationCode();
+        this.userPositionId = user.getUserPositionId();
+        this.version = user.getVersion();
     }
 }

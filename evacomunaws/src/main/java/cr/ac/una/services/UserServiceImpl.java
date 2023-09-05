@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService {
     @EJB
     EmailService emailService;
 
+    /**
+     * @param userDto user to be created, also sends an email to the user to
+     *                verificate the registration
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
     @Override
     @Transactional
     public ResponseWrapper createUser(UserDto userDto) {
@@ -64,6 +70,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * @param id user id to be retrieved
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
     @Override
     public ResponseWrapper getUserById(Long id) {
         if (id == null || id <= 0) {
@@ -97,12 +108,23 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * @param id      user id to be updated
+     * @param userDto user to be updated
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
     @Override
     public ResponseWrapper updateUserById(Long id, UserDto userDto) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateUserById'");
     }
 
+    /**
+     * @param id user id to be deleted
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
     @Override
     public ResponseWrapper deleteUserById(Long id) {
         // TODO Auto-generated method stub

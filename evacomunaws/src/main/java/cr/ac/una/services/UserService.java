@@ -5,6 +5,9 @@ import cr.ac.una.util.ResponseWrapper;
 import jakarta.ejb.Local;
 
 
+/**
+ * @author arayaroma
+ */
 @Local
 public interface UserService {
    
@@ -15,6 +18,4 @@ public interface UserService {
     public ResponseWrapper updateUserById(Long id, UserDto userDto);
 
     public ResponseWrapper deleteUserById(Long id);
-
-
 }
