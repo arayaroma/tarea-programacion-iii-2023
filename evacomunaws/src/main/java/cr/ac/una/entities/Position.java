@@ -11,6 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -56,7 +59,11 @@ public class Position implements Serializable {
     private String state;
 
     @OneToMany(mappedBy = "userPositionId")
-    private List<User> usersList;
+    private List<User> users;
+
+    @ManyToMany
+    @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITION_ID"), inverseJoinColumns = @JoinColumn(name = "SKILL_ID"))
+    private List<Skill> skills;
 
     @Version
     @NotNull
@@ -79,10 +86,16 @@ public class Position implements Serializable {
         this.name = positionDto.getName();
         this.state = positionDto.getState();
         this.version = positionDto.getVersion();
-        this.usersList = positionDto.getUsersList() != null
-                ? positionDto.getUsersList()
+        this.users = positionDto.getUsers() != null
+                ? positionDto.getUsers()
                         .stream()
                         .map(User::new)
+                        .collect(Collectors.toList())
+                : null;
+        this.skills = positionDto.getSkills() != null
+                ? positionDto.getSkills()
+                        .stream()
+                        .map(Skill::new)
                         .collect(Collectors.toList())
                 : null;
     }

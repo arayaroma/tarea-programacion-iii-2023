@@ -19,7 +19,8 @@ public class PositionDto {
     private String name;
     private String state;
     private Long version;
-    private List<UserDto> usersList;
+    private List<UserDto> users;
+    private List<SkillDto> skills;
 
     /**
      * @param position constructor from entity to dto
@@ -29,8 +30,8 @@ public class PositionDto {
         this.name = position.getName();
         this.state = position.getState();
         this.version = position.getVersion();
-        this.usersList = position.getUsersList() != null
-                ? position.getUsersList()
+        this.users = position.getUsers() != null
+                ? position.getUsers()
                         .stream()
                         .map(UserDto::new)
                         .collect(Collectors.toList())
