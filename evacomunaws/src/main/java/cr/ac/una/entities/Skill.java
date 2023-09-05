@@ -6,7 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -61,9 +64,17 @@ public class Skill implements Serializable {
     @ManyToMany(mappedBy = "skills")
     private List<Position> positions;
 
+    @OneToMany(mappedBy = "skillId")
+    private List<Calification> califications;
+
+    @OneToMany(mappedBy = "skillId")
+    private List<FinalCalification> finalCalifications;
+
+    @ManyToMany(mappedBy = "skills")
+    @JoinTable(name = "TBL_SKILL_CHARACTERISTIC", joinColumns = @JoinColumn(name = "SKILLID"), inverseJoinColumns = @JoinColumn(name = "CHARACTERISTICID"))
+    private List<Characteristic> characteristics;
+
     @Version
-    @NotNull
-    @Basic(optional = false)
     @Column(name = "VERSION")
     private Long version;
 
@@ -82,12 +93,30 @@ public class Skill implements Serializable {
         this.name = skillDto.getName();
         this.description = skillDto.getDescription();
         this.state = skillDto.getState();
-        this.version = skillDto.getVersion();
+        this.califications = skillDto.getCalifications() != null
+                ? skillDto.getCalifications()
+                        .stream()
+                        .map(calificationDto -> new Calification(calificationDto))
+                        .collect(Collectors.toList())
+                : null;
+        this.finalCalifications = skillDto.getFinalCalifications() != null
+                ? skillDto.getFinalCalifications()
+                        .stream()
+                        .map(finalCalificationDto -> new FinalCalification(finalCalificationDto))
+                        .collect(Collectors.toList())
+                : null;
         this.positions = skillDto.getPositions() != null
                 ? skillDto.getPositions()
                         .stream()
                         .map(positionDto -> new Position(positionDto))
                         .collect(Collectors.toList())
                 : null;
+        this.characteristics = skillDto.getCharacteristics() != null
+                ? skillDto.getCharacteristics()
+                        .stream()
+                        .map(characteristicDto -> new Characteristic(characteristicDto))
+                        .collect(Collectors.toList())
+                : null;
+        this.version = skillDto.getVersion();
     }
 }
