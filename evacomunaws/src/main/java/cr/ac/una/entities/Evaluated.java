@@ -20,8 +20,6 @@ import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_EVALUATED;
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import cr.ac.una.dto.EvaluatedDto;
 
 /**
@@ -47,7 +45,7 @@ public class Evaluated implements Serializable {
     @ManyToOne
     @Basic(optional = false)
     @JoinColumn(name = "EVALUATEDID")
-    private User evaluatedId;
+    private User evaluated;
 
     @NotNull
     @Basic(optional = false)
@@ -57,16 +55,15 @@ public class Evaluated implements Serializable {
     @NotNull
     @ManyToOne
     @Basic(optional = false)
-    @Column(name = "EVALUATIONID")
     @JoinColumn(name = "EVALUATIONID")
-    private Evaluation evaluationId;
+    private Evaluation evaluation;
 
     @NotNull
-    @OneToMany(mappedBy = "evaluatedId")
+    @OneToMany(mappedBy = "evaluated")
     private List<Evaluator> evaluators;
 
     @NotNull
-    @OneToMany(mappedBy = "evaluatedId")
+    @OneToMany(mappedBy = "evaluated")
     private List<FinalCalification> finalCalifications;
 
     @Version
@@ -85,17 +82,7 @@ public class Evaluated implements Serializable {
      * @param evaluatedDto update the entity with the dto
      */
     public void updateEvaluated(EvaluatedDto evaluatedDto) {
-        this.evaluatedId = new User(evaluatedDto.getEvaluatedId());
         this.finalNote = evaluatedDto.getFinalNote();
-        this.evaluationId = new Evaluation(evaluatedDto.getEvaluationId());
-        this.finalCalifications = evaluatedDto.getFinalCalifications()
-                .stream()
-                .map(finalCalificationDto -> new FinalCalification(finalCalificationDto))
-                .collect(Collectors.toList());
-        this.evaluators = evaluatedDto.getEvaluators()
-                .stream()
-                .map(evaluatorDto -> new Evaluator(evaluatorDto))
-                .collect(Collectors.toList());
         this.version = evaluatedDto.getVersion();
     }
 }
