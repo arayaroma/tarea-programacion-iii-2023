@@ -16,8 +16,8 @@ public class CalificationDto {
 
     private Long id;
     private String calification;
-    private SkillDto skillId;
-    private UserDto evaluatorId;
+    private SkillDto skill;
+    private UserDto evaluator;
     private Long version;
 
     /**
@@ -26,12 +26,6 @@ public class CalificationDto {
     public CalificationDto(Calification calification) {
         this.id = calification.getId();
         this.calification = calification.getCalification();
-        this.skillId = calification.getSkillId() != null
-                ? new SkillDto(calification.getSkillId())
-                : null;
-        this.evaluatorId = calification.getEvaluatorId() != null
-                ? new UserDto(calification.getEvaluatorId())
-                : null;
         this.version = calification.getVersion();
     }
 }

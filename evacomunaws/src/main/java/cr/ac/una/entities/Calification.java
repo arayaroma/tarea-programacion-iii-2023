@@ -47,11 +47,11 @@ public class Calification implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "SKILLID")
-    private Skill skillId;
+    private Skill skill;
 
     @ManyToOne
     @JoinColumn(name = "EVALUATORID")
-    private User evaluatorId;
+    private User evaluator;
 
     @Version
     @Column(name = "VERSION")
@@ -70,8 +70,6 @@ public class Calification implements Serializable {
      */
     public void updateCalification(CalificationDto calificationDto) {
         this.calification = calificationDto.getCalification();
-        this.skillId = new Skill(calificationDto.getSkillId());
-        this.evaluatorId = new User(calificationDto.getEvaluatorId());
         this.version = calificationDto.getVersion();
     }
 }
