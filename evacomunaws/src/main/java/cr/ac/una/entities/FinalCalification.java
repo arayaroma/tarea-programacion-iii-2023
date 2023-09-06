@@ -52,13 +52,11 @@ public class FinalCalification implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "EVALUATEDID")
-    @Column(name = "EVALUATEDID")
-    private Evaluated evaluatedId;
+    private Evaluated evaluated;
 
     @ManyToOne
     @JoinColumn(name = "SKILLID")
-    @Column(name = "SKILLID")
-    private Skill skillId;
+    private Skill skill;
 
     @Version
     @Column(name = "VERSION")
@@ -79,8 +77,6 @@ public class FinalCalification implements Serializable {
     public void updateFinalCalification(FinalCalificationDto finalCalificationDto) {
         this.finalNote = finalCalificationDto.getFinalNote();
         this.average = finalCalificationDto.getAverage();
-        this.evaluatedId = new Evaluated(finalCalificationDto.getEvaluatedId());
-        this.skillId = new Skill(finalCalificationDto.getSkillId());
         this.version = finalCalificationDto.getVersion();
     }
 }

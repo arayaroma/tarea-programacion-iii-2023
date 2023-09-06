@@ -16,8 +16,8 @@ public class FinalCalificationDto {
     private Long id;
     private Long finalNote;
     private Long average;
-    private EvaluatedDto evaluatedId;
-    private SkillDto skillId;
+    private EvaluatedDto evaluated;
+    private SkillDto skill;
     private Long version;
 
     /**
@@ -27,8 +27,6 @@ public class FinalCalificationDto {
         this.id = finalCalification.getId();
         this.finalNote = finalCalification.getFinalNote();
         this.average = finalCalification.getAverage();
-        this.evaluatedId = new EvaluatedDto(finalCalification.getEvaluatedId());
-        this.skillId = new SkillDto(finalCalification.getSkillId());
         this.version = finalCalification.getVersion();
     }
 }
