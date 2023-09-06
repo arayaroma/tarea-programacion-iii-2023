@@ -1,5 +1,6 @@
 package cr.ac.una.dto;
 
+import java.util.List;
 import cr.ac.una.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,9 @@ public class UserDto {
     private String isAdmin;
     private String passwordChanged;
     private String activationCode;
-    private PositionDto userPositionId;
+    private PositionDto position;
+    private List<EvaluatedDto> evaluated;
+    private List<EvaluatorDto> evaluators;
     private Long version;
 
     /**
@@ -49,7 +52,6 @@ public class UserDto {
         this.isAdmin = user.getIsAdmin();
         this.passwordChanged = user.getPasswordChanged();
         this.activationCode = user.getActivationCode();
-        this.userPositionId = new PositionDto(user.getUserPositionId());
         this.version = user.getVersion();
     }
 }

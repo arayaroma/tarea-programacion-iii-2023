@@ -127,22 +127,21 @@ public class User implements Serializable {
     @Column(name = "ACTIVATIONCODE")
     private String activationCode;
 
-    @NotNull
-    @ManyToOne
-    @Basic(optional = false)
-    @JoinColumn(name = "USERPOSITIONID")
-    @Column(name = "USERPOSITIONID")
-    private Position userPositionId;
-
     @Lob
     @Column(name = "PROFILEPHOTO")
     private byte[] profilePhoto;
 
-    @OneToMany(mappedBy = "evaluatedId")
-    private List<Evaluated> evaluatedList;
+    @NotNull
+    @ManyToOne
+    @Basic(optional = false)
+    @JoinColumn(name = "USERPOSITIONID")
+    private Position position;
 
-    @OneToMany(mappedBy = "evaluatorId")
-    private List<Evaluator> evaluatorList;
+    @OneToMany(mappedBy = "evaluated")
+    private List<Evaluated> evaluated;
+
+    @OneToMany(mappedBy = "evaluator")
+    private List<Evaluator> evaluators;
 
     @Version
     @Column(name = "VERSION")
@@ -173,7 +172,6 @@ public class User implements Serializable {
         this.isAdmin = userDto.getIsAdmin();
         this.passwordChanged = userDto.getPasswordChanged();
         this.activationCode = userDto.getActivationCode();
-        this.userPositionId = new Position(userDto.getUserPositionId());
         this.profilePhoto = userDto.getProfilePhoto();
         this.version = userDto.getVersion();
     }
