@@ -2,8 +2,6 @@ package cr.ac.una.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import cr.ac.una.dto.PositionDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -58,7 +56,7 @@ public class Position implements Serializable {
     @Column(name = "STATE")
     private String state;
 
-    @OneToMany(mappedBy = "userPositionId")
+    @OneToMany(mappedBy = "position")
     private List<User> users;
 
     @ManyToMany
@@ -84,17 +82,5 @@ public class Position implements Serializable {
         this.name = positionDto.getName();
         this.state = positionDto.getState();
         this.version = positionDto.getVersion();
-        this.users = positionDto.getUsers() != null
-                ? positionDto.getUsers()
-                        .stream()
-                        .map(User::new)
-                        .collect(Collectors.toList())
-                : null;
-        this.skills = positionDto.getSkills() != null
-                ? positionDto.getSkills()
-                        .stream()
-                        .map(Skill::new)
-                        .collect(Collectors.toList())
-                : null;
     }
 }

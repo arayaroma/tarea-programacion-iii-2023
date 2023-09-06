@@ -1,8 +1,6 @@
 package cr.ac.una.dto;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import cr.ac.una.entities.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,11 +28,5 @@ public class PositionDto {
         this.name = position.getName();
         this.state = position.getState();
         this.version = position.getVersion();
-        this.users = position.getUsers() != null
-                ? position.getUsers()
-                        .stream()
-                        .map(UserDto::new)
-                        .collect(Collectors.toList())
-                : null;
     }
 }
