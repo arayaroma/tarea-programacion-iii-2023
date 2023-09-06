@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EvaluatorDto {
     private Long id;
-    private UserDto evaluatorId;
+    private UserDto evaluator;
     private String role;
     private String feedback;
-    private EvaluatedDto evaluatedId;
+    private EvaluatedDto evaluated;
     private Long version;
 
     /**
@@ -25,10 +25,8 @@ public class EvaluatorDto {
      */
     public EvaluatorDto(Evaluator entity) {
         this.id = entity.getId();
-        this.evaluatorId = new UserDto(entity.getEvaluatorId());
         this.role = entity.getRole();
         this.feedback = entity.getFeedback();
-        this.evaluatedId = new EvaluatedDto(entity.getEvaluatedId());
         this.version = entity.getVersion();
     }
 }

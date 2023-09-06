@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_EVALUATOR;
 import java.io.Serializable;
+import java.util.List;
 
 import cr.ac.una.dto.EvaluatorDto;
 
@@ -46,7 +48,7 @@ public class Evaluator implements Serializable {
     @ManyToOne
     @Basic(optional = false)
     @JoinColumn(name = "EVALUATORID")
-    private User evaluatorId;
+    private User evaluator;
 
     @NotNull
     @Basic(optional = false)
@@ -64,8 +66,10 @@ public class Evaluator implements Serializable {
     @ManyToOne
     @Basic(optional = false)
     @JoinColumn(name = "EVALUATEDID")
-    @Column(name = "EVALUATEDID")
-    private Evaluated evaluatedId;
+    private Evaluated evaluated;
+
+    @OneToMany(mappedBy = "evaluator")
+    private List<Calification> califications;
 
     @Version
     @Column(name = "VERSION")
@@ -83,10 +87,8 @@ public class Evaluator implements Serializable {
      * @param entity update the entity with the dto
      */
     public void updateEvaluator(EvaluatorDto evaluatorDto) {
-        this.evaluatorId = new User(evaluatorDto.getEvaluatorId());
         this.role = evaluatorDto.getRole();
         this.feedback = evaluatorDto.getFeedback();
-        this.evaluatedId = new Evaluated(evaluatorDto.getEvaluatedId());
         this.version = evaluatorDto.getVersion();
     }
 }
