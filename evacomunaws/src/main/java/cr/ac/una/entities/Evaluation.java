@@ -2,7 +2,6 @@ package cr.ac.una.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.Basic;
@@ -14,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +20,6 @@ import lombok.NoArgsConstructor;
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_EVALUATION;
 import java.util.List;
-import java.util.stream.Collectors;
 import cr.ac.una.dto.EvaluationDto;
 
 /**
@@ -53,17 +49,14 @@ public class Evaluation implements Serializable {
 
     @NotNull
     @Basic(optional = false)
-    @Temporal(TemporalType.DATE)
     LocalDate applicationDate;
 
     @NotNull
     @Basic(optional = false)
-    @Temporal(TemporalType.DATE)
     LocalDate InitialPeriod;
 
     @NotNull
     @Basic(optional = false)
-    @Temporal(TemporalType.DATE)
     LocalDate finalPeriod;
 
     @NotNull
@@ -72,8 +65,8 @@ public class Evaluation implements Serializable {
     @Column(name = "STATE")
     private String state;
 
-    @OneToMany(mappedBy = "evaluationId")
-    private List<Evaluated> evaluatedList;
+    @OneToMany(mappedBy = "evaluation")
+    private List<Evaluated> evaluated;
 
     @Version
     @Column(name = "VERSION")
@@ -96,12 +89,6 @@ public class Evaluation implements Serializable {
         this.InitialPeriod = evaluationDto.getInitialPeriod();
         this.finalPeriod = evaluationDto.getFinalPeriod();
         this.state = evaluationDto.getState();
-        this.evaluatedList = evaluationDto.getEvaluatedList() != null
-                ? evaluationDto.getEvaluatedList()
-                        .stream()
-                        .map(evaluatedDto -> new Evaluated(evaluatedDto))
-                        .collect(Collectors.toList())
-                : null;
         this.version = evaluationDto.getVersion();
     }
 }
