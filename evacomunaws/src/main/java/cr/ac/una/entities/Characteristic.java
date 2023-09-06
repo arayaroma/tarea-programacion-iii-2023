@@ -19,8 +19,6 @@ import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import cr.ac.una.dto.CharacteristicDto;
 
 /**
@@ -69,10 +67,6 @@ public class Characteristic implements Serializable {
      */
     public void updateCharacteristic(CharacteristicDto characteristicDto) {
         this.name = characteristicDto.getName();
-        this.skills = characteristicDto.getSkills()
-                .stream()
-                .map(skill -> new Skill(skill))
-                .collect(Collectors.toList());
         this.version = characteristicDto.getVersion();
     }
 
