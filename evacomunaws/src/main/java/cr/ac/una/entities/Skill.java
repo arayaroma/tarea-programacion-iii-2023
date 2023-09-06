@@ -22,7 +22,6 @@ import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_SKILL;
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 import cr.ac.una.dto.SkillDto;
 
 /**
@@ -64,10 +63,10 @@ public class Skill implements Serializable {
     @ManyToMany(mappedBy = "skills")
     private List<Position> positions;
 
-    @OneToMany(mappedBy = "skillId")
+    @OneToMany(mappedBy = "skill")
     private List<Calification> califications;
 
-    @OneToMany(mappedBy = "skillId")
+    @OneToMany(mappedBy = "skill")
     private List<FinalCalification> finalCalifications;
 
     @ManyToMany(mappedBy = "skills")
@@ -93,30 +92,6 @@ public class Skill implements Serializable {
         this.name = skillDto.getName();
         this.description = skillDto.getDescription();
         this.state = skillDto.getState();
-        this.califications = skillDto.getCalifications() != null
-                ? skillDto.getCalifications()
-                        .stream()
-                        .map(calificationDto -> new Calification(calificationDto))
-                        .collect(Collectors.toList())
-                : null;
-        this.finalCalifications = skillDto.getFinalCalifications() != null
-                ? skillDto.getFinalCalifications()
-                        .stream()
-                        .map(finalCalificationDto -> new FinalCalification(finalCalificationDto))
-                        .collect(Collectors.toList())
-                : null;
-        this.positions = skillDto.getPositions() != null
-                ? skillDto.getPositions()
-                        .stream()
-                        .map(positionDto -> new Position(positionDto))
-                        .collect(Collectors.toList())
-                : null;
-        this.characteristics = skillDto.getCharacteristics() != null
-                ? skillDto.getCharacteristics()
-                        .stream()
-                        .map(characteristicDto -> new Characteristic(characteristicDto))
-                        .collect(Collectors.toList())
-                : null;
         this.version = skillDto.getVersion();
     }
 }
