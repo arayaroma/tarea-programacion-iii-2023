@@ -33,4 +33,14 @@ public class UserController {
     public ResponseWrapper getUserById(Long id) {
         return userService.getUserById(id);
     }
+
+    /**
+     * @param identification user identification to be updated
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "getUserByIdentification")
+    public ResponseWrapper getUserByIdentification(String identification) {
+        return userService.getUserByIdentification(identification);
+    }
+
 }
