@@ -60,7 +60,7 @@ public class Position implements Serializable {
     private List<User> users;
 
     @ManyToMany
-    @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITION_ID"), inverseJoinColumns = @JoinColumn(name = "SKILL_ID"))
+    @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITIONID"), inverseJoinColumns = @JoinColumn(name = "SKILLID"))
     private List<Skill> skills;
 
     @Version
