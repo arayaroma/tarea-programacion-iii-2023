@@ -43,4 +43,23 @@ public class UserController {
         return userService.getUserByIdentification(identification);
     }
 
+    /**
+     * @param id user id to be updated
+     * @param userDto user to be updated
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "updateUserById")
+    public ResponseWrapper updateUserById(Long id, UserDto userDto) {
+        return userService.updateUserById(id, userDto);
+    }
+
+    /**
+     * @param identification user identification to be deleted
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "deleteUserByIdentification")
+    public ResponseWrapper deleteUserByIdentification(String identification) {
+        return userService.deleteUserByIdentification(identification);
+    }
+
 }
