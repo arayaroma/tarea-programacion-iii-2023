@@ -18,4 +18,9 @@ public interface UserService {
     public ResponseWrapper updateUserById(Long id, UserDto userDto);
 
     public ResponseWrapper deleteUserById(Long id);
+
+    public ResponseWrapper getUserByIdentification(String identification);
+
+
+
 }
