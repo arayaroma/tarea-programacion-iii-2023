@@ -230,5 +230,47 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * @param identification user identification to be deleted
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
+    @Override
+    public ResponseWrapper deleteUserByIdentification(String identification) {
+        if (identification == null || identification.isEmpty()) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "User not found, identification null.",
+                    null);
+        }
+        try {
+            User user;
+            user = em.createNamedQuery("user.findByIdentification", User.class)
+                    .setParameter("identification", identification)
+                    .getSingleResult();
+            if (user == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "User not found, identification: " + identification + ")",
+                        null);
+            }
+            em.remove(user);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User deleted successfully.",
+                    null);
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while deleting user: " + ex.getMessage(),
+                    null);
+        }
+    }
+
 
 }
