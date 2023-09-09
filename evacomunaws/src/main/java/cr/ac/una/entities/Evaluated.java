@@ -42,8 +42,7 @@ public class Evaluated implements Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne
-    @Basic(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "EVALUATEDID")
     private User evaluated;
 
@@ -53,8 +52,7 @@ public class Evaluated implements Serializable {
     private String finalNote;
 
     @NotNull
-    @ManyToOne
-    @Basic(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "EVALUATIONID")
     private Evaluation evaluation;
 
