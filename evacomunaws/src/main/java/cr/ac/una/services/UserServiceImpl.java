@@ -14,6 +14,13 @@ import jakarta.transaction.Transactional;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 import cr.ac.una.util.HtmlFileReader;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 
@@ -41,6 +48,24 @@ public class UserServiceImpl implements UserService {
         try {
             User user;
             user = new User(userDto);
+
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+            Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+            if(!constraintViolations.isEmpty()) {
+                StringBuilder message = new StringBuilder();
+                for (ConstraintViolation<User> cv : constraintViolations) {
+                    System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+
+                    message.append(cv.getRootBeanClass().getSimpleName()).append(".").append(cv.getPropertyPath()).append(" ").append(cv.getMessage());
+                }
+                return new ResponseWrapper(
+                        ResponseCode.BAD_REQUEST.getCode(),
+                        ResponseCode.BAD_REQUEST,
+                        "User not created, validation error: " + message,
+                        null);
+            }
+
             em.persist(user);
             em.flush();
             try {
