@@ -48,6 +48,7 @@ public class UserDto {
         this.landlineNumber = user.getLandlineNumber();
         this.phoneNumber = user.getPhoneNumber();
         this.profilePhoto = user.getProfilePhoto();
+        this.position = new PositionDto(user.getPosition());
         this.isActive = user.getIsActive();
         this.isAdmin = user.getIsAdmin();
         this.passwordChanged = user.getPasswordChanged();
