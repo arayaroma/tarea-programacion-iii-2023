@@ -12,6 +12,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
+import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,6 +33,7 @@ import cr.ac.una.dto.EvaluatorDto;
  */
 @Entity
 @Table(name = "TBL_EVALUATOR", schema = SCHEMA)
+@SecondaryTable(name = "TBL_USER", schema = SCHEMA, pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID", referencedColumnName = "EVALUATORID"))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,8 +49,7 @@ public class Evaluator implements Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne
-    @Basic(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "EVALUATORID")
     private User evaluator;
 
@@ -63,8 +66,7 @@ public class Evaluator implements Serializable {
     private String feedback;
 
     @NotNull
-    @ManyToOne
-    @Basic(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "EVALUATEDID")
     private Evaluated evaluated;
 
@@ -76,7 +78,7 @@ public class Evaluator implements Serializable {
     private Long version;
 
     /**
-     * @param dto constructor from a dto to entity
+     * @param evaluatorDto constructor from a dto to entity
      */
     public Evaluator(EvaluatorDto evaluatorDto) {
         this.id = evaluatorDto.getId();
@@ -84,7 +86,7 @@ public class Evaluator implements Serializable {
     }
 
     /**
-     * @param entity update the entity with the dto
+     * @param evaluatorDto update the entity with the dto
      */
     public void updateEvaluator(EvaluatorDto evaluatorDto) {
         this.role = evaluatorDto.getRole();
