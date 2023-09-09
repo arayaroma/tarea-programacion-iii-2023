@@ -55,7 +55,7 @@ public class Characteristic implements Serializable {
     List<Skill> skills;
 
     /**
-     * @param skill constructor from entity to dto
+     * @param characteristicDto constructor from entity to dto
      */
     public Characteristic(CharacteristicDto characteristicDto) {
         this.id = characteristicDto.getId();
