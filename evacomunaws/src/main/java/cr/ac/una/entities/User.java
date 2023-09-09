@@ -38,12 +38,15 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u") })
+        @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "user.findByIdentification", query = "SELECT u FROM User u WHERE u.identification = :identification") }
+)
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+
+
     @Id
-    @NotNull
     @SequenceGenerator(name = SEQ_USER, sequenceName = SCHEMA + "." + SEQ_USER, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_USER)
     @Basic(optional = false)
@@ -132,8 +135,7 @@ public class User implements Serializable {
     private byte[] profilePhoto;
 
     @NotNull
-    @ManyToOne
-    @Basic(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "USERPOSITIONID")
     private Position position;
 
@@ -158,6 +160,7 @@ public class User implements Serializable {
     /**
      * @param userDto updates the userDto
      */
+    //TODO: Remove position object by managing it in service
     public void updateUser(UserDto userDto) {
         this.username = userDto.getUsername();
         this.password = userDto.getPassword();
@@ -173,6 +176,7 @@ public class User implements Serializable {
         this.passwordChanged = userDto.getPasswordChanged();
         this.activationCode = userDto.getActivationCode();
         this.profilePhoto = userDto.getProfilePhoto();
+        this.position = new Position(userDto.getPosition());
         this.version = userDto.getVersion();
     }
 }
