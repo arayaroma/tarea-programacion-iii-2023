@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * @param userDto user to be created, also sends an email to the user to
-     *                verificate the registration
+     *                verify the registration
      * @return ResponseWrapper with the response from database, or null if an
      *         exception occurred
      */
@@ -116,8 +116,38 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResponseWrapper updateUserById(Long id, UserDto userDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUserById'");
+        if(id == null || id <= 0){
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "User not found, id null.",
+                    null);
+        }
+        try {
+            User user;
+            user = em.find(User.class, id);
+            if (user == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "User not found, id: " + id.toString() + ")",
+                        null);
+            }
+            user.updateUser(userDto);
+            em.merge(user);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User updated successfully.",
+                    new UserDto(user));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while updating user: " + ex.getMessage(),
+                    null);
+        }
     }
 
     /**
@@ -127,8 +157,78 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResponseWrapper deleteUserById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUserById'");
+        if(id == null || id <= 0){
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "User not found, id null.",
+                    null);
+        }
+        try {
+            User user;
+            user = em.find(User.class, id);
+            if (user == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "User not found, id: " + id.toString() + ")",
+                        null);
+            }
+            em.remove(user);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User deleted successfully.",
+                    null);
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while deleting user: " + ex.getMessage(),
+                    null);
+        }
     }
+
+    /**
+     * @param identification user identification to be retrieved
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
+    @Override
+    public ResponseWrapper getUserByIdentification(String identification) {
+        if (identification == null || identification.isEmpty()) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "User not found, identification null.",
+                    null);
+        }
+        try {
+            User user;
+            user = em.createNamedQuery("user.findByIdentification", User.class)
+                    .setParameter("identification", identification)
+                    .getSingleResult();
+            if (user == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "User not found, identification: " + identification + ")",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User retrieved successfully.",
+                    new UserDto(user));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving user: " + ex.getMessage(),
+                    null);
+        }
+    }
+
 
 }
