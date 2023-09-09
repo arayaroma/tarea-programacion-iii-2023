@@ -69,7 +69,7 @@ public class Skill implements Serializable {
     @OneToMany(mappedBy = "skill")
     private List<FinalCalification> finalCalifications;
 
-    @ManyToMany(mappedBy = "skills")
+    @ManyToMany
     @JoinTable(name = "TBL_SKILL_CHARACTERISTIC", joinColumns = @JoinColumn(name = "SKILLID"), inverseJoinColumns = @JoinColumn(name = "CHARACTERISTICID"))
     private List<Characteristic> characteristics;
 
@@ -78,7 +78,7 @@ public class Skill implements Serializable {
     private Long version;
 
     /**
-     * @param skill constructor from dto to entity
+     * @param skillDto constructor from dto to entity
      */
     public Skill(SkillDto skillDto) {
         this.id = skillDto.getId();
