@@ -21,6 +21,6 @@ public interface UserService {
 
     public ResponseWrapper getUserByIdentification(String identification);
 
-
+    public ResponseWrapper deleteUserByIdentification(String identification);
 
 }
