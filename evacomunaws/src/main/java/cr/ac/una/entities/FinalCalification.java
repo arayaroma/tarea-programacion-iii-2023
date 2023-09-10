@@ -32,7 +32,6 @@ import cr.ac.una.dto.FinalCalificationDto;
 public class FinalCalification implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @SequenceGenerator(name = SEQ_FINAL_CALIFICATION, sequenceName = SCHEMA + "."
             + SEQ_FINAL_CALIFICATION, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_FINAL_CALIFICATION)

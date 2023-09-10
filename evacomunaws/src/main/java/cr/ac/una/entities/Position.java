@@ -37,7 +37,6 @@ public class Position implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull
     @SequenceGenerator(name = SEQ_POSITION, sequenceName = SCHEMA + "." + SEQ_POSITION, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_POSITION)
     @Basic(optional = false)

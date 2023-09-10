@@ -37,7 +37,6 @@ public class Skill implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull
     @SequenceGenerator(name = SEQ_SKILL, sequenceName = SCHEMA + "." + SEQ_SKILL, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_SKILL)
     @Basic(optional = false)
