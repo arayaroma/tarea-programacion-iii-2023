@@ -1,0 +1,47 @@
+<!-- Doesn't works, yet. -->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:tns="http://controller.una.ac.cr/">
+    <soapenv:Header />
+    <soapenv:Body>
+        <tns:createUser>
+            <arg0>
+                <id>1</id>
+                <username>arayaroma</username>
+                <password>arayaroma</password>
+                <name>Daniel</name>
+                <lastname>Araya</lastname>
+                <secondLastname>Roman</secondLastname>
+                <identification>901140423</identification>
+                <email>darayaroma@gmail.com</email>
+                <landlineNumber>86420240</landlineNumber>
+                <phoneNumber>86420240</phoneNumber>
+                <isActive>Y</isActive>
+                <isAdmin>N</isAdmin>
+                <passwordChanged>N</passwordChanged>
+                <position>
+                    <id>2</id>
+                    <name>Database Administrator</name>
+                    <state>ACTIVE</state>
+                    <version>1</version>
+                </position>
+                <version>1</version>
+            </arg0>
+        </tns:createUser>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+<!-- Error -->
+<!-- 
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+<S:Body>
+    <ns2:createUserResponse xmlns:ns2="http://controller.una.ac.cr/">
+    <return>
+        <code>UNPROCESSABLE_ENTITY</code>
+        <message>User can't be processed, validation error: User.position must not be null</message>
+        <status>422</status>
+    </return>
+    </ns2:createUserResponse>
+</S:Body>
+</S:Envelope>
+-->

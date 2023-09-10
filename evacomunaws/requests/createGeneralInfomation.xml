@@ -1,0 +1,16 @@
+<!-- Works! -->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:tns="http://controller.una.ac.cr/">
+    <soapenv:Header />
+    <soapenv:Body>
+        <tns:createGeneralInformation>
+            <arg0>
+                <name>Tremendisimo</name>
+                <email>tremendisimo@gmail.com</email>
+                <photo>
+                    data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAkElEQVR42mJ8XAv6xZ+D3ze/+cVX/LzYr/tmcsjzA67/5+J1s3+ytfFDc7y50lmJhnOL70nAet7i0fb78vKjDs6zs3b/i45Irs7YvnTwyea/m/mhzlCZ8fo6R+fl4Bp3Q9Dszf8C8f3d7j7Yz6xj6yfFsFge4fsO+ZwuvT9c3B3fDzGvefLzHw9ssXe+yHrU3/TXGz8fPY3c/LzA6yd/SXGv6zk2f83y3TX4SjuxjPvaRvBx7d4cX8aD7KvD5y7RkH8r9esHzG/8fK/BN6xj9VrDG87w6zZz/8N/Y3Lz0gfM47g8wPbg8w3v8czzz+zX/M8x9fLw1+vTx4DnHL2HPuX+F+DK2H+L/NvGy8+4OzRnHD8cH7Pz1M+sm4f3fDJ1/yE7+Un9XnBs7j/YwAAAABJRU5ErkJggg==</photo>
+                <version>1</version>
+            </arg0>
+        </tns:createGeneralInformation>
+    </soapenv:Body>
+</soapenv:Envelope>
