@@ -54,7 +54,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     }
 
     @Override
-    public ResponseWrapper selectCharacteristics() {
+    public ResponseWrapper getCharacteristics() {
         try {
             // Revisar el envio de listas por XML
             // Query query = em.createNamedQuery("Characteristic.findAll");

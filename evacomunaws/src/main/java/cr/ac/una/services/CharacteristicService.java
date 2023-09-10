@@ -16,6 +16,6 @@ public interface CharacteristicService {
 
     ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto);
 
-    ResponseWrapper selectCharacteristics();
+    ResponseWrapper getCharacteristics();
 
 }
