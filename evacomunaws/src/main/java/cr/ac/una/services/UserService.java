@@ -7,20 +7,30 @@ import jakarta.ejb.Local;
 
 /**
  * @author arayaroma
+ * @author Angelo2002
  */
 @Local
 public interface UserService {
    
-    public ResponseWrapper createUser(UserDto userDto);
+    ResponseWrapper createUser(UserDto userDto);
 
-    public ResponseWrapper getUserById(Long id);
+    ResponseWrapper getUserById(Long id);
 
-    public ResponseWrapper updateUserById(Long id, UserDto userDto);
+    ResponseWrapper deleteUserById(Long id);
 
-    public ResponseWrapper deleteUserById(Long id);
+    ResponseWrapper getUserByIdentification(String identification);
 
-    public ResponseWrapper getUserByIdentification(String identification);
+    ResponseWrapper deleteUserByIdentification(String identification);
 
-    public ResponseWrapper deleteUserByIdentification(String identification);
+    ResponseWrapper getUserByUsername(String username);
+
+    ResponseWrapper getUserByUserAndPassword(String username, String password);
+
+    ResponseWrapper updateUser(UserDto userDto);
+
+    ResponseWrapper getUserListByName(String name);
+
+    ResponseWrapper getUserListByPosition(String position);
+
 
 }
