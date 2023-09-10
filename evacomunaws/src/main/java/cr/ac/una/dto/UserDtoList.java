@@ -6,12 +6,9 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
-
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +19,6 @@ public class UserDtoList {
 
     @XmlElement(name = "UserDto")
     private List<UserDto> userDtoList;
-
 
     public List<UserDto> getUserDtoList() {
         return userDtoList;

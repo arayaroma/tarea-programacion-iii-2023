@@ -44,12 +44,9 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
         @NamedQuery(name = "user.findByUsernameAndPassword", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
         @NamedQuery(name = "user.findByName", query = "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:name)"),
         @NamedQuery(name = "user.findByPosition", query = "SELECT u FROM User u WHERE LOWER(u.position.name) = LOWER(:position)")
-}
-)
+})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-
-
 
     @Id
     @SequenceGenerator(name = SEQ_USER, sequenceName = SCHEMA + "." + SEQ_USER, allocationSize = 1)
@@ -165,7 +162,7 @@ public class User implements Serializable {
     /**
      * @param userDto updates the userDto
      */
-    //TODO: Remove position object by managing it in service
+    // TODO: Remove position object by managing it in service
     public void updateUser(UserDto userDto) {
         this.username = userDto.getUsername();
         this.password = userDto.getPassword();
@@ -181,7 +178,6 @@ public class User implements Serializable {
         this.passwordChanged = userDto.getPasswordChanged();
         this.activationCode = userDto.getActivationCode();
         this.profilePhoto = userDto.getProfilePhoto();
-        this.position = new Position(userDto.getPosition());
         this.version = userDto.getVersion();
     }
 }
