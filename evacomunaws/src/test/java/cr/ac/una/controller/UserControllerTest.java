@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import cr.ac.una.dto.UserDto;
+import cr.ac.una.entities.User;
 import cr.ac.una.services.UserService;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -64,6 +65,14 @@ public class UserControllerTest {
         userTest.setProfilePhoto(null);
         userTest.setVersion(1L);
         return userTest;
+    }
+
+    @Test
+    @DisplayName("Test getUsersByName - Successful User Search")
+    public void getUsersByName() {
+        // Arrange
+        // Act
+        // Assert
     }
 
 }
