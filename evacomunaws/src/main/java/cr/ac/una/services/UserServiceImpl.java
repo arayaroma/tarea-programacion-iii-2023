@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
 
+import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.HtmlFileReader;
 import java.util.List;
 import java.util.Objects;
@@ -440,19 +441,20 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User retrieved successfully.",
-                    UserDto.fromEntityList(
+
+                    /*
+                     * UserDto.fromEntityList(
+                     * em.createNamedQuery("user.findByName", User.class)
+                     * .setParameter("name", "%" + name + "%")
+                     * .getResultList()));
+                     */
+
+                    EntityUtil.fromEntityList(
                             em.createNamedQuery("user.findByName", User.class)
                                     .setParameter("name", "%" + name + "%")
-                                    .getResultList()));
+                                    .getResultList(),
+                            UserDto.class));
 
-            /*
-             * EntityUtil.fromEntityList(
-             * em.createNamedQuery("user.findByName", User.class)
-             * .setParameter("name", "%" + name + "%")
-             * .getResultList(),
-             * UserDto::new // Constructor reference for UserDto
-             * )
-             */
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
