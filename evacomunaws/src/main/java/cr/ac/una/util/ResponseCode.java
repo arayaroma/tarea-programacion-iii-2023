@@ -24,7 +24,7 @@ public enum ResponseCode {
 
     private Integer code;
 
-    private ResponseCode(Integer code) {
+    ResponseCode(Integer code) {
         this.code = code;
     }
 
