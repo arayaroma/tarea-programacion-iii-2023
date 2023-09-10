@@ -4,13 +4,29 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-
+import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Angelo2002
+ * @author arayaroma
  **/
 public class EntityUtil {
+
+    public static <E, D> ListWrapper<D> fromEntityList(List<E> entities, Function<E, D> mapper) {
+        ListWrapper<D> listWrapper = new ListWrapper<>();
+        if (entities != null && !entities.isEmpty()) {
+            List<D> dtos = entities.stream()
+                    .map(mapper)
+                    .collect(Collectors.toList());
+
+            listWrapper.setList(dtos);
+        }
+        return listWrapper;
+    }
+
     public static <T> ResponseWrapper verifyEntity(T entity, Class<T> clazz) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
