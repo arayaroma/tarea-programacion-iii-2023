@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
             User user;
             user = new User(userDto);
 
-            ResponseWrapper BAD_REQUEST = verifyEntity(user, User.class);
-            if (BAD_REQUEST != null) return BAD_REQUEST;
+            ResponseWrapper INVALID_REQUEST = verifyEntity(user, User.class);
+            if (INVALID_REQUEST != null) return INVALID_REQUEST;
 
             em.persist(user);
             em.flush();
@@ -88,9 +88,9 @@ public class UserServiceImpl implements UserService {
     public ResponseWrapper getUserById(Long id) {
         if (id == null || id <= 0) {
             return new ResponseWrapper(
-                    ResponseCode.NOT_FOUND.getCode(),
-                    ResponseCode.NOT_FOUND,
-                    "User not found, id null.",
+                    ResponseCode.BAD_REQUEST.getCode(),
+                    ResponseCode.BAD_REQUEST,
+                    "Id can't be null.",
                     null);
         }
         try {
