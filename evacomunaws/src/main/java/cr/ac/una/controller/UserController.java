@@ -9,6 +9,7 @@ import jakarta.jws.WebService;
 
 /**
  * @author arayaroma
+ * @author Angelo2002
  */
 @WebService(serviceName = "UserController")
 public class UserController {
@@ -44,22 +45,67 @@ public class UserController {
     }
 
     /**
-     * @param id user id to be updated
-     * @param userDto user to be updated
-     * @return ResponseWrapper with the response of the service call
-     */
-    @WebMethod(operationName = "updateUserById")
-    public ResponseWrapper updateUserById(Long id, UserDto userDto) {
-        return userService.updateUserById(id, userDto);
-    }
-
-    /**
      * @param identification user identification to be deleted
      * @return ResponseWrapper with the response of the service call
      */
     @WebMethod(operationName = "deleteUserByIdentification")
     public ResponseWrapper deleteUserByIdentification(String identification) {
         return userService.deleteUserByIdentification(identification);
+    }
+
+    /**
+     * @param id user id to be deleted
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "deleteUserById")
+    public ResponseWrapper deleteUserById(Long id) {
+        return userService.deleteUserById(id);
+    }
+
+    /**
+     * @param username Username to be matched
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "getUserByUsername")
+    public ResponseWrapper getUserByUsername(String username) {
+        return userService.getUserByUsername(username);
+    }
+
+    /**
+     * @param username user username to be matched
+     * @param password user password to be matched
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "getUserByUserAndPassword")
+    public ResponseWrapper getUserByUserAndPassword(String username, String password) {
+        return userService.getUserByUserAndPassword(username, password);
+    }
+
+    /**
+     * @param userDto user to be updated
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "updateUser")
+    public ResponseWrapper updateUser(UserDto userDto) {
+        return userService.updateUser(userDto);
+    }
+
+    /**
+     * @param name Name to be searched
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "getUserListByName")
+    public ResponseWrapper getUserListByName(String name) {
+        return userService.getUserListByName(name);
+    }
+
+    /**
+     * @param position Position to be matched with the users
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "getUsersByPosition")
+    public ResponseWrapper getUsersByPosition(String position) {
+        return userService.getUserListByPosition(position);
     }
 
 }
