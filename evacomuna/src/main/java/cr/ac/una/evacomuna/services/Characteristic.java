@@ -19,9 +19,9 @@ public class Characteristic {
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         return port.createCharacteristic(characteristicDto);
     }
-//    public ResponseWrapper getCharacteristics() {
-//        return port.
-//    }
+    public ResponseWrapper selectCharacteristics() {
+        return port.selectCharacteristics();
+    }
 
 //    private CharacteristicService service;
 //    private CompanyController port;

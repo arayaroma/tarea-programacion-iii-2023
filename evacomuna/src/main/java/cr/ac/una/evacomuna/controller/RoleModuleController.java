@@ -1,11 +1,13 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.CharacteristicDto;
+import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.evacomuna.services.Characteristic;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,6 +73,7 @@ public class RoleModuleController implements Initializable {
         //Load lists
         try {
             characteristicService = new Characteristic();
+            loadCharacteristics();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -129,7 +132,7 @@ public class RoleModuleController implements Initializable {
             }
             CharacteristicDto characteristicDto = new CharacteristicDto();
             characteristicDto.setName(name);
-            characteristicDto.setId(Long.valueOf(1));
+//            characteristicDto.setId(Long.valueOf(1));
             ResponseWrapper response = characteristicService.createCharacteristic(characteristicDto);
             Message.showNotification("Data", MessageType.INFO, response.getMessage());
             System.out.println(response.getMessage());
@@ -142,6 +145,14 @@ public class RoleModuleController implements Initializable {
     @FXML
     private void btnEditCharacteristic(ActionEvent event) {
     }
-    
+
+    private List<CharacteristicDto> loadCharacteristics() {
+        ResponseWrapper response = characteristicService.selectCharacteristics();
+        if (response.getCode() == ResponseCode.OK) {
+            Object data = response.getData();
+
+        }
+        return null;
+    }
 
 }

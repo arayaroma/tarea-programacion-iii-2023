@@ -3,6 +3,7 @@ package cr.ac.una.controller;
 import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.services.CharacteristicService;
 import cr.ac.una.util.ResponseWrapper;
+
 import jakarta.ejb.EJB;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

@@ -20,21 +20,30 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.CharacteristicDto;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Entity
-@Table(name = "TBL_CHARACTERISTIC", schema = SCHEMA)
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@XmlRootElement
+@Table(name = "TBL_CHARACTERISTIC", schema = SCHEMA)
+@NamedQueries({
+    @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Characteristic implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull
     @SequenceGenerator(name = SEQ_CHARACTERISTIC, sequenceName = SCHEMA + "." + SEQ_CHARACTERISTIC, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_CHARACTERISTIC)
     @Basic(optional = false)

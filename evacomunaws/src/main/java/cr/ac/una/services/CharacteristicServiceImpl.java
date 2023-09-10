@@ -6,11 +6,13 @@ import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
+
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.ws.rs.core.GenericEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,22 +60,26 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     @Override
     public ResponseWrapper selectCharacteristics() {
         try {
-            List<CharacteristicDto> characteristicsDto = new ArrayList();
-            Query query = em.createNativeQuery("SELECT * FROM TBL_CHARACTERISTIC");
-            for (Object i : query.getResultList()) {
-                characteristicsDto.add(new CharacteristicDto((Characteristic) i));
+            //Revisar el envio de listas por XML
+            Query query = em.createNamedQuery("Characteristic.findAll");
+            List<Characteristic> characteristics = query.getResultList();
+            List<CharacteristicDto> characteristicDto = new ArrayList<>();
+            for (Characteristic i : characteristics) {
+                characteristicDto.add(new CharacteristicDto(i));
             }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Characteristics selected.",
-                    characteristicsDto);
+                    "Characteristic selected successfully.",
+                    characteristicDto);
+//            return new RespuestaEsteban(ResponseCode.OK.getCode(), ResponseCode.OK, "Characteristics selected", "characteristics", characteristicDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while creating characteristic: " + e.getMessage(),
                     null);
+//            return new RespuestaEsteban(ResponseCode.OK.getCode(), ResponseCode.OK, "error selected" + e.toString(), "error", null);
         }
     }
 

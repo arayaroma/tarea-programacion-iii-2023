@@ -2,6 +2,9 @@ package cr.ac.una.dto;
 
 import java.util.List;
 import cr.ac.una.entities.Characteristic;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +16,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CharacteristicDto {
     private Long id;
     private String name;
