@@ -8,9 +8,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 
 /**
  * FXML Controller class
@@ -20,11 +20,7 @@ import javafx.scene.layout.StackPane;
 public class RoleModuleController implements Initializable {
 
     @FXML
-    private StackPane parent;
-    @FXML
-    private HBox registerView;
-    @FXML
-    private HBox mainView;
+    private TabPane parent;
     @FXML
     private TextField txfRoleNameRegister;
     @FXML
@@ -37,6 +33,28 @@ public class RoleModuleController implements Initializable {
     private Button btnDeleteSkill;
     @FXML
     private ListView<?> listSkillsMain;
+    @FXML
+    private HBox registerRolesView;
+    @FXML
+    private HBox mainRoleView;
+    @FXML
+    private HBox mainSkillsView;
+    @FXML
+    private ListView<?> listCharacteristics;
+    @FXML
+    private HBox registerSkillsView;
+    @FXML
+    private TextField txfSkillNameRegister;
+    @FXML
+    private Button btnAddCharacteristic;
+    @FXML
+    private ListView<?> listCharacteristicsRegister;
+    @FXML
+    private HBox mainCharacteristicsView;
+    @FXML
+    private ListView<?> listCharactersitic;
+    @FXML
+    private TextField txfCharacteristic;
 
     /**
      * Initializes the controller class.
@@ -48,17 +66,16 @@ public class RoleModuleController implements Initializable {
 
     @FXML
     private void btnNewRole(ActionEvent event) {
-        registerView.toFront();
+     
     }
 
-    @FXML
     private void btnBackToMain(ActionEvent event) {
-        mainView.toFront();
+     
     }
 
     @FXML
     private void btnEditRole(ActionEvent event) {
-        registerView.toFront();
+       
     }
 
     @FXML
@@ -66,8 +83,42 @@ public class RoleModuleController implements Initializable {
     }
 
     @FXML
-    private void cbRoles(ActionEvent event) {
-        //Filter roles
+    private void btnBackToMainRole(ActionEvent event) {
+     
+    }
+
+    @FXML
+    private void btnNewSkill(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnEditSkill(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnDeleteSkill(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnBackToSkillMain(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnDeleteCharacteristic(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnNewCharactersitic(ActionEvent event) {
+        String name = txfCharacteristic.getText();
+        if(name.isEmpty()){
+            return;
+        }
+        
+    }
+
+
+    @FXML
+    private void btnEditCharacteristic(ActionEvent event) {
     }
 
 }

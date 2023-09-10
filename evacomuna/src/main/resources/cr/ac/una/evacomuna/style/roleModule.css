@@ -10,3 +10,17 @@
     -fx-dark-red:#881c1c;
     -fx-dark-green:#1c8822;
 }
+.tab-header-background {
+    -fx-background-color: -fx-white-white-blue;
+}
+.tab-label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.tab{
+    -fx-background-color: -fx-white-blue;
+    -fx-text-fill:white;
+}
+.tab:selected{
+    -fx-background-color: -fx-blue;
+}
