@@ -24,7 +24,7 @@ public class CharacteristicController {
     }
     @WebMethod(operationName = "selectCharacteristics")
     public ResponseWrapper selectCharacteristics() {
-        return characteristicService.selectCharacteristics();
+        return characteristicService.getCharacteristics();
     }
 
 }
