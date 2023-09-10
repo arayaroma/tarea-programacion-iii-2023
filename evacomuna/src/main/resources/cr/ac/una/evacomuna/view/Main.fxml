@@ -37,7 +37,7 @@
                               <Circle fill="#1f93ff00" radius="40.0" stroke="#3f56dc" strokeType="INSIDE" />
                            </children>
                         </StackPane>
-                        <VBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Button mnemonicParsing="false" onAction="#btnWorkersModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
                                  <graphic>
@@ -85,6 +85,18 @@
                                  </graphic>
                                  <tooltip>
                                     <Tooltip text="Role Module" />
+                                 </tooltip>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#btnPendingsEvaluation" scaleX="0.7" scaleY="0.7" styleClass="icon">
+                                 <graphic>
+                                    <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
+                                       <image>
+                                          <Image url="@../img/lista-de-verificacion.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Pending Evaluations" />
                                  </tooltip>
                               </Button>
                            </children>

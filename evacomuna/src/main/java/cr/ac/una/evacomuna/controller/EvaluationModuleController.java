@@ -22,8 +22,6 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private TabPane parent;
     @FXML
-    private Tab maintanceView;
-    @FXML
     private TextField txfNameEvaluation;
     @FXML
     private DatePicker dpStartDate;
@@ -45,10 +43,9 @@ public class EvaluationModuleController implements Initializable {
     private ListView<?> listEvaluatedFix;
     @FXML
     private Tab appliedView;
+    @FXML
+    private Tab maintenanceView;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

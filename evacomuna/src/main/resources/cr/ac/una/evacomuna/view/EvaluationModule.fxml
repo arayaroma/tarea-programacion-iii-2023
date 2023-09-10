@@ -17,7 +17,7 @@
 
 <TabPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="600.0" styleClass="bg-white" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.EvaluationModuleController">
   <tabs>
-    <Tab fx:id="maintanceView" text="Evaluation Maintenance">
+    <Tab fx:id="maintenanceView" text="Evaluation Maintenance">
          <content>
             <VBox>
                <children>

@@ -41,7 +41,7 @@
                   </StackPane>
                </children>
             </VBox>
-            <HBox>
+            <HBox alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" spacing="30.0">
                      <children>

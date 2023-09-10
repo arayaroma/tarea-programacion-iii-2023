@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="parent" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" styleClass="bg-white" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="20.0">
+         <children>
+            <VBox fillWidth="false" spacing="10.0">
+               <children>
+                  <ComboBox onAction="#selectEvaluation" promptText="Pending Evaluations" />
+                  <Label fx:id="lblNameEvaluated" styleClass="h2" text="Name: " />
+                  <Label fx:id="lblRoleEvaluated" styleClass="h2" text="Role:" />
+               </children>
+            </VBox>
+            <GridPane fx:id="gridEvaluation" alignment="CENTER" hgap="10.0" styleClass="bg-blue">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Excepcional" GridPane.columnIndex="2">
+                     <styleClass>
+                        <String fx:value="h2" />
+                        <String fx:value="labelGrid" />
+                     </styleClass>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Por encima de las expectativas" GridPane.columnIndex="3">
+                     <styleClass>
+                        <String fx:value="h2" />
+                        <String fx:value="labelGrid" />
+                     </styleClass>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Cumple las expectativas" GridPane.columnIndex="4">
+                     <styleClass>
+                        <String fx:value="h2" />
+                        <String fx:value="labelGrid" />
+                     </styleClass>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Por debajo de las expectativas" GridPane.columnIndex="5">
+                     <styleClass>
+                        <String fx:value="h2" />
+                        <String fx:value="labelGrid" />
+                     </styleClass>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView fx:id="imgCheck" fitHeight="30.0" fitWidth="30.0" smooth="false" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../img/comprobar.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <TextArea fx:id="txaFeedBack" prefHeight="100.0" prefWidth="300.0" promptText="Feedback" />
+            <Button mnemonicParsing="false" onAction="#sendEvaluation" text="Send Evaluation">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="confirm-color" />
+               </styleClass></Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../style/pendingevaluations.css" />
+      <URL value="@../style/index.css" />
+   </stylesheets>
+</VBox>

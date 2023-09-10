@@ -5,7 +5,6 @@ import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -86,7 +85,7 @@ public class MainController implements Initializable {
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
         }
-        
+
     }
 
     @FXML
@@ -106,6 +105,16 @@ public class MainController implements Initializable {
             mainScreen.getChildren().clear();
             FXMLLoader loader = App.getFXMLLoader("RoleModule");
             mainScreen.getChildren().add(loader.load());
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void btnPendingsEvaluation(ActionEvent event) {
+        try {
+            mainScreen.getChildren().clear();
+//            FXMLLoader loader = App.getFXMLLoader("RoleModule");
+//            mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
         }
     }
