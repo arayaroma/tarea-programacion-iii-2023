@@ -106,6 +106,7 @@ public class MainController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("RoleModule");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }
 

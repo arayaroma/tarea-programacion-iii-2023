@@ -1,5 +1,10 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.CharacteristicDto;
+import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.services.Characteristic;
+import cr.ac.una.evacomuna.util.Message;
+import cr.ac.una.evacomuna.util.MessageType;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -52,9 +57,11 @@ public class RoleModuleController implements Initializable {
     @FXML
     private HBox mainCharacteristicsView;
     @FXML
-    private ListView<?> listCharactersitic;
+    private ListView<CharacteristicDto> listCharactersitic;
     @FXML
     private TextField txfCharacteristic;
+
+    Characteristic characteristicService;
 
     /**
      * Initializes the controller class.
@@ -62,20 +69,26 @@ public class RoleModuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Load lists
+        try {
+            characteristicService = new Characteristic();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     @FXML
     private void btnNewRole(ActionEvent event) {
-     
+
     }
 
     private void btnBackToMain(ActionEvent event) {
-     
+
     }
 
     @FXML
     private void btnEditRole(ActionEvent event) {
-       
+
     }
 
     @FXML
@@ -84,7 +97,7 @@ public class RoleModuleController implements Initializable {
 
     @FXML
     private void btnBackToMainRole(ActionEvent event) {
-     
+
     }
 
     @FXML
@@ -109,16 +122,26 @@ public class RoleModuleController implements Initializable {
 
     @FXML
     private void btnNewCharactersitic(ActionEvent event) {
-        String name = txfCharacteristic.getText();
-        if(name.isEmpty()){
-            return;
+        try {
+            String name = txfCharacteristic.getText();
+            if (name.isEmpty()) {
+                return;
+            }
+            CharacteristicDto characteristicDto = new CharacteristicDto();
+            characteristicDto.setName(name);
+            characteristicDto.setId(Long.valueOf(1));
+            ResponseWrapper response = characteristicService.createCharacteristic(characteristicDto);
+            Message.showNotification("Data", MessageType.INFO, response.getMessage());
+            System.out.println(response.getMessage());
+//            listCharacteristics.set
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
-        
     }
-
 
     @FXML
     private void btnEditCharacteristic(ActionEvent event) {
     }
+    
 
 }

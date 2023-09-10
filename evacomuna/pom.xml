@@ -66,10 +66,14 @@
                                     <wsdl>
                                         ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
                                 </wsdlOption>
-                                <wsdlOption>
+                                   <wsdlOption>
+                                    <wsdl>
+                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CharacteristicService.wsdl</wsdl>
+                                </wsdlOption>
+<!--                                <wsdlOption>
                                     <wsdl>
                                         ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CompanyService.wsdl</wsdl>
-                                </wsdlOption>
+                                </wsdlOption>-->
                                 <wsdlOption>
                                     <wsdl>
                                         ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>

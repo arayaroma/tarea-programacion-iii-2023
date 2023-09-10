@@ -24,6 +24,8 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _UserDto_QNAME = new QName("http://controller.una.ac.cr/", "UserDto");
+    private final static QName _UserDtoList_QNAME = new QName("http://controller.una.ac.cr/", "UserDtoList");
     private final static QName _CreatePosition_QNAME = new QName("http://controller.una.ac.cr/", "createPosition");
     private final static QName _CreatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "createPositionResponse");
     private final static QName _DeletePositionById_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionById");
@@ -38,6 +40,22 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link UserDto }
+     * 
+     */
+    public UserDto createUserDto() {
+        return new UserDto();
+    }
+
+    /**
+     * Create an instance of {@link UserDtoList }
+     * 
+     */
+    public UserDtoList createUserDtoList() {
+        return new UserDtoList();
     }
 
     /**
@@ -113,11 +131,101 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SkillDto }
+     * 
+     */
+    public SkillDto createSkillDto() {
+        return new SkillDto();
+    }
+
+    /**
+     * Create an instance of {@link CalificationDto }
+     * 
+     */
+    public CalificationDto createCalificationDto() {
+        return new CalificationDto();
+    }
+
+    /**
+     * Create an instance of {@link EvaluatedDto }
+     * 
+     */
+    public EvaluatedDto createEvaluatedDto() {
+        return new EvaluatedDto();
+    }
+
+    /**
+     * Create an instance of {@link EvaluationDto }
+     * 
+     */
+    public EvaluationDto createEvaluationDto() {
+        return new EvaluationDto();
+    }
+
+    /**
+     * Create an instance of {@link LocalDate }
+     * 
+     */
+    public LocalDate createLocalDate() {
+        return new LocalDate();
+    }
+
+    /**
+     * Create an instance of {@link EvaluatorDto }
+     * 
+     */
+    public EvaluatorDto createEvaluatorDto() {
+        return new EvaluatorDto();
+    }
+
+    /**
+     * Create an instance of {@link FinalCalificationDto }
+     * 
+     */
+    public FinalCalificationDto createFinalCalificationDto() {
+        return new FinalCalificationDto();
+    }
+
+    /**
+     * Create an instance of {@link CharacteristicDto }
+     * 
+     */
+    public CharacteristicDto createCharacteristicDto() {
+        return new CharacteristicDto();
+    }
+
+    /**
      * Create an instance of {@link ResponseWrapper }
      * 
      */
     public ResponseWrapper createResponseWrapper() {
         return new ResponseWrapper();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UserDto }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UserDto }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "UserDto")
+    public JAXBElement<UserDto> createUserDto(UserDto value) {
+        return new JAXBElement<UserDto>(_UserDto_QNAME, UserDto.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UserDtoList }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UserDtoList }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "UserDtoList")
+    public JAXBElement<UserDtoList> createUserDtoList(UserDtoList value) {
+        return new JAXBElement<UserDtoList>(_UserDtoList_QNAME, UserDtoList.class, null, value);
     }
 
     /**

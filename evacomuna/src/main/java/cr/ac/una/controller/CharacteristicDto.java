@@ -10,20 +10,18 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para positionDto complex type.
+ * <p>Clase Java para characteristicDto complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="positionDto"&gt;
+ * &lt;complexType name="characteristicDto"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="skills" type="{http://controller.una.ac.cr/}skillDto" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="users" type="{http://controller.una.ac.cr/}userDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -34,23 +32,18 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "positionDto", propOrder = {
+@XmlType(name = "characteristicDto", propOrder = {
     "id",
     "name",
     "skills",
-    "state",
-    "users",
     "version"
 })
-public class PositionDto {
+public class CharacteristicDto {
 
     protected Long id;
     protected String name;
     @XmlElement(nillable = true)
     protected List<SkillDto> skills;
-    protected String state;
-    @XmlElement(nillable = true)
-    protected List<UserDto> users;
     protected Long version;
 
     /**
@@ -128,59 +121,6 @@ public class PositionDto {
             skills = new ArrayList<SkillDto>();
         }
         return this.skills;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad state.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * Define el valor de la propiedad state.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setState(String value) {
-        this.state = value;
-    }
-
-    /**
-     * Gets the value of the users property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the users property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getUsers().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link UserDto }
-     * 
-     * 
-     */
-    public List<UserDto> getUsers() {
-        if (users == null) {
-            users = new ArrayList<UserDto>();
-        }
-        return this.users;
     }
 
     /**

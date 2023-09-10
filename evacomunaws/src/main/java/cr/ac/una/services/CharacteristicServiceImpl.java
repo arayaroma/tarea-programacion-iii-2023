@@ -10,6 +10,9 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -53,8 +56,25 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     }
 
     @Override
-    public ResponseWrapper selectCharactersitcs() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ResponseWrapper selectCharacteristics() {
+        try {
+            List<CharacteristicDto> characteristicsDto = new ArrayList();
+            Query query = em.createNativeQuery("SELECT * FROM TBL_CHARACTERISTIC");
+            for (Object i : query.getResultList()) {
+                characteristicsDto.add(new CharacteristicDto((Characteristic) i));
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Characteristics selected.",
+                    characteristicsDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while creating characteristic: " + e.getMessage(),
+                    null);
+        }
     }
 
 }

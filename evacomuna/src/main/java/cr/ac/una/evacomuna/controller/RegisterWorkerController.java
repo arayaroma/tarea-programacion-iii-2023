@@ -131,7 +131,7 @@ public class RegisterWorkerController implements Initializable {
         user.setEmail(args[6]);
         user.setPhoneNumber(args[7]);
         user.setLandlineNumber(args[8]);
-        user.setUserPositionId(Long.MAX_VALUE);
+//        user.setUserPositionId(Long.MAX_VALUE);
         return user;
     }
 

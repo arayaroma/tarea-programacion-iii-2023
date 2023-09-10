@@ -1,6 +1,8 @@
 
 package cr.ac.una.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlType;
@@ -16,20 +18,25 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
- *         &lt;element name="identification" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="isActive" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="isAdmin" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="landlineNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="lastname" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="lastname" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="secondLastname" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="identification" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="landlineNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="phoneNumber" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="profilePhoto" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/&gt;
- *         &lt;element name="secondLastname" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="userPositionId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
- *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="isActive" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="isAdmin" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="passwordChanged" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="activationCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="position" type="{http://controller.una.ac.cr/}positionDto" minOccurs="0"/&gt;
+ *         &lt;element name="evaluated" type="{http://controller.una.ac.cr/}evaluatedDto" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="evaluators" type="{http://controller.una.ac.cr/}evaluatorDto" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -40,61 +47,47 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "userDto", propOrder = {
-    "email",
     "id",
-    "identification",
-    "isActive",
-    "isAdmin",
-    "landlineNumber",
-    "lastname",
-    "name",
+    "username",
     "password",
+    "name",
+    "lastname",
+    "secondLastname",
+    "identification",
+    "email",
+    "landlineNumber",
     "phoneNumber",
     "profilePhoto",
-    "secondLastname",
-    "userPositionId",
-    "username"
+    "isActive",
+    "isAdmin",
+    "passwordChanged",
+    "activationCode",
+    "position",
+    "evaluated",
+    "evaluators",
+    "version"
 })
 public class UserDto {
 
-    protected String email;
     protected Long id;
-    protected String identification;
-    protected String isActive;
-    protected String isAdmin;
-    protected String landlineNumber;
-    protected String lastname;
-    protected String name;
+    protected String username;
     protected String password;
+    protected String name;
+    protected String lastname;
+    protected String secondLastname;
+    protected String identification;
+    protected String email;
+    protected String landlineNumber;
     protected String phoneNumber;
     protected byte[] profilePhoto;
-    protected String secondLastname;
-    protected Long userPositionId;
-    protected String username;
-
-    /**
-     * Obtiene el valor de la propiedad email.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Define el valor de la propiedad email.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEmail(String value) {
-        this.email = value;
-    }
+    protected String isActive;
+    protected String isAdmin;
+    protected String passwordChanged;
+    protected String activationCode;
+    protected PositionDto position;
+    protected List<EvaluatedDto> evaluated;
+    protected List<EvaluatorDto> evaluators;
+    protected Long version;
 
     /**
      * Obtiene el valor de la propiedad id.
@@ -121,6 +114,126 @@ public class UserDto {
     }
 
     /**
+     * Obtiene el valor de la propiedad username.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Define el valor de la propiedad username.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUsername(String value) {
+        this.username = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad password.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Define el valor de la propiedad password.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPassword(String value) {
+        this.password = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad name.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Define el valor de la propiedad name.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad lastname.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * Define el valor de la propiedad lastname.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLastname(String value) {
+        this.lastname = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad secondLastname.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSecondLastname() {
+        return secondLastname;
+    }
+
+    /**
+     * Define el valor de la propiedad secondLastname.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSecondLastname(String value) {
+        this.secondLastname = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad identification.
      * 
      * @return
@@ -142,6 +255,100 @@ public class UserDto {
      */
     public void setIdentification(String value) {
         this.identification = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad email.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Define el valor de la propiedad email.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEmail(String value) {
+        this.email = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad landlineNumber.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLandlineNumber() {
+        return landlineNumber;
+    }
+
+    /**
+     * Define el valor de la propiedad landlineNumber.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLandlineNumber(String value) {
+        this.landlineNumber = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad phoneNumber.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * Define el valor de la propiedad phoneNumber.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setPhoneNumber(String value) {
+        this.phoneNumber = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad profilePhoto.
+     * 
+     * @return
+     *     possible object is
+     *     byte[]
+     */
+    public byte[] getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    /**
+     * Define el valor de la propiedad profilePhoto.
+     * 
+     * @param value
+     *     allowed object is
+     *     byte[]
+     */
+    public void setProfilePhoto(byte[] value) {
+        this.profilePhoto = value;
     }
 
     /**
@@ -193,217 +400,157 @@ public class UserDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad landlineNumber.
+     * Obtiene el valor de la propiedad passwordChanged.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLandlineNumber() {
-        return landlineNumber;
+    public String getPasswordChanged() {
+        return passwordChanged;
     }
 
     /**
-     * Define el valor de la propiedad landlineNumber.
+     * Define el valor de la propiedad passwordChanged.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLandlineNumber(String value) {
-        this.landlineNumber = value;
+    public void setPasswordChanged(String value) {
+        this.passwordChanged = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad lastname.
+     * Obtiene el valor de la propiedad activationCode.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getLastname() {
-        return lastname;
+    public String getActivationCode() {
+        return activationCode;
     }
 
     /**
-     * Define el valor de la propiedad lastname.
+     * Define el valor de la propiedad activationCode.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setLastname(String value) {
-        this.lastname = value;
+    public void setActivationCode(String value) {
+        this.activationCode = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad name.
+     * Obtiene el valor de la propiedad position.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link PositionDto }
      *     
      */
-    public String getName() {
-        return name;
+    public PositionDto getPosition() {
+        return position;
     }
 
     /**
-     * Define el valor de la propiedad name.
+     * Define el valor de la propiedad position.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link PositionDto }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setPosition(PositionDto value) {
+        this.position = value;
     }
 
     /**
-     * Obtiene el valor de la propiedad password.
+     * Gets the value of the evaluated property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Define el valor de la propiedad password.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the Jakarta XML Binding object.
+     * This is why there is not a <CODE>set</CODE> method for the evaluated property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPassword(String value) {
-        this.password = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad phoneNumber.
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getEvaluated().add(newItem);
+     * </pre>
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**
-     * Define el valor de la propiedad phoneNumber.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPhoneNumber(String value) {
-        this.phoneNumber = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad profilePhoto.
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link EvaluatedDto }
      * 
-     * @return
-     *     possible object is
-     *     byte[]
-     */
-    public byte[] getProfilePhoto() {
-        return profilePhoto;
-    }
-
-    /**
-     * Define el valor de la propiedad profilePhoto.
      * 
-     * @param value
-     *     allowed object is
-     *     byte[]
      */
-    public void setProfilePhoto(byte[] value) {
-        this.profilePhoto = value;
+    public List<EvaluatedDto> getEvaluated() {
+        if (evaluated == null) {
+            evaluated = new ArrayList<EvaluatedDto>();
+        }
+        return this.evaluated;
     }
 
     /**
-     * Obtiene el valor de la propiedad secondLastname.
+     * Gets the value of the evaluators property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSecondLastname() {
-        return secondLastname;
-    }
-
-    /**
-     * Define el valor de la propiedad secondLastname.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the Jakarta XML Binding object.
+     * This is why there is not a <CODE>set</CODE> method for the evaluators property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getEvaluators().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link EvaluatorDto }
+     * 
+     * 
      */
-    public void setSecondLastname(String value) {
-        this.secondLastname = value;
+    public List<EvaluatorDto> getEvaluators() {
+        if (evaluators == null) {
+            evaluators = new ArrayList<EvaluatorDto>();
+        }
+        return this.evaluators;
     }
 
     /**
-     * Obtiene el valor de la propiedad userPositionId.
+     * Obtiene el valor de la propiedad version.
      * 
      * @return
      *     possible object is
      *     {@link Long }
      *     
      */
-    public Long getUserPositionId() {
-        return userPositionId;
+    public Long getVersion() {
+        return version;
     }
 
     /**
-     * Define el valor de la propiedad userPositionId.
+     * Define el valor de la propiedad version.
      * 
      * @param value
      *     allowed object is
      *     {@link Long }
      *     
      */
-    public void setUserPositionId(Long value) {
-        this.userPositionId = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad username.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Define el valor de la propiedad username.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUsername(String value) {
-        this.username = value;
+    public void setVersion(Long value) {
+        this.version = value;
     }
 
 }
