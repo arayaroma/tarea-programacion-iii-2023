@@ -4,9 +4,9 @@ import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.entities.Characteristic;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
+import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
-
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -50,25 +50,26 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 
     @Override
     public ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public ResponseWrapper selectCharacteristics() {
         try {
-            //Revisar el envio de listas por XML
-//            Query query = em.createNamedQuery("Characteristic.findAll");
-//            List<Characteristic> characteristics = query.getResultList();
-//            List<CharacteristicDto> characteristicDto = new ArrayList<>();
-//            for (Characteristic i : characteristics) {
-//                characteristicDto.add(new CharacteristicDto(i));
-//            }
-//            CharacteristicDtoList list = new CharacteristicDtoList(characteristicDto);
+            // Revisar el envio de listas por XML
+            // Query query = em.createNamedQuery("Characteristic.findAll");
+            // List<Characteristic> characteristics = query.getResultList();
+            // List<CharacteristicDto> characteristicDto = new ArrayList<>();
+            // for (Characteristic i : characteristics) {
+            // characteristicDto.add(new CharacteristicDto(i));
+            // }
+            // CharacteristicDtoList list = new CharacteristicDtoList(characteristicDto);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Characteristic selected successfully.",
-                    CharacteristicDto.fromEntityList(em.createNamedQuery("Characteristic.findAll").getResultList()));
+                    EntityUtil.fromEntityList(em.createNamedQuery("Characteristic.findAll").getResultList(),
+                            CharacteristicDto.class));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

@@ -1,6 +1,5 @@
 package cr.ac.una.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.User;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -61,22 +60,4 @@ public class UserDto {
         this.version = user.getVersion();
     }
 
-    /**
-     * @param users list of users to be converted to dto
-     **/
-    // TODO: Analyze if this belongs in userDto
-    public static UserDtoList fromEntityList(List<User> users) {
-        UserDtoList userDtoList = new UserDtoList();
-        if (users == null || users.isEmpty()) {
-            return userDtoList;
-        }
-
-        List<UserDto> userDtos = new ArrayList<>();
-        for (User user : users) {
-            userDtos.add(new UserDto(user));
-        }
-
-        userDtoList.setUserDtoList(userDtos);
-        return userDtoList;
-    }
 }

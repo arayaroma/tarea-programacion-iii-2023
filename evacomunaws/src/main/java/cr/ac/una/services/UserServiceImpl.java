@@ -11,10 +11,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
-
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.HtmlFileReader;
 import java.util.List;
@@ -441,14 +439,6 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User retrieved successfully.",
-
-                    /*
-                     * UserDto.fromEntityList(
-                     * em.createNamedQuery("user.findByName", User.class)
-                     * .setParameter("name", "%" + name + "%")
-                     * .getResultList()));
-                     */
-
                     EntityUtil.fromEntityList(
                             em.createNamedQuery("user.findByName", User.class)
                                     .setParameter("name", "%" + name + "%")
@@ -483,10 +473,11 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users retrieved successfully.",
-                    UserDto.fromEntityList(
+                    EntityUtil.fromEntityList(
                             em.createNamedQuery("user.findByPosition", User.class)
-                                    .setParameter("position", position)
-                                    .getResultList()));
+                                    .setParameter("position", "%" + position + "%")
+                                    .getResultList(),
+                            UserDto.class));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

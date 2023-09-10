@@ -9,9 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-
 import cr.ac.una.dto.UserDto;
-import cr.ac.una.entities.User;
 import cr.ac.una.services.UserService;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
