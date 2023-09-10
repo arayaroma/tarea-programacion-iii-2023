@@ -11,14 +11,10 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.ws.rs.core.GenericEntity;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author arayaroma
+ * @author enajera
  */
 @Stateless
 @LocalBean
@@ -61,25 +57,24 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     public ResponseWrapper selectCharacteristics() {
         try {
             //Revisar el envio de listas por XML
-            Query query = em.createNamedQuery("Characteristic.findAll");
-            List<Characteristic> characteristics = query.getResultList();
-            List<CharacteristicDto> characteristicDto = new ArrayList<>();
-            for (Characteristic i : characteristics) {
-                characteristicDto.add(new CharacteristicDto(i));
-            }
+//            Query query = em.createNamedQuery("Characteristic.findAll");
+//            List<Characteristic> characteristics = query.getResultList();
+//            List<CharacteristicDto> characteristicDto = new ArrayList<>();
+//            for (Characteristic i : characteristics) {
+//                characteristicDto.add(new CharacteristicDto(i));
+//            }
+//            CharacteristicDtoList list = new CharacteristicDtoList(characteristicDto);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Characteristic selected successfully.",
-                    characteristicDto);
-//            return new RespuestaEsteban(ResponseCode.OK.getCode(), ResponseCode.OK, "Characteristics selected", "characteristics", characteristicDto);
+                    CharacteristicDto.fromEntityList(em.createNamedQuery("Characteristic.findAll").getResultList()));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while creating characteristic: " + e.getMessage(),
                     null);
-//            return new RespuestaEsteban(ResponseCode.OK.getCode(), ResponseCode.OK, "error selected" + e.toString(), "error", null);
         }
     }
 

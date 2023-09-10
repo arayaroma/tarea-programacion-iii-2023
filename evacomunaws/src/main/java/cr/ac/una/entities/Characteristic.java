@@ -22,9 +22,6 @@ import java.util.List;
 import cr.ac.una.dto.CharacteristicDto;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -34,11 +31,9 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@XmlRootElement
 @Table(name = "TBL_CHARACTERISTIC", schema = SCHEMA)
 @NamedQueries({
     @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),})
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Characteristic implements Serializable {
 
     private static final long serialVersionUID = 1L;
