@@ -4,7 +4,9 @@ import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.controller.SkillDto;
 import cr.ac.una.evacomuna.services.Characteristic;
+import cr.ac.una.evacomuna.services.Skill;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import java.net.URL;
@@ -12,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventDispatchChain;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,7 +23,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -34,7 +39,9 @@ public class RoleModuleController implements Initializable {
     @FXML
     private TextField txfRoleNameRegister;
     @FXML
-    private ComboBox<?> cbRolesSkillsRegister;
+    private ComboBox<SkillDto> cbSkillsView;
+    @FXML
+    private ComboBox<SkillDto> cbRolesSkillsRegister;
     @FXML
     private Button btnAddSkill;
     @FXML
@@ -67,6 +74,7 @@ public class RoleModuleController implements Initializable {
     private ListView<CharacteristicDto> listCharactersiticView;
 
     Characteristic characteristicService;
+    Skill skillService;
     CharacteristicDto characteristicViewBuffer;
 
     /**
@@ -79,10 +87,10 @@ public class RoleModuleController implements Initializable {
             characteristicService = new Characteristic();
             intializeLists();
             listCharactersiticView.setItems(loadCharacteristics());
+            cbRolesSkillsRegister.setItems(loadSkills());
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
     }
 
     @FXML
@@ -131,7 +139,7 @@ public class RoleModuleController implements Initializable {
             if (response.getCode() == ResponseCode.OK) {
                 Message.showNotification("Succeed", MessageType.INFO, "The Characteristic was removed succesfully");
                 listCharactersiticView.setItems(loadCharacteristics());
-                cleanFieldsCharactersiticView();
+                cleanFieldsCharacteristicView();
             } else {
                 Message.showNotification("Error", MessageType.ERROR, "Error: " + response.getMessage());
             }
@@ -150,7 +158,7 @@ public class RoleModuleController implements Initializable {
             ResponseWrapper response = characteristicService.createCharacteristic(characteristicDto);
             Message.showNotification("Data", MessageType.INFO, response.getMessage());
             listCharactersiticView.setItems(loadCharacteristics());
-            cleanFieldsCharactersiticView();
+            cleanFieldsCharacteristicView();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -164,9 +172,19 @@ public class RoleModuleController implements Initializable {
             ResponseWrapper response = characteristicService.updateCharacteristics(characteristicViewBuffer);
             if (response.getCode() == ResponseCode.OK) {
                 listCharactersiticView.setItems(loadCharacteristics());
-                cleanFieldsCharactersiticView();
+                cleanFieldsCharacteristicView();
             }
         }
+    }
+
+    @FXML
+    private void searchSkillInput(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    private void selectSkill(ActionEvent event) {
+
     }
 
     private ObservableList<CharacteristicDto> loadCharacteristics() {
@@ -180,15 +198,22 @@ public class RoleModuleController implements Initializable {
                     characteristicDtosView.add((CharacteristicDto) i);
                 }
             }
-            return characteristicDtosView;
         }
-        return FXCollections.observableArrayList();
+        return characteristicDtosView;
     }
 
     private void intializeLists() {
+        //CELLS FACTORIES
         listCharactersiticView.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(CharacteristicDto item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getName());
+            }
+        });
+        cbSkillsView.setCellFactory((param) -> new ListCell<>() {
+            @Override
+            protected void updateItem(SkillDto item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getName());
             }
@@ -201,8 +226,23 @@ public class RoleModuleController implements Initializable {
         });
     }
 
-    private void cleanFieldsCharactersiticView() {
+    private void cleanFieldsCharacteristicView() {
         txfCharacteristic.setText("");
         characteristicViewBuffer = null;
     }
+
+    private ObservableList<SkillDto> loadSkills() {
+        ObservableList<SkillDto> skillsDto = FXCollections.observableArrayList();
+        ResponseWrapper response = skillService.getSkills();
+        if (response.getCode() == ResponseCode.OK) {
+            ListWrapper wrapper = (ListWrapper) response.getData();
+            for (Object i : wrapper.getElement()) {
+                if (i instanceof SkillDto) {
+                    skillsDto.add((SkillDto) i);
+                }
+            }
+        }
+        return skillsDto;
+    }
+
 }
