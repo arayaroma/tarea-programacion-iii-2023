@@ -4,14 +4,14 @@ import cr.ac.una.dto.UserDto;
 import cr.ac.una.util.ResponseWrapper;
 import jakarta.ejb.Local;
 
-
 /**
+ * 
  * @author arayaroma
  * @author Angelo2002
  */
 @Local
 public interface UserService {
-   
+
     ResponseWrapper createUser(UserDto userDto);
 
     ResponseWrapper getUserById(Long id);
@@ -31,6 +31,4 @@ public interface UserService {
     ResponseWrapper getUserListByName(String name);
 
     ResponseWrapper getUserListByPosition(String position);
-
-
 }
