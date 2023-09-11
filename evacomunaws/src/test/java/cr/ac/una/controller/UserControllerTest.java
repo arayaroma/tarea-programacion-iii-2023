@@ -14,6 +14,11 @@ import cr.ac.una.services.UserService;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
 
+/**
+ * 
+ * @author arayaroma
+ */
+
 @DisplayName("User Controller Tests")
 public class UserControllerTest {
 

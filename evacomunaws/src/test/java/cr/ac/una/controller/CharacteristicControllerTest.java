@@ -18,6 +18,10 @@ import cr.ac.una.services.CharacteristicService;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
 
+/**
+ * 
+ * @author arayaroma
+ */
 @DisplayName("Characteristic Controller Tests")
 public class CharacteristicControllerTest {
     @Mock
