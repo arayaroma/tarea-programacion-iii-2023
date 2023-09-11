@@ -53,8 +53,8 @@ public class EntityUtil {
                         .append(" ").append(cv.getMessage());
             }
             return new ResponseWrapper(
-                    ResponseCode.UNPROCESSABLE_ENTITY.getCode(),
-                    ResponseCode.UNPROCESSABLE_ENTITY,
+                    ResponseCode.UNPROCESSABLE_CONTENT.getCode(),
+                    ResponseCode.UNPROCESSABLE_CONTENT,
                     clazz.getSimpleName() + " can't be processed, validation error: " + message,
                     null);
         }
