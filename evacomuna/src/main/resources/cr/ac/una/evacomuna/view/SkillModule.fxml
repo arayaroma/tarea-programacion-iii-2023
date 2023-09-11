@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.SkillModuleController">
+   <children>
+      <HBox fx:id="registerSkillsView" styleClass="bg-white">
+         <children>
+            <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="150.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnBackToSkillMain" styleClass="btn" text="Back" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="100.0">
+                     <children>
+                        <TextField fx:id="txfSkillNameRegister" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Skill Name" />
+                        <ComboBox fx:id="cbStateSkillRegisterView" prefWidth="150.0" promptText="State" />
+                     </children>
+                  </HBox>
+                  <Label styleClass="h1" text="Characteristics" />
+                  <HBox spacing="20.0">
+                     <children>
+                        <ComboBox fx:id="cbCharacteristicsSkillRegisterView" editable="true" promptText="Characteristics" />
+                        <Button mnemonicParsing="false" onAction="#btnAddCharacteristicToSkill" text="Add">
+                           <styleClass>
+                              <String fx:value="confirm-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <ListView fx:id="listCharacteristicsRegisterSkillView" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" spacing="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnRemoveCharacteristicOfSkill" text="Delete">
+                           <styleClass>
+                              <String fx:value="error-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnSaveSkill" text="Save">
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="confirm-color" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <stylesheets>
+            <URL value="@../style/index.css" />
+            <URL value="@../style/roleModule.css" />
+         </stylesheets>
+      </HBox>
+      <HBox fx:id="mainSkillsView" styleClass="bg-white">
+         <children>
+            <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnNewSkill" text="New">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="confirm-color" />
+                     </styleClass>
+                  </Button>
+                  <ComboBox fx:id="cbSkillsView" editable="true" onAction="#selectSkill" onInputMethodTextChanged="#searchSkillInput" prefWidth="150.0" promptText="Skills" styleClass="searchBar" />
+                  <Label styleClass="h1" text="Characteristics" />
+                  <ListView fx:id="listCharacteristicsMainSkillView" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnEditSkill" styleClass="btn" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#btnDeleteSkill" text="Delete">
+                           <styleClass>
+                              <String fx:value="error-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <stylesheets>
+            <URL value="@../style/index.css" />
+            <URL value="@../style/roleModule.css" />
+         </stylesheets>
+      </HBox>
+   </children>
+</StackPane>
