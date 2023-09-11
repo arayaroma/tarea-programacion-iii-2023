@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -85,7 +86,9 @@ public class UserDto {
     protected String passwordChanged;
     protected String activationCode;
     protected PositionDto position;
+    @XmlElement(nillable = true)
     protected List<EvaluatedDto> evaluated;
+    @XmlElement(nillable = true)
     protected List<EvaluatorDto> evaluators;
     protected Long version;
 

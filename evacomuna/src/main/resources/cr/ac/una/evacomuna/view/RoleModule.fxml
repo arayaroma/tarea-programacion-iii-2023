@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <TabPane fx:id="parent" stylesheets="@../style/roleModule.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.RoleModuleController">
    <tabs>
       <Tab text="Roles">
@@ -116,7 +115,7 @@
                               </Button>
                               <ComboBox editable="true" prefWidth="150.0" promptText="Skills" styleClass="searchBar" />
                               <Label styleClass="h1" text="Characteristics" />
-                              <ListView fx:id="listCharacteristics" prefHeight="200.0" prefWidth="200.0" />
+                              <ListView fx:id="listCharacteristicsMainSkillView" prefHeight="200.0" prefWidth="200.0" />
                               <HBox spacing="20.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#btnEditSkill" styleClass="btn" text="Edit" />
@@ -157,7 +156,7 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <ListView fx:id="listCharacteristicsRegister" prefHeight="200.0" prefWidth="200.0" />
+                              <ListView fx:id="listCharacteristicsRegisterSkillView" prefHeight="200.0" prefWidth="200.0" />
                               <HBox alignment="CENTER" spacing="20.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#btnDeleteCharacteristic" text="Delete">
@@ -198,7 +197,7 @@
                                  </styleClass>
                               </Button>
                               <TextField fx:id="txfCharacteristic" promptText="Characteristic Name" />
-                              <ListView fx:id="listCharactersitic" prefHeight="200.0" prefWidth="200.0" />
+                              <ListView fx:id="listCharactersiticView" prefHeight="200.0" prefWidth="200.0" />
                               <HBox spacing="20.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#btnEditCharacteristic" styleClass="btn" text="Edit" />

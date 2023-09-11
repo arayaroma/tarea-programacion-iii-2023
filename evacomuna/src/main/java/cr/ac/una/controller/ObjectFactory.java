@@ -24,14 +24,15 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _CharacteristicDto_QNAME = new QName("http://controller.una.ac.cr/", "CharacteristicDto");
     private final static QName _UserDto_QNAME = new QName("http://controller.una.ac.cr/", "UserDto");
-    private final static QName _UserDtoList_QNAME = new QName("http://controller.una.ac.cr/", "UserDtoList");
     private final static QName _CreatePosition_QNAME = new QName("http://controller.una.ac.cr/", "createPosition");
     private final static QName _CreatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "createPositionResponse");
     private final static QName _DeletePositionById_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionById");
     private final static QName _DeletePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionByIdResponse");
     private final static QName _GetPositionById_QNAME = new QName("http://controller.una.ac.cr/", "getPositionById");
     private final static QName _GetPositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByIdResponse");
+    private final static QName _ListWrapper_QNAME = new QName("http://controller.una.ac.cr/", "listWrapper");
     private final static QName _UpdatePosition_QNAME = new QName("http://controller.una.ac.cr/", "updatePosition");
     private final static QName _UpdatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionResponse");
 
@@ -43,19 +44,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CharacteristicDto }
+     * 
+     */
+    public CharacteristicDto createCharacteristicDto() {
+        return new CharacteristicDto();
+    }
+
+    /**
      * Create an instance of {@link UserDto }
      * 
      */
     public UserDto createUserDto() {
         return new UserDto();
-    }
-
-    /**
-     * Create an instance of {@link UserDtoList }
-     * 
-     */
-    public UserDtoList createUserDtoList() {
-        return new UserDtoList();
     }
 
     /**
@@ -104,6 +105,14 @@ public class ObjectFactory {
      */
     public GetPositionByIdResponse createGetPositionByIdResponse() {
         return new GetPositionByIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListWrapper }
+     * 
+     */
+    public ListWrapper createListWrapper() {
+        return new ListWrapper();
     }
 
     /**
@@ -187,19 +196,24 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CharacteristicDto }
-     * 
-     */
-    public CharacteristicDto createCharacteristicDto() {
-        return new CharacteristicDto();
-    }
-
-    /**
      * Create an instance of {@link ResponseWrapper }
      * 
      */
     public ResponseWrapper createResponseWrapper() {
         return new ResponseWrapper();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CharacteristicDto }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link CharacteristicDto }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "CharacteristicDto")
+    public JAXBElement<CharacteristicDto> createCharacteristicDto(CharacteristicDto value) {
+        return new JAXBElement<CharacteristicDto>(_CharacteristicDto_QNAME, CharacteristicDto.class, null, value);
     }
 
     /**
@@ -213,19 +227,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "UserDto")
     public JAXBElement<UserDto> createUserDto(UserDto value) {
         return new JAXBElement<UserDto>(_UserDto_QNAME, UserDto.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UserDtoList }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UserDtoList }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "UserDtoList")
-    public JAXBElement<UserDtoList> createUserDtoList(UserDtoList value) {
-        return new JAXBElement<UserDtoList>(_UserDtoList_QNAME, UserDtoList.class, null, value);
     }
 
     /**
@@ -304,6 +305,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByIdResponse")
     public JAXBElement<GetPositionByIdResponse> createGetPositionByIdResponse(GetPositionByIdResponse value) {
         return new JAXBElement<GetPositionByIdResponse>(_GetPositionByIdResponse_QNAME, GetPositionByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListWrapper }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ListWrapper }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "listWrapper")
+    public JAXBElement<ListWrapper> createListWrapper(ListWrapper value) {
+        return new JAXBElement<ListWrapper>(_ListWrapper_QNAME, ListWrapper.class, null, value);
     }
 
     /**
