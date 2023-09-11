@@ -24,9 +24,14 @@ public class Characteristic {
         return port.getCharacteristics();
     }
 
+    public ResponseWrapper getCharacteristicByName(String name) {
+        return port.getCharacteristicByName(name);
+    }
+
     public ResponseWrapper updateCharacteristics(CharacteristicDto characteristicDto) {
         return port.updateCharacteristic(characteristicDto);
     }
+
     public ResponseWrapper deleteCharacteristicById(Long id) {
         return port.deleteCharacteristicById(id);
     }

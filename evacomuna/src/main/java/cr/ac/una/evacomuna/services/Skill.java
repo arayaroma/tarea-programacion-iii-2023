@@ -21,4 +21,20 @@ public class Skill {
         return port.getSkills();
     }
 
+    public ResponseWrapper updateSkills(SkillDto skillDto) {
+        return port.updateSkill(skillDto);
+    }
+
+    public ResponseWrapper deleteSkillsById(Long Id) {
+        return port.deleteSkillById(Id);
+    }
+
+    public ResponseWrapper getSkillByName(String name) {
+        return port.getSkillByName(name);
+    }
+
+    public ResponseWrapper createSkill(SkillDto skillDto) {
+        return port.createSkill(skillDto);
+    }
+
 }
