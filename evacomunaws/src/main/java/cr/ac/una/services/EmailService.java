@@ -11,6 +11,10 @@ import jakarta.mail.internet.MimeMessage;
 import static cr.ac.una.util.Constants.MAIL_USER;
 import static cr.ac.una.util.Constants.MAIL_PASSWORD;
 
+/**
+ * 
+ * @author arayaroma
+ */
 @Stateless
 public class EmailService {
     @Resource(name = "mail/EvaComMailSession")
