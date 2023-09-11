@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -33,6 +35,15 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_POSITION;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
+        @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
+        @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
+        @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
+        @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
+        @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id"),
+        @NamedQuery(name = "Position.getSkillsByPositionId", query = "SELECT s FROM Skill s WHERE s.position.id = :id"),
+})
 public class Position implements Serializable {
     private static final long serialVersionUID = 1L;
 

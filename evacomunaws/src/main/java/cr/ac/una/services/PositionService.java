@@ -7,11 +7,18 @@ import cr.ac.una.util.ResponseWrapper;
  * @author arayaroma
  */
 public interface PositionService {
-    public ResponseWrapper createPosition(PositionDto position);
+    ResponseWrapper createPosition(PositionDto position);
 
-    public ResponseWrapper getPositionById(Long id);
+    ResponseWrapper getPositionById(Long id);
 
-    public ResponseWrapper updatePositionById(Long id, PositionDto position);
+    ResponseWrapper getUsersByPositionId(Long id);
 
-    public ResponseWrapper deletePositionById(Long id);
+    ResponseWrapper getSkillsByPositionId(Long id);
+
+    ResponseWrapper updatePositionById(Long id);
+
+    ResponseWrapper deletePositionById(Long id);
+
+    ResponseWrapper deleteAllPositions();
+
 }
