@@ -27,6 +27,10 @@ public class SkillServiceImpl implements SkillService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
+    /**
+     * @param skillDto skill to be created
+     * @return ResponseWrapper with the response of the service call
+     */
     @Override
     public ResponseWrapper createSkill(SkillDto skillDto) {
         try {
@@ -60,6 +64,10 @@ public class SkillServiceImpl implements SkillService {
         skillDto.setFinalCalifications(new ArrayList<FinalCalificationDto>());
     }
 
+    /**
+     * @param skillDto skill to be updated
+     * @return ResponseWrapper with the response of the service call
+     */
     @Override
     public ResponseWrapper updateSkill(SkillDto skillDto) {
         try {
@@ -92,6 +100,10 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * @param id skill id to be retrieved
+     * @return ResponseWrapper with the response of the service call
+     */
     @Override
     public ResponseWrapper getSkillById(Long id) {
         try {
@@ -117,6 +129,10 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * @param name skill name to be retrieved
+     * @return ResponseWrapper with the response of the service call
+     */
     @Override
     public ResponseWrapper getSkillByName(String name) {
         try {
@@ -144,6 +160,10 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * @return ResponseWrapper with the response of the service call
+     *         Get all skills
+     */
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper getSkills() {
@@ -164,6 +184,142 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * @param id skill id to be retrieved
+     * @return ResponseWrapper with the response of the service call
+     *         Get all characteristics by skill id
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseWrapper getCharacteristicsBySkillId(Long id) {
+        try {
+            Skill skill = em.find(Skill.class, id);
+            if (skill == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Skill not found.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of characteristics.",
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Skill.getCharacteristicsBySkillId").getResultList(),
+                            CharacteristicDto.class));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving characteristics: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @param id skill id to be retrieved
+     * @return ResponseWrapper with the response of the service call
+     *         Get all califications by skill id
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseWrapper getCalificationsBySkillId(Long id) {
+        try {
+            Skill skill = em.find(Skill.class, id);
+            if (skill == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Skill not found.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of califications.",
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Skill.getCalificationsBySkillId").getResultList(),
+                            CalificationDto.class));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving califications: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @param id skill id to be retrieved
+     * @return ResponseWrapper with the response of the service call
+     *         Get all final califications by skill id
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseWrapper getFinalCalificationsBySkillId(Long id) {
+        try {
+            Skill skill = em.find(Skill.class, id);
+            if (skill == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Skill not found.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of final califications.",
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Skill.getFinalCalificationsBySkillId").getResultList(),
+                            FinalCalificationDto.class));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving final califications: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @param id skill id to be retrieved
+     * @return ResponseWrapper with the response of the service call
+     *         Get all positions by skill id
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseWrapper getPositionsBySkillId(Long id) {
+        try {
+            Skill skill = em.find(Skill.class, id);
+            if (skill == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Skill not found.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of positions.",
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Skill.getPositionsBySkillId").getResultList(),
+                            PositionDto.class));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving positions: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @param id skill id to be deleted
+     * @return ResponseWrapper with the response of the service call
+     */
     @Override
     public ResponseWrapper deleteSkillById(Long id) {
         try {
@@ -191,6 +347,10 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * @param name skill name to be deleted
+     * @return ResponseWrapper with the response of the service call
+     */
     @Override
     public ResponseWrapper deleteSkillByName(String name) {
         try {
@@ -220,10 +380,15 @@ public class SkillServiceImpl implements SkillService {
         }
     }
 
+    /**
+     * @return ResponseWrapper with the response of the service call
+     *         Delete all skills
+     */
     @Override
     public ResponseWrapper deleteAllSkills() {
         try {
             em.createNamedQuery("Skill.deleteAll").executeUpdate();
+            em.flush();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

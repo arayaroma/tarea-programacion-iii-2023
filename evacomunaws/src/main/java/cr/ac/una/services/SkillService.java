@@ -21,6 +21,14 @@ public interface SkillService {
 
     ResponseWrapper getSkills();
 
+    ResponseWrapper getCharacteristicsBySkillId(Long id);
+
+    ResponseWrapper getCalificationsBySkillId(Long id);
+
+    ResponseWrapper getFinalCalificationsBySkillId(Long id);
+
+    ResponseWrapper getPositionsBySkillId(Long id);
+
     ResponseWrapper deleteSkillById(Long id);
 
     ResponseWrapper deleteSkillByName(String name);
