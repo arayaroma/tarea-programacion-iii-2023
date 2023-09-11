@@ -16,6 +16,15 @@ public interface CharacteristicService {
 
     ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto);
 
+    ResponseWrapper getCharacteristicById(Long id);
+
+    ResponseWrapper getCharacteristicByName(String name);
+
     ResponseWrapper getCharacteristics();
 
+    ResponseWrapper deleteCharacteristicById(Long id);
+
+    ResponseWrapper deleteCharacteristicByName(String name);
+
+    ResponseWrapper deleteAllCharacteristics();
 }

@@ -1,9 +1,11 @@
 package cr.ac.una.services;
 
 import cr.ac.una.dto.CharacteristicDto;
+import cr.ac.una.dto.SkillDto;
 import cr.ac.una.entities.Characteristic;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
+import java.util.ArrayList;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -13,8 +15,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 /**
- *
+ * 
  * @author enajera
+ * @author arayaroma
  */
 @Stateless
 @LocalBean
@@ -26,8 +29,8 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     @Override
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
+            characteristicDto.setSkills(new ArrayList<SkillDto>());
             Characteristic characteristic = new Characteristic(characteristicDto);
-
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -50,31 +53,181 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 
     @Override
     public ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            Characteristic characteristic = em.find(Characteristic.class, characteristicDto.getId());
+            if (characteristic == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Characteristic doesn't exist.",
+                        null);
+            }
+            characteristic.updateCharacteristic(characteristicDto);
+            ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
+            if (INVALID_REQUEST != null) {
+                return INVALID_REQUEST;
+            }
+            em.merge(characteristic);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Characteristic updated successfully.",
+                    characteristicDto);
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while updating characteristic: " + ex.getMessage(),
+                    null);
+        }
     }
 
     @Override
+    public ResponseWrapper getCharacteristicById(Long id) {
+        try {
+            Characteristic characteristic = em.find(Characteristic.class, id);
+            if (characteristic == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Characteristic doesn't exist.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Characteristic found successfully.",
+                    new CharacteristicDto(characteristic));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while fetching the characteristic: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper getCharacteristicByName(String name) {
+        try {
+            Characteristic characteristic = (Characteristic) em.createNamedQuery("Characteristic.findByName")
+                    .setParameter("name", name)
+                    .getSingleResult();
+            if (characteristic == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Characteristic doesn't exist.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Characteristic found successfully.",
+                    new CharacteristicDto(characteristic));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while fetching the characteristic: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getCharacteristics() {
         try {
-            // Revisar el envio de listas por XML
-            // Query query = em.createNamedQuery("Characteristic.findAll");
-            // List<Characteristic> characteristics = query.getResultList();
-            // List<CharacteristicDto> characteristicDto = new ArrayList<>();
-            // for (Characteristic i : characteristics) {
-            // characteristicDto.add(new CharacteristicDto(i));
-            // }
-            // CharacteristicDtoList list = new CharacteristicDtoList(characteristicDto);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Characteristic selected successfully.",
-                    EntityUtil.fromEntityList(em.createNamedQuery("Characteristic.findAll").getResultList(),
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Characteristic.findAll")
+                                    .getResultList(),
                             CharacteristicDto.class));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while creating characteristic: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper deleteCharacteristicById(Long id) {
+        try {
+            Characteristic characteristic = em.find(Characteristic.class, id);
+            if (characteristic == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Characteristic doesn't exist.",
+                        null);
+            }
+            em.remove(characteristic);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Characteristic deleted successfully.",
+                    null);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while deleting characteristic: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper deleteCharacteristicByName(String name) {
+        try {
+            Characteristic characteristic = (Characteristic) em.createNamedQuery("Characteristic.findByName")
+                    .setParameter("name", name)
+                    .getSingleResult();
+            if (characteristic == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Characteristic doesn't exist.",
+                        null);
+            }
+            em.remove(characteristic);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Characteristic deleted successfully.",
+                    null);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while deleting characteristic: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper deleteAllCharacteristics() {
+        try {
+            em.createNamedQuery("Characteristic.deleteAll")
+                    .executeUpdate();
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "All characteristics deleted successfully.",
+                    null);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while deleting characteristics: " + e.getMessage(),
                     null);
         }
     }

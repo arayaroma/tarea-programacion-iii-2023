@@ -33,7 +33,10 @@ import jakarta.persistence.NamedQuery;
 @Data
 @Table(name = "TBL_CHARACTERISTIC", schema = SCHEMA)
 @NamedQueries({
-    @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),})
+        @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),
+        @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name"),
+        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c")
+})
 public class Characteristic implements Serializable {
 
     private static final long serialVersionUID = 1L;
