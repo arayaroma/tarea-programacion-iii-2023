@@ -8,7 +8,6 @@ import cr.ac.una.evacomuna.services.Characteristic;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +21,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -30,7 +28,7 @@ import javafx.util.Callback;
  * @author estebannajera
  */
 public class RoleModuleController implements Initializable {
-
+    
     @FXML
     private TabPane parent;
     @FXML
@@ -67,8 +65,9 @@ public class RoleModuleController implements Initializable {
     private ListView<?> listCharacteristicsRegisterSkillView;
     @FXML
     private ListView<CharacteristicDto> listCharactersiticView;
-
+    
     Characteristic characteristicService;
+    CharacteristicDto characteristicViewBuffer;
 
     /**
      * Initializes the controller class.
@@ -83,52 +82,52 @@ public class RoleModuleController implements Initializable {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
+        
     }
-
+    
     @FXML
     private void btnNewRole(ActionEvent event) {
-
+        
     }
-
+    
     private void btnBackToMain(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void btnEditRole(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void btnDeleteRole(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnBackToMainRole(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     private void btnNewSkill(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnEditSkill(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnDeleteSkill(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnBackToSkillMain(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnDeleteCharacteristic(ActionEvent event) {
     }
-
+    
     @FXML
     private void btnNewCharactersitic(ActionEvent event) {
         try {
@@ -138,26 +137,31 @@ public class RoleModuleController implements Initializable {
             }
             CharacteristicDto characteristicDto = new CharacteristicDto();
             characteristicDto.setName(name);
-
+            
             ResponseWrapper response = characteristicService.createCharacteristic(characteristicDto);
             Message.showNotification("Data", MessageType.INFO, response.getMessage());
-
+            
             listCharactersiticView.setItems(loadCharacteristics());
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
-
+    
     @FXML
     private void btnEditCharacteristic(ActionEvent event) {
+        String newName = txfCharacteristic.getText();
+        if(characteristicViewBuffer!=null && !newName.isBlank()){
+            characteristicViewBuffer.setName(newName);
+            
+        }
     }
-
+    
     private ObservableList<CharacteristicDto> loadCharacteristics() {
         ObservableList<CharacteristicDto> characteristicDtosView = FXCollections.observableArrayList();
         ResponseWrapper response = characteristicService.selectCharacteristics();
         if (response.getCode() == ResponseCode.OK) {
             ListWrapper listWrapper = (ListWrapper) response.getData();
-
+            
             for (Object i : listWrapper.getElement()) {
                 if (i instanceof CharacteristicDto) {
                     characteristicDtosView.add((CharacteristicDto) i);
@@ -167,7 +171,7 @@ public class RoleModuleController implements Initializable {
         }
         return FXCollections.observableArrayList();
     }
-
+    
     private void intializeLists() {
         listCharactersiticView.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -176,6 +180,16 @@ public class RoleModuleController implements Initializable {
                 setText(empty || item == null ? null : item.getName());
             }
         });
+        listCharactersiticView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            characteristicViewBuffer = newValue;
+            if (characteristicViewBuffer != null) {
+                txfCharacteristic.setText(characteristicViewBuffer.getName());
+            }
+        });
     }
 
+//    @FXML
+//    private void changeItemListCharacteristicView(ListView.EditEvent<CharacteristicDto> event) {
+//                System.out.println("cambia");
+//    }
 }
