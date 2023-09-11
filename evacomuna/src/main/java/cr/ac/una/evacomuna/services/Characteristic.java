@@ -19,8 +19,16 @@ public class Characteristic {
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         return port.createCharacteristic(characteristicDto);
     }
-    public ResponseWrapper selectCharacteristics() {
-        return port.selectCharacteristics();
+
+    public ResponseWrapper getCharacteristics() {
+        return port.getCharacteristics();
+    }
+
+    public ResponseWrapper updateCharacteristics(CharacteristicDto characteristicDto) {
+        return port.updateCharacteristic(characteristicDto);
+    }
+    public ResponseWrapper deleteCharacteristicById(Long id) {
+        return port.deleteCharacteristicById(id);
     }
 
 //    private CharacteristicService service;

@@ -42,8 +42,8 @@ import cr.ac.una.dto.SkillDto;
         @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
         @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c JOIN c.skills s WHERE s.id = :id"),
         @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
-        @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"),
-        @NamedQuery(name = "Skill.getPositionsBySkillId", query = "SELECT p FROM Position p WHERE p.skills.id = :id"),
+        @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id")
+//        @NamedQuery(name = "Skill.getPositionsBySkillId", query = "SELECT p FROM Position p WHERE p.skills.id = :id"), Consulta mala
 })
 public class Skill implements Serializable {
     private static final long serialVersionUID = 1L;

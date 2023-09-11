@@ -26,9 +26,7 @@ public class Message {
             case INFO:
                 notification.show();
                 break;
-            case CONFIRMATION:
                 
-                break;
         }
     }
 }

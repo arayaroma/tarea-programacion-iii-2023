@@ -26,7 +26,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="REQUEST_TIMEOUT"/&gt;
  *     &lt;enumeration value="CONFLICT"/&gt;
  *     &lt;enumeration value="IM_A_TEAPOT"/&gt;
- *     &lt;enumeration value="UNPROCESSABLE_ENTITY"/&gt;
+ *     &lt;enumeration value="UNPROCESSABLE_CONTENT"/&gt;
  *     &lt;enumeration value="TOO_MANY_REQUESTS"/&gt;
  *     &lt;enumeration value="INTERNAL_SERVER_ERROR"/&gt;
  *     &lt;enumeration value="NOT_IMPLEMENTED"/&gt;
@@ -55,7 +55,7 @@ public enum ResponseCode {
     REQUEST_TIMEOUT,
     CONFLICT,
     IM_A_TEAPOT,
-    UNPROCESSABLE_ENTITY,
+    UNPROCESSABLE_CONTENT,
     TOO_MANY_REQUESTS,
     INTERNAL_SERVER_ERROR,
     NOT_IMPLEMENTED,
