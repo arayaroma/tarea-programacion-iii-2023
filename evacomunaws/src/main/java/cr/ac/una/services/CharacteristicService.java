@@ -22,6 +22,8 @@ public interface CharacteristicService {
 
     ResponseWrapper getCharacteristics();
 
+    ResponseWrapper getSkillsByCharacteristicId(Long id);
+
     ResponseWrapper deleteCharacteristicById(Long id);
 
     ResponseWrapper deleteCharacteristicByName(String name);

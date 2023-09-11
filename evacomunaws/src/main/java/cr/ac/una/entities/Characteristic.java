@@ -35,7 +35,8 @@ import jakarta.persistence.NamedQuery;
 @NamedQueries({
         @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),
         @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name"),
-        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c")
+        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c"),
+        @NamedQuery(name = "Characteristic.getSkillsByCharacteristicId", query = "SELECT s FROM Skill s JOIN s.characteristics c WHERE c.id = :id")
 })
 public class Characteristic implements Serializable {
 

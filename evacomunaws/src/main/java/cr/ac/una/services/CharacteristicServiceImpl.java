@@ -26,6 +26,11 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
+    /**
+     * @param characteristic characteristic to be created
+     * @return ResponseWrapper with the response of the service call
+     *         createCharacteristic
+     */
     @Override
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
@@ -51,6 +56,11 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @param characteristic characteristic to be updated
+     * @return ResponseWrapper with the response of the service call
+     *         updateCharacteristic
+     */
     @Override
     public ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto) {
         try {
@@ -83,6 +93,11 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @param id characteristic id to be searched
+     * @return ResponseWrapper with the response of the service call
+     *         getCharacteristicById
+     */
     @Override
     public ResponseWrapper getCharacteristicById(Long id) {
         try {
@@ -108,6 +123,11 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @param name characteristic name to be searched
+     * @return ResponseWrapper with the response of the service call
+     *         getCharacteristicByName
+     */
     @Override
     public ResponseWrapper getCharacteristicByName(String name) {
         try {
@@ -135,6 +155,10 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @return ResponseWrapper with the response of the service call
+     *         getCharacteristics
+     */
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper getCharacteristics() {
@@ -156,6 +180,44 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @param id
+     * @return ResponseWrapper with the response of the service call
+     *         getSkillsByCharacteristicId
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseWrapper getSkillsByCharacteristicId(Long id) {
+        try {
+            Characteristic characteristic = em.find(Characteristic.class, id);
+            if (characteristic == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Characteristic not found.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Skills retrieved successfully.",
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Characteristic.getSkillsByCharacteristicId").getResultList(),
+                            SkillDto.class));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving skills: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @param id characteristic id to be deleted
+     * @return ResponseWrapper with the response of the service call
+     *         deleteCharacteristicById
+     */
     @Override
     public ResponseWrapper deleteCharacteristicById(Long id) {
         try {
@@ -183,6 +245,11 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @param name characteristic name to be deleted
+     * @return ResponseWrapper with the response of the service call
+     *         deleteCharacteristicByName
+     */
     @Override
     public ResponseWrapper deleteCharacteristicByName(String name) {
         try {
@@ -212,6 +279,10 @@ public class CharacteristicServiceImpl implements CharacteristicService {
         }
     }
 
+    /**
+     * @return ResponseWrapper with the response of the service call
+     *         deleteAllCharacteristics
+     */
     @Override
     public ResponseWrapper deleteAllCharacteristics() {
         try {
