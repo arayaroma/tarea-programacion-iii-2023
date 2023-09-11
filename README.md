@@ -7,8 +7,7 @@
   - [Docker](#docker)
     - [Cómo levantar los contenedores](#cómo-levantar-los-contenedores)
     - [Oracle 21c XE Container](#oracle-21c-xe-container)
-    - [Payara Server Full 6.2023.8-jdk17 Container](#payara-server-full-620238-jdk17-container)
-    - [Cómo levantar ambos contenedores](#cómo-levantar-ambos-contenedores)
+    - [Cómo levantar todos los contenedores del docker-compose](#cómo-levantar-todos-los-contenedores-del-docker-compose)
     - [Como detener los contenedores](#como-detener-los-contenedores)
   - [Git](#git)
     - [Convenciones](#convenciones)
@@ -31,19 +30,13 @@
 ### C&oacute;mo levantar los contenedores
 
 ### Oracle 21c XE Container
-Primeramente debe de estar en el directorio `docker/`
 ```docker
 docker-compose start oracle 
 ```
 &Uacute;nicamente se levantara el container de `oracle` 
 
-### Payara Server Full 6.2023.8-jdk17 Container
-```docker
-docker-compose start payara
-```
-&Uacute;nicamente se levantara el container de `payara`
 
-### C&oacute;mo levantar ambos contenedores
+### C&oacute;mo levantar todos los contenedores del docker-compose
 ```docker
 docker-compose start
 ```
@@ -55,8 +48,6 @@ docker-compose stop
 
 Esencialmente se utilizaran las siguientes im&aacute;genes:
 - [Oracle 21c XE](https://hub.docker.com/r/gvenzl/oracle-xe)
-- [Payara Server](https://hub.docker.com/r/payara/server-full)
-
 
 ## Git
 Se estar&aacute; trabajando con un enfoque de ramas de corta y larga duraci&oacute;n. La primera para ramas temporales, que se vayan creando mientras se va desarrollando, la segunda para ramas principales.
