@@ -146,7 +146,6 @@ public class SkillModuleController implements Initializable {
                 }
                 skillDto.setName(name);
                 skillDto.setState(state);
-                skillDto.setDescription("nada");
                 skillDto.getCharacteristics().clear();
                 for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
                     skillDto.getCharacteristics().add(i);

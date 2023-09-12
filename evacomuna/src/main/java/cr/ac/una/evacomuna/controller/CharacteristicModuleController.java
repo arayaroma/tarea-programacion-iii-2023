@@ -41,9 +41,13 @@ public class CharacteristicModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        characteristicService = new Characteristic();
-        intializeLists();
-        initializeView();
+        try {
+            characteristicService = new Characteristic();
+            intializeLists();
+            initializeView();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @FXML
@@ -57,6 +61,7 @@ public class CharacteristicModuleController implements Initializable {
             characteristicDto.setName(name);
             ResponseWrapper response = characteristicService.createCharacteristic(characteristicDto);
             Message.showNotification("Data", MessageType.INFO, response.getMessage());
+            System.out.println(response.getMessage());
             listCharactersiticView.setItems(Utilities.loadCharacteristics());
             cleanFieldsCharacteristicView();
         } catch (Exception e) {

@@ -58,10 +58,6 @@ public class Skill implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
-    @Basic(optional = false)
-    @Size(min = 1, max = 100)
-    private String description;
 
     @NotNull
     @Basic(optional = false)
@@ -97,7 +93,6 @@ public class Skill implements Serializable {
      */
     public void updateSkill(SkillDto skillDto) {
         this.name = skillDto.getName();
-        this.description = skillDto.getDescription();
         this.state = skillDto.getState();
         this.version = skillDto.getVersion();
     }
