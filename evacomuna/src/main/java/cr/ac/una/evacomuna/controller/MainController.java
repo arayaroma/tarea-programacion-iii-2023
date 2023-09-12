@@ -103,7 +103,7 @@ public class MainController implements Initializable {
     private void btnRoleModule(ActionEvent event) {
         try {
             mainScreen.getChildren().clear();
-            FXMLLoader loader = App.getFXMLLoader("RoleModule");
+            FXMLLoader loader = App.getFXMLLoader("ContainerModule");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
             System.out.println(e.toString());

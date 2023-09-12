@@ -21,10 +21,10 @@ import jakarta.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="skills" type="{http://controller.una.ac.cr/}skillDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="users" type="{http://controller.una.ac.cr/}userDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
+ *         &lt;element name="users" type="{http://controller.una.ac.cr/}userDto" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="skills" type="{http://controller.una.ac.cr/}skillDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,21 +37,21 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "positionDto", propOrder = {
     "id",
     "name",
-    "skills",
     "state",
+    "version",
     "users",
-    "version"
+    "skills"
 })
 public class PositionDto {
 
     protected Long id;
     protected String name;
-    @XmlElement(nillable = true)
-    protected List<SkillDto> skills;
     protected String state;
+    protected Long version;
     @XmlElement(nillable = true)
     protected List<UserDto> users;
-    protected Long version;
+    @XmlElement(nillable = true)
+    protected List<SkillDto> skills;
 
     /**
      * Obtiene el valor de la propiedad id.
@@ -102,35 +102,6 @@ public class PositionDto {
     }
 
     /**
-     * Gets the value of the skills property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the skills property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getSkills().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link SkillDto }
-     * 
-     * 
-     */
-    public List<SkillDto> getSkills() {
-        if (skills == null) {
-            skills = new ArrayList<SkillDto>();
-        }
-        return this.skills;
-    }
-
-    /**
      * Obtiene el valor de la propiedad state.
      * 
      * @return
@@ -152,6 +123,30 @@ public class PositionDto {
      */
     public void setState(String value) {
         this.state = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad version.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getVersion() {
+        return version;
+    }
+
+    /**
+     * Define el valor de la propiedad version.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setVersion(Long value) {
+        this.version = value;
     }
 
     /**
@@ -184,27 +179,32 @@ public class PositionDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad version.
+     * Gets the value of the skills property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * Define el valor de la propiedad version.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the Jakarta XML Binding object.
+     * This is why there is not a <CODE>set</CODE> method for the skills property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getSkills().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link SkillDto }
+     * 
+     * 
      */
-    public void setVersion(Long value) {
-        this.version = value;
+    public List<SkillDto> getSkills() {
+        if (skills == null) {
+            skills = new ArrayList<SkillDto>();
+        }
+        return this.skills;
     }
 
 }

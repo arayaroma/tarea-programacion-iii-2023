@@ -24,14 +24,14 @@ import javafx.scene.layout.HBox;
  * @author estebannajera
  */
 public class CharacteristicModuleController implements Initializable {
-    
+
     @FXML
     private HBox mainCharacteristicsView;
     @FXML
     private TextField txfCharacteristic;
     @FXML
     private ListView<CharacteristicDto> listCharactersiticView;
-    
+
     CharacteristicDto characteristicBuffer = new CharacteristicDto();
     Characteristic characteristicService;
     ObservableList<CharacteristicDto> characteristicDtos;
@@ -45,7 +45,7 @@ public class CharacteristicModuleController implements Initializable {
         intializeLists();
         initializeView();
     }
-    
+
     @FXML
     private void btnNewCharactersitic(ActionEvent event) {
         try {
@@ -63,7 +63,7 @@ public class CharacteristicModuleController implements Initializable {
             System.out.println(e.toString());
         }
     }
-    
+
     @FXML
     private void btnEditCharacteristic(ActionEvent event) {
         String newName = txfCharacteristic.getText();
@@ -76,7 +76,7 @@ public class CharacteristicModuleController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void btnDeleteCharacteristic(ActionEvent event) {
         if (characteristicBuffer != null) {
@@ -90,17 +90,17 @@ public class CharacteristicModuleController implements Initializable {
             }
         }
     }
-    
+
     private void cleanFieldsCharacteristicView() {
         txfCharacteristic.setText("");
         characteristicBuffer = null;
     }
-    
+
     private void initializeView() {
         characteristicDtos = Utilities.loadCharacteristics();
         listCharactersiticView.setItems(characteristicDtos);
     }
-    
+
     private void intializeLists() {
         listCharactersiticView.setCellFactory((param) -> new ListCell() {
             @Override
@@ -115,5 +115,5 @@ public class CharacteristicModuleController implements Initializable {
             txfCharacteristic.setText(characteristicBuffer.getName());
         });
     }
-    
+
 }

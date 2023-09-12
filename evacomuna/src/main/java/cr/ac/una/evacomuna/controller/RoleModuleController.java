@@ -1,35 +1,24 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
-import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.services.Characteristic;
+import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.Skill;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-
 import javafx.scene.layout.HBox;
 
 /**
@@ -40,113 +29,179 @@ import javafx.scene.layout.HBox;
 public class RoleModuleController implements Initializable {
 
     @FXML
-    private TabPane parent;
-    @FXML
-    private Tab parentRole;
-    @FXML
-    private Tab parentSkill;
-    @FXML
-    private Tab parentCharacteristic;
+    private HBox registerRolesView;
     @FXML
     private TextField txfRoleNameRegister;
     @FXML
     private ComboBox<String> cbRolesSkillsRegister;
     @FXML
-    private Button btnAddSkill;
+    private ComboBox<String> cbRoles;
     @FXML
-    private Button btnDeleteSkill;
+    private ComboBox<String> cbStateRegister;
     @FXML
-    private ListView<PositionDto> listRolesRegister;
+    private HBox mainRoleView;
     @FXML
     private ListView<SkillDto> listSkillsMain;
     @FXML
-    private HBox registerRolesView;
-    @FXML
-    private HBox mainRoleView;
-
+    private ListView<SkillDto> listSkillsRegister;
+    //BUFFERS
+    SkillDto bufferSkill;
+    PositionDto bufferRole;
     //SERVICES
     Skill skillService;
-    Characteristic characteristicService;
-    //BUFFERS
-    CharacteristicDto characteristicBuffer;
-    //CONTROLLERS
-    SkillModuleController skillModuleController;
-    CharacteristicModuleController characteristicModuleController;
+    Position roleService;
+    //LISTS
+    ObservableList<SkillDto> skillDtos;
+    ObservableList<PositionDto> roleDtos;
+    //FLAGS
+    boolean isEditingRole = false;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        skillService = new Skill();
+        roleService = new Position();
+        initializeLists();
+        initializeMainView();
+    }
+
+    @FXML
+    private void btnBackToMainRole(ActionEvent event) {
+        mainRoleView.toFront();
+        cleanRegisterView();
+    }
+
+    @FXML
+    private void btnNewRole(ActionEvent event) {
+        registerRolesView.toFront();
+        initializeRegisterView();
+    }
+
+    @FXML
+    private void btnEditRole(ActionEvent event) {
+        registerRolesView.toFront();
+        isEditingRole = true;
+//        bufferRole = roleService.
+//        initializeRegisterView();
+    }
+
+    @FXML
+    private void btnDeleteRole(ActionEvent event) {
+//        if(bufferSkill!=null){
+//            skillService.deleteSkillsById(bufferSkill.getId());
+//            
+//        }
+    }
+
+    @FXML
+    private void btnDeleteSkill(ActionEvent event) {
+        if (bufferSkill != null) {
+            listSkillsRegister.getItems().remove(bufferSkill);
+        }
+    }
+
+    @FXML
+    private void btnAddSkill(ActionEvent event) {
+        String name = cbRolesSkillsRegister.getValue();
+        if (name != null) {
+            SkillDto skillDto = (SkillDto) skillService.getSkillByName(name).getData();
+            if (skillDto != null) {
+                listSkillsRegister.getItems().removeIf(t -> t.getId().equals(skillDto.getId()));
+                listSkillsRegister.getItems().add(skillDto);
+            }
+        }
+    }
+
+    @FXML
+    private void selectRole(ActionEvent event) {
+        String name = cbRolesSkillsRegister.getValue();
+        if (name != null) {
+//            bufferRole = 
+        }
+    }
+
+    @FXML
+    private void btnSaveRole(ActionEvent event) {
         try {
-            characteristicService = new Characteristic();
-            skillService = new Skill();
+            String name = txfRoleNameRegister.getText();
+            String state = cbStateRegister.getValue();
+            if (!name.isBlank() && state != null) {
+                PositionDto role;
+                if (!isEditingRole) {
+                    role = new PositionDto();
+                } else {
+                    role = bufferRole;
+                }
+                role.setName(name);
+                role.setState(state);
+                role.getSkills().clear();
+                for (SkillDto i : listSkillsRegister.getItems()) {
+                    role.getSkills().add(i);
+                }
+                ResponseWrapper response = isEditingRole ? roleService.updateRoleById(role.getId()) : roleService.createRole(role);
+                if (response.getCode() == ResponseCode.OK) {
+                    Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
+                    cleanRegisterView();
+                    mainRoleView.toFront();
+                    isEditingRole = false;
+                    initializeMainView();
+                } else {
+                    Message.showNotification("Error", MessageType.ERROR, response.getMessage());
+                    System.out.println(response.getMessage());
+                }
+            } else {
+                Message.showNotification("Warning", MessageType.INFO, "All the fields are required");
+            }
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    @FXML
-    private void btnNewRole(ActionEvent event) {
-
-    }
-
-    private void btnBackToMain(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void btnEditRole(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void btnDeleteRole(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnBackToMainRole(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void tabRole(Event event) {
-        mainRoleView.toFront();
-    }
-
-    @FXML
-    private void tabSkills(Event event) {
-        try {
-            FXMLLoader loader = App.getFXMLLoader("SkillModule");
-            parentSkill.setContent(loader.load());
-            skillModuleController = loader.getController();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
-    }
-
-    @FXML
-    private void tabCharacteristics(Event event) {
-        try {
-            FXMLLoader loader = App.getFXMLLoader("CharacteristicModule");
-            parentCharacteristic.setContent(loader.load());
-            characteristicModuleController = loader.getController();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
-    }
-
-    private ObservableList<String> mapListToObsevableString(ObservableList<?> list) {
-        ObservableList<String> stringList = FXCollections.observableArrayList();
-        list.stream().map((t) -> {
-            if (t instanceof CharacteristicDto) {
-                return ((CharacteristicDto) t).getName();
+    private void initializeLists() {
+        //CELLSFACTORIES
+        listSkillsMain.setCellFactory((param) -> new ListCell() {
+            @Override
+            protected void updateItem(Object item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : ((SkillDto) item).getName());
             }
-            if (t instanceof SkillDto) {
-                return ((SkillDto) t).getName();
+        });
+        listSkillsRegister.setCellFactory((param) -> new ListCell() {
+            @Override
+            protected void updateItem(Object item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : ((SkillDto) item).getName());
             }
-            return "";
-        }).collect(Collectors.toList()).stream().forEach(t -> stringList.add(t));
-        return stringList;
+        });
+        listSkillsRegister.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            bufferSkill = newValue;
+        });
+
     }
+
+    private void initializeRegisterView() {
+        skillDtos = Utilities.loadSkills();
+        listSkillsMain.setItems(skillDtos);
+        cbStateRegister.getItems().addAll("ACTIVE", "INACTIVE");
+        cbRolesSkillsRegister.setItems(Utilities.mapListToObsevableString(skillDtos));
+    }
+
+    private void cleanRegisterView() {
+        txfRoleNameRegister.setText("");
+        cbStateRegister.getItems().clear();
+        cbStateRegister.setValue(null);
+        cbRolesSkillsRegister.setValue(null);
+        listSkillsRegister.getItems().clear();
+
+    }
+
+    private void initializeMainView() {
+        roleDtos = Utilities.loadRoles();
+        cbRoles.setItems(Utilities.mapListToObsevableString(roleDtos));
+    }
+
 }

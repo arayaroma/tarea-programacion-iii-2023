@@ -7,99 +7,98 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane fx:id="parent" stylesheets="@../style/roleModule.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.RoleModuleController">
-   <tabs>
-      <Tab fx:id="parentRole" onSelectionChanged="#tabRole" text="Roles">
-         <content>
-            <StackPane>
+<StackPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.RoleModuleController">
+   <children>
+      <HBox fx:id="registerRolesView" styleClass="bg-white">
+         <children>
+            <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox fx:id="registerRolesView" styleClass="bg-white">
+                  <Button mnemonicParsing="false" onAction="#btnBackToMainRole" styleClass="btn" text="Back" />
+                  <HBox spacing="100.0">
                      <children>
-                        <VBox spacing="20.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#btnBackToMainRole" styleClass="btn" text="Back" />
-                              <TextField fx:id="txfRoleNameRegister" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Role Name" />
-                              <Label styleClass="h1" text="Skills" />
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <ComboBox fx:id="cbRolesSkillsRegister" editable="true" />
-                                    <Button fx:id="btnAddSkill" mnemonicParsing="false" text="Add">
-                                       <styleClass>
-                                          <String fx:value="confirm-color" />
-                                          <String fx:value="btn" />
-                                       </styleClass>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <ListView fx:id="listRolesRegister" prefHeight="200.0" prefWidth="200.0" />
-                              <HBox alignment="CENTER" spacing="20.0">
-                                 <children>
-                                    <Button fx:id="btnDeleteSkill" mnemonicParsing="false" text="Delete">
-                                       <styleClass>
-                                          <String fx:value="error-color" />
-                                          <String fx:value="btn" />
-                                       </styleClass>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </VBox>
+                        <TextField fx:id="txfRoleNameRegister" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Role Name" />
+                        <ComboBox fx:id="cbStateRegister" prefWidth="150.0" promptText="State" />
                      </children>
-                     <stylesheets>
-                        <URL value="@../style/index.css" />
-                        <URL value="@../style/roleModule.css" />
-                     </stylesheets>
                   </HBox>
-                  <HBox fx:id="mainRoleView" styleClass="bg-white">
+                  <Label styleClass="h1" text="Skills" />
+                  <HBox spacing="20.0">
                      <children>
-                        <VBox spacing="20.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#btnNewRole" text="New">
-                                 <styleClass>
-                                    <String fx:value="btn" />
-                                    <String fx:value="confirm-color" />
-                                 </styleClass>
-                              </Button>
-                              <ComboBox editable="true" prefWidth="150.0" promptText="Roles" styleClass="searchBar" />
-                              <Label styleClass="h1" text="Skills" />
-                              <ListView fx:id="listSkillsMain" prefHeight="200.0" prefWidth="200.0" />
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#btnEditRole" styleClass="btn" text="Edit" />
-                                    <Button mnemonicParsing="false" onAction="#btnDeleteRole" text="Delete">
-                                       <styleClass>
-                                          <String fx:value="error-color" />
-                                          <String fx:value="btn" />
-                                       </styleClass>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </HBox.margin>
-                        </VBox>
+                        <ComboBox fx:id="cbRolesSkillsRegister" editable="true" />
+                        <Button mnemonicParsing="false" onAction="#btnAddSkill" text="Add">
+                           <styleClass>
+                              <String fx:value="confirm-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
                      </children>
-                     <stylesheets>
-                        <URL value="@../style/index.css" />
-                        <URL value="@../style/roleModule.css" />
-                     </stylesheets>
+                  </HBox>
+                  <ListView fx:id="listSkillsRegister" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" spacing="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnDeleteSkill" text="Delete">
+                           <styleClass>
+                              <String fx:value="error-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#btnSaveRole" text="Save">
+                           <styleClass>
+                              <String fx:value="confirm-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
                   </HBox>
                </children>
-            </StackPane>
-         </content>
-      </Tab>
-      <Tab fx:id="parentSkill" onSelectionChanged="#tabSkills" text="Skillls" />
-      <Tab fx:id="parentCharacteristic" onSelectionChanged="#tabCharacteristics" text="Charactersitics" />
-   </tabs>
-</TabPane>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <stylesheets>
+            <URL value="@../style/index.css" />
+            <URL value="@../style/containerModule.css" />
+         </stylesheets>
+      </HBox>
+      <HBox fx:id="mainRoleView" styleClass="bg-white">
+         <children>
+            <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnNewRole" text="New">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="confirm-color" />
+                     </styleClass>
+                  </Button>
+                  <ComboBox fx:id="cbRoles" editable="true" onAction="#selectRole" prefWidth="150.0" promptText="Roles" styleClass="searchBar" />
+                  <Label styleClass="h1" text="Skills" />
+                  <ListView fx:id="listSkillsMain" prefHeight="200.0" prefWidth="200.0" />
+                  <HBox spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btnEditRole" styleClass="btn" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#btnDeleteRole" text="Delete">
+                           <styleClass>
+                              <String fx:value="error-color" />
+                              <String fx:value="btn" />
+                           </styleClass>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+         <stylesheets>
+            <URL value="@../style/index.css" />
+            <URL value="@../style/containerModule.css" />
+         </stylesheets>
+      </HBox>
+   </children>
+</StackPane>

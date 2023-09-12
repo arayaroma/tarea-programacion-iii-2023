@@ -155,12 +155,9 @@ public class SkillModuleController implements Initializable {
                 if (response.getCode() == ResponseCode.OK) {
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanFieldsSkillRegisterView();
-                    System.out.println(response.getMessage());
-                    if (isEditingSkill) {
-                        mainSkillsView.toFront();
-                        isEditingSkill = false;
-                        initializeSkillMainView();
-                    }
+                    mainSkillsView.toFront();
+                    isEditingSkill = false;
+                    initializeSkillMainView();
                 } else {
                     Message.showNotification("Error", MessageType.ERROR, response.getMessage());
                     System.out.println(response.getMessage());

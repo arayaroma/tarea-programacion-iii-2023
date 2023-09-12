@@ -25,6 +25,7 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 public class ObjectFactory {
 
     private final static QName _CharacteristicDto_QNAME = new QName("http://controller.una.ac.cr/", "CharacteristicDto");
+    private final static QName _PositionDto_QNAME = new QName("http://controller.una.ac.cr/", "PositionDto");
     private final static QName _UserDto_QNAME = new QName("http://controller.una.ac.cr/", "UserDto");
     private final static QName _CreatePosition_QNAME = new QName("http://controller.una.ac.cr/", "createPosition");
     private final static QName _CreatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "createPositionResponse");
@@ -32,6 +33,8 @@ public class ObjectFactory {
     private final static QName _DeletePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionByIdResponse");
     private final static QName _GetPositionById_QNAME = new QName("http://controller.una.ac.cr/", "getPositionById");
     private final static QName _GetPositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByIdResponse");
+    private final static QName _GetPositions_QNAME = new QName("http://controller.una.ac.cr/", "getPositions");
+    private final static QName _GetPositionsResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionsResponse");
     private final static QName _ListWrapper_QNAME = new QName("http://controller.una.ac.cr/", "listWrapper");
     private final static QName _UpdatePositionById_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionById");
     private final static QName _UpdatePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionByIdResponse");
@@ -49,6 +52,14 @@ public class ObjectFactory {
      */
     public CharacteristicDto createCharacteristicDto() {
         return new CharacteristicDto();
+    }
+
+    /**
+     * Create an instance of {@link PositionDto }
+     * 
+     */
+    public PositionDto createPositionDto() {
+        return new PositionDto();
     }
 
     /**
@@ -108,6 +119,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetPositions }
+     * 
+     */
+    public GetPositions createGetPositions() {
+        return new GetPositions();
+    }
+
+    /**
+     * Create an instance of {@link GetPositionsResponse }
+     * 
+     */
+    public GetPositionsResponse createGetPositionsResponse() {
+        return new GetPositionsResponse();
+    }
+
+    /**
      * Create an instance of {@link ListWrapper }
      * 
      */
@@ -132,27 +159,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PositionDto }
+     * Create an instance of {@link ResponseWrapper }
      * 
      */
-    public PositionDto createPositionDto() {
-        return new PositionDto();
-    }
-
-    /**
-     * Create an instance of {@link SkillDto }
-     * 
-     */
-    public SkillDto createSkillDto() {
-        return new SkillDto();
-    }
-
-    /**
-     * Create an instance of {@link CalificationDto }
-     * 
-     */
-    public CalificationDto createCalificationDto() {
-        return new CalificationDto();
+    public ResponseWrapper createResponseWrapper() {
+        return new ResponseWrapper();
     }
 
     /**
@@ -196,11 +207,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ResponseWrapper }
+     * Create an instance of {@link SkillDto }
      * 
      */
-    public ResponseWrapper createResponseWrapper() {
-        return new ResponseWrapper();
+    public SkillDto createSkillDto() {
+        return new SkillDto();
+    }
+
+    /**
+     * Create an instance of {@link CalificationDto }
+     * 
+     */
+    public CalificationDto createCalificationDto() {
+        return new CalificationDto();
     }
 
     /**
@@ -214,6 +233,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "CharacteristicDto")
     public JAXBElement<CharacteristicDto> createCharacteristicDto(CharacteristicDto value) {
         return new JAXBElement<CharacteristicDto>(_CharacteristicDto_QNAME, CharacteristicDto.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PositionDto }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link PositionDto }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "PositionDto")
+    public JAXBElement<PositionDto> createPositionDto(PositionDto value) {
+        return new JAXBElement<PositionDto>(_PositionDto_QNAME, PositionDto.class, null, value);
     }
 
     /**
@@ -305,6 +337,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByIdResponse")
     public JAXBElement<GetPositionByIdResponse> createGetPositionByIdResponse(GetPositionByIdResponse value) {
         return new JAXBElement<GetPositionByIdResponse>(_GetPositionByIdResponse_QNAME, GetPositionByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositions }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositions }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositions")
+    public JAXBElement<GetPositions> createGetPositions(GetPositions value) {
+        return new JAXBElement<GetPositions>(_GetPositions_QNAME, GetPositions.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionsResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionsResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionsResponse")
+    public JAXBElement<GetPositionsResponse> createGetPositionsResponse(GetPositionsResponse value) {
+        return new JAXBElement<GetPositionsResponse>(_GetPositionsResponse_QNAME, GetPositionsResponse.class, null, value);
     }
 
     /**

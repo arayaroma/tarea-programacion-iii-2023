@@ -93,7 +93,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     *         getUsersByPositionId
+     * getUsersByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -126,7 +126,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     *         getSkillsByPositionId
+     * getSkillsByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -157,7 +157,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     /**
-     * @param id       position id to be updated
+     * @param id position id to be updated
      * @param position position to be updated
      * @return ResponseWrapper with the response of the service call
      */
@@ -225,7 +225,7 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     *         deleteAllPositions
+     * deleteAllPositions
      */
     @Override
     public ResponseWrapper deleteAllPositions() {
@@ -242,6 +242,24 @@ public class PositionServiceImpl implements PositionService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while deleting all positions: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper getPositions() {
+        try {
+            return new ResponseWrapper(ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of positions.",
+                    EntityUtil.fromEntityList(
+                            em.createNamedQuery("Position.findAll").getResultList(),
+                            PositionDto.class));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving positions: " + e.getMessage(),
                     null);
         }
     }

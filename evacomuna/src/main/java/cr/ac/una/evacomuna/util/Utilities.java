@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cr.ac.una.controller.ListWrapper;
+import cr.ac.una.controller.PositionDto;
+import cr.ac.una.evacomuna.services.Position;
 
 /**
  *
@@ -21,6 +23,7 @@ import cr.ac.una.controller.ListWrapper;
 public class Utilities {
 
     static Skill skillService = new Skill();
+    static Position roleService = new Position();
     static Characteristic characteristicService = new Characteristic();
 
     public static File selectFile(String nameFilter, String... filters) {
@@ -37,6 +40,9 @@ public class Utilities {
             }
             if (t instanceof SkillDto) {
                 return ((SkillDto) t).getName();
+            }
+            if (t instanceof PositionDto) {
+                return ((PositionDto) t).getName();
             }
             return "";
         }).collect(Collectors.toList()).stream().forEach(t -> stringList.add(t));
@@ -55,6 +61,20 @@ public class Utilities {
             }
         }
         return skillsDto;
+    }
+
+    public static ObservableList<PositionDto> loadRoles() {
+        ObservableList<PositionDto> positionDtos = FXCollections.observableArrayList();
+        ResponseWrapper response = roleService.getRoles();
+        if (response.getCode() == ResponseCode.OK) {
+            ListWrapper wrapper = (ListWrapper) response.getData();
+            for (Object i : wrapper.getElement()) {
+                if (i instanceof PositionDto) {
+                    positionDtos.add((PositionDto) i);
+                }
+            }
+        }
+        return positionDtos;
     }
 
     public static ObservableList<CharacteristicDto> loadCharacteristics() {

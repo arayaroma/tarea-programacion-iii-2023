@@ -2,6 +2,9 @@ package cr.ac.una.dto;
 
 import java.util.List;
 import cr.ac.una.entities.Position;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@XmlRootElement(name = "PositionDto")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PositionDto {
     private Long id;
     private String name;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="parent" stylesheets="@../style/containerModule.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.ContainerModuleController">
+   <tabs>
+      <Tab fx:id="parentRole" onSelectionChanged="#tabRole" text="Roles" />
+      <Tab fx:id="parentSkill" onSelectionChanged="#tabSkills" text="Skillls" />
+      <Tab fx:id="parentCharacteristic" onSelectionChanged="#tabCharacteristics" text="Charactersitics" />
+   </tabs>
+</TabPane>
