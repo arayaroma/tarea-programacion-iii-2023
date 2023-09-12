@@ -148,7 +148,11 @@ public class SkillModuleController implements Initializable {
                 skillDto.setState(state);
                 skillDto.getCharacteristics().clear();
                 for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
+//                    i.setSkill(skillDto);
                     skillDto.getCharacteristics().add(i);
+//                    skillDto.getCharacteristics().add(i);
+//                    ResponseWrapper r = characteristicService.updateCharacteristics(i);
+//                    System.out.println(r);
                 }
                 ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {

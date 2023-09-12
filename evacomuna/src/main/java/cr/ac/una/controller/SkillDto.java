@@ -21,7 +21,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="califications" type="{http://controller.una.ac.cr/}calificationDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="characteristics" type="{http://controller.una.ac.cr/}characteristicDto" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="finalCalifications" type="{http://controller.una.ac.cr/}finalCalificationDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
@@ -40,7 +39,6 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "skillDto", propOrder = {
     "califications",
     "characteristics",
-    "description",
     "finalCalifications",
     "id",
     "name",
@@ -54,7 +52,6 @@ public class SkillDto {
     protected List<CalificationDto> califications;
     @XmlElement(nillable = true)
     protected List<CharacteristicDto> characteristics;
-    protected String description;
     @XmlElement(nillable = true)
     protected List<FinalCalificationDto> finalCalifications;
     protected Long id;
@@ -120,30 +117,6 @@ public class SkillDto {
             characteristics = new ArrayList<CharacteristicDto>();
         }
         return this.characteristics;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad description.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Define el valor de la propiedad description.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescription(String value) {
-        this.description = value;
     }
 
     /**
