@@ -14,7 +14,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 /**
- * 
+ *
  * @author enajera
  * @author arayaroma
  */
@@ -28,7 +28,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param characteristic characteristic to be created
      * @return ResponseWrapper with the response of the service call
-     *         createCharacteristic
+     * createCharacteristic
      */
     @Override
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
@@ -57,12 +57,13 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param characteristic characteristic to be updated
      * @return ResponseWrapper with the response of the service call
-     *         updateCharacteristic
+     * updateCharacteristic
      */
     @Override
     public ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto) {
         try {
             Characteristic characteristic = em.find(Characteristic.class, characteristicDto.getId());
+
             if (characteristic == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -71,6 +72,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
                         null);
             }
             characteristic.updateCharacteristic(characteristicDto);
+            System.out.println(characteristic.getSkill());
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -94,7 +96,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param id characteristic id to be searched
      * @return ResponseWrapper with the response of the service call
-     *         getCharacteristicById
+     * getCharacteristicById
      */
     @Override
     public ResponseWrapper getCharacteristicById(Long id) {
@@ -124,7 +126,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param name characteristic name to be searched
      * @return ResponseWrapper with the response of the service call
-     *         getCharacteristicByName
+     * getCharacteristicByName
      */
     @Override
     public ResponseWrapper getCharacteristicByName(String name) {
@@ -155,7 +157,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     *         getCharacteristics
+     * getCharacteristics
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -181,7 +183,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param id
      * @return ResponseWrapper with the response of the service call
-     *         getSkillsByCharacteristicId
+     * getSkillsByCharacteristicId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -214,7 +216,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param id characteristic id to be deleted
      * @return ResponseWrapper with the response of the service call
-     *         deleteCharacteristicById
+     * deleteCharacteristicById
      */
     @Override
     public ResponseWrapper deleteCharacteristicById(Long id) {
@@ -246,7 +248,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     /**
      * @param name characteristic name to be deleted
      * @return ResponseWrapper with the response of the service call
-     *         deleteCharacteristicByName
+     * deleteCharacteristicByName
      */
     @Override
     public ResponseWrapper deleteCharacteristicByName(String name) {
@@ -279,7 +281,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     *         deleteAllCharacteristics
+     * deleteAllCharacteristics
      */
     @Override
     public ResponseWrapper deleteAllCharacteristics() {

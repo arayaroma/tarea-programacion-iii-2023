@@ -4,6 +4,7 @@ import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
+import cr.ac.una.evacomuna.dto.SkillWrapper;
 import cr.ac.una.evacomuna.services.Characteristic;
 import cr.ac.una.evacomuna.services.Skill;
 import cr.ac.una.evacomuna.util.Message;
@@ -83,7 +84,9 @@ public class SkillModuleController implements Initializable {
     private void selectSkill(ActionEvent event) {
         String nameSkill = cbSkillsView.getValue();
         if (nameSkill != null) {
-            skillBufferMainView = (SkillDto) skillService.getSkillByName(nameSkill).getData();;
+            skillBufferMainView = (SkillDto) skillService.getSkillByName(nameSkill).getData();
+            listCharacteristicsMainSkillView.getItems().clear();
+            skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsMainSkillView.getItems().add(t));
         }
     }
 
@@ -144,15 +147,15 @@ public class SkillModuleController implements Initializable {
                 } else {
                     skillDto = skillBufferMainView;
                 }
+
                 skillDto.setName(name);
                 skillDto.setState(state);
                 skillDto.getCharacteristics().clear();
+                SkillWrapper skillEntity = new SkillWrapper(skillDto.getName(), skillDto.getState(), skillDto.getId());
                 for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
-//                    i.setSkill(skillDto);
-                    skillDto.getCharacteristics().add(i);
-//                    skillDto.getCharacteristics().add(i);
-//                    ResponseWrapper r = characteristicService.updateCharacteristics(i);
-//                    System.out.println(r);
+                    i.setSkill(skillEntity.getDto());
+                    ResponseWrapper r = characteristicService.updateCharacteristics(i);
+                    System.out.println(r);
                 }
                 ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
