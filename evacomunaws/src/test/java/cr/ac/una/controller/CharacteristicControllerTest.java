@@ -56,7 +56,6 @@ public class CharacteristicControllerTest {
     private CharacteristicDto createTestCharacteristic(String name) {
         CharacteristicDto characteristicTest = new CharacteristicDto();
         characteristicTest.setName(name);
-        characteristicTest.setSkills(new ArrayList<SkillDto>());
         return characteristicTest;
     }
 

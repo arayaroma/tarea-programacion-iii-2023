@@ -1,6 +1,5 @@
 package cr.ac.una.dto;
 
-import java.util.List;
 import cr.ac.una.entities.Characteristic;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -23,7 +22,7 @@ public class CharacteristicDto {
     private Long id;
     private String name;
     private Long version;
-    List<SkillDto> skills;
+    SkillDto skill;
 
     /**
      * @param skill constructor from entity to dto

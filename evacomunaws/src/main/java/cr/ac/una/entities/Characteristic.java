@@ -8,7 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -18,7 +19,6 @@ import lombok.NoArgsConstructor;
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
-import java.util.List;
 import cr.ac.una.dto.CharacteristicDto;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -36,7 +36,6 @@ import jakarta.persistence.NamedQuery;
         @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),
         @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name"),
         @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c"),
-        @NamedQuery(name = "Characteristic.getSkillsByCharacteristicId", query = "SELECT s FROM Skill s JOIN s.characteristics c WHERE c.id = :id")
 })
 public class Characteristic implements Serializable {
 
@@ -59,8 +58,9 @@ public class Characteristic implements Serializable {
     @Column(name = "VERSION")
     private Long version;
 
-    @ManyToMany(mappedBy = "characteristics")
-    List<Skill> skills;
+    @ManyToOne
+    @JoinColumn(name = "SKILLID")
+    Skill skill;
 
     /**
      * @param characteristicDto constructor from entity to dto

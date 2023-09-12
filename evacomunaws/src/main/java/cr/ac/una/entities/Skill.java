@@ -6,8 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -43,7 +41,6 @@ import cr.ac.una.dto.SkillDto;
         @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c JOIN c.skills s WHERE s.id = :id"),
         @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
         @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id")
-//        @NamedQuery(name = "Skill.getPositionsBySkillId", query = "SELECT p FROM Position p WHERE p.skills.id = :id"), Consulta mala
 })
 public class Skill implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -80,8 +77,7 @@ public class Skill implements Serializable {
     @OneToMany(mappedBy = "skill")
     private List<FinalCalification> finalCalifications;
 
-    @ManyToMany
-    @JoinTable(name = "TBL_SKILL_CHARACTERISTIC", joinColumns = @JoinColumn(name = "SKILLID"), inverseJoinColumns = @JoinColumn(name = "CHARACTERISTICID"))
+    @OneToMany(mappedBy = "skill")
     private List<Characteristic> characteristics;
 
     @Version

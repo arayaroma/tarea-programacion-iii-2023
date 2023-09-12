@@ -34,7 +34,6 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     @Override
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
-            characteristicDto.setSkills(new ArrayList<SkillDto>());
             Characteristic characteristic = new Characteristic(characteristicDto);
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
