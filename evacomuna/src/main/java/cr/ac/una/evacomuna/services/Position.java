@@ -26,6 +26,14 @@ public class Position {
         return port.updatePositionById(id);
     }
 
+    public ResponseWrapper updateRole(PositionDto role) {
+        return port.updatePosition(role);
+    }
+
+    public ResponseWrapper getRoleByName(String name) {
+        return port.getPositionByName(name);
+    }
+
     public ResponseWrapper deleteRoleById(Long id) {
         return port.deletePositionById(id);
     }
@@ -33,6 +41,7 @@ public class Position {
     public ResponseWrapper createRole(PositionDto role) {
         return port.createPosition(role);
     }
+
 //    public ResponseWrapper getRoleByName(String name) {
 //        return port.getPositionById(Long.MIN_VALUE)
 //    }

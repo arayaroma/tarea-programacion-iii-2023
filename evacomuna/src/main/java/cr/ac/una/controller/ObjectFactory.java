@@ -33,11 +33,15 @@ public class ObjectFactory {
     private final static QName _DeletePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionByIdResponse");
     private final static QName _GetPositionById_QNAME = new QName("http://controller.una.ac.cr/", "getPositionById");
     private final static QName _GetPositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByIdResponse");
+    private final static QName _GetPositionByName_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByName");
+    private final static QName _GetPositionByNameResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByNameResponse");
     private final static QName _GetPositions_QNAME = new QName("http://controller.una.ac.cr/", "getPositions");
     private final static QName _GetPositionsResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionsResponse");
     private final static QName _ListWrapper_QNAME = new QName("http://controller.una.ac.cr/", "listWrapper");
+    private final static QName _UpdatePosition_QNAME = new QName("http://controller.una.ac.cr/", "updatePosition");
     private final static QName _UpdatePositionById_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionById");
     private final static QName _UpdatePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionByIdResponse");
+    private final static QName _UpdatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: cr.ac.una.controller
@@ -119,6 +123,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetPositionByName }
+     * 
+     */
+    public GetPositionByName createGetPositionByName() {
+        return new GetPositionByName();
+    }
+
+    /**
+     * Create an instance of {@link GetPositionByNameResponse }
+     * 
+     */
+    public GetPositionByNameResponse createGetPositionByNameResponse() {
+        return new GetPositionByNameResponse();
+    }
+
+    /**
      * Create an instance of {@link GetPositions }
      * 
      */
@@ -143,6 +163,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UpdatePosition }
+     * 
+     */
+    public UpdatePosition createUpdatePosition() {
+        return new UpdatePosition();
+    }
+
+    /**
      * Create an instance of {@link UpdatePositionById }
      * 
      */
@@ -156,6 +184,14 @@ public class ObjectFactory {
      */
     public UpdatePositionByIdResponse createUpdatePositionByIdResponse() {
         return new UpdatePositionByIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdatePositionResponse }
+     * 
+     */
+    public UpdatePositionResponse createUpdatePositionResponse() {
+        return new UpdatePositionResponse();
     }
 
     /**
@@ -340,6 +376,32 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionByName }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionByName }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByName")
+    public JAXBElement<GetPositionByName> createGetPositionByName(GetPositionByName value) {
+        return new JAXBElement<GetPositionByName>(_GetPositionByName_QNAME, GetPositionByName.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionByNameResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionByNameResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByNameResponse")
+    public JAXBElement<GetPositionByNameResponse> createGetPositionByNameResponse(GetPositionByNameResponse value) {
+        return new JAXBElement<GetPositionByNameResponse>(_GetPositionByNameResponse_QNAME, GetPositionByNameResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetPositions }{@code >}
      * 
      * @param value
@@ -379,6 +441,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePosition }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePosition }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePosition")
+    public JAXBElement<UpdatePosition> createUpdatePosition(UpdatePosition value) {
+        return new JAXBElement<UpdatePosition>(_UpdatePosition_QNAME, UpdatePosition.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePositionById }{@code >}
      * 
      * @param value
@@ -402,6 +477,19 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePositionByIdResponse")
     public JAXBElement<UpdatePositionByIdResponse> createUpdatePositionByIdResponse(UpdatePositionByIdResponse value) {
         return new JAXBElement<UpdatePositionByIdResponse>(_UpdatePositionByIdResponse_QNAME, UpdatePositionByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePositionResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePositionResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePositionResponse")
+    public JAXBElement<UpdatePositionResponse> createUpdatePositionResponse(UpdatePositionResponse value) {
+        return new JAXBElement<UpdatePositionResponse>(_UpdatePositionResponse_QNAME, UpdatePositionResponse.class, null, value);
     }
 
 }

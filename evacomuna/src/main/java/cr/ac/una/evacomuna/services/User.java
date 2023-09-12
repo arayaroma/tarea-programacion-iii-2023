@@ -16,13 +16,13 @@ public class User {
         port = service.getUserControllerPort();
     }
 
-    public ResponseWrapper createUser(UserDto user) {
-        return port.createUser(user);
+    public ResponseWrapper createUser(UserDto userDto) {
+        return port.createUser(userDto);
     }
 
-//    public ResponseWrapper updateUser(Long id, UserDto user) {
-//        return port.(id, user);
-//    }
+    public ResponseWrapper updateUser(UserDto userDto) {
+        return port.updateUser(userDto);
+    }
 //
 //    public ResponseWrapper deleteUser(Long id) {
 //        return port.deleteUserById(id);

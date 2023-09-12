@@ -20,7 +20,11 @@ public interface PositionService {
 
     ResponseWrapper getSkillsByPositionId(Long id);
 
+    ResponseWrapper getPositionByName(String name);
+
     ResponseWrapper updatePositionById(Long id);
+
+    ResponseWrapper updatePosition(PositionDto position);
 
     ResponseWrapper deletePositionById(Long id);
 

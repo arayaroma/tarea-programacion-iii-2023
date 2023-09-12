@@ -1,6 +1,10 @@
 package cr.ac.una.evacomuna.controller;
+
+import cr.ac.una.controller.PositionDto;
+import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
@@ -9,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,6 +60,7 @@ public class RegisterWorkerController implements Initializable {
     private HBox parent;
 
     private User userService;
+    private Position roleService;
 
     private boolean isFromLogin;
 
@@ -69,9 +75,11 @@ public class RegisterWorkerController implements Initializable {
 
         App.setRegisterWorkerController(this);
         userService = new User();
+        roleService = new Position();
         // Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
-
+        ObservableList<PositionDto> roleDtos = Utilities.loadRoles();
+        roleDtos.stream().forEach(t -> cbRoleRegister.getItems().add(t.getName()));
     }
 
     @FXML
@@ -94,26 +102,35 @@ public class RegisterWorkerController implements Initializable {
     @FXML
     private void registerUser(ActionEvent event) {
         try {
+            ResponseWrapper response;
+            Image image = imgPhoto.getImage();
             String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(),
                     ced = txfCedRegister.getText(), name = txfNameRegister.getText(),
                     lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(),
                     phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(),
                     role = cbRoleRegister.getValue(), landLineNumber = txfLandLineNumberRegister.getText();
             if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank()
-                    || secondLastName.isBlank() || phoneNumber.isBlank() || landLineNumber.isBlank() || email.isBlank()) {
+                    || secondLastName.isBlank() || phoneNumber.isBlank() || landLineNumber.isBlank() || email.isBlank() || role == null || image == null) {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
             }
             UserDto userDto = createUser(userName, password, name, lastName, secondLastName, ced,
                     email, phoneNumber, landLineNumber, role);
+            userDto.setProfilePhoto(Utilities.imageToByte(image));
             if (userModified == null) {
-                System.out.println(userService.createUser(userDto).getMessage());
-                return;
+                response = userService.createUser(userDto);
+
             } else {
-                userModified = userDto;
-                controlerUser.setData(userModified);
-                // userService.updateUser(Long.MIN_VALUE, user)
+                userDto.setId(userModified.getId());
+                userDto.setPosition(userModified.getPosition());
+                userDto.setIsAdmin(userModified.getIsAdmin());
+
+                controlerUser.setData(userDto);
+                response = userService.updateUser(userDto);
+
             }
+            System.out.println(response.getMessage());
+            Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
             backToLogin(null);
         } catch (IOException e) {
             System.out.println(e.toString());
@@ -131,7 +148,11 @@ public class RegisterWorkerController implements Initializable {
         user.setEmail(args[6]);
         user.setPhoneNumber(args[7]);
         user.setLandlineNumber(args[8]);
-//        user.setUserPositionId(Long.MAX_VALUE);
+        user.setIsActive("N");
+        user.setIsAdmin("N");
+        user.setPasswordChanged("N");
+        PositionDto roleDto = (PositionDto) roleService.getRoleByName(args[9]).getData();
+        user.setPosition(roleDto);
         return user;
     }
 

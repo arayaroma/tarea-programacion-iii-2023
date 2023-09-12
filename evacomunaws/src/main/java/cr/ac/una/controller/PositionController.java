@@ -35,6 +35,11 @@ public class PositionController {
         return positionService.getPositionById(id);
     }
 
+    @WebMethod(operationName = "getPositionByName")
+    public ResponseWrapper getPositionByName(String name) {
+        return positionService.getPositionByName(name);
+    }
+
     /**
      * @param id position id to be updated
      * @return ResponseWrapper with the response of the service call
@@ -42,6 +47,11 @@ public class PositionController {
     @WebMethod(operationName = "updatePositionById")
     public ResponseWrapper updatePositionById(Long id) {
         return positionService.updatePositionById(id);
+    }
+
+    @WebMethod(operationName = "updatePosition")
+    public ResponseWrapper updatePosition(PositionDto positionDto) {
+        return positionService.updatePosition(positionDto);
     }
 
     /**

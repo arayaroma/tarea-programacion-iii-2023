@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.evacomuna.services.Position;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -90,6 +93,23 @@ public class Utilities {
             }
         }
         return characteristicDtosView;
+    }
+
+    public static byte[] imageToByte(Image image) {
+        try {
+            InputStream inputStream = image.getClass().getResourceAsStream(image.getUrl());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
+            }
+            return byteArrayOutputStream.toByteArray();
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
 }

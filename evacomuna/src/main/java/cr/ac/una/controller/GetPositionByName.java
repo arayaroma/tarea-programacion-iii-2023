@@ -7,16 +7,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para updatePosition complex type.
+ * <p>Clase Java para getPositionByName complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="updatePosition"&gt;
+ * &lt;complexType name="getPositionByName"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://controller.una.ac.cr/}positionDto" minOccurs="0"/&gt;
+ *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,22 +26,22 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updatePosition", propOrder = {
+@XmlType(name = "getPositionByName", propOrder = {
     "arg0"
 })
-public class UpdatePosition {
+public class GetPositionByName {
 
-    protected PositionDto arg0;
+    protected String arg0;
 
     /**
      * Obtiene el valor de la propiedad arg0.
      * 
      * @return
      *     possible object is
-     *     {@link PositionDto }
+     *     {@link String }
      *     
      */
-    public PositionDto getArg0() {
+    public String getArg0() {
         return arg0;
     }
 
@@ -50,10 +50,10 @@ public class UpdatePosition {
      * 
      * @param value
      *     allowed object is
-     *     {@link PositionDto }
+     *     {@link String }
      *     
      */
-    public void setArg0(PositionDto value) {
+    public void setArg0(String value) {
         this.arg0 = value;
     }
 

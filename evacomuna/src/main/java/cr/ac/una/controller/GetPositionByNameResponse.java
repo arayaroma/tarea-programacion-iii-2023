@@ -3,20 +3,21 @@ package cr.ac.una.controller;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para updatePosition complex type.
+ * <p>Clase Java para getPositionByNameResponse complex type.
  * 
  * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
- * &lt;complexType name="updatePosition"&gt;
+ * &lt;complexType name="getPositionByNameResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://controller.una.ac.cr/}positionDto" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://controller.una.ac.cr/}responseWrapper" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,35 +27,36 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "updatePosition", propOrder = {
-    "arg0"
+@XmlType(name = "getPositionByNameResponse", propOrder = {
+    "_return"
 })
-public class UpdatePosition {
+public class GetPositionByNameResponse {
 
-    protected PositionDto arg0;
+    @XmlElement(name = "return")
+    protected ResponseWrapper _return;
 
     /**
-     * Obtiene el valor de la propiedad arg0.
+     * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
-     *     {@link PositionDto }
+     *     {@link ResponseWrapper }
      *     
      */
-    public PositionDto getArg0() {
-        return arg0;
+    public ResponseWrapper getReturn() {
+        return _return;
     }
 
     /**
-     * Define el valor de la propiedad arg0.
+     * Define el valor de la propiedad return.
      * 
      * @param value
      *     allowed object is
-     *     {@link PositionDto }
+     *     {@link ResponseWrapper }
      *     
      */
-    public void setArg0(PositionDto value) {
-        this.arg0 = value;
+    public void setReturn(ResponseWrapper value) {
+        this._return = value;
     }
 
 }

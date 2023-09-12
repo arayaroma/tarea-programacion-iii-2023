@@ -264,4 +264,61 @@ public class PositionServiceImpl implements PositionService {
         }
     }
 
+    @Override
+    public ResponseWrapper getPositionByName(String name) {
+        try {
+            Position position = (Position) em.createNamedQuery("Position.findByName").setParameter("name", name).getSingleResult();
+            if (position == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Position not found.",
+                        null);
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of position.",
+                    new PositionDto(position));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving position: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper updatePosition(PositionDto positionDto) {
+        try {
+            Position position = em.find(Position.class, positionDto.getId());
+            if (position == null) {
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Position not found.",
+                        null);
+            }
+            position.updatePosition(positionDto);
+            ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(position, Position.class);
+            if (INVALID_REQUEST != null) {
+                return INVALID_REQUEST;
+            }
+            em.merge(position);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Position updated successfully.",
+                    positionDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while updating position: " + e.getMessage(),
+                    null);
+        }
+    }
+
 }

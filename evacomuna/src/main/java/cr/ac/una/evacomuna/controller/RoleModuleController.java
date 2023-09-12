@@ -82,18 +82,21 @@ public class RoleModuleController implements Initializable {
 
     @FXML
     private void btnEditRole(ActionEvent event) {
-        registerRolesView.toFront();
-        isEditingRole = true;
-//        bufferRole = roleService.
-//        initializeRegisterView();
+        if (bufferRole != null) {
+            registerRolesView.toFront();
+            isEditingRole = true;
+            initializeRegisterView();
+            txfRoleNameRegister.setText(bufferRole.getName());
+            cbStateRegister.setValue(bufferRole.getState());
+        }
     }
 
     @FXML
     private void btnDeleteRole(ActionEvent event) {
-//        if(bufferSkill!=null){
-//            skillService.deleteSkillsById(bufferSkill.getId());
-//            
-//        }
+        if (bufferRole != null) {
+            roleService.deleteRoleById(bufferRole.getId());
+            initializeMainView();
+        }
     }
 
     @FXML
@@ -117,9 +120,9 @@ public class RoleModuleController implements Initializable {
 
     @FXML
     private void selectRole(ActionEvent event) {
-        String name = cbRolesSkillsRegister.getValue();
+        String name = cbRoles.getValue();
         if (name != null) {
-//            bufferRole = 
+            bufferRole = (PositionDto) roleService.getRoleByName(name).getData();
         }
     }
 
@@ -141,7 +144,7 @@ public class RoleModuleController implements Initializable {
                 for (SkillDto i : listSkillsRegister.getItems()) {
                     role.getSkills().add(i);
                 }
-                ResponseWrapper response = isEditingRole ? roleService.updateRoleById(role.getId()) : roleService.createRole(role);
+                ResponseWrapper response = isEditingRole ? roleService.updateRole(role) : roleService.createRole(role);
                 if (response.getCode() == ResponseCode.OK) {
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanRegisterView();
@@ -185,7 +188,7 @@ public class RoleModuleController implements Initializable {
 
     private void initializeRegisterView() {
         skillDtos = Utilities.loadSkills();
-        listSkillsMain.setItems(skillDtos);
+//        listSkillsMain.setItems(skillDtos);
         cbStateRegister.getItems().addAll("ACTIVE", "INACTIVE");
         cbRolesSkillsRegister.setItems(Utilities.mapListToObsevableString(skillDtos));
     }
@@ -203,5 +206,6 @@ public class RoleModuleController implements Initializable {
         roleDtos = Utilities.loadRoles();
         cbRoles.setItems(Utilities.mapListToObsevableString(roleDtos));
     }
+//    private void
 
 }
