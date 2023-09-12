@@ -59,7 +59,7 @@ public class Characteristic implements Serializable {
     private Long version;
 
     @ManyToOne
-    @JoinColumn(name = "SKILLID")
+    @JoinColumn(name = "SKILLID", nullable = true)
     Skill skill;
 
     /**
