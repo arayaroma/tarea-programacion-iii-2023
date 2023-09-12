@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.PositionDto;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +43,8 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_POSITION;
         @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
         @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
         @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
-//        @NamedQuery(name = "Position.getSkillsByPositionId", query = "SELECT s FROM Skill s WHERE s.position.id = :id"), consulta mala
+// @NamedQuery(name = "Position.getSkillsByPositionId", query = "SELECT s FROM
+// Skill s WHERE s.position.id = :id"), consulta mala
 })
 public class Position implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -69,7 +71,7 @@ public class Position implements Serializable {
     @OneToMany(mappedBy = "position")
     private List<User> users;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITIONID"), inverseJoinColumns = @JoinColumn(name = "SKILLID"))
     private List<Skill> skills;
 

@@ -162,6 +162,7 @@ public class UserServiceImpl implements UserService {
      *         exception occurred
      */
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getUserByIdentification(String identification) {
         if (identification == null || identification.isEmpty()) {
             return new ResponseWrapper(
@@ -210,6 +211,7 @@ public class UserServiceImpl implements UserService {
      *         exception occurred
      */
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper deleteUserByIdentification(String identification) {
         if (identification == null || identification.isEmpty()) {
             return new ResponseWrapper(
@@ -260,6 +262,7 @@ public class UserServiceImpl implements UserService {
      *         exception occurred
      */
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getUserByUsername(String username) {
         if (username == null || username.isEmpty()) {
             return new ResponseWrapper(
@@ -308,6 +311,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getUserByUserAndPassword(String username, String password) {
         if (username == null || username.isEmpty()) {
             return new ResponseWrapper(

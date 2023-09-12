@@ -247,6 +247,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getPositions() {
         try {
             return new ResponseWrapper(ResponseCode.OK.getCode(),

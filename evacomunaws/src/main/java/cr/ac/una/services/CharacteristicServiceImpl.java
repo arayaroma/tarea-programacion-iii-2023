@@ -5,7 +5,6 @@ import cr.ac.una.dto.SkillDto;
 import cr.ac.una.entities.Characteristic;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
-import java.util.ArrayList;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;

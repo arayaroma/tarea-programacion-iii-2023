@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import cr.ac.una.dto.CharacteristicDto;
-import cr.ac.una.dto.SkillDto;
 import cr.ac.una.services.CharacteristicService;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
