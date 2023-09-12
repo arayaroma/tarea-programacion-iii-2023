@@ -1,6 +1,7 @@
 package cr.ac.una.entities;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -77,7 +78,7 @@ public class Skill implements Serializable {
     @OneToMany(mappedBy = "skill")
     private List<FinalCalification> finalCalifications;
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL)
     private List<Characteristic> characteristics;
 
     @Version
