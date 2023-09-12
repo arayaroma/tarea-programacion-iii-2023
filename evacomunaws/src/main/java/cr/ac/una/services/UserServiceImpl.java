@@ -44,6 +44,9 @@ public class UserServiceImpl implements UserService {
         try {
             User user;
             user = new User(userDto);
+            user.setPosition(EntityUtil
+                    .convertToEntity(userDto, User.class)
+                    .getPosition());
 
             ResponseWrapper INVALID_REQUEST = verifyEntity(user, User.class);
             if (INVALID_REQUEST != null)
@@ -395,7 +398,6 @@ public class UserServiceImpl implements UserService {
                             null);
                 }
             }
-
             if (!Objects.equals(userDto.getIdentification(), user.getIdentification())) {
                 if (!verifyUniqueIdentification(userDto.getIdentification())) {
                     return new ResponseWrapper(
@@ -405,8 +407,10 @@ public class UserServiceImpl implements UserService {
                             null);
                 }
             }
-
             user.updateUser(userDto);
+            user.setPosition(
+                    EntityUtil.convertToEntity(userDto, User.class)
+                            .getPosition());
             em.merge(user);
             em.flush();
             return new ResponseWrapper(
