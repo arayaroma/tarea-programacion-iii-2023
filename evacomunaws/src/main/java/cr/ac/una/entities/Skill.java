@@ -37,14 +37,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-<<<<<<< HEAD
-        @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s"),
-        @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
-        @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name"),
-        @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
-        @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
-        @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id")
-=======
+
     @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s"),
     @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
     @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name"),
@@ -52,7 +45,6 @@ import java.util.ArrayList;
 //        @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c JOIN c.skills s WHERE s.id = :id"),
     @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
     @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id")
->>>>>>> 5f47882 ([fix] Guardar skill-characteristic)
 })
 public class Skill implements Serializable {
 
