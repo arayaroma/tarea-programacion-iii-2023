@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 /**
  * @author Angelo2002
  * @author arayaroma
@@ -27,13 +28,23 @@ public class EntityUtil {
         return listWrapper;
     }
 
-    private static <T, D> D convertToDto(T entity, Class<D> dtoClass) {
+    public static <T, D> D convertToDto(T entity, Class<D> dtoClass) {
         try {
             Constructor<D> constructor = dtoClass.getConstructor(entity.getClass());
             D dto = constructor.newInstance(entity);
             return dto;
         } catch (Exception e) {
             throw new RuntimeException("Error converting entity to DTO", e);
+        }
+    }
+
+    public static <T, D> T convertToEntity(D dto, Class<T> entityClass) {
+        try {
+            Constructor<T> constructor = entityClass.getConstructor(dto.getClass());
+            T entity = constructor.newInstance(dto);
+            return entity;
+        } catch (Exception e) {
+            throw new RuntimeException("Error converting DTO to entity", e);
         }
     }
 
