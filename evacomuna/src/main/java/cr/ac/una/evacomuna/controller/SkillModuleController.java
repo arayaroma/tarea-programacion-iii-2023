@@ -168,36 +168,20 @@ public class SkillModuleController implements Initializable {
                 } else {
                     skillDto = skillBufferMainView;
                 }
-
                 skillDto.setName(name);
                 skillDto.setState(state);
-<<<<<<< HEAD
 
-                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
+                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto)
+                        : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
                     skillDto = (SkillDto) response.getData();
-                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(), skillDto.getId());
+                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(),
+                            skillDto.getId());
 
                     for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
                         i.setSkill(newSkillWrapper.getDto());
                         characteristicService.updateCharacteristics(i);
                     }
-=======
-                if (skillDto.getCharacteristics() != null) {
-                    skillDto.getCharacteristics().clear();
-                }
-
-                for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
-                    // i.setSkill(skillDto);
-                    // ResponseWrapper r = characteristicService.updateCharacteristics(i);
-                    // System.out.println(r);
-                    skillDto.getCharacteristics().add(i);
-                }
-                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto)
-                        : skillService.createSkill(skillDto);
-                if (response.getCode() == ResponseCode.OK) {
-                    skillDto = (SkillDto) response.getData();
->>>>>>> c8e332e ([fixed] resolving merge conflicts)
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanFieldsSkillRegisterView();
                     mainSkillsView.toFront();
