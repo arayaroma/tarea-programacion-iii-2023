@@ -24,8 +24,6 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_SKILL;
 import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.SkillDto;
-import jakarta.persistence.FetchType;
-import java.util.ArrayList;
 
 /**
  *
@@ -37,7 +35,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-
     @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s"),
     @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
     @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name"),
@@ -62,7 +59,6 @@ public class Skill implements Serializable {
     @Size(min = 1, max = 24)
     @Column(name = "NAME")
     private String name;
-
 
     @NotNull
     @Basic(optional = false)
@@ -89,9 +85,9 @@ public class Skill implements Serializable {
      * @param skillDto constructor from dto to entity
      */
     public Skill(SkillDto skillDto) {
-        if (skillDto != null) {
-            this.id = skillDto.getId();
-        }
+
+        this.id = skillDto.getId();
+
         updateSkill(skillDto);
 
     }
@@ -100,10 +96,10 @@ public class Skill implements Serializable {
      * @param skillDto update entity from dto
      */
     public void updateSkill(SkillDto skillDto) {
-        if (skillDto != null) {
-            this.name = skillDto.getName();
-            this.state = skillDto.getState();
-            this.version = skillDto.getVersion();
-        }
+
+        this.name = skillDto.getName();
+        this.state = skillDto.getState();
+        this.version = skillDto.getVersion();
+
     }
 }

@@ -74,10 +74,7 @@ public class Characteristic implements Serializable {
      */
     public void updateCharacteristic(CharacteristicDto characteristicDto) {
         this.name = characteristicDto.getName();
-        this.version = characteristicDto.getVersion();
-        if (characteristicDto.getSkill() != null) {
-            this.skill = new Skill(characteristicDto.getSkill());
-        }
+        this.version = characteristicDto.getVersion(); 
     }
 
 }

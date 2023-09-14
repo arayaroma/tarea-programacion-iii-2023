@@ -3,6 +3,7 @@ package cr.ac.una.services;
 import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.dto.SkillDto;
 import cr.ac.una.entities.Characteristic;
+import cr.ac.una.entities.Skill;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
 import cr.ac.una.util.EntityUtil;
@@ -34,6 +35,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
             Characteristic characteristic = new Characteristic(characteristicDto);
+            characteristic.setSkill(new Skill(characteristicDto.getSkill()));
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -72,7 +74,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
                         null);
             }
             characteristic.updateCharacteristic(characteristicDto);
-            System.out.println(characteristic.getSkill());
+            characteristic.setSkill(new Skill(characteristicDto.getSkill()));
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;

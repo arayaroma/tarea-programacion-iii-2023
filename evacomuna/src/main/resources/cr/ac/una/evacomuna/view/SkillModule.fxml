@@ -79,7 +79,7 @@
                         <String fx:value="confirm-color" />
                      </styleClass>
                   </Button>
-                  <ComboBox fx:id="cbSkillsView" editable="true" onAction="#selectSkill" onInputMethodTextChanged="#searchSkillInput" prefWidth="150.0" promptText="Skills" styleClass="searchBar" />
+                  <ComboBox fx:id="cbSkillsView" editable="true" onAction="#selectSkill" onKeyReleased="#searchSkillInput" prefWidth="150.0" promptText="Skills" styleClass="searchBar" />
                   <Label styleClass="h1" text="Characteristics" />
                   <ListView fx:id="listCharacteristicsMainSkillView" prefHeight="200.0" prefWidth="200.0" />
                   <HBox spacing="20.0">

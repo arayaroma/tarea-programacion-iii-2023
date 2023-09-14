@@ -6,6 +6,7 @@ import cr.ac.una.dto.CalificationDto;
 import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.dto.FinalCalificationDto;
 import cr.ac.una.dto.PositionDto;
+import cr.ac.una.entities.Characteristic;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -35,6 +36,9 @@ public class SkillServiceImpl implements SkillService {
     public ResponseWrapper createSkill(SkillDto skillDto) {
         try {
             Skill skill = new Skill(skillDto);
+            for (Characteristic i : skill.getCharacteristics()) {
+                i.setSkill(skill);
+            }
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(skill, Skill.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -87,6 +91,9 @@ public class SkillServiceImpl implements SkillService {
                         null);
             }
             skill.updateSkill(skillDto);
+            for (Characteristic i : skill.getCharacteristics()) {
+                i.setSkill(skill);
+            }
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(skill, Skill.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;

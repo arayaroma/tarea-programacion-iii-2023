@@ -36,5 +36,5 @@ public class Skill {
     public ResponseWrapper createSkill(SkillDto skillDto) {
         return port.createSkill(skillDto);
     }
-
+//    public  ResponseWrapper getSkill
 }
