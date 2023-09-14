@@ -28,6 +28,18 @@ public class EntityUtil {
         return listWrapper;
     }
 
+    public static <E, D> ListWrapper<E> fromDtoList(List<D> dtos, Class<E> entityClass) {
+        ListWrapper<E> listWrapper = new ListWrapper<>();
+        if (dtos == null || dtos.isEmpty()) {
+            return listWrapper;
+        }
+        List<E> entities = dtos.stream()
+                .map(dto -> convertToEntity(dto, entityClass))
+                .collect(Collectors.toList());
+        listWrapper.setList(entities);
+        return listWrapper;
+    }
+
     public static <T, D> D convertToDto(T entity, Class<D> dtoClass) {
         try {
             Constructor<D> constructor = dtoClass.getConstructor(entity.getClass());
