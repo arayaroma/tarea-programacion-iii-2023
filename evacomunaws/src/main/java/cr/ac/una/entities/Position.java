@@ -29,7 +29,7 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_POSITION;
 import jakarta.persistence.FetchType;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Entity
@@ -38,16 +38,17 @@ import jakarta.persistence.FetchType;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
-        @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
-        @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
-        @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
-        @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
-        @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
+    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
+    @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
+    @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
+    @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
+    @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
+    @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
 // @NamedQuery(name = "Position.getSkillsByPositionId", query = "SELECT s FROM
 // Skill s WHERE s.position.id = :id"), consulta mala
 })
 public class Position implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id

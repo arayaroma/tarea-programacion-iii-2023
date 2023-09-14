@@ -33,10 +33,11 @@ public class SkillDto {
         this.name = skill.getName();
         this.state = skill.getState();
         this.version = skill.getVersion();
-        this.positions = EntityUtil.fromEntityList(skill.getPositions(), PositionDto.class).getList();
-        this.califications = EntityUtil.fromEntityList(skill.getCalifications(), CalificationDto.class).getList();
-        this.finalCalifications = EntityUtil.fromEntityList(skill.getFinalCalifications(), FinalCalificationDto.class)
-                .getList();
+        //Cuando se jala la lista de posiciones genera ciclo, debido a que un position posee una lista de skills que posee una lista de position.
+        //ARREGLAR
+//        this.positions = EntityUtil.fromEntityList(skill.getPositions(), PositionDto.class).getList();
+//        this.califications = EntityUtil.fromEntityList(skill.getCalifications(), CalificationDto.class).getList();
+//        this.finalCalifications = EntityUtil.fromEntityList(skill.getFinalCalifications(), FinalCalificationDto.class).getList();
         this.characteristics = EntityUtil.fromEntityList(skill.getCharacteristics(), CharacteristicDto.class).getList();
     }
 }

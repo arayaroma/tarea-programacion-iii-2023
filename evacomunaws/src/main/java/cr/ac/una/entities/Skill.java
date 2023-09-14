@@ -72,7 +72,8 @@ public class Skill implements Serializable {
     @Size(min = 1, max = 8)
     private String state;
 
-    @ManyToMany(mappedBy = "skills")
+    
+    @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
     private List<Position> positions;
 
     @OneToMany(mappedBy = "skill")

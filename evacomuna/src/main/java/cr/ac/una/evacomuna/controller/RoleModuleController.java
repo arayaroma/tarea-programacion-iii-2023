@@ -27,7 +27,7 @@ import javafx.scene.layout.HBox;
  * @author estebannajera
  */
 public class RoleModuleController implements Initializable {
-    
+
     @FXML
     private HBox registerRolesView;
     @FXML
@@ -67,19 +67,21 @@ public class RoleModuleController implements Initializable {
         initializeLists();
         initializeMainView();
     }
-    
+
     @FXML
     private void btnBackToMainRole(ActionEvent event) {
         mainRoleView.toFront();
         cleanRegisterView();
     }
-    
+
     @FXML
     private void btnNewRole(ActionEvent event) {
         registerRolesView.toFront();
+        isEditingRole = false;
+        bufferRole = null;
         initializeRegisterView();
     }
-    
+
     @FXML
     private void btnEditRole(ActionEvent event) {
         if (bufferRole != null) {
@@ -90,7 +92,7 @@ public class RoleModuleController implements Initializable {
             cbStateRegister.setValue(bufferRole.getState());
         }
     }
-    
+
     @FXML
     private void btnDeleteRole(ActionEvent event) {
         if (bufferRole != null) {
@@ -98,14 +100,14 @@ public class RoleModuleController implements Initializable {
             initializeMainView();
         }
     }
-    
+
     @FXML
     private void btnDeleteSkill(ActionEvent event) {
         if (bufferSkill != null) {
             listSkillsRegister.getItems().remove(bufferSkill);
         }
     }
-    
+
     @FXML
     private void btnAddSkill(ActionEvent event) {
         String name = cbRolesSkillsRegister.getValue();
@@ -117,18 +119,19 @@ public class RoleModuleController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void selectRole(ActionEvent event) {
         String name = cbRoles.getValue();
-        if (name != null) {
+        if (name != null && !name.isBlank()) {
             bufferRole = (PositionDto) roleService.getRoleByName(name).getData();
-            
             listSkillsMain.getItems().clear();
-            bufferRole.getSkills().forEach(t -> listSkillsMain.getItems().add(t));
+            if (bufferRole != null && bufferRole.getSkills() != null) {
+                bufferRole.getSkills().forEach(t -> listSkillsMain.getItems().add(t));
+            }
         }
     }
-    
+
     @FXML
     private void btnSaveRole(ActionEvent event) {
         try {
@@ -152,7 +155,6 @@ public class RoleModuleController implements Initializable {
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanRegisterView();
                     mainRoleView.toFront();
-                    isEditingRole = false;
                     initializeMainView();
                 } else {
                     Message.showNotification("Error", MessageType.ERROR, response.getMessage());
@@ -161,12 +163,12 @@ public class RoleModuleController implements Initializable {
             } else {
                 Message.showNotification("Warning", MessageType.INFO, "All the fields are required");
             }
-            
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
-    
+
     private void initializeLists() {
         //CELLSFACTORIES
         listSkillsMain.setCellFactory((param) -> new ListCell() {
@@ -186,29 +188,30 @@ public class RoleModuleController implements Initializable {
         listSkillsRegister.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             bufferSkill = newValue;
         });
-        
+
     }
-    
+
     private void initializeRegisterView() {
         skillDtos = Utilities.loadSkills();
-//        listSkillsMain.setItems(skillDtos);
         cbStateRegister.getItems().addAll("ACTIVE", "INACTIVE");
         cbRolesSkillsRegister.setItems(Utilities.mapListToObsevableString(skillDtos));
+        if (bufferRole != null && bufferRole.getSkills() != null) {
+            bufferRole.getSkills().forEach(t -> listSkillsRegister.getItems().add(t));
+        }
     }
-    
+
     private void cleanRegisterView() {
         txfRoleNameRegister.setText("");
         cbStateRegister.getItems().clear();
         cbStateRegister.setValue(null);
         cbRolesSkillsRegister.setValue(null);
         listSkillsRegister.getItems().clear();
-        
+
     }
-    
+
     private void initializeMainView() {
         roleDtos = Utilities.loadRoles();
         cbRoles.setItems(Utilities.mapListToObsevableString(roleDtos));
     }
-//    private void
 
 }

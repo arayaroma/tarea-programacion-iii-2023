@@ -4,6 +4,7 @@ import cr.ac.una.dto.PositionDto;
 import cr.ac.una.dto.SkillDto;
 import cr.ac.una.dto.UserDto;
 import cr.ac.una.entities.Position;
+import cr.ac.una.entities.Skill;
 
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
@@ -16,6 +17,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * @author arayaroma
@@ -31,11 +33,30 @@ public class PositionServiceImpl implements PositionService {
      * @param position position to be created
      * @return ResponseWrapper with the response of the service call
      */
+    private Position createPositionEntity(PositionDto positionDto) {
+        Position position = new Position(positionDto);
+        if (positionDto.getSkills() != null) {
+            List<Skill> skills = EntityUtil.fromDtoList(positionDto.getSkills(), Skill.class).getList();
+            position.setSkills(skills);
+        }
+        return position;
+    }
+
+    private Position updatePositionEntity(Position position, PositionDto positionDto) {
+        position.updatePosition(positionDto);
+        if (positionDto.getSkills() != null) {
+            List<Skill> skills = EntityUtil.fromDtoList(positionDto.getSkills(), Skill.class).getList();
+            position.setSkills(skills);
+        }
+
+        return position;
+    }
+
     @Override
     public ResponseWrapper createPosition(PositionDto positionDto) {
         try {
-            createPositionList(positionDto);
-            Position position = new Position(positionDto);
+//            createPositionList(positionDto);
+            Position position = createPositionEntity(positionDto);
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(position, Position.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -294,6 +315,7 @@ public class PositionServiceImpl implements PositionService {
     public ResponseWrapper updatePosition(PositionDto positionDto) {
         try {
             Position position = em.find(Position.class, positionDto.getId());
+
             if (position == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -301,11 +323,11 @@ public class PositionServiceImpl implements PositionService {
                         "Position not found.",
                         null);
             }
-            position.updatePosition(positionDto);
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(position, Position.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
             }
+            position = updatePositionEntity(position, positionDto);
             em.merge(position);
             em.flush();
             return new ResponseWrapper(

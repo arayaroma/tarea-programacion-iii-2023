@@ -196,7 +196,6 @@ public class SkillModuleController implements Initializable {
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanFieldsSkillRegisterView();
                     mainSkillsView.toFront();
-                    isEditingSkill = false;
                     initializeSkillMainView();
                 } else {
                     Message.showNotification("Error", MessageType.ERROR, response.getMessage());
@@ -211,11 +210,6 @@ public class SkillModuleController implements Initializable {
     }
 
     private void initializeSkillsRegisterView() {
-//        characteristicDtos = Utilities.loadCharacteristics();
-//        List<CharacteristicDto> filteredList = characteristicDtos.stream().filter(t -> t.getSkill() == null)
-//                .collect(Collectors.toList());
-//        characteristicDtos.clear();
-//        filteredList.forEach(t -> characteristicDtos.add(t));
         cbStateSkillRegisterView.getItems().addAll("ACTIVE", "INACTIVE");
         if (skillBufferMainView != null && skillBufferMainView.getCharacteristics() != null) {
             skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
