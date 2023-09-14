@@ -1,0 +1,22 @@
+-- Fetch all users, position, skills and characteristics
+SELECT tu.id AS USER_ID,   
+    tp.NAME  AS POSITION,
+    ts.NAME AS SKILL,
+    tc.NAME AS CHARACTERISTIC
+FROM TBL_USER tu
+JOIN TBL_POSITION tp ON tu.USERPOSITIONID = tp.ID
+JOIN TBL_POSITION_SKILL tps  ON tps.POSITIONID = tp.ID 
+JOIN TBL_SKILL ts ON tps.SKILLID = ts.ID 
+JOIN TBL_CHARACTERISTIC tc ON tc.SKILLID = ts.ID;
+
+-- Fetch a user by id, with position, skills and characteristics.
+SELECT tu.id AS USER_ID,
+    tp.NAME AS POSITION,
+    ts.NAME AS SKILL,
+    tc.NAME AS CHARACTERISTIC
+FROM TBL_USER tu
+JOIN TBL_POSITION tp ON tu.USERPOSITIONID = tp.ID
+JOIN TBL_POSITION_SKILL tps ON tps.POSITIONID = tp.ID
+JOIN TBL_SKILL ts ON tps.SKILLID = ts.ID
+JOIN TBL_CHARACTERISTIC tc ON tc.SKILLID = ts.ID
+WHERE tu.id = :user_id;
