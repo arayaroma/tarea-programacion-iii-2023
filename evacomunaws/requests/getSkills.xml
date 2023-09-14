@@ -1,0 +1,7 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:con="http://controller.una.ac.cr/">
+    <soapenv:Header />
+    <soapenv:Body>
+        <con:getSkills />
+    </soapenv:Body>
+</soapenv:Envelope>
