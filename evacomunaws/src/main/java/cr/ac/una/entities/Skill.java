@@ -24,6 +24,7 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_SKILL;
 import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.SkillDto;
+import java.util.ArrayList;
 
 /**
  *
@@ -87,7 +88,7 @@ public class Skill implements Serializable {
     public Skill(SkillDto skillDto) {
 
         this.id = skillDto.getId();
-
+        this.characteristics = new ArrayList<>();
         updateSkill(skillDto);
 
     }

@@ -36,8 +36,8 @@ public class SkillServiceImpl implements SkillService {
     public ResponseWrapper createSkill(SkillDto skillDto) {
         try {
             Skill skill = new Skill(skillDto);
-            for (Characteristic i : skill.getCharacteristics()) {
-                i.setSkill(skill);
+            for (CharacteristicDto i : skillDto.getCharacteristics()) {
+                skill.getCharacteristics().add(new Characteristic(i));
             }
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(skill, Skill.class);
             if (INVALID_REQUEST != null) {
@@ -91,8 +91,8 @@ public class SkillServiceImpl implements SkillService {
                         null);
             }
             skill.updateSkill(skillDto);
-            for (Characteristic i : skill.getCharacteristics()) {
-                i.setSkill(skill);
+            for (CharacteristicDto i : skillDto.getCharacteristics()) {
+                skill.getCharacteristics().add(new Characteristic(i));
             }
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(skill, Skill.class);
             if (INVALID_REQUEST != null) {

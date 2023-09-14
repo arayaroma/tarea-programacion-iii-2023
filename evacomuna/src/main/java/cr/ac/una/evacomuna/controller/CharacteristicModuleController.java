@@ -117,7 +117,9 @@ public class CharacteristicModuleController implements Initializable {
         //LISTENERS
         listCharactersiticView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             characteristicBuffer = newValue;
-            txfCharacteristic.setText(characteristicBuffer.getName());
+            if (characteristicBuffer != null) {
+                txfCharacteristic.setText(characteristicBuffer.getName());
+            }
         });
     }
 

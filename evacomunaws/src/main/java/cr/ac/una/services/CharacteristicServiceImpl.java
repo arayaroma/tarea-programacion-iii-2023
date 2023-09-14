@@ -35,7 +35,9 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
             Characteristic characteristic = new Characteristic(characteristicDto);
-            characteristic.setSkill(new Skill(characteristicDto.getSkill()));
+            if (characteristicDto.getSkill() != null) {
+                characteristic.setSkill(new Skill(characteristicDto.getSkill()));
+            }
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -74,7 +76,9 @@ public class CharacteristicServiceImpl implements CharacteristicService {
                         null);
             }
             characteristic.updateCharacteristic(characteristicDto);
-            characteristic.setSkill(new Skill(characteristicDto.getSkill()));
+            if (characteristicDto.getSkill() != null) {
+                characteristic.setSkill(new Skill(characteristicDto.getSkill()));
+            }
             ResponseWrapper INVALID_REQUEST = verifyEntity(characteristic, Characteristic.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
