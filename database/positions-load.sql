@@ -1,4 +1,3 @@
--- Insert pre-defined positions
 INSERT INTO EVACOMUNA."TBL_POSITION" (
     "ID",
     "NAME",
