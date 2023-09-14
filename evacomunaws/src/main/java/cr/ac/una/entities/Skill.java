@@ -75,7 +75,7 @@ public class Skill implements Serializable {
     @OneToMany(mappedBy = "skill")
     private List<FinalCalification> finalCalifications;
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Characteristic> characteristics;
 
     @Version
