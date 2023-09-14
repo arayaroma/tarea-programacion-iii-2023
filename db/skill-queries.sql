@@ -1,4 +1,4 @@
--- Skill with Characteristics
+-- Skill with Characteristics - to fix
 SELECT s.*, c.*
 FROM TBL_SKILL s 
 JOIN TBL_CHARACTERISTIC c 
