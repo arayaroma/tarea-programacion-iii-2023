@@ -2,7 +2,6 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.CharacteristicDto;
 
-import cr.ac.una.controller.SkillDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.Characteristic;
 import cr.ac.una.evacomuna.services.Skill;
@@ -10,10 +9,6 @@ import cr.ac.una.evacomuna.services.Skill;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +16,6 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
-import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -37,8 +30,6 @@ public class ContainerModuleController implements Initializable {
     private Tab parentRole;
     @FXML
     private Tab parentSkill;
-    @FXML
-    private Tab parentCharacteristic;
 
     //SERVICES
     Skill skillService;
@@ -59,7 +50,7 @@ public class ContainerModuleController implements Initializable {
             skillService = new Skill();
             tabRole(null);
         } catch (Exception e) {
-            
+
             System.out.println(e.toString());
         }
     }
@@ -86,14 +77,4 @@ public class ContainerModuleController implements Initializable {
         }
     }
 
-    @FXML
-    private void tabCharacteristics(Event event) {
-        try {
-            FXMLLoader loader = App.getFXMLLoader("CharacteristicModule");
-            parentCharacteristic.setContent(loader.load());
-//            characteristicModuleController = loader.getController();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
-    }
 }

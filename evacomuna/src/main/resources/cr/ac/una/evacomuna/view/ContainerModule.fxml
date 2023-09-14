@@ -7,6 +7,5 @@
    <tabs>
       <Tab fx:id="parentRole" onSelectionChanged="#tabRole" text="Roles" />
       <Tab fx:id="parentSkill" onSelectionChanged="#tabSkills" text="Skillls" />
-      <Tab fx:id="parentCharacteristic" onSelectionChanged="#tabCharacteristics" text="Charactersitics" />
    </tabs>
 </TabPane>

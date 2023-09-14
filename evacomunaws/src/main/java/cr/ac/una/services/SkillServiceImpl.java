@@ -178,7 +178,7 @@ public class SkillServiceImpl implements SkillService {
     @SuppressWarnings("unchecked")
     public ResponseWrapper getSkills() {
         try {
-            Query query = em.createNamedQuery("Skill.getSkillAndCharacteristics",
+            Query query = em.createNamedQuery("Skill.findAll",
                     Skill.class);
             List<Skill> skills = (List<Skill>) query.getResultList();
 

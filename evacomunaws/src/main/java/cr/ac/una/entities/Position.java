@@ -26,6 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_POSITION;
+import jakarta.persistence.FetchType;
 
 /**
  * 
@@ -71,7 +72,7 @@ public class Position implements Serializable {
     @OneToMany(mappedBy = "position")
     private List<User> users;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITIONID"), inverseJoinColumns = @JoinColumn(name = "SKILLID"))
     private List<Skill> skills;
 

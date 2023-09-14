@@ -4,6 +4,7 @@ import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
+import cr.ac.una.evacomuna.dto.CharacteristicWrapper;
 import cr.ac.una.evacomuna.dto.SkillWrapper;
 import cr.ac.una.evacomuna.services.Characteristic;
 import cr.ac.una.evacomuna.services.Skill;
@@ -11,9 +12,7 @@ import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,19 +34,21 @@ public class SkillModuleController implements Initializable {
     @FXML
     private HBox mainSkillsView;
     @FXML
+    private HBox registerSkillsView;
+    @FXML
     private ComboBox<String> cbSkillsView;
     @FXML
     private ListView<CharacteristicDto> listCharacteristicsMainSkillView;
     @FXML
-    private HBox registerSkillsView;
+    private ListView<CharacteristicDto> listCharacteristicsRegisterSkillView;
+
     @FXML
     private TextField txfSkillNameRegister;
     @FXML
+    private TextField txfCharacteristic;
+    @FXML
     private ComboBox<String> cbStateSkillRegisterView;
-    @FXML
-    private ComboBox<String> cbCharacteristicsSkillRegisterView;
-    @FXML
-    private ListView<CharacteristicDto> listCharacteristicsRegisterSkillView;
+
     // SERVICES
     Skill skillService;
     Characteristic characteristicService;
@@ -66,15 +67,21 @@ public class SkillModuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        skillService = new Skill();
-        characteristicService = new Characteristic();
-        initializeLists();
-        initializeSkillMainView();
+        try {
+            skillService = new Skill();
+            characteristicService = new Characteristic();
+            initializeLists();
+            initializeSkillMainView();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @FXML
     private void btnNewSkill(ActionEvent event) {
         registerSkillsView.toFront();
+        skillBufferMainView = null;
+        isEditingSkill = false;
         initializeSkillsRegisterView();
     }
 
@@ -123,7 +130,11 @@ public class SkillModuleController implements Initializable {
     @FXML
     private void btnDeleteSkill(ActionEvent event) {
         if (skillBufferMainView != null) {
-            skillService.deleteSkillsById(skillBufferMainView.getId());
+            if (skillBufferMainView.getCharacteristics() != null) {
+                skillBufferMainView.getCharacteristics().forEach(t -> characteristicService.deleteCharacteristicById(t.getId()));
+            }
+            ResponseWrapper response = skillService.deleteSkillsById(skillBufferMainView.getId());
+            Message.showNotification(response.getCode().name(), response.getCode() == ResponseCode.OK ? MessageType.INFO : MessageType.ERROR, response.getMessage());
             initializeSkillMainView();
         }
     }
@@ -137,22 +148,22 @@ public class SkillModuleController implements Initializable {
 
     @FXML
     private void btnAddCharacteristicToSkill(ActionEvent event) {
-        String characteristic = cbCharacteristicsSkillRegisterView.getValue();
-        if (characteristic != null) {
-            CharacteristicDto characteristicDto = (CharacteristicDto) characteristicService
-                    .getCharacteristicByName(characteristic).getData();
-            if (characteristicDto != null) {
-                listCharacteristicsRegisterSkillView.getItems()
-                        .removeIf(t -> t.getId().equals(characteristicDto.getId()));
-                listCharacteristicsRegisterSkillView.getItems().add(characteristicDto);
-            }
+        String characteristicName = txfCharacteristic.getText();
+        if (!characteristicName.isBlank()) {
+            CharacteristicWrapper characteristicWrapper = new CharacteristicWrapper(characteristicName, null, null);
+            listCharacteristicsRegisterSkillView.getItems().add(characteristicWrapper.getDto());
+            txfCharacteristic.setText("");
         }
     }
 
     @FXML
     private void btnRemoveCharacteristicOfSkill(ActionEvent event) {
         if (characteristicViewBuffer != null) {
+            if (characteristicViewBuffer.getId() != null) {
+                characteristicService.deleteCharacteristicById(characteristicViewBuffer.getId());
+            }
             listCharacteristicsRegisterSkillView.getItems().remove(characteristicViewBuffer);
+
         }
     }
 
@@ -171,16 +182,16 @@ public class SkillModuleController implements Initializable {
                 skillDto.setName(name);
                 skillDto.setState(state);
 
-                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto)
-                        : skillService.createSkill(skillDto);
+                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
                     skillDto = (SkillDto) response.getData();
-                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(),
-                            skillDto.getId());
+                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(), skillDto.getId());
 
                     for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
-                        i.setSkill(newSkillWrapper.getDto());
-                        characteristicService.updateCharacteristics(i);
+                        if (i.getId() == null) {
+                            i.setSkill(newSkillWrapper.getDto());
+                            characteristicService.createCharacteristic(i);
+                        }
                     }
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanFieldsSkillRegisterView();
@@ -200,25 +211,31 @@ public class SkillModuleController implements Initializable {
     }
 
     private void initializeSkillsRegisterView() {
-        characteristicDtos = Utilities.loadCharacteristics();
-        List<CharacteristicDto> filteredList = characteristicDtos.stream().filter(t -> t.getSkill() == null)
-                .collect(Collectors.toList());
-        characteristicDtos.clear();
-        filteredList.forEach(t -> characteristicDtos.add(t));
-        cbCharacteristicsSkillRegisterView.setItems(Utilities.mapListToObsevableString(characteristicDtos));
+//        characteristicDtos = Utilities.loadCharacteristics();
+//        List<CharacteristicDto> filteredList = characteristicDtos.stream().filter(t -> t.getSkill() == null)
+//                .collect(Collectors.toList());
+//        characteristicDtos.clear();
+//        filteredList.forEach(t -> characteristicDtos.add(t));
         cbStateSkillRegisterView.getItems().addAll("ACTIVE", "INACTIVE");
+        if (skillBufferMainView != null && skillBufferMainView.getCharacteristics() != null) {
+            skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
+
+        }
     }
 
     private void initializeSkillMainView() {
         skillsDtos = Utilities.loadSkills();
+        cbSkillsView.setValue(null);
         cbSkillsView.setItems(Utilities.mapListToObsevableString(skillsDtos));
+        listCharacteristicsMainSkillView.getItems().clear();
+
     }
 
     private void cleanFieldsSkillRegisterView() {
         txfSkillNameRegister.setText("");
         cbStateSkillRegisterView.setValue(null);
         listCharacteristicsRegisterSkillView.getItems().clear();
-        cbCharacteristicsSkillRegisterView.setValue(null);
+        txfCharacteristic.setText("");
         cbStateSkillRegisterView.getItems().clear();
     }
 

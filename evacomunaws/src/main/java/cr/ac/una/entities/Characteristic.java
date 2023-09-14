@@ -57,7 +57,8 @@ public class Characteristic implements Serializable {
     @Version
     @Column(name = "VERSION")
     private Long version;
-
+    
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SKILLID", referencedColumnName = "ID")
     Skill skill;
