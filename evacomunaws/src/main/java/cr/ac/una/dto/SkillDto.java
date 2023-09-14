@@ -35,7 +35,8 @@ public class SkillDto {
         this.version = skill.getVersion();
         this.positions = EntityUtil.fromEntityList(skill.getPositions(), PositionDto.class).getList();
         this.califications = EntityUtil.fromEntityList(skill.getCalifications(), CalificationDto.class).getList();
-        this.finalCalifications = EntityUtil.fromEntityList(skill.getFinalCalifications(), FinalCalificationDto.class).getList();
+        this.finalCalifications = EntityUtil.fromEntityList(skill.getFinalCalifications(), FinalCalificationDto.class)
+                .getList();
         this.characteristics = EntityUtil.fromEntityList(skill.getCharacteristics(), CharacteristicDto.class).getList();
     }
 }

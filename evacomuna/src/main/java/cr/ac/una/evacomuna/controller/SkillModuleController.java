@@ -48,15 +48,15 @@ public class SkillModuleController implements Initializable {
     private ComboBox<String> cbCharacteristicsSkillRegisterView;
     @FXML
     private ListView<CharacteristicDto> listCharacteristicsRegisterSkillView;
-    //SERVICES
+    // SERVICES
     Skill skillService;
     Characteristic characteristicService;
-    //BUFFERS
+    // BUFFERS
     SkillDto skillBufferMainView;
     CharacteristicDto characteristicViewBuffer;
-    //FLAGS
+    // FLAGS
     boolean isEditingSkill = false;
-    //LISTS
+    // LISTS
     ObservableList<CharacteristicDto> characteristicDtos;
     ObservableList<SkillDto> skillsDtos;
 
@@ -77,21 +77,23 @@ public class SkillModuleController implements Initializable {
         registerSkillsView.toFront();
         initializeSkillsRegisterView();
     }
+
     String nameToSearch = "";
 
     @FXML
     private void searchSkillInput(KeyEvent event) {
-//        String character = event.getText();
-//        if (character.isBlank()) {
-//            nameToSearch = "";
-//            return;
-//        }
-//        nameToSearch += event.getText();
-////        if(nameToSearch.length()>2){
-//////            SkillDto skillDto = (SkillDto) skillService.getSkillByName(nameToSearch).getData();
-////////            cbSkillsView.seti
-////        }
-//        System.out.println(nameToSearch);
+        // String character = event.getText();
+        // if (character.isBlank()) {
+        // nameToSearch = "";
+        // return;
+        // }
+        // nameToSearch += event.getText();
+        //// if(nameToSearch.length()>2){
+        ////// SkillDto skillDto = (SkillDto)
+        // skillService.getSkillByName(nameToSearch).getData();
+        //////// cbSkillsView.seti
+        //// }
+        // System.out.println(nameToSearch);
     }
 
     @FXML
@@ -101,7 +103,8 @@ public class SkillModuleController implements Initializable {
             skillBufferMainView = (SkillDto) skillService.getSkillByName(nameSkill).getData();
             if (skillBufferMainView != null) {
                 listCharacteristicsMainSkillView.getItems().clear();
-                skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsMainSkillView.getItems().add(t));
+                skillBufferMainView.getCharacteristics()
+                        .forEach(t -> listCharacteristicsMainSkillView.getItems().add(t));
             }
         }
     }
@@ -136,9 +139,11 @@ public class SkillModuleController implements Initializable {
     private void btnAddCharacteristicToSkill(ActionEvent event) {
         String characteristic = cbCharacteristicsSkillRegisterView.getValue();
         if (characteristic != null) {
-            CharacteristicDto characteristicDto = (CharacteristicDto) characteristicService.getCharacteristicByName(characteristic).getData();
+            CharacteristicDto characteristicDto = (CharacteristicDto) characteristicService
+                    .getCharacteristicByName(characteristic).getData();
             if (characteristicDto != null) {
-                listCharacteristicsRegisterSkillView.getItems().removeIf(t -> t.getId().equals(characteristicDto.getId()));
+                listCharacteristicsRegisterSkillView.getItems()
+                        .removeIf(t -> t.getId().equals(characteristicDto.getId()));
                 listCharacteristicsRegisterSkillView.getItems().add(characteristicDto);
             }
         }
@@ -166,6 +171,7 @@ public class SkillModuleController implements Initializable {
 
                 skillDto.setName(name);
                 skillDto.setState(state);
+<<<<<<< HEAD
 
                 ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
@@ -176,6 +182,22 @@ public class SkillModuleController implements Initializable {
                         i.setSkill(newSkillWrapper.getDto());
                         characteristicService.updateCharacteristics(i);
                     }
+=======
+                if (skillDto.getCharacteristics() != null) {
+                    skillDto.getCharacteristics().clear();
+                }
+
+                for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
+                    // i.setSkill(skillDto);
+                    // ResponseWrapper r = characteristicService.updateCharacteristics(i);
+                    // System.out.println(r);
+                    skillDto.getCharacteristics().add(i);
+                }
+                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto)
+                        : skillService.createSkill(skillDto);
+                if (response.getCode() == ResponseCode.OK) {
+                    skillDto = (SkillDto) response.getData();
+>>>>>>> c8e332e ([fixed] resolving merge conflicts)
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanFieldsSkillRegisterView();
                     mainSkillsView.toFront();
@@ -195,7 +217,8 @@ public class SkillModuleController implements Initializable {
 
     private void initializeSkillsRegisterView() {
         characteristicDtos = Utilities.loadCharacteristics();
-        List<CharacteristicDto> filteredList = characteristicDtos.stream().filter(t -> t.getSkill() == null).collect(Collectors.toList());
+        List<CharacteristicDto> filteredList = characteristicDtos.stream().filter(t -> t.getSkill() == null)
+                .collect(Collectors.toList());
         characteristicDtos.clear();
         filteredList.forEach(t -> characteristicDtos.add(t));
         cbCharacteristicsSkillRegisterView.setItems(Utilities.mapListToObsevableString(characteristicDtos));
@@ -216,7 +239,7 @@ public class SkillModuleController implements Initializable {
     }
 
     private void initializeLists() {
-        //CELLSFACTORIES
+        // CELLSFACTORIES
         listCharacteristicsMainSkillView.setCellFactory((param) -> new ListCell() {
             @Override
             protected void updateItem(Object item, boolean empty) {
@@ -231,10 +254,11 @@ public class SkillModuleController implements Initializable {
                 setText(empty || item == null ? null : ((CharacteristicDto) item).getName());
             }
         });
-        //LISTENERS
-        listCharacteristicsRegisterSkillView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            characteristicViewBuffer = newValue;
-        });
+        // LISTENERS
+        listCharacteristicsRegisterSkillView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    characteristicViewBuffer = newValue;
+                });
     }
 
 }

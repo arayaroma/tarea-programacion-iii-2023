@@ -42,6 +42,7 @@ public class EntityUtil {
 
     public static <T, D> D convertToDto(T entity, Class<D> dtoClass) {
         try {
+            dtoClass.getConstructor(entity.getClass());
             Constructor<D> constructor = dtoClass.getConstructor(entity.getClass());
             D dto = constructor.newInstance(entity);
             return dto;

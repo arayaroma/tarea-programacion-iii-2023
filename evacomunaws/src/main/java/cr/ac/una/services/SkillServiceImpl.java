@@ -10,13 +10,13 @@ import cr.ac.una.entities.Characteristic;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
-import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import jakarta.persistence.Query;
 
@@ -53,6 +53,9 @@ public class SkillServiceImpl implements SkillService {
             }
             em.persist(skill);
             em.flush();
+            /**
+             * Replicate to all services
+             */
             skillDto = new SkillDto(skill);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -65,25 +68,6 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while creating skill: " + ex.getMessage(),
                     null);
-        }
-    }
-
-    private void addCharacteristicsToSkill(Skill skill, List<Characteristic> characteristics) {
-        skill.getCharacteristics().addAll(characteristics);
-    }
-
-    private void createListSkills(SkillDto skillDto) {
-        if (skillDto.getPositions() != null) {
-            skillDto.setPositions(new ArrayList<PositionDto>());
-        }
-        if (skillDto.getCharacteristics() != null) {
-            skillDto.setCharacteristics(new ArrayList<CharacteristicDto>());
-        }
-        if (skillDto.getCalifications() != null) {
-            skillDto.setCalifications(new ArrayList<CalificationDto>());
-        }
-        if (skillDto.getFinalCalifications() != null) {
-            skillDto.setFinalCalifications(new ArrayList<FinalCalificationDto>());
         }
     }
 
@@ -190,25 +174,22 @@ public class SkillServiceImpl implements SkillService {
 
     /**
      * @return ResponseWrapper with the response of the service call Get all
-     * skills
+     *         skills
      */
     @Override
-//    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getSkills() {
         try {
-            List<Skill> skills = em.createNamedQuery("Skill.findAll", Skill.class).getResultList();
-            for (Skill s : skills) {
-                if (s.getCharacteristics() != null) {
-                    System.out.println("Carac: " + s.getCharacteristics().size());
-                }
-            }
+            Query query = em.createNamedQuery("Skill.getSkillAndCharacteristics",
+                    Skill.class);
+            List<Skill> skills = (List<Skill>) query.getResultList();
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of skills.",
-                    EntityUtil.fromEntityList(
-                            skills,
-                            SkillDto.class));
+                    EntityUtil
+                            .fromEntityList(skills, SkillDto.class));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -221,7 +202,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     * characteristics by skill id
+     *         characteristics by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -254,7 +235,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     * califications by skill id
+     *         califications by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -287,7 +268,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     * final califications by skill id
+     *         final califications by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -320,7 +301,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     * positions by skill id
+     *         positions by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -416,7 +397,7 @@ public class SkillServiceImpl implements SkillService {
 
     /**
      * @return ResponseWrapper with the response of the service call Delete all
-     * skills
+     *         skills
      */
     @Override
     public ResponseWrapper deleteAllSkills() {

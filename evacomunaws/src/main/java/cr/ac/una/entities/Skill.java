@@ -3,10 +3,13 @@ package cr.ac.una.entities;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedNativeQueries;
+import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -23,9 +26,6 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_SKILL;
 import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.SkillDto;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.NamedNativeQuery;
-import java.util.ArrayList;
 
 /**
  *
@@ -37,14 +37,17 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s"),
-    @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
-    @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name"),
-    @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
-    @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c WHERE c.skill.id = :id"),
-    @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
-    @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"),})
-@NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT DISTINCT s.*, c.* FROM TBL_SKILL s JOIN TBL_CHARACTERISTIC c ON s.ID = c.SKILLID", resultClass = Skill.class)
+        @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s"),
+        @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
+        @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name"),
+        @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
+        @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c WHERE c.skill.id = :id"),
+        @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
+        @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"),
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT s.*, c.* FROM TBL_SKILL s JOIN TBL_CHARACTERISTIC c ON s.ID = c.SKILLID", resultClass = Skill.class)
+})
 public class Skill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -87,21 +90,16 @@ public class Skill implements Serializable {
      * @param skillDto constructor from dto to entity
      */
     public Skill(SkillDto skillDto) {
-
         this.id = skillDto.getId();
-        this.characteristics = new ArrayList<>();
         updateSkill(skillDto);
-
     }
 
     /**
      * @param skillDto update entity from dto
      */
     public void updateSkill(SkillDto skillDto) {
-
         this.name = skillDto.getName();
         this.state = skillDto.getState();
         this.version = skillDto.getVersion();
-
     }
 }
