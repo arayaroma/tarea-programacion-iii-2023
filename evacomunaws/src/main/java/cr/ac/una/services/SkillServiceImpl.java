@@ -16,9 +16,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
-import jakarta.persistence.Query;
 
 /**
  *

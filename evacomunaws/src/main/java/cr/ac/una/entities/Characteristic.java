@@ -23,7 +23,6 @@ import cr.ac.una.dto.CharacteristicDto;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
