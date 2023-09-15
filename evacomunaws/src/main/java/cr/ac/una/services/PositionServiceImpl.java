@@ -5,8 +5,7 @@ import cr.ac.una.dto.SkillDto;
 import cr.ac.una.dto.UserDto;
 import cr.ac.una.entities.Position;
 import cr.ac.una.entities.Skill;
-
-import java.util.ArrayList;
+import cr.ac.una.entities.User;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -14,7 +13,6 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import java.util.List;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 /**
@@ -31,30 +29,34 @@ public class PositionServiceImpl implements PositionService {
      * @param position position to be created
      * @return ResponseWrapper with the response of the service call
      */
-    private Position createPositionEntity(PositionDto positionDto) {
-        Position position = new Position(positionDto);
-        if (positionDto.getSkills() != null) {
-            List<Skill> skills = EntityUtil.fromDtoList(positionDto.getSkills(), Skill.class).getList();
-            position.setSkills(skills);
-        }
-        return position;
+    private PositionDto convertFromEntityToDTO(PositionDto dto, Position entity) {
+        dto.setUsers(EntityUtil.fromEntityList(entity.getUsers(),
+                UserDto.class).getList());
+
+        dto.setSkills(
+                EntityUtil.fromEntityList(entity.getSkills(),
+                        SkillDto.class).getList());
+        return dto;
     }
 
-    private Position updatePositionEntity(Position position, PositionDto positionDto) {
-        position.updatePosition(positionDto);
-        if (positionDto.getSkills() != null) {
-            List<Skill> skills = EntityUtil.fromDtoList(positionDto.getSkills(), Skill.class).getList();
-            position.setSkills(skills);
-        }
+    /**
+     * @param entity
+     * @param dto
+     * @return
+     */
+    private Position convertFromDTOToEntity(Position entity, PositionDto dto) {
+        entity.setUsers(EntityUtil.fromDtoList(dto.getUsers(),
+                User.class).getList());
 
-        return position;
+        entity.setSkills(EntityUtil.fromDtoList(dto.getSkills(),
+                Skill.class).getList());
+        return entity;
     }
 
     @Override
     public ResponseWrapper createPosition(PositionDto positionDto) {
         try {
-//            createPositionList(positionDto);
-            Position position = createPositionEntity(positionDto);
+            Position position = convertFromDTOToEntity(new Position(positionDto), positionDto);
             ResponseWrapper INVALID_REQUEST = EntityUtil.verifyEntity(position, Position.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
@@ -73,11 +75,6 @@ public class PositionServiceImpl implements PositionService {
                     "Exception occurred while creating position: " + ex.getMessage(),
                     null);
         }
-    }
-
-    private void createPositionList(PositionDto positionDto) {
-        positionDto.setUsers(new ArrayList<UserDto>());
-        positionDto.setSkills(new ArrayList<SkillDto>());
     }
 
     /**
@@ -112,7 +109,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     * getUsersByPositionId
+     *         getUsersByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -145,7 +142,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     * getSkillsByPositionId
+     *         getSkillsByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -176,7 +173,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     /**
-     * @param id position id to be updated
+     * @param id       position id to be updated
      * @param position position to be updated
      * @return ResponseWrapper with the response of the service call
      */
@@ -244,7 +241,7 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     * deleteAllPositions
+     *         deleteAllPositions
      */
     @Override
     public ResponseWrapper deleteAllPositions() {
@@ -287,7 +284,8 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public ResponseWrapper getPositionByName(String name) {
         try {
-            Position position = (Position) em.createNamedQuery("Position.findByName").setParameter("name", name).getSingleResult();
+            Position position = (Position) em.createNamedQuery("Position.findByName").setParameter("name", name)
+                    .getSingleResult();
             if (position == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -325,7 +323,8 @@ public class PositionServiceImpl implements PositionService {
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
             }
-            position = updatePositionEntity(position, positionDto);
+            position.updatePosition(positionDto);
+            position = convertFromDTOToEntity(position, positionDto);
             em.merge(position);
             em.flush();
             return new ResponseWrapper(
