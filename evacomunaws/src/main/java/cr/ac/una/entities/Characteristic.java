@@ -20,7 +20,6 @@ import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
 import cr.ac.una.dto.CharacteristicDto;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 
@@ -59,7 +58,7 @@ public class Characteristic implements Serializable {
     private Long version;
     
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "SKILLID", referencedColumnName = "ID")
     Skill skill;
 
