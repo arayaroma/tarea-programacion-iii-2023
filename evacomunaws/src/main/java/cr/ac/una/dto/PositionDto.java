@@ -1,5 +1,6 @@
 package cr.ac.una.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Position;
 import cr.ac.una.util.EntityUtil;
@@ -35,6 +36,7 @@ public class PositionDto {
         this.name = position.getName();
         this.state = position.getState();
         this.version = position.getVersion();
-        this.skills = EntityUtil.fromEntityList(position.getSkills(), SkillDto.class).getList();
+        this.users = new ArrayList<>();
+        this.skills = new ArrayList<>();
     }
 }

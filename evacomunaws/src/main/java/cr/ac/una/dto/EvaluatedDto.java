@@ -1,5 +1,6 @@
 package cr.ac.una.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Evaluated;
 import lombok.AllArgsConstructor;
@@ -29,5 +30,7 @@ public class EvaluatedDto {
         this.id = evaluated.getId();
         this.finalNote = evaluated.getFinalNote();
         this.version = evaluated.getVersion();
+        this.finalCalifications = new ArrayList<>();
+        this.evaluators = new ArrayList<>();
     }
 }

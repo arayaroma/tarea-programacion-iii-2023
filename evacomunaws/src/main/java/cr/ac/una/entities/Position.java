@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.PositionDto;
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,7 +26,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_POSITION;
-import jakarta.persistence.FetchType;
 
 /**
  *

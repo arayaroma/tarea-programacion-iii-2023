@@ -77,5 +77,4 @@ public class Characteristic implements Serializable {
         this.name = characteristicDto.getName();
         this.version = characteristicDto.getVersion();
     }
-
 }

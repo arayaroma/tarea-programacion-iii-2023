@@ -1,8 +1,11 @@
 package cr.ac.una.services;
 
+import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.dto.PositionDto;
+import cr.ac.una.dto.SkillDto;
 import cr.ac.una.dto.UserDto;
 import cr.ac.una.entities.Position;
+import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ResponseCode;
@@ -22,6 +25,7 @@ import cr.ac.una.util.ListWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import cr.ac.una.services.PositionServiceImpl;
 
 /**
  * 
@@ -511,11 +515,26 @@ public class UserServiceImpl implements UserService {
             Query query = em.createNamedQuery("user.findAll", User.class);
             List<User> users = (List<User>) query.getResultList();
 
+            List<UserDto> usersDto = EntityUtil.fromEntityList(users, UserDto.class).getList();
+            List<UserDto> usersDtoList = new ArrayList<>();
+            List<SkillDto> skillsDto = new ArrayList<>();
+
+            for (User u : users) {
+                usersDtoList = EntityUtil.fromEntityList(
+                        u.getPosition().getUsers(), UserDto.class).getList();
+                skillsDto = EntityUtil.fromEntityList(
+                        u.getPosition().getSkills(), SkillDto.class).getList();
+                for (UserDto ud : usersDto) {
+                    usersDto.get(usersDto.indexOf(ud)).getPosition().setUsers(usersDtoList);
+                    usersDto.get(usersDto.indexOf(ud)).setPosition(new PositionDto(u.getPosition()));
+                    usersDto.get(usersDto.indexOf(ud)).getPosition().setSkills(skillsDto);
+                }
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users retrieved successfully.",
-                    EntityUtil.fromEntityList(users, UserDto.class));
+                    new ListWrapper<>(usersDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

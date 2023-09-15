@@ -1,5 +1,6 @@
 package cr.ac.una.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.User;
 import cr.ac.una.util.EntityUtil;
@@ -58,9 +59,9 @@ public class UserDto {
         this.isAdmin = user.getIsAdmin();
         this.passwordChanged = user.getPasswordChanged();
         this.activationCode = user.getActivationCode();
-        this.evaluated = EntityUtil.fromEntityList(user.getEvaluated(), EvaluatedDto.class).getList();
-        this.evaluators = EntityUtil.fromEntityList(user.getEvaluators(), EvaluatorDto.class).getList();
         this.version = user.getVersion();
+        this.position = new PositionDto();
+        this.evaluated = new ArrayList<>();
+        this.evaluators = new ArrayList<>();
     }
-
 }

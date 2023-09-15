@@ -1,6 +1,7 @@
 package cr.ac.una.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Evaluation;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,6 @@ public class EvaluationDto {
         this.finalPeriod = evaluation.getFinalPeriod();
         this.state = evaluation.getState();
         this.version = evaluation.getVersion();
+        this.evaluated = new ArrayList<>();
     }
 }

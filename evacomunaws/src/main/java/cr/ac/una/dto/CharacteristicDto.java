@@ -31,6 +31,5 @@ public class CharacteristicDto {
         this.id = characteristic.getId();
         this.name = characteristic.getName();
         this.version = characteristic.getVersion();
-        this.skill = new SkillDto(characteristic.getSkill());
     }
 }
