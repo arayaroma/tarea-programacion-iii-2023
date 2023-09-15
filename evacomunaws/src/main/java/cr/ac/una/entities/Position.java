@@ -7,6 +7,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,14 +39,12 @@ import jakarta.persistence.FetchType;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
-    @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
-    @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
-    @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
-    @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
-    @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
-// @NamedQuery(name = "Position.getSkillsByPositionId", query = "SELECT s FROM
-// Skill s WHERE s.position.id = :id"), consulta mala
+        @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
+        @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
+        @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
+        @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
+        @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
+        @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
 })
 public class Position implements Serializable {
 
@@ -70,7 +69,7 @@ public class Position implements Serializable {
     @Column(name = "STATE")
     private String state;
 
-    @OneToMany(mappedBy = "position")
+    @OneToMany(mappedBy = "position", fetch = FetchType.LAZY)
     private List<User> users;
 
     @ManyToMany(fetch = FetchType.LAZY)

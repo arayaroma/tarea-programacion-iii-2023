@@ -31,4 +31,7 @@ public interface UserService {
     ResponseWrapper getUserListByName(String name);
 
     ResponseWrapper getUserListByPosition(String position);
+
+    ResponseWrapper getUsers();
+
 }

@@ -15,6 +15,8 @@ import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.HtmlFileReader;
+import cr.ac.una.util.ListWrapper;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -491,6 +493,31 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while retrieving user: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @return ResponseWrapper with the response from database, or null if an
+     *         exception occurred
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public ResponseWrapper getUsers() {
+        try {
+            Query query = em.createNamedQuery("user.findAll", User.class);
+            List<User> users = (List<User>) query.getResultList();
+
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Users retrieved successfully.",
+                    EntityUtil.fromEntityList(users, UserDto.class));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving users: " + e.getMessage(),
                     null);
         }
     }

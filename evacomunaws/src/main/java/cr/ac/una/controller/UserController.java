@@ -108,4 +108,12 @@ public class UserController {
         return userService.getUserListByPosition(position);
     }
 
+    /**
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "getUsers")
+    public ResponseWrapper getUsers() {
+        return userService.getUsers();
+    }
+
 }

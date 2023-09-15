@@ -2,6 +2,7 @@ package cr.ac.una.dto;
 
 import java.util.List;
 import cr.ac.una.entities.User;
+import cr.ac.una.util.EntityUtil;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -57,6 +58,8 @@ public class UserDto {
         this.isAdmin = user.getIsAdmin();
         this.passwordChanged = user.getPasswordChanged();
         this.activationCode = user.getActivationCode();
+        this.evaluated = EntityUtil.fromEntityList(user.getEvaluated(), EvaluatedDto.class).getList();
+        this.evaluators = EntityUtil.fromEntityList(user.getEvaluators(), EvaluatorDto.class).getList();
         this.version = user.getVersion();
     }
 

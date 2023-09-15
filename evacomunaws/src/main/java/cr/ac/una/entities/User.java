@@ -43,7 +43,8 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
         @NamedQuery(name = "user.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
         @NamedQuery(name = "user.findByUsernameAndPassword", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
         @NamedQuery(name = "user.findByName", query = "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:name)"),
-        @NamedQuery(name = "user.findByPosition", query = "SELECT u FROM User u WHERE LOWER(u.position.name) = LOWER(:position)")
+        @NamedQuery(name = "user.findByPosition", query = "SELECT u FROM User u WHERE LOWER(u.position.name) = LOWER(:position)"),
+        @NamedQuery(name = "user.getPositionSkillsAndCharacteristics", query = "SELECT u FROM User u WHERE u.id = :id")
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;

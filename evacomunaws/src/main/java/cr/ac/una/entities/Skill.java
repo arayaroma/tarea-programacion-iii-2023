@@ -26,9 +26,7 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_SKILL;
 import java.io.Serializable;
 import java.util.List;
 import cr.ac.una.dto.SkillDto;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.QueryHint;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,7 +46,7 @@ import jakarta.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
     @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"),})
 @NamedNativeQueries({
-    @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT s.*, c.* FROM TBL_SKILL s JOIN TBL_CHARACTERISTIC c ON s.ID = c.SKILLID", resultClass = Skill.class)
+        @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT * FROM TBL_SKILL", resultClass = Skill.class)
 })
 public class Skill implements Serializable {
 

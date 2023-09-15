@@ -35,8 +35,6 @@ public class PositionDto {
         this.name = position.getName();
         this.state = position.getState();
         this.version = position.getVersion();
-        this.users = EntityUtil.fromEntityList(position.getUsers(), UserDto.class).getList();
         this.skills = EntityUtil.fromEntityList(position.getSkills(), SkillDto.class).getList();
-
     }
 }
