@@ -61,11 +61,15 @@ public class RoleModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        skillService = new Skill();
-        roleService = new Position();
-        initializeLists();
-        initializeMainView();
+        try {
+            skillService = new Skill();
+            roleService = new Position();
+            initializeLists();
+            initializeMainView();
+        } catch (Exception e) {
+            System.out.println("Exception while loading RoleModuleController: " + e.toString());
+        }
+
     }
 
     @FXML
