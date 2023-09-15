@@ -508,26 +508,14 @@ public class UserServiceImpl implements UserService {
     @SuppressWarnings("unchecked")
     public ResponseWrapper getUsers() {
         try {
-<<<<<<< HEAD
             Query query = em.createNamedQuery("user.findAll", User.class);
             List<User> users = (List<User>) query.getResultList();
 
-=======
-            List<User> users = em.createNamedQuery("user.findAll", User.class)
-                    .getResultList();
-            List<UserDto> usersDto = new ArrayList<>();
-            for (User user : users) {
-                UserDto userDto = new UserDto(user);
-                PositionDto positionDto = new PositionDto(user.getPosition());
-                userDto.setPosition(positionDto);
-                usersDto.add(userDto);
-            }
->>>>>>> d034310 ([BUG] circular dependency)
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users retrieved successfully.",
-                    new ListWrapper<>(usersDto));
+                    EntityUtil.fromEntityList(users, UserDto.class));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

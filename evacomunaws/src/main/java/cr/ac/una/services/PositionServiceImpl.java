@@ -4,13 +4,8 @@ import cr.ac.una.dto.PositionDto;
 import cr.ac.una.dto.SkillDto;
 import cr.ac.una.dto.UserDto;
 import cr.ac.una.entities.Position;
-<<<<<<< HEAD
 import cr.ac.una.entities.Skill;
 
-import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
-
-=======
->>>>>>> d034310 ([BUG] circular dependency)
 import java.util.ArrayList;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
@@ -19,11 +14,8 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-<<<<<<< HEAD
 import java.util.List;
-=======
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
->>>>>>> d034310 ([BUG] circular dependency)
 
 /**
  * @author arayaroma
