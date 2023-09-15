@@ -58,6 +58,10 @@ public class UserDto {
         this.isAdmin = user.getIsAdmin();
         this.passwordChanged = user.getPasswordChanged();
         this.activationCode = user.getActivationCode();
+<<<<<<< HEAD
+=======
+        this.position = new PositionDto();
+>>>>>>> d034310 ([BUG] circular dependency)
         this.evaluated = EntityUtil.fromEntityList(user.getEvaluated(), EvaluatedDto.class).getList();
         this.evaluators = EntityUtil.fromEntityList(user.getEvaluators(), EvaluatorDto.class).getList();
         this.version = user.getVersion();

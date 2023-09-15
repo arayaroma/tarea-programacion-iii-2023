@@ -1,6 +1,8 @@
 package cr.ac.una.services;
 
+import cr.ac.una.dto.PositionDto;
 import cr.ac.una.dto.UserDto;
+import cr.ac.una.entities.Position;
 import cr.ac.una.entities.User;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ResponseCode;
@@ -17,6 +19,7 @@ import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.HtmlFileReader;
 import cr.ac.una.util.ListWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -505,14 +508,26 @@ public class UserServiceImpl implements UserService {
     @SuppressWarnings("unchecked")
     public ResponseWrapper getUsers() {
         try {
+<<<<<<< HEAD
             Query query = em.createNamedQuery("user.findAll", User.class);
             List<User> users = (List<User>) query.getResultList();
 
+=======
+            List<User> users = em.createNamedQuery("user.findAll", User.class)
+                    .getResultList();
+            List<UserDto> usersDto = new ArrayList<>();
+            for (User user : users) {
+                UserDto userDto = new UserDto(user);
+                PositionDto positionDto = new PositionDto(user.getPosition());
+                userDto.setPosition(positionDto);
+                usersDto.add(userDto);
+            }
+>>>>>>> d034310 ([BUG] circular dependency)
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users retrieved successfully.",
-                    EntityUtil.fromEntityList(users, UserDto.class));
+                    new ListWrapper<>(usersDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
