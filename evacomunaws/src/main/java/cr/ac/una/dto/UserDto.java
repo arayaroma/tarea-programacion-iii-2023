@@ -3,7 +3,6 @@ package cr.ac.una.dto;
 import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.User;
-import cr.ac.una.util.EntityUtil;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
