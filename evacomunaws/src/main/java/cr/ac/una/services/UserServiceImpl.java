@@ -1,6 +1,5 @@
 package cr.ac.una.services;
 
-import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.dto.PositionDto;
 import cr.ac.una.dto.SkillDto;
 import cr.ac.una.dto.UserDto;
@@ -21,11 +20,9 @@ import static cr.ac.una.util.EntityUtil.verifyEntity;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.HtmlFileReader;
 import cr.ac.una.util.ListWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import cr.ac.una.services.PositionServiceImpl;
 
 /**
  * 
@@ -505,6 +502,44 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Replicate over any service
+     * Converts the entity to dto
+     * 
+     * @param entity
+     * @param dto
+     * @return
+     */
+    private UserDto convertFromEntityToDTO(User entity, UserDto dto) {
+        dto.setPosition(new PositionDto(entity.getPosition()));
+        dto.getPosition().setUsers(
+                EntityUtil.fromEntityList(entity.getPosition().getUsers(), UserDto.class)
+                        .getList());
+        dto.getPosition().setSkills(
+                EntityUtil.fromEntityList(entity.getPosition().getSkills(), SkillDto.class)
+                        .getList());
+        return dto;
+    }
+
+    /**
+     * Replicate over any service
+     * Converts the dto to entity
+     * 
+     * @param dto
+     * @param entity
+     * @return
+     */
+    private User convertFromDTOToEntity(UserDto dto, User entity) {
+        entity.setPosition(new Position(dto.getPosition()));
+        entity.getPosition().setUsers(
+                EntityUtil.fromDtoList(dto.getPosition().getUsers(), User.class)
+                        .getList());
+        entity.getPosition().setSkills(
+                EntityUtil.fromDtoList(dto.getPosition().getSkills(), Skill.class)
+                        .getList());
+        return entity;
+    }
+
+    /**
      * @return ResponseWrapper with the response from database, or null if an
      *         exception occurred
      */
@@ -514,21 +549,10 @@ public class UserServiceImpl implements UserService {
         try {
             Query query = em.createNamedQuery("user.findAll", User.class);
             List<User> users = (List<User>) query.getResultList();
-
-            List<UserDto> usersDto = EntityUtil.fromEntityList(users, UserDto.class).getList();
-            List<UserDto> usersDtoList = new ArrayList<>();
-            List<SkillDto> skillsDto = new ArrayList<>();
+            List<UserDto> usersDto = new ArrayList<>();
 
             for (User u : users) {
-                usersDtoList = EntityUtil.fromEntityList(
-                        u.getPosition().getUsers(), UserDto.class).getList();
-                skillsDto = EntityUtil.fromEntityList(
-                        u.getPosition().getSkills(), SkillDto.class).getList();
-                for (UserDto ud : usersDto) {
-                    usersDto.get(usersDto.indexOf(ud)).getPosition().setUsers(usersDtoList);
-                    usersDto.get(usersDto.indexOf(ud)).setPosition(new PositionDto(u.getPosition()));
-                    usersDto.get(usersDto.indexOf(ud)).getPosition().setSkills(skillsDto);
-                }
+                usersDto.add(convertFromEntityToDTO(u, new UserDto(u)));
             }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
