@@ -28,5 +28,7 @@ public class FinalCalificationDto {
         this.finalNote = finalCalification.getFinalNote();
         this.average = finalCalification.getAverage();
         this.version = finalCalification.getVersion();
+        this.evaluated = new EvaluatedDto();
+        this.skill = new SkillDto();
     }
 }
