@@ -62,5 +62,6 @@ public class UserDto {
         this.position = new PositionDto();
         this.evaluated = new ArrayList<>();
         this.evaluators = new ArrayList<>();
+
     }
 }
