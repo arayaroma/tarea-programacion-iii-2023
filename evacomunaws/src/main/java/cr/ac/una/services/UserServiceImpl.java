@@ -37,15 +37,15 @@ public class UserServiceImpl implements UserService {
 
     /**
      * @param userDto user to be created, also sends an email to the user to
-     * verify the registration
+     *                verify the registration
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     @Transactional
     public ResponseWrapper createUser(UserDto userDto) {
         try {
-//            User user = convertFromDTOToEntity(userDto, new User(userDto));
+            // User user = convertFromDTOToEntity(userDto, new User(userDto));
             User user = new User(userDto);
             user.setPosition(new Position(userDto.getPosition()));
             ResponseWrapper INVALID_REQUEST = verifyEntity(user, User.class);
@@ -84,9 +84,68 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * @param id user id to be activated
+     * @return ResponseWrapper with the response from database, or null if an
+     */
+    @Override
+    @Transactional
+    public ResponseWrapper activateUser(Long id) {
+        if (isUserIdNull(id)) {
+            return handleUserIdNull();
+        }
+        try {
+            User user;
+            user = em.find(User.class, id);
+            if (isUserNull(user)) {
+                return handleUserNull();
+            }
+            em.createNativeQuery("CALL EVACOMUNA.ACTIVATE_USER(?id)")
+                    .setParameter("id", id)
+                    .executeUpdate();
+            em.merge(user);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User activated successfully.",
+                    new UserDto(user));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while activating user: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    private boolean isUserIdNull(Long id) {
+        return id == null || id <= 0;
+    }
+
+    private ResponseWrapper handleUserIdNull() {
+        return new ResponseWrapper(
+                ResponseCode.BAD_REQUEST.getCode(),
+                ResponseCode.BAD_REQUEST,
+                "Id can't be null.",
+                null);
+    }
+
+    private boolean isUserNull(User user) {
+        return user == null;
+    }
+
+    private ResponseWrapper handleUserNull() {
+        return new ResponseWrapper(
+                ResponseCode.NOT_FOUND.getCode(),
+                ResponseCode.NOT_FOUND,
+                "User not found.",
+                null);
+    }
+
+    /**
      * @param id user id to be retrieved
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     public ResponseWrapper getUserById(Long id) {
@@ -124,7 +183,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param id id from user to be deleted
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     public ResponseWrapper deleteUserById(Long id) {
@@ -164,7 +223,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param identification user identification to be retrieved
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -213,7 +272,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param identification user identification to be deleted
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -264,7 +323,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param username Username to match the user
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -370,7 +429,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param userDto User to be updated
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     public ResponseWrapper updateUser(UserDto userDto) {
@@ -431,7 +490,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param name Name to match one or more users
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     public ResponseWrapper getUserListByName(String name) {
@@ -466,7 +525,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param position Position to match users
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     public ResponseWrapper getUserListByPosition(String position) {
@@ -498,7 +557,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * @return ResponseWrapper with the response from database, or null if an
-     * exception occurred
+     *         exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
