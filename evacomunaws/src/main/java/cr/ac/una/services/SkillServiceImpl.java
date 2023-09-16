@@ -8,8 +8,11 @@ import cr.ac.una.dto.FinalCalificationDto;
 import cr.ac.una.dto.PositionDto;
 import cr.ac.una.entities.Characteristic;
 import cr.ac.una.util.EntityUtil;
+import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
+
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -170,16 +173,20 @@ public class SkillServiceImpl implements SkillService {
     @SuppressWarnings("unchecked")
     public ResponseWrapper getSkills() {
         try {
-            Query query = em.createNamedQuery("Skill.findAll",
-                    Skill.class);
+            Query query = em.createNamedQuery("Skill.findAll", Skill.class);
             List<Skill> skills = (List<Skill>) query.getResultList();
+            List<SkillDto> skillsDto = new ArrayList<>();
+
+            for (Skill skill : skills) {
+                SkillDto skillDto = new SkillDto(skill);
+                skillsDto.add(skillDto.convertFromEntityToDTO(skill, skillDto));
+            }
 
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of skills.",
-                    EntityUtil
-                            .fromEntityList(skills, SkillDto.class));
+                    new ListWrapper<>(skillsDto));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
