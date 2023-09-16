@@ -31,4 +31,8 @@ public class User {
     public ResponseWrapper deleteUser(Long id) {
         return port.deleteUserById(id);
     }
+
+    public ResponseWrapper getByUserAndPassword(String user, String password) {
+        return port.getUserByUserAndPassword(user, password);
+    }
 }

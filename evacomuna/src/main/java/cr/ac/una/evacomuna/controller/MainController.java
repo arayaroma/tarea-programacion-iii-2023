@@ -6,6 +6,7 @@ import cr.ac.una.evacomuna.util.Animations;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
+import cr.ac.una.evacomuna.util.Utilities;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +50,8 @@ public class MainController implements Initializable {
     @FXML
     private StackPane parent;
 
+    private UserDto userLogged;
+
     /**
      * Initializes the controller class.
      *
@@ -58,8 +61,11 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         App.setMainController(this);
+        userLogged = Data.getUserLogged();
+        
         //Cut over the photo to make a circula effect
         imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
+        imgProfilePhoto.setImage(Utilities.byteToImage(userLogged.getProfilePhoto()));
         if (Data.isPasswordChanged()) {
             changePasswordView.setVisible(true);
             menuPane.setDisable(true);
@@ -164,31 +170,17 @@ public class MainController implements Initializable {
         }
     }
 
-    public void removeMainView(Node node) {
-        parent.getChildren().remove(node);
-    }
-
-    //WorkerModuleController ACTIONS
-    public void editWorker(UserDto user, WorkerController workerController) {
-        RegisterWorkerController controller = loadRegisterView();
-        controller.initializeView(false, user, workerController);
-    }
-
-    public void newWorker() {
-        RegisterWorkerController controller = loadRegisterView();
-        controller.initializeView(false, null, null);
-    }
-
-    private RegisterWorkerController loadRegisterView() {
+    public void editWorker() {
         try {
             FXMLLoader loader = App.getFXMLLoader("RegisterWorker");
             parent.getChildren().add(loader.load());
-            RegisterWorkerController controller = loader.getController();
-            return controller;
         } catch (IOException e) {
             System.out.println(e.toString());
-            return null;
         }
+    }
+
+    public void removeMainView(Node node) {
+        parent.getChildren().remove(node);
     }
 
 }

@@ -1,8 +1,11 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.ResponseCode;
+import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
+import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.io.IOException;
 import java.net.URL;
@@ -10,13 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -27,24 +33,32 @@ import javafx.scene.layout.VBox;
  */
 public class WorkersModuleController implements Initializable {
 
-    private static List<WorkerController> workerControllers = new ArrayList<>();
-    private static List<UserDto> users = new ArrayList<>();
-    private User userService = new User();
-
-    @FXML
-    private VBox workersContainer;
     @FXML
     private ComboBox<String> cbSearchParameter;
     @FXML
     private TextField txfSearch;
+    @FXML
+    private Button btnEdit;
 
-    public static void addWorkerController(WorkerController controller) {
-        WorkersModuleController.workerControllers.add(controller);
-    }
+    @FXML
+    private TableView<UserDto> tblUsersView;
+    @FXML
+    private TableColumn<UserDto, String> tcIdentification;
+    @FXML
+    private TableColumn<UserDto, String> tcUser;
+    @FXML
+    private TableColumn<UserDto, String> tcName;
+    @FXML
+    private TableColumn<UserDto, String> tcLastName;
+    @FXML
+    private TableColumn<UserDto, String> tcPhone;
+    @FXML
+    private TableColumn<UserDto, String> tcRole;
 
-    public static List<WorkerController> getWorkerControllers() {
-        return workerControllers;
-    }
+    private static List<UserDto> users = new ArrayList<>();
+    private UserDto userBuffer;
+    private VBox workersContainer;
+    private User userService = new User();
 
     /**
      * Initializes the controller class.
@@ -53,6 +67,8 @@ public class WorkersModuleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         users = Utilities.loadUsers();
         App.setWorkersModuleController(this);
+        btnEdit.setDisable(true);
+        initilizeLists();
         loadWorkers(users);
         cbSearchParameter.getItems().addAll("Name", "Last Name", "Second Last Name", "Phone", "Email", "Identification", "User Name");
 
@@ -60,7 +76,8 @@ public class WorkersModuleController implements Initializable {
 
     @FXML
     private void newWorker(ActionEvent event) {
-        App.getMainController().newWorker();
+        userBuffer = null;
+        App.getMainController().editWorker();
     }
 
     @FXML
@@ -75,21 +92,27 @@ public class WorkersModuleController implements Initializable {
         loadWorkers(users);
     }
 
-    private void loadWorkers(List<UserDto> users) {
-        try {
-            workerControllers.clear();
-            for (UserDto user : users) {
-                FXMLLoader loader = App.getFXMLLoader("Worker");
-                workersContainer.getChildren().add(loader.load());
-                WorkerController controller = loader.getController();
-                controller.setData(user);
-                workerControllers.add(controller);
-            }
-
-        } catch (IOException e) {
-            System.out.println(e.toString());
+    @FXML
+    private void editWorker(ActionEvent event) throws IOException {
+        if (userBuffer != null) {
+            Data.setUserModified(userBuffer);
+            App.getMainController().editWorker();
         }
+    }
 
+    @FXML
+    private void deleteWorker(ActionEvent event) {
+        if (userBuffer != null) {
+            ResponseWrapper response = userService.deleteUser(userBuffer.getId());
+            if (response.getCode() == ResponseCode.OK) {
+                tblUsersView.getItems().remove(userBuffer);
+            }
+        }
+    }
+
+    public void loadWorkers(List<UserDto> users) {
+        tblUsersView.getItems().clear();
+        tblUsersView.getItems().addAll(users);
     }
 
     private List<UserDto> filterUsers(List<UserDto> users, String parameter, String key) {
@@ -133,14 +156,28 @@ public class WorkersModuleController implements Initializable {
         return usersFiltered;
     }
 
-    // WorkerController ACTIONS
-    public void deleteWorker(Node node, UserDto user) {
-        workersContainer.getChildren().remove(node);
-        userService.deleteUser(user.getId());
-    }
+    private void initilizeLists() {
+        tcIdentification.setCellValueFactory(new PropertyValueFactory<>("identification"));
+        tcUser.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tcLastName.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        tcRole.setCellValueFactory(cellData -> {
+            UserDto user = cellData.getValue();
+            String roleName = (user.getPosition() != null) ? user.getPosition().getName() : "-";
+            return new SimpleStringProperty(roleName);
+        });
+        tblUsersView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    userBuffer = newValue;
+                    if (userBuffer != null) {
+                        btnEdit.setDisable(false);
+                        return;
+                    }
+                    btnEdit.setDisable(true);
 
-    public void editWorker(UserDto user, WorkerController controller) {
-        App.getMainController().editWorker(user, controller);
+                });
+
     }
 
 }

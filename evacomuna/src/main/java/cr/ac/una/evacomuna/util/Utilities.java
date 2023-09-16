@@ -17,8 +17,8 @@ import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.image.Image;
@@ -116,19 +116,28 @@ public class Utilities {
 
     public static byte[] imageToByte(Image image) {
         try {
-            InputStream inputStream = image.getClass().getResourceAsStream(image.getUrl());
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, bytesRead);
-            }
-            return byteArrayOutputStream.toByteArray();
+            File file = new File(image.getUrl());
+            byte[] fileContent = Files.readAllBytes(file.toPath());
+            return fileContent;
         } catch (Exception e) {
             return null;
         }
 
+    }
+
+    public static Image byteToImage(byte[] imageData) {
+        if (imageData == null || imageData.length == 0) {
+            return null; // Retorna null si los datos de la imagen son nulos o vacíos
+        }
+
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+            Image image = new Image(inputStream);
+            return image;
+        } catch (Exception e) {
+            e.printStackTrace(); // Maneja cualquier excepción que pueda ocurrir durante la conversión
+            return null;
+        }
     }
 
 }

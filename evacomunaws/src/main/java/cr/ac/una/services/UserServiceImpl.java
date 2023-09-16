@@ -415,9 +415,8 @@ public class UserServiceImpl implements UserService {
                 }
             }
             user.updateUser(userDto);
-            user.setPosition(
-                    EntityUtil.convertToEntity(userDto, User.class)
-                            .getPosition());
+            user.setPosition(new Position(userDto.getPosition()));
+            System.out.println(userDto.getPosition());
             em.merge(user);
             em.flush();
             return new ResponseWrapper(

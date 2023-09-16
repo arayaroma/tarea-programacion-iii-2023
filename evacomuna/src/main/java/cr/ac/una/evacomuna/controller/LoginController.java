@@ -1,6 +1,10 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.ResponseCode;
+import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
@@ -25,7 +29,7 @@ import javafx.scene.layout.StackPane;
  * @author estebannajera
  */
 public class LoginController implements Initializable {
-
+    
     @FXML
     private PasswordField txfPassword;
     @FXML
@@ -38,31 +42,40 @@ public class LoginController implements Initializable {
     private HBox forgotYourPasswordView;
     @FXML
     private StackPane mainScreen;
-
+    
     private Parent registerView;
+    private User userService;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userService = new User();
         App.setLoginController(this);
     }
-
+    
     @FXML
     private void forgotPassword(MouseEvent event) {
         forgotYourPasswordView.toFront();
     }
-
+    
     @FXML
     private void logIn(ActionEvent event) throws IOException {
         String user = txfUser.getText(), password = txfPassword.getText();
         //User verification here
-
-        App.setRoot("Main");
-
+        if (user.isBlank() || password.isBlank()) {
+            Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
+            return;
+        }
+        ResponseWrapper responseWrapper = userService.getByUserAndPassword(user, password);
+        if (responseWrapper.getCode() == ResponseCode.OK) {
+            UserDto userDto = (UserDto) responseWrapper.getData();
+            Data.setUserLogged(userDto);
+            App.setRoot("Main");
+        }
     }
-
+    
     @FXML
     private void signUp(MouseEvent event) {
         try {
@@ -70,18 +83,18 @@ public class LoginController implements Initializable {
             registerView = loader.load();
             mainScreen.getChildren().add(registerView);
             registerView.toFront();
-            App.getRegisterWorkerController().initializeView(true, null, null);
+            App.getRegisterWorkerController().initializeView(true, null);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
-
+    
     @FXML
     private void backToLogin(MouseEvent event) {
         cleanFieldsForgotYourPasswordView();
         loginView.toFront();
     }
-
+    
     @FXML
     private void requestPasswordReset(ActionEvent event) {
         String email = txfEmailForgotYourPassword.getText();
@@ -93,11 +106,11 @@ public class LoginController implements Initializable {
         Data.setPasswordChanged(true);
         Message.showNotification("Info", MessageType.INFO, "Request sent");
         loginView.toFront();
-
+        
     }
-
+    
     private void cleanFieldsForgotYourPasswordView() {
         txfEmailForgotYourPassword.setText("");
     }
-
+    
 }
