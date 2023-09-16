@@ -119,7 +119,6 @@ public class RegisterWorkerController implements Initializable {
             userDto.setProfilePhoto(Utilities.imageToByte(image));
             if (userModified == null) {
                 response = userService.createUser(userDto);
-
             } else {
                 userDto.setId(userModified.getId());
                 userDto.setPosition(userModified.getPosition());

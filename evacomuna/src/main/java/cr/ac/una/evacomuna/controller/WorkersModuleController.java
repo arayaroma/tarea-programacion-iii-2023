@@ -2,6 +2,8 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.services.User;
+import cr.ac.una.evacomuna.util.Utilities;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class WorkersModuleController implements Initializable {
 
     private static List<WorkerController> workerControllers = new ArrayList<>();
     private static List<UserDto> users = new ArrayList<>();
+    private User userService = new User();
 
     @FXML
     private VBox workersContainer;
@@ -48,13 +51,10 @@ public class WorkersModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        users = Utilities.loadUsers();
         App.setWorkersModuleController(this);
-        // Load the workers
-        for (int i = 0; i < 10; i++) {
-            users.add(getUser());
-        }
         loadWorkers(users);
-        fillSearchParameters("Name", "Last Name", "Second Last Name", "Phone", "Email", "Identification", "User Name");
+        cbSearchParameter.getItems().addAll("Name", "Last Name", "Second Last Name", "Phone", "Email", "Identification", "User Name");
 
     }
 
@@ -73,19 +73,6 @@ public class WorkersModuleController implements Initializable {
         users = filterUsers(users, parameterKey, key);
         workersContainer.getChildren().clear();
         loadWorkers(users);
-    }
-
-    public UserDto getUser() {
-        UserDto user = new UserDto();
-        user.setName("Esteban");
-        user.setLastname("Najera");
-        user.setIdentification("118650568");
-        user.setUsername("enajera");
-        user.setPhoneNumber("61918721");
-        user.setSecondLastname("Morales");
-        user.setEmail("estebannajera42@gmail.com");
-        user.setPassword("123");
-        return user;
     }
 
     private void loadWorkers(List<UserDto> users) {
@@ -146,15 +133,10 @@ public class WorkersModuleController implements Initializable {
         return usersFiltered;
     }
 
-    private void fillSearchParameters(String... args) {
-        for (String i : args) {
-            cbSearchParameter.getItems().add(i);
-        }
-    }
-
     // WorkerController ACTIONS
-    public void deleteWorker(Node node) {
+    public void deleteWorker(Node node, UserDto user) {
         workersContainer.getChildren().remove(node);
+        userService.deleteUser(user.getId());
     }
 
     public void editWorker(UserDto user, WorkerController controller) {

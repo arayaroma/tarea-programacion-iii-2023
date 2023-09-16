@@ -66,7 +66,7 @@ public class WorkerController implements Initializable {
 
     @FXML
     private void deleteWorker(ActionEvent event) {
-        App.getWorkersModuleController().deleteWorker(parent);
+        App.getWorkersModuleController().deleteWorker(parent, worker);
     }
 
     public void setData(UserDto user) {

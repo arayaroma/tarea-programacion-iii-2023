@@ -23,8 +23,12 @@ public class User {
     public ResponseWrapper updateUser(UserDto userDto) {
         return port.updateUser(userDto);
     }
-//
-//    public ResponseWrapper deleteUser(Long id) {
-//        return port.deleteUserById(id);
-//    }
+
+    public ResponseWrapper getUsers() {
+        return port.getUsers();
+    }
+
+    public ResponseWrapper deleteUser(Long id) {
+        return port.deleteUserById(id);
+    }
 }

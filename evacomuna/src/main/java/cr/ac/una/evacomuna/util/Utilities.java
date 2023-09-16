@@ -14,9 +14,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.PositionDto;
+import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.services.Position;
+import cr.ac.una.evacomuna.services.User;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.image.Image;
 
 /**
@@ -27,6 +31,7 @@ public class Utilities {
 
     static Skill skillService = new Skill();
     static Position roleService = new Position();
+    static User userService = new User();
     static Characteristic characteristicService = new Characteristic();
 
     public static File selectFile(String nameFilter, String... filters) {
@@ -64,6 +69,20 @@ public class Utilities {
             }
         }
         return skillsDto;
+    }
+
+    public static List<UserDto> loadUsers() {
+        List<UserDto> userDtos = new ArrayList<>();
+        ResponseWrapper response = userService.getUsers();
+        if (response.getCode() == ResponseCode.OK) {
+            ListWrapper wrapper = (ListWrapper) response.getData();
+            for (Object i : wrapper.getElement()) {
+                if (i instanceof UserDto) {
+                    userDtos.add((UserDto) i);
+                }
+            }
+        }
+        return userDtos;
     }
 
     public static ObservableList<PositionDto> loadRoles() {
