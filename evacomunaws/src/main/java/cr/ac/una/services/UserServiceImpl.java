@@ -1,13 +1,8 @@
 package cr.ac.una.services;
 
-import cr.ac.una.dto.PositionDto;
-import cr.ac.una.dto.SkillDto;
 import cr.ac.una.dto.UserDto;
-import cr.ac.una.entities.Position;
-import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
-import cr.ac.una.entities.Evaluated;
-import cr.ac.una.entities.Evaluator;
+import cr.ac.una.entities.Position;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ResponseCode;
 import jakarta.ejb.EJB;
@@ -502,40 +497,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Replicate over any service Converts the entity to dto
-     *
-     * @param entity
-     * @param dto
-     * @return
-     */
-    private UserDto convertFromEntityToDTO(User entity, UserDto dto) {
-        dto.setPosition(new PositionDto(entity.getPosition()));
-        dto.getPosition().setUsers(
-                EntityUtil.fromEntityList(entity.getPosition().getUsers(), UserDto.class)
-                        .getList());
-        dto.getPosition().setSkills(
-                EntityUtil.fromEntityList(entity.getPosition().getSkills(), SkillDto.class)
-                        .getList());
-        return dto;
-    }
-
-    /**
-     * Replicate over any service Converts the dto to entity
-     *
-     * @param dto
-     * @param entity
-     * @return
-     */
-    private User convertFromDTOToEntity(UserDto userDto, User user) {
-        user.setPosition(new Position(userDto.getPosition()));
-        user.getPosition().setUsers(EntityUtil.fromDtoList(userDto.getPosition().getUsers(), User.class).getList());
-        user.getPosition().setSkills(EntityUtil.fromDtoList(userDto.getPosition().getSkills(), Skill.class).getList());
-        user.setEvaluated(EntityUtil.fromDtoList(userDto.getEvaluated(), Evaluated.class).getList());
-        user.setEvaluators(EntityUtil.fromDtoList(userDto.getEvaluators(), Evaluator.class).getList());
-        return user;
-    }
-
-    /**
      * @return ResponseWrapper with the response from database, or null if an
      * exception occurred
      */
@@ -547,9 +508,11 @@ public class UserServiceImpl implements UserService {
             List<User> users = (List<User>) query.getResultList();
             List<UserDto> usersDto = new ArrayList<>();
 
-            for (User u : users) {
-                usersDto.add(convertFromEntityToDTO(u, new UserDto(u)));
+            for (User user : users) {
+                UserDto userDto = new UserDto(user);
+                usersDto.add(userDto.convertFromEntityToDTO(user, userDto));
             }
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

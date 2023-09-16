@@ -24,7 +24,7 @@ import java.util.List;
 @Stateless
 @LocalBean
 public class PositionServiceImpl implements PositionService {
-    
+
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
@@ -35,7 +35,7 @@ public class PositionServiceImpl implements PositionService {
     private PositionDto convertFromEntityToDTO(PositionDto dto, Position entity) {
         dto.setUsers(EntityUtil.fromEntityList(entity.getUsers(),
                 UserDto.class).getList());
-        
+
         dto.setSkills(
                 EntityUtil.fromEntityList(entity.getSkills(),
                         SkillDto.class).getList());
@@ -50,12 +50,12 @@ public class PositionServiceImpl implements PositionService {
     private Position convertFromDTOToEntity(Position entity, PositionDto dto) {
         entity.setUsers(EntityUtil.fromDtoList(dto.getUsers(),
                 User.class).getList());
-        
+
         entity.setSkills(EntityUtil.fromDtoList(dto.getSkills(),
                 Skill.class).getList());
         return entity;
     }
-    
+
     @Override
     public ResponseWrapper createPosition(PositionDto positionDto) {
         try {
@@ -112,7 +112,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     * getUsersByPositionId
+     *         getUsersByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -145,7 +145,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     * getSkillsByPositionId
+     *         getSkillsByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -176,7 +176,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     /**
-     * @param id position id to be updated
+     * @param id       position id to be updated
      * @param position position to be updated
      * @return ResponseWrapper with the response of the service call
      */
@@ -244,7 +244,7 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     * deleteAllPositions
+     *         deleteAllPositions
      */
     @Override
     public ResponseWrapper deleteAllPositions() {
@@ -264,7 +264,7 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-    
+
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper getPositions() {
@@ -277,7 +277,7 @@ public class PositionServiceImpl implements PositionService {
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of positions.",
-                    new ListWrapper(positionDtos));
+                    new ListWrapper<>(positionDtos));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -286,7 +286,7 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-    
+
     @Override
     public ResponseWrapper getPositionByName(String name) {
         try {
@@ -312,12 +312,12 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-    
+
     @Override
     public ResponseWrapper updatePosition(PositionDto positionDto) {
         try {
             Position position = em.find(Position.class, positionDto.getId());
-            
+
             if (position == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -346,5 +346,5 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-    
+
 }
