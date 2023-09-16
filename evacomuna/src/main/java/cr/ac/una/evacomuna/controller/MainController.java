@@ -2,12 +2,15 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.util.Animations;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -114,15 +118,20 @@ public class MainController implements Initializable {
     private void btnPendingsEvaluation(ActionEvent event) {
         try {
             mainScreen.getChildren().clear();
-//            FXMLLoader loader = App.getFXMLLoader("RoleModule");
-//            mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
         }
     }
 
     @FXML
     private void logOut(ActionEvent event) throws IOException {
-        App.setRoot("Login");
+        Animations.translateTransition(parent, Duration.seconds(0.5), 1, -parent.getWidth(), 0, t -> {
+            try {
+                App.setRoot("Login");
+            } catch (IOException ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).play();
+
     }
 
     @FXML

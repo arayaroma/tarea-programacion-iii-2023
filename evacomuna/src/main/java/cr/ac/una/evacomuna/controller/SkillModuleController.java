@@ -89,18 +89,6 @@ public class SkillModuleController implements Initializable {
 
     @FXML
     private void searchSkillInput(KeyEvent event) {
-        // String character = event.getText();
-        // if (character.isBlank()) {
-        // nameToSearch = "";
-        // return;
-        // }
-        // nameToSearch += event.getText();
-        //// if(nameToSearch.length()>2){
-        ////// SkillDto skillDto = (SkillDto)
-        // skillService.getSkillByName(nameToSearch).getData();
-        //////// cbSkillsView.seti
-        //// }
-        // System.out.println(nameToSearch);
     }
 
     @FXML

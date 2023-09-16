@@ -58,7 +58,9 @@ public class LoginController implements Initializable {
     private void logIn(ActionEvent event) throws IOException {
         String user = txfUser.getText(), password = txfPassword.getText();
         //User verification here
+
         App.setRoot("Main");
+
     }
 
     @FXML

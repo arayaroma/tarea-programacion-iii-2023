@@ -8,7 +8,7 @@ module Evacomuna {
     requires jakarta.xml.ws;
     
     requires org.controlsfx.controls;
-
+    requires AnimateFX;
     opens cr.ac.una.evacomuna to javafx.fxml;
     opens cr.ac.una.evacomuna.util to javafx.fxml;
     opens cr.ac.una.evacomuna.controller to javafx.fxml;
