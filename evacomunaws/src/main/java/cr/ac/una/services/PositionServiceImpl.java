@@ -14,6 +14,9 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
+import cr.ac.una.util.ListWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author arayaroma
@@ -21,7 +24,7 @@ import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 @Stateless
 @LocalBean
 public class PositionServiceImpl implements PositionService {
-
+    
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
@@ -32,7 +35,7 @@ public class PositionServiceImpl implements PositionService {
     private PositionDto convertFromEntityToDTO(PositionDto dto, Position entity) {
         dto.setUsers(EntityUtil.fromEntityList(entity.getUsers(),
                 UserDto.class).getList());
-
+        
         dto.setSkills(
                 EntityUtil.fromEntityList(entity.getSkills(),
                         SkillDto.class).getList());
@@ -47,12 +50,12 @@ public class PositionServiceImpl implements PositionService {
     private Position convertFromDTOToEntity(Position entity, PositionDto dto) {
         entity.setUsers(EntityUtil.fromDtoList(dto.getUsers(),
                 User.class).getList());
-
+        
         entity.setSkills(EntityUtil.fromDtoList(dto.getSkills(),
                 Skill.class).getList());
         return entity;
     }
-
+    
     @Override
     public ResponseWrapper createPosition(PositionDto positionDto) {
         try {
@@ -109,7 +112,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     *         getUsersByPositionId
+     * getUsersByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -142,7 +145,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     *         getSkillsByPositionId
+     * getSkillsByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -173,7 +176,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     /**
-     * @param id       position id to be updated
+     * @param id position id to be updated
      * @param position position to be updated
      * @return ResponseWrapper with the response of the service call
      */
@@ -241,7 +244,7 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     *         deleteAllPositions
+     * deleteAllPositions
      */
     @Override
     public ResponseWrapper deleteAllPositions() {
@@ -261,17 +264,20 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper getPositions() {
         try {
+            List<Position> positions = em.createNamedQuery("Position.findAll").getResultList();
+            List<PositionDto> positionDtos = new ArrayList<>();
+            for (Position p : positions) {
+                positionDtos.add(convertFromEntityToDTO(new PositionDto(p), p));
+            }
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of positions.",
-                    EntityUtil.fromEntityList(
-                            em.createNamedQuery("Position.findAll").getResultList(),
-                            PositionDto.class));
+                    new ListWrapper(positionDtos));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -280,7 +286,7 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper getPositionByName(String name) {
         try {
@@ -297,7 +303,7 @@ public class PositionServiceImpl implements PositionService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of position.",
-                    new PositionDto(position));
+                    convertFromEntityToDTO(new PositionDto(position), position));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -306,12 +312,12 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper updatePosition(PositionDto positionDto) {
         try {
             Position position = em.find(Position.class, positionDto.getId());
-
+            
             if (position == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -340,5 +346,5 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
 }

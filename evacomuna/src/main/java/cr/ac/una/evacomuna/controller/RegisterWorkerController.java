@@ -1,6 +1,7 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.PositionDto;
+import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
@@ -123,14 +124,15 @@ public class RegisterWorkerController implements Initializable {
                 userDto.setId(userModified.getId());
                 userDto.setPosition(userModified.getPosition());
                 userDto.setIsAdmin(userModified.getIsAdmin());
-
                 controlerUser.setData(userDto);
                 response = userService.updateUser(userDto);
-
             }
-            System.out.println(response.getMessage());
-            Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
-            backToLogin(null);
+            if (response.getCode() == ResponseCode.OK) {
+                Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
+                backToLogin(null);
+            } else {
+                Message.showNotification(response.getCode().name(), MessageType.ERROR, response.getMessage());
+            }
         } catch (IOException e) {
             System.out.println(e.toString());
         }
@@ -150,13 +152,13 @@ public class RegisterWorkerController implements Initializable {
         user.setIsActive("N");
         user.setIsAdmin("N");
         user.setPasswordChanged("N");
-        PositionDto roleDto = (PositionDto) roleService.getRoleByName(args[9]).getData();
-        user.setPosition(roleDto);
+        user.setPosition((PositionDto) roleService.getRoleByName(args[9]).getData());
         return user;
     }
 
     public void initializeView(boolean isFromLogin, UserDto user, WorkerController controller) {
         this.isFromLogin = isFromLogin;
+        cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadRoles()));
         if (user != null) {
             userModified = user;
             controlerUser = controller;
@@ -168,6 +170,8 @@ public class RegisterWorkerController implements Initializable {
             txfLastNameRegister.setText(user.getLastname());
             txfSecondLastNameRegister.setText(user.getSecondLastname());
             txfPhoneNumberRegister.setText(user.getPhoneNumber());
+            txfLandLineNumberRegister.setText(user.getLandlineNumber());
+            cbRoleRegister.setValue(user.getPosition().getName());
         }
     }
 

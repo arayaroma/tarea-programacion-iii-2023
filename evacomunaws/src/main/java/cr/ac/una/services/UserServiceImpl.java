@@ -6,6 +6,8 @@ import cr.ac.una.dto.UserDto;
 import cr.ac.una.entities.Position;
 import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
+import cr.ac.una.entities.Evaluated;
+import cr.ac.una.entities.Evaluator;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ResponseCode;
 import jakarta.ejb.EJB;
@@ -25,7 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Stateless
@@ -40,23 +42,22 @@ public class UserServiceImpl implements UserService {
 
     /**
      * @param userDto user to be created, also sends an email to the user to
-     *                verify the registration
+     * verify the registration
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     @Transactional
     public ResponseWrapper createUser(UserDto userDto) {
         try {
-            User user;
-            user = new User(userDto);
-            user.setPosition(EntityUtil
-                    .convertToEntity(userDto, User.class)
-                    .getPosition());
-
+//            User user = convertFromDTOToEntity(userDto, new User(userDto));
+            User user = new User(userDto);
+            user.setPosition(new Position(userDto.getPosition()));
             ResponseWrapper INVALID_REQUEST = verifyEntity(user, User.class);
-            if (INVALID_REQUEST != null)
+            if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
+            }
+            System.out.println("User id" + user.getId());
 
             em.persist(user);
             em.flush();
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User created successfully.",
-                    userDto);
+                    new UserDto(user));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param id user id to be retrieved
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     public ResponseWrapper getUserById(Long id) {
@@ -128,7 +129,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param id id from user to be deleted
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     public ResponseWrapper deleteUserById(Long id) {
@@ -168,7 +169,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param identification user identification to be retrieved
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -217,7 +218,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param identification user identification to be deleted
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -268,7 +269,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param username Username to match the user
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -374,7 +375,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param userDto User to be updated
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     public ResponseWrapper updateUser(UserDto userDto) {
@@ -436,7 +437,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param name Name to match one or more users
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     public ResponseWrapper getUserListByName(String name) {
@@ -471,7 +472,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param position Position to match users
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     public ResponseWrapper getUserListByPosition(String position) {
@@ -502,9 +503,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Replicate over any service
-     * Converts the entity to dto
-     * 
+     * Replicate over any service Converts the entity to dto
+     *
      * @param entity
      * @param dto
      * @return
@@ -521,27 +521,24 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Replicate over any service
-     * Converts the dto to entity
-     * 
+     * Replicate over any service Converts the dto to entity
+     *
      * @param dto
      * @param entity
      * @return
      */
-    private User convertFromDTOToEntity(UserDto dto, User entity) {
-        entity.setPosition(new Position(dto.getPosition()));
-        entity.getPosition().setUsers(
-                EntityUtil.fromDtoList(dto.getPosition().getUsers(), User.class)
-                        .getList());
-        entity.getPosition().setSkills(
-                EntityUtil.fromDtoList(dto.getPosition().getSkills(), Skill.class)
-                        .getList());
-        return entity;
+    private User convertFromDTOToEntity(UserDto userDto, User user) {
+        user.setPosition(new Position(userDto.getPosition()));
+        user.getPosition().setUsers(EntityUtil.fromDtoList(userDto.getPosition().getUsers(), User.class).getList());
+        user.getPosition().setSkills(EntityUtil.fromDtoList(userDto.getPosition().getSkills(), Skill.class).getList());
+        user.setEvaluated(EntityUtil.fromDtoList(userDto.getEvaluated(), Evaluated.class).getList());
+        user.setEvaluators(EntityUtil.fromDtoList(userDto.getEvaluators(), Evaluator.class).getList());
+        return user;
     }
 
     /**
      * @return ResponseWrapper with the response from database, or null if an
-     *         exception occurred
+     * exception occurred
      */
     @Override
     @SuppressWarnings("unchecked")
