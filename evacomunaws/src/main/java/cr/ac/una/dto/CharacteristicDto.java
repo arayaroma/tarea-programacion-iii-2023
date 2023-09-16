@@ -1,6 +1,7 @@
 package cr.ac.una.dto;
 
 import cr.ac.una.entities.Characteristic;
+import cr.ac.una.util.EntityMapper;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -17,12 +18,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @XmlRootElement(name = "CharacteristicDto")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CharacteristicDto {
+public class CharacteristicDto implements EntityMapper<Characteristic, CharacteristicDto> {
 
     private Long id;
     private String name;
     private Long version;
     SkillDto skill;
+
+    /**
+     * @param entity Entity to be converted
+     * @param dto    DTO to be updated
+     * @return DTO with the updated information
+     */
+    @Override
+    public CharacteristicDto convertFromEntityToDTO(Characteristic entity,
+            CharacteristicDto dto) {
+        return dto;
+    }
+
+    /**
+     * @param dto    DTO to be converted
+     * @param entity Entity to be updated
+     * @return Entity with the updated information
+     */
+    @Override
+    public Characteristic convertFromDTOToEntity(CharacteristicDto dto,
+            Characteristic entity) {
+        return entity;
+    }
 
     /**
      * @param skill constructor from entity to dto
