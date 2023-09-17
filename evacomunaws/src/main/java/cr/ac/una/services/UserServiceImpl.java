@@ -14,12 +14,8 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
-
-import cr.ac.una.util.Constants;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.HashGenerator;
-import cr.ac.una.util.HtmlFileReader;
-import cr.ac.una.util.LinkGenerator;
 import cr.ac.una.util.ListWrapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,17 +85,7 @@ public class UserServiceImpl implements UserService {
 
     private ResponseWrapper sendActivationEmail(UserDto userDto) {
         try {
-            emailService.sendActivationHashLink(
-                    userDto.getEmail(), "Complete your account registration",
-                    HtmlFileReader.readEmailTemplate(
-                            "Complete your account registration",
-                            "Welcome to " + Constants.COMPANY_NAME + "!",
-                            userDto.getName(),
-                            "Please click the following link to complete your registration: " +
-                                    "<a href=" +
-                                    LinkGenerator.generateActivationLink(userDto.getId(), userDto.getActivationCode())
-                                    + "> Activate account!</a>",
-                            "Thank you for registering with us!"));
+            emailService.sendActivationHashLink(userDto);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -139,15 +125,7 @@ public class UserServiceImpl implements UserService {
                 em.merge(user);
                 em.flush();
 
-                emailService.sendActivatedUserEmail(
-                        userDto.getEmail(),
-                        "Registration completed successfully!",
-                        HtmlFileReader.readEmailTemplate(
-                                "Registration completed successfully!",
-                                "We're glad you just join us!",
-                                userDto.getName(),
-                                "Feel free to explore our application and get to know us better!",
-                                "Thank you for choosing us!"));
+                emailService.sendActivatedUserEmail(userDto);
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
