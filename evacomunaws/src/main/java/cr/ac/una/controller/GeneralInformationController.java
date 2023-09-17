@@ -52,7 +52,7 @@ public class GeneralInformationController {
      *         GeneralInformationDto
      */
     @WebMethod(operationName = "getGeneralInformationById")
-    public ResponseWrapper getGeneralInformation(Long id) {
+    public ResponseWrapper getGeneralInformationById(Long id) {
         return generalInformationService.getGeneralInformationById(id);
     }
 
