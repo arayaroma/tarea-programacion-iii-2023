@@ -16,7 +16,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -26,35 +25,8 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getGeneralInformation", propOrder = {
-    "arg0"
-})
+@XmlType(name = "getGeneralInformation")
 public class GetGeneralInformation {
 
-    protected Long arg0;
-
-    /**
-     * Obtiene el valor de la propiedad arg0.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
-    public Long getArg0() {
-        return arg0;
-    }
-
-    /**
-     * Define el valor de la propiedad arg0.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
-     */
-    public void setArg0(Long value) {
-        this.arg0 = value;
-    }
 
 }

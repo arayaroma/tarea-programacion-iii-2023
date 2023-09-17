@@ -45,6 +45,7 @@ public class CompanyModuleController implements Initializable {
     private File fileBuffer;
     private File htmlBuffer;
     private Company companyService;
+    private GeneralInformationDto companyBuffer;
 
     /**
      * Initializes the controller class.
@@ -54,6 +55,8 @@ public class CompanyModuleController implements Initializable {
         // TODO
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
         companyService = new Company();
+        companyBuffer = (GeneralInformationDto) companyService.getGeneralInformation().getData();
+        initializeView();
     }
 
     @FXML
@@ -67,16 +70,38 @@ public class CompanyModuleController implements Initializable {
 
     @FXML
     private void saveChanges(ActionEvent event) {
-        String email = txfEmail.getText(), name = txfCompanyName.getText(), description = txaDescription.getText(), phoneNumber = txfPhoneNumber.getText(), html = Utilities.FileToString(htmlBuffer);
-        if (email.isBlank() || name.isBlank() || description.isBlank() || phoneNumber.isBlank() || fileBuffer == null || html == null) {
+        String email = txfEmail.getText(), name = txfCompanyName.getText(), description = txaDescription.getText(), phoneNumber = txfPhoneNumber.getText();
+
+        String html = htmlBuffer != null ? Utilities.FileToString(htmlBuffer) : "";
+
+        if (email.isBlank() || name.isBlank() || phoneNumber.isBlank() || description.isBlank()) {
             Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
         }
-        GeneralInformationDto generalInformationDto = new GeneralInformationDto();
+        if (companyBuffer == null && (htmlBuffer == null || fileBuffer == null)) {
+            Message.showNotification("Ups", MessageType.INFO, "You must to select the necesary files");
+            return;
+        }
+        GeneralInformationDto generalInformationDto;
+        if (companyBuffer == null) {
+            generalInformationDto = new GeneralInformationDto();
+        } else {
+            generalInformationDto = companyBuffer;
+        }
         generalInformationDto.setName(name);
-        generalInformationDto.setHtmltemplate(html);
-        generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
+        
+        if (companyBuffer != null) {
+            if (htmlBuffer != null) {
+                generalInformationDto.setHtmltemplate(html);
+            }
+            if (fileBuffer != null) {
+                generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
+            }
+        }else{
+           generalInformationDto.setHtmltemplate(html);
+           generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
+        }
         generalInformationDto.setEmail(email);
-        ResponseWrapper response = companyService.createGeneralInformation(generalInformationDto);
+        ResponseWrapper response = companyBuffer == null ? companyService.createGeneralInformation(generalInformationDto) : companyService.updateGeneralInformation(generalInformationDto);
         if (response.getCode() == ResponseCode.OK) {
             Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
             return;
@@ -91,6 +116,18 @@ public class CompanyModuleController implements Initializable {
         if (selectedFile != null) {
             lblURLTemplate.setText(selectedFile.toURI().toString());
             htmlBuffer = selectedFile;
+        }
+    }
+
+    private void initializeView() {
+        if (companyBuffer != null) {
+            txfCompanyName.setText(companyBuffer.getName());
+            txfEmail.setText(companyBuffer.getEmail());
+            imgPhoto.setImage(new Image(Utilities.byteToImage(companyBuffer.getPhoto())));
+            lblURLTemplate.setText("Template Loaded");
+//            lblURLTemplate.setText(value);
+//            txfPhoneNumber.setText(companyBuffer.get);
+//            txaDescription.setText(companyBuffer.get);
         }
     }
 

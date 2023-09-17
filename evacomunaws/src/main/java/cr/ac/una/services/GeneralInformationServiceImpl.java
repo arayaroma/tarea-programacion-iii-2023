@@ -110,7 +110,7 @@ public class GeneralInformationServiceImpl implements GeneralInformationService 
      *         GeneralInformationDto
      */
     @Override
-    public ResponseWrapper getGeneralInformation(Long id) {
+    public ResponseWrapper getGeneralInformationById(Long id) {
         try {
             GeneralInformation generalInformation = em.find(GeneralInformation.class, id);
             if (isGeneralInformationNull(generalInformation)) {

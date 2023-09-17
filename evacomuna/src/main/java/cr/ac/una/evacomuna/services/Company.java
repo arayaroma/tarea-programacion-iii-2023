@@ -27,12 +27,15 @@ public class Company {
         return port.updateGeneralInformation(generalInformationDto);
     }
 
-    public ResponseWrapper getGeneralInformation(Long id) {
-        return port.getGeneralInformation(id);
+    public ResponseWrapper getGeneralInformation() {
+        return port.getGeneralInformation();
+    }
+    public ResponseWrapper getGeneralInformationById(Long id) {
+        return port.getGeneralInformationById(id);
     }
 
-    public ResponseWrapper deleteGeneralInformation(Long id) {
-        return port.deleteGeneralInformation(id);
+    public ResponseWrapper deleteGeneralInformationById(Long id) {
+        return port.deleteGeneralInformationById(id);
     }
 
 }

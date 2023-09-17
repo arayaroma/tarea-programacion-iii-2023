@@ -52,8 +52,8 @@ public class GeneralInformationController {
      *         GeneralInformationDto
      */
     @WebMethod(operationName = "getGeneralInformationById")
-    public ResponseWrapper getGeneralInformation(Long id) {
-        return companyService.getGeneralInformation(id);
+    public ResponseWrapper getGeneralInformationById(Long id) {
+        return companyService.getGeneralInformationById(id);
     }
 
     /**
