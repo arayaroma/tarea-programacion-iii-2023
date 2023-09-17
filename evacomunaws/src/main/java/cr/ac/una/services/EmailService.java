@@ -1,6 +1,11 @@
 package cr.ac.una.services;
 
+import java.io.IOException;
+
+import cr.ac.una.dto.UserDto;
 import cr.ac.una.util.Constants;
+import cr.ac.una.util.HtmlFileReader;
+import cr.ac.una.util.LinkGenerator;
 import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
 import jakarta.mail.Message;
@@ -36,11 +41,40 @@ public class EmailService {
         }
     }
 
-    public void sendActivationHashLink(String to, String subject, String body) throws MessagingException {
-        sendEmail(to, subject, body);
+    public void sendActivationHashLink(UserDto to) throws MessagingException {
+        try {
+            String subject = "Complete your account registration";
+            String link = LinkGenerator.generateActivationLink(to.getId(), to.getActivationCode());
+            sendEmail(
+                    to.getEmail(),
+                    subject,
+                    HtmlFileReader.readEmailTemplate(
+                            subject,
+                            "Welcome to " + Constants.COMPANY_NAME + "!",
+                            to.getName(),
+                            "Please <a href=" + link + "> Activate account!</a>",
+                            "Thank you for registering with us!"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new MessagingException("Failed to send email: " + e.getMessage(), e);
+        }
     }
 
-    public void sendActivatedUserEmail(String to, String subject, String body) throws MessagingException {
-        sendEmail(to, subject, body);
+    public void sendActivatedUserEmail(UserDto to) throws MessagingException {
+        try {
+            String subject = "Account activated successfully";
+            sendEmail(
+                    to.getEmail(),
+                    subject,
+                    HtmlFileReader.readEmailTemplate(
+                            subject,
+                            "We're glad to hear from you again, ",
+                            to.getName(),
+                            "Feel free to explore our application and enjoy!",
+                            "Thank you for choosing us!"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MessagingException("Failed to send email: " + e.getMessage(), e);
+        }
     }
 }
