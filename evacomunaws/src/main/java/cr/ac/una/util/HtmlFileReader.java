@@ -2,8 +2,6 @@ package cr.ac.una.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import static cr.ac.una.util.PlaceHolders.*;
 
 /**
@@ -12,10 +10,12 @@ import static cr.ac.una.util.PlaceHolders.*;
  */
 public class HtmlFileReader {
 
-    public static final String TEMPLATE_PATH = "/templates/template.html";
+    public static final String TEMPLATE_DIR = "/templates/";
 
     public static String readHtml(String path) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(path)));
+        return new String(HtmlFileReader.class
+                .getResourceAsStream(TEMPLATE_DIR + path)
+                .readAllBytes());
     }
 
     public static String readEmailTemplate(
@@ -24,7 +24,7 @@ public class HtmlFileReader {
             String userName,
             String body,
             String footer) throws IOException {
-        try (InputStream inputStream = HtmlFileReader.class.getResourceAsStream(TEMPLATE_PATH)) {
+        try (InputStream inputStream = HtmlFileReader.class.getResourceAsStream(TEMPLATE_DIR + "template.html")) {
             String template = new String(inputStream.readAllBytes());
             String emailContent = template
                     .replace(TITLE, title)
