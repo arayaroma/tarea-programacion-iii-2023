@@ -38,6 +38,15 @@ public class GeneralInformationController {
     }
 
     /**
+     * @return ResponseWrapper with the result of the operation and the
+     *         GeneralInformationDto
+     */
+    @WebMethod(operationName = "getGeneralInformation")
+    public ResponseWrapper getGeneralInformation() {
+        return companyService.getGeneralInformation();
+    }
+
+    /**
      * @param id the id of the company to be retrieved
      * @return ResponseWrapper with the result of the operation and the
      *         GeneralInformationDto

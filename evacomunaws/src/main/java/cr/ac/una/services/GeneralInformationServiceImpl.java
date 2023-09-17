@@ -77,6 +77,34 @@ public class GeneralInformationServiceImpl implements GeneralInformationService 
     }
 
     /**
+     * @return ResponseWrapper with the result of the operation and the
+     *         GeneralInformationDto
+     */
+    @Override
+    public ResponseWrapper getGeneralInformation() {
+        try {
+            GeneralInformation generalInformation = (GeneralInformation) em
+                    .createNamedQuery("GeneralInformation.findAll")
+                    .getSingleResult();
+            if (isGeneralInformationNull(generalInformation)) {
+                return handleGeneralInformationNull();
+            }
+            GeneralInformationDto generalInformationDto = new GeneralInformationDto(generalInformation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Company retrieved successfully.",
+                    generalInformationDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving company: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    /**
      * @param id the id of the company to be retrieved
      * @return ResponseWrapper with the result of the operation and the
      *         GeneralInformationDto

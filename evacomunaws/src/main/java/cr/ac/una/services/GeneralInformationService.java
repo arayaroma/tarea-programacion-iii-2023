@@ -15,6 +15,8 @@ public interface GeneralInformationService {
 
     ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto);
 
+    ResponseWrapper getGeneralInformation();
+
     ResponseWrapper getGeneralInformation(Long id);
 
     ResponseWrapper deleteGeneralInformation(Long id);
