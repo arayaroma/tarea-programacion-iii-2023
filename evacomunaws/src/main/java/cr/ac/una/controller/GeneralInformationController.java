@@ -51,7 +51,7 @@ public class GeneralInformationController {
      * @return ResponseWrapper with the result of the operation and the
      *         GeneralInformationDto
      */
-    @WebMethod(operationName = "getGeneralInformation")
+    @WebMethod(operationName = "getGeneralInformationById")
     public ResponseWrapper getGeneralInformation(Long id) {
         return companyService.getGeneralInformation(id);
     }
@@ -61,7 +61,7 @@ public class GeneralInformationController {
      * @return ResponseWrapper with the result of the operation
      *         GeneralInformationDto
      */
-    @WebMethod(operationName = "deleteGeneralInformation")
+    @WebMethod(operationName = "deleteGeneralInformationById")
     public ResponseWrapper deleteGeneralInformation(Long id) {
         return companyService.deleteGeneralInformation(id);
     }
