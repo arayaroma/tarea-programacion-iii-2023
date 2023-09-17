@@ -58,4 +58,7 @@ public class HashGenerator {
         }
     }
 
+    public static Boolean validateHash(String first, String second) {
+        return first.equals(second);
+    }
 }
