@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public ResponseWrapper activateUser(Long id) {
+    public ResponseWrapper activateUser(Long id, String hash) {
         if (isUserIdNull(id)) {
             return handleUserIdNull();
         }
@@ -130,28 +130,35 @@ public class UserServiceImpl implements UserService {
             if (isUserNull(user)) {
                 return handleUserNull();
             }
-
-            em.createNativeQuery("CALL EVACOMUNA.ACTIVATE_USER(?id)")
-                    .setParameter("id", id)
-                    .executeUpdate();
-            em.merge(user);
-            em.flush();
-
             UserDto userDto = new UserDto(user);
-            emailService.sendActivatedUserEmail(
-                    userDto.getEmail(),
-                    "Registration completed successfully!",
-                    HtmlFileReader.readEmailTemplate(
-                            "Registration completed successfully!",
-                            "We're glad you just join us!",
-                            userDto.getName(),
-                            "Feel free to explore our application and get to know us better!",
-                            "Thank you for choosing us!"));
+            if (HashGenerator.validateHash(userDto.getActivationCode(), hash)) {
+                em.createNativeQuery("CALL EVACOMUNA.ACTIVATE_USER(?id)")
+                        .setParameter("id", id)
+                        .executeUpdate();
+
+                em.merge(user);
+                em.flush();
+
+                emailService.sendActivatedUserEmail(
+                        userDto.getEmail(),
+                        "Registration completed successfully!",
+                        HtmlFileReader.readEmailTemplate(
+                                "Registration completed successfully!",
+                                "We're glad you just join us!",
+                                userDto.getName(),
+                                "Feel free to explore our application and get to know us better!",
+                                "Thank you for choosing us!"));
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "User activated successfully.",
+                        userDto);
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "User activated successfully.",
-                    userDto);
+                    ResponseCode.UNAUTHORIZED.getCode(),
+                    ResponseCode.UNAUTHORIZED,
+                    "Invalid hash.",
+                    null);
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

@@ -34,6 +34,6 @@ public interface UserService {
 
     ResponseWrapper getUsers();
 
-    ResponseWrapper activateUser(Long id);
+    ResponseWrapper activateUser(Long id, String hash);
 
 }
