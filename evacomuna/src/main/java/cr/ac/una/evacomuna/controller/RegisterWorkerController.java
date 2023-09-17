@@ -139,8 +139,9 @@ public class RegisterWorkerController implements Initializable {
                 backToLogin(null);
             } else {
                 Message.showNotification(response.getCode().name(), MessageType.ERROR, response.getMessage());
-                System.out.println(response.getMessage());
+
             }
+            System.out.println(response.getMessage());
         } catch (IOException e) {
             System.out.println(e.toString());
         }

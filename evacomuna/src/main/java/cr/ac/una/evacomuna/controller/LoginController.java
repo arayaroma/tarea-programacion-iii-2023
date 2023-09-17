@@ -73,6 +73,8 @@ public class LoginController implements Initializable {
             UserDto userDto = (UserDto) responseWrapper.getData();
             Data.setUserLogged(userDto);
             App.setRoot("Main");
+        } else {
+            Message.showNotification("Error", MessageType.ERROR, responseWrapper.getMessage());
         }
         System.out.println(responseWrapper.getMessage());
     }
