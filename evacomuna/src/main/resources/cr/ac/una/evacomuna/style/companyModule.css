@@ -20,6 +20,21 @@
     -fx-cursor: hand;
 }
 .search-icon:hover{
-     -fx-effect: innershadow(gaussian, rgba(134, 41, 240, 0.5), 101, 76, 44, 0);
-     -fx-cursor: hand;
+    -fx-effect: innershadow(gaussian, rgba(134, 41, 240, 0.5), 101, 76, 44, 0);
+    -fx-cursor: hand;
+}
+.text-area .content {
+	-fx-background-color: white;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+}
+.text-area:focused .content {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.text-area {
+        -fx-background-radius:10px;
+	-fx-background-color: white;
+	-fx-effect: dropshadow(three-pass-box, rgba(126, 144, 247, 1), 10, 0, 5.0, 5.0);
 }

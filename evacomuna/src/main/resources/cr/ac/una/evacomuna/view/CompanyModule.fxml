@@ -4,7 +4,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -49,7 +48,7 @@
                            <children>
                               <VBox alignment="CENTER" spacing="20.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#selectPhotoProfile" styleClass="form-select" text="Select Your Profile Photo" />
+                                    <Button mnemonicParsing="false" onAction="#selectPhotoProfile" styleClass="btn" text="Select Your Profile Photo" />
                                     <HBox>
                                        <children>
                                           <TextField fx:id="txfCompanyName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Company Name" HBox.hgrow="ALWAYS">
@@ -60,7 +59,7 @@
                                        </children>
                                        <styleClass>
                                           <String fx:value="form" />
-                                          <String fx:value="form-field" />
+                                          <String fx:value="text-area" />
                                        </styleClass>
                                     </HBox>
                                     <HBox>
@@ -73,7 +72,7 @@
                                        </children>
                                        <styleClass>
                                           <String fx:value="form" />
-                                          <String fx:value="form-field" />
+                                          <String fx:value="text-area" />
                                        </styleClass>
                                     </HBox>
                                     <HBox>
@@ -86,10 +85,10 @@
                                        </children>
                                        <styleClass>
                                           <String fx:value="form" />
-                                          <String fx:value="form-field" />
+                                          <String fx:value="text-area" />
                                        </styleClass>
                                     </HBox>
-                                    <TextArea fx:id="txaDescription" prefHeight="50.0" promptText="Description" styleClass="form-field">
+                                    <TextArea fx:id="txaDescription" prefHeight="50.0" promptText="Description" styleClass="TextArea">
                                        <padding>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </padding>
@@ -105,11 +104,10 @@
                            <children>
                               <HBox alignment="CENTER" spacing="20.0">
                                  <children>
-                                    <ComboBox fx:id="cbHTMLTemplates" prefWidth="150.0" promptText="HTML Template" styleClass="form-select" />
-                                    <Button mnemonicParsing="false" onAction="#chooseHTMLTemplateAction" styleClass="btn" text="Choose" />
+                                    <Button mnemonicParsing="false" onAction="#chooseHTMLTemplateAction" styleClass="btn" text="Choose HTML Template" />
                                  </children>
                               </HBox>
-                              <Label fx:id="lblURLTemplate" styleClass="h2" text="URL: " />
+                              <Label fx:id="lblURLTemplate" maxWidth="400.0" styleClass="h2" />
                            </children>
                         </VBox>
                      </children>
@@ -123,5 +121,6 @@
    <stylesheets>
       <URL value="@../style/index.css" />
       <URL value="@../style/login.css" />
+      <URL value="@../style/companyModule.css" />
    </stylesheets>
 </HBox>

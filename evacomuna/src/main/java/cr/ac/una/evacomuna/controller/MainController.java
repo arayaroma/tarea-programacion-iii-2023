@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -62,10 +63,10 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         App.setMainController(this);
         userLogged = Data.getUserLogged();
-        
+
         //Cut over the photo to make a circula effect
         imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
-        imgProfilePhoto.setImage(Utilities.byteToImage(userLogged.getProfilePhoto()));
+        imgProfilePhoto.setImage(new Image(Utilities.byteToImage(userLogged.getProfilePhoto())));
         if (Data.isPasswordChanged()) {
             changePasswordView.setVisible(true);
             menuPane.setDisable(true);

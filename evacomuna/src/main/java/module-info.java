@@ -6,7 +6,8 @@ module Evacomuna {
     requires transitive javafx.graphics;
     requires jakarta.xml.bind;
     requires jakarta.xml.ws;
-    
+    requires org.apache.commons.compress;
+    requires org.apache.commons.io;
     requires org.controlsfx.controls;
     requires AnimateFX;
     opens cr.ac.una.evacomuna to javafx.fxml;

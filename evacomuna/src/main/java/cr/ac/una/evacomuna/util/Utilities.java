@@ -18,10 +18,14 @@ import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
 import java.io.ByteArrayInputStream;
-import java.nio.file.Files;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.image.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -114,30 +118,36 @@ public class Utilities {
         return characteristicDtosView;
     }
 
-    public static byte[] imageToByte(Image image) {
+    public static byte[] imageToByte(File file) {
         try {
-            File file = new File(image.getUrl());
-            byte[] fileContent = Files.readAllBytes(file.toPath());
-            return fileContent;
-        } catch (Exception e) {
-            return null;
-        }
-
-    }
-
-    public static Image byteToImage(byte[] imageData) {
-        if (imageData == null || imageData.length == 0) {
-            return null; // Retorna null si los datos de la imagen son nulos o vacíos
-        }
-
-        try {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
-            Image image = new Image(inputStream);
-            return image;
-        } catch (Exception e) {
-            e.printStackTrace(); // Maneja cualquier excepción que pueda ocurrir durante la conversión
+            return IOUtils.toByteArray(new FileInputStream(file));
+        } catch (Exception ex) {
             return null;
         }
     }
 
+    public static ByteArrayInputStream byteToImage(byte[] image) {
+        return new ByteArrayInputStream(image);
+    }
+
+    public static String FileToString(File file) {
+        try {
+            return FileUtils.readFileToString(file, "UTF-8");
+        } catch (IOException ex) {
+            return null;
+        }
+    }
+
+    public static void openPath(String ruta) {
+        try {
+            File file;
+            file = new File(ruta);
+            if (file.exists()) {
+                Process proces = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + ruta);
+                proces.waitFor();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
 }

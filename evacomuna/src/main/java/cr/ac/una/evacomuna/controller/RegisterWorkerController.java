@@ -27,13 +27,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+
 /**
  * FXML Controller class
  *
  * @author estebannajera
  */
 public class RegisterWorkerController implements Initializable {
-    
+
     @FXML
     private ImageView imgPhoto;
     @FXML
@@ -56,15 +57,16 @@ public class RegisterWorkerController implements Initializable {
     private TextField txfLandLineNumberRegister;
     @FXML
     private ComboBox<String> cbRoleRegister;
-    
+
     @FXML
     private HBox parent;
-    
+
+    private File bufferFileImage;
     private User userService;
     private Position roleService;
-    
+
     private boolean isFromLogin;
-    
+
     private UserDto userModified;
 
     /**
@@ -72,7 +74,7 @@ public class RegisterWorkerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         App.setRegisterWorkerController(this);
         userService = new User();
         roleService = new Position();
@@ -85,15 +87,16 @@ public class RegisterWorkerController implements Initializable {
             initializeView(false, userModified);
         }
     }
-    
+
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
         File selectedFile = Utilities.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
         if (selectedFile != null) {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
+            bufferFileImage = selectedFile;
         }
     }
-    
+
     @FXML
     private void backToLogin(MouseEvent event) throws IOException {
         if (isFromLogin) {
@@ -103,12 +106,12 @@ public class RegisterWorkerController implements Initializable {
         App.getMainController().removeMainView(parent);
         App.getWorkersModuleController().loadWorkers(Utilities.loadUsers());
     }
-    
+
     @FXML
     private void registerUser(ActionEvent event) {
         try {
             ResponseWrapper response;
-            
+
             Image image = imgPhoto.getImage();
             String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(),
                     ced = txfCedRegister.getText(), name = txfNameRegister.getText(),
@@ -122,7 +125,7 @@ public class RegisterWorkerController implements Initializable {
             }
             UserDto userDto = createUser(userName, password, name, lastName, secondLastName, ced,
                     email, phoneNumber, landLineNumber, role);
-            userDto.setProfilePhoto(Utilities.imageToByte(image));
+            userDto.setProfilePhoto(Utilities.imageToByte(bufferFileImage));
             if (userModified == null) {
                 response = userService.createUser(userDto);
             } else {
@@ -142,7 +145,7 @@ public class RegisterWorkerController implements Initializable {
             System.out.println(e.toString());
         }
     }
-    
+
     public UserDto createUser(String... args) {
         UserDto user = new UserDto();
         user.setUsername(args[0]);
@@ -160,7 +163,7 @@ public class RegisterWorkerController implements Initializable {
         user.setPosition((PositionDto) roleService.getRoleByName(args[9]).getData());
         return user;
     }
-    
+
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
         cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadRoles()));
@@ -178,5 +181,5 @@ public class RegisterWorkerController implements Initializable {
             cbRoleRegister.setValue(user.getPosition().getName());
         }
     }
-    
+
 }

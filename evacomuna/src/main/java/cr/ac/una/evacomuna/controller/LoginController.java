@@ -29,7 +29,7 @@ import javafx.scene.layout.StackPane;
  * @author estebannajera
  */
 public class LoginController implements Initializable {
-    
+
     @FXML
     private PasswordField txfPassword;
     @FXML
@@ -42,7 +42,7 @@ public class LoginController implements Initializable {
     private HBox forgotYourPasswordView;
     @FXML
     private StackPane mainScreen;
-    
+
     private Parent registerView;
     private User userService;
 
@@ -54,12 +54,12 @@ public class LoginController implements Initializable {
         userService = new User();
         App.setLoginController(this);
     }
-    
+
     @FXML
     private void forgotPassword(MouseEvent event) {
         forgotYourPasswordView.toFront();
     }
-    
+
     @FXML
     private void logIn(ActionEvent event) throws IOException {
         String user = txfUser.getText(), password = txfPassword.getText();
@@ -74,8 +74,9 @@ public class LoginController implements Initializable {
             Data.setUserLogged(userDto);
             App.setRoot("Main");
         }
+        System.out.println(responseWrapper.getMessage());
     }
-    
+
     @FXML
     private void signUp(MouseEvent event) {
         try {
@@ -88,13 +89,13 @@ public class LoginController implements Initializable {
             System.out.println(e.toString());
         }
     }
-    
+
     @FXML
     private void backToLogin(MouseEvent event) {
         cleanFieldsForgotYourPasswordView();
         loginView.toFront();
     }
-    
+
     @FXML
     private void requestPasswordReset(ActionEvent event) {
         String email = txfEmailForgotYourPassword.getText();
@@ -106,11 +107,11 @@ public class LoginController implements Initializable {
         Data.setPasswordChanged(true);
         Message.showNotification("Info", MessageType.INFO, "Request sent");
         loginView.toFront();
-        
+
     }
-    
+
     private void cleanFieldsForgotYourPasswordView() {
         txfEmailForgotYourPassword.setText("");
     }
-    
+
 }
