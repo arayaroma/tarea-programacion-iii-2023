@@ -1,6 +1,9 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.GeneralInformationDto;
+import cr.ac.una.controller.ResponseCode;
+import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.services.Company;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -41,6 +44,7 @@ public class CompanyModuleController implements Initializable {
     private Label lblURLTemplate;
     private File fileBuffer;
     private File htmlBuffer;
+    private Company companyService;
 
     /**
      * Initializes the controller class.
@@ -49,6 +53,7 @@ public class CompanyModuleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
+        companyService = new Company();
     }
 
     @FXML
@@ -71,7 +76,13 @@ public class CompanyModuleController implements Initializable {
         generalInformationDto.setHtmltemplate(html);
         generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
         generalInformationDto.setEmail(email);
-        
+        ResponseWrapper response = companyService.createGeneralInformation(generalInformationDto);
+        if (response.getCode() == ResponseCode.OK) {
+            Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
+            return;
+        }
+        Message.showNotification("Error", MessageType.ERROR, response.getMessage());
+
     }
 
     @FXML

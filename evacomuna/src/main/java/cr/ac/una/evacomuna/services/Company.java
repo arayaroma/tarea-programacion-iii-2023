@@ -19,12 +19,20 @@ public class Company {
         port = service.getGeneralInformationControllerPort();
     }
 
-    ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
+    public ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
         return port.createGeneralInformation(generalInformationDto);
     }
 
-    ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
+    public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
         return port.updateGeneralInformation(generalInformationDto);
+    }
+
+    public ResponseWrapper getGeneralInformation(Long id) {
+        return port.getGeneralInformation(id);
+    }
+
+    public ResponseWrapper deleteGeneralInformation(Long id) {
+        return port.deleteGeneralInformation(id);
     }
 
 }

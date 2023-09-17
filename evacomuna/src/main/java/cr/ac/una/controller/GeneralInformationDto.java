@@ -18,6 +18,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="htmltemplate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="photo" type="{http://www.w3.org/2001/XMLSchema}base64Binary" minOccurs="0"/&gt;
  *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
@@ -33,6 +34,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "generalInformationDto", propOrder = {
     "email",
     "htmltemplate",
+    "id",
     "name",
     "photo",
     "version"
@@ -41,6 +43,7 @@ public class GeneralInformationDto {
 
     protected String email;
     protected String htmltemplate;
+    protected Long id;
     protected String name;
     protected byte[] photo;
     protected Long version;
@@ -91,6 +94,30 @@ public class GeneralInformationDto {
      */
     public void setHtmltemplate(String value) {
         this.htmltemplate = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad id.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Define el valor de la propiedad id.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setId(Long value) {
+        this.id = value;
     }
 
     /**

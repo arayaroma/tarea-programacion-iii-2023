@@ -26,6 +26,10 @@ public class ObjectFactory {
 
     private final static QName _CreateGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "createGeneralInformation");
     private final static QName _CreateGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "createGeneralInformationResponse");
+    private final static QName _DeleteGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "deleteGeneralInformation");
+    private final static QName _DeleteGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "deleteGeneralInformationResponse");
+    private final static QName _GetGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "getGeneralInformation");
+    private final static QName _GetGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "getGeneralInformationResponse");
     private final static QName _ListWrapper_QNAME = new QName("http://controller.una.ac.cr/", "listWrapper");
     private final static QName _UpdateGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "updateGeneralInformation");
     private final static QName _UpdateGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "updateGeneralInformationResponse");
@@ -51,6 +55,38 @@ public class ObjectFactory {
      */
     public CreateGeneralInformationResponse createCreateGeneralInformationResponse() {
         return new CreateGeneralInformationResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteGeneralInformation }
+     * 
+     */
+    public DeleteGeneralInformation createDeleteGeneralInformation() {
+        return new DeleteGeneralInformation();
+    }
+
+    /**
+     * Create an instance of {@link DeleteGeneralInformationResponse }
+     * 
+     */
+    public DeleteGeneralInformationResponse createDeleteGeneralInformationResponse() {
+        return new DeleteGeneralInformationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetGeneralInformation }
+     * 
+     */
+    public GetGeneralInformation createGetGeneralInformation() {
+        return new GetGeneralInformation();
+    }
+
+    /**
+     * Create an instance of {@link GetGeneralInformationResponse }
+     * 
+     */
+    public GetGeneralInformationResponse createGetGeneralInformationResponse() {
+        return new GetGeneralInformationResponse();
     }
 
     /**
@@ -117,6 +153,58 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createGeneralInformationResponse")
     public JAXBElement<CreateGeneralInformationResponse> createCreateGeneralInformationResponse(CreateGeneralInformationResponse value) {
         return new JAXBElement<CreateGeneralInformationResponse>(_CreateGeneralInformationResponse_QNAME, CreateGeneralInformationResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformation }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformation }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteGeneralInformation")
+    public JAXBElement<DeleteGeneralInformation> createDeleteGeneralInformation(DeleteGeneralInformation value) {
+        return new JAXBElement<DeleteGeneralInformation>(_DeleteGeneralInformation_QNAME, DeleteGeneralInformation.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformationResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformationResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteGeneralInformationResponse")
+    public JAXBElement<DeleteGeneralInformationResponse> createDeleteGeneralInformationResponse(DeleteGeneralInformationResponse value) {
+        return new JAXBElement<DeleteGeneralInformationResponse>(_DeleteGeneralInformationResponse_QNAME, DeleteGeneralInformationResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetGeneralInformation }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetGeneralInformation }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getGeneralInformation")
+    public JAXBElement<GetGeneralInformation> createGetGeneralInformation(GetGeneralInformation value) {
+        return new JAXBElement<GetGeneralInformation>(_GetGeneralInformation_QNAME, GetGeneralInformation.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getGeneralInformationResponse")
+    public JAXBElement<GetGeneralInformationResponse> createGetGeneralInformationResponse(GetGeneralInformationResponse value) {
+        return new JAXBElement<GetGeneralInformationResponse>(_GetGeneralInformationResponse_QNAME, GetGeneralInformationResponse.class, null, value);
     }
 
     /**
