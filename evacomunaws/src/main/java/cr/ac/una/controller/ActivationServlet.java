@@ -1,8 +1,7 @@
 package cr.ac.una.controller;
 
 import java.io.IOException;
-import cr.ac.una.services.ActivationService;
-import cr.ac.una.services.EmailService;
+import cr.ac.una.services.UserService;
 import cr.ac.una.util.HtmlFileReader;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -21,10 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ActivationServlet extends HttpServlet {
 
     @EJB
-    ActivationService activationService;
-
-    @EJB
-    EmailService emailService;
+    UserService userService;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,26 +28,22 @@ public class ActivationServlet extends HttpServlet {
         String hash = request.getParameter("hash");
 
         try {
-            ResponseWrapper activationResponse = activationService.activateUser(id, hash);
-            if (activationResponse != null) {
-                if (activationResponse.getCode().getCode() == ResponseCode.OK.getCode()) {
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write(
-                            HtmlFileReader.readHtml(new String(HtmlFileReader.class
-                                    .getResourceAsStream("activation-success.html").readAllBytes())));
-                } else {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.getWriter().write(
-                            HtmlFileReader.readHtml(new String(HtmlFileReader.class
-                                    .getResourceAsStream("activation-failure.html").readAllBytes())));
-                }
+            ResponseWrapper activationResponse = userService.activateUser(id, hash);
+            if (activationResponse != null &&
+                    activationResponse.getCode().getCode() == ResponseCode.OK.getCode()) {
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter()
+                        .write(HtmlFileReader.readHtml("activation-success.html"));
+
             } else {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write("Internal server error.");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter()
+                        .write(HtmlFileReader.readHtml("activation-failure.html"));
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Internal server error.");
+            response.getWriter()
+                    .write(HtmlFileReader.readHtml("activation-failure.html"));
         }
     }
 }
