@@ -1,10 +1,10 @@
-<!-- Doesn't works, yet. -->
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
     xmlns:tns="http://controller.una.ac.cr/">
     <soapenv:Header />
     <soapenv:Body>
         <tns:createUser>
             <arg0>
+                <id>9999</id>
                 <username>arayaroma</username>
                 <password>arayaroma</password>
                 <name>Daniel</name>
@@ -14,7 +14,7 @@
                 <email>darayaroma@gmail.com</email>
                 <landlineNumber>86420240</landlineNumber>
                 <phoneNumber>86420240</phoneNumber>
-                <isActive>Y</isActive>
+                <isActive>N</isActive>
                 <isAdmin>N</isAdmin>
                 <passwordChanged>N</passwordChanged>
                 <position>
@@ -28,19 +28,3 @@
         </tns:createUser>
     </soapenv:Body>
 </soapenv:Envelope>
-
-<!-- Error -->
-<!-- 
-<?xml version='1.0' encoding='UTF-8'?>
-<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-<S:Body>
-    <ns2:createUserResponse xmlns:ns2="http://controller.una.ac.cr/">
-    <return>
-        <code>UNPROCESSABLE_ENTITY</code>
-        <message>User can't be processed, validation error: User.position must not be null</message>
-        <status>422</status>
-    </return>
-    </ns2:createUserResponse>
-</S:Body>
-</S:Envelope>
--->
