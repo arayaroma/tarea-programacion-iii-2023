@@ -75,6 +75,14 @@ public class GeneralInformation implements Serializable {
      * @param generalInformationDto constructor to convert a dto to an entity
      */
     public GeneralInformation(GeneralInformationDto generalInformationDto) {
+        this.id = generalInformationDto.getId();
+        updateGeneralInformation(generalInformationDto);
+    }
+
+    /**
+     * @param generalInformationDto method to update an entity from a dto
+     */
+    public void updateGeneralInformation(GeneralInformationDto generalInformationDto) {
         this.name = generalInformationDto.getName();
         this.email = generalInformationDto.getEmail();
         this.photo = generalInformationDto.getPhoto();

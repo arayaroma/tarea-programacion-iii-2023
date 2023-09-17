@@ -37,4 +37,24 @@ public class GeneralInformationController {
         return companyService.updateGeneralInformation(generalInformationDto);
     }
 
+    /**
+     * @param id the id of the company to be retrieved
+     * @return ResponseWrapper with the result of the operation and the
+     *         GeneralInformationDto
+     */
+    @WebMethod(operationName = "getGeneralInformation")
+    public ResponseWrapper getGeneralInformation(Long id) {
+        return companyService.getGeneralInformation(id);
+    }
+
+    /**
+     * @param id the id of the company to be deleted
+     * @return ResponseWrapper with the result of the operation
+     *         GeneralInformationDto
+     */
+    @WebMethod(operationName = "deleteGeneralInformation")
+    public ResponseWrapper deleteGeneralInformation(Long id) {
+        return companyService.deleteGeneralInformation(id);
+    }
+
 }

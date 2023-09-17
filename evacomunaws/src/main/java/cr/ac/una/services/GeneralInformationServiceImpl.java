@@ -48,13 +48,98 @@ public class GeneralInformationServiceImpl implements GeneralInformationService 
 
     /**
      * @param generalInformationDto the information of the company to be updated
-     * @return ResponseWrapper with the result of the operation and the updated 
-     *        GeneralInformationDto
+     * @return ResponseWrapper with the result of the operation and the updated
+     *         GeneralInformationDto
      */
     @Override
     public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateGeneralInformation'");
+        try {
+            GeneralInformation generalInformation = em.find(GeneralInformation.class, generalInformationDto.getId());
+            if (isGeneralInformationNull(generalInformation)) {
+                return handleGeneralInformationNull();
+            }
+            generalInformation = generalInformationDto.convertFromDTOToEntity(generalInformationDto,
+                    generalInformation);
+            em.merge(generalInformation);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Company updated successfully.",
+                    generalInformationDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while updating company: " + e.getMessage(),
+                    null);
+        }
     }
 
+    /**
+     * @param id the id of the company to be retrieved
+     * @return ResponseWrapper with the result of the operation and the
+     *         GeneralInformationDto
+     */
+    @Override
+    public ResponseWrapper getGeneralInformation(Long id) {
+        try {
+            GeneralInformation generalInformation = em.find(GeneralInformation.class, id);
+            if (isGeneralInformationNull(generalInformation)) {
+                return handleGeneralInformationNull();
+            }
+            GeneralInformationDto generalInformationDto = new GeneralInformationDto(generalInformation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Company retrieved successfully.",
+                    generalInformationDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving company: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    /**
+     * @param id the id of the company to be deleted
+     * @return ResponseWrapper with the result of the operation
+     *         GeneralInformationDto
+     */
+    @Override
+    public ResponseWrapper deleteGeneralInformation(Long id) {
+        try {
+            GeneralInformation generalInformation = em.find(GeneralInformation.class, id);
+            if (isGeneralInformationNull(generalInformation)) {
+                return handleGeneralInformationNull();
+            }
+            em.remove(generalInformation);
+            em.flush();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Company deleted successfully.",
+                    null);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while deleting company: " + e.getMessage(),
+                    null);
+        }
+    }
+
+    private Boolean isGeneralInformationNull(GeneralInformation generalInformation) {
+        return generalInformation == null;
+    }
+
+    private ResponseWrapper handleGeneralInformationNull() {
+        return new ResponseWrapper(
+                ResponseCode.NOT_FOUND.getCode(),
+                ResponseCode.NOT_FOUND,
+                "Company not found.",
+                null);
+    }
 }
