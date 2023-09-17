@@ -2,10 +2,7 @@ package cr.ac.una.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -15,14 +12,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import cr.ac.una.dto.UserDto;
-import cr.ac.una.entities.User;
 import cr.ac.una.services.UserService;
-import cr.ac.una.services.UserServiceImpl;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 /**
  * 
@@ -60,11 +52,6 @@ public class UserControllerTest {
                 userDto));
 
         // Assert
-        ResponseWrapper response = userController.activateUser(userId);
-
-        assertEquals(ResponseCode.OK.getCode(), response.getStatus());
-        assertEquals(userDto, response.getData());
-        verify(userService).getUserById(2L);
     }
 
     @Test

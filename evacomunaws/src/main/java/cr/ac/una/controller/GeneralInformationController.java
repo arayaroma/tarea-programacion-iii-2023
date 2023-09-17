@@ -15,7 +15,7 @@ import jakarta.jws.WebService;
 public class GeneralInformationController {
 
     @EJB
-    GeneralInformationService companyService;
+    GeneralInformationService generalInformationService;
 
     /**
      * @param generalInformationDto
@@ -24,7 +24,7 @@ public class GeneralInformationController {
      */
     @WebMethod(operationName = "createGeneralInformation")
     public ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
-        return companyService.createGeneralInfomation(generalInformationDto);
+        return generalInformationService.createGeneralInfomation(generalInformationDto);
     }
 
     /**
@@ -34,7 +34,7 @@ public class GeneralInformationController {
      */
     @WebMethod(operationName = "updateGeneralInformation")
     public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
-        return companyService.updateGeneralInformation(generalInformationDto);
+        return generalInformationService.updateGeneralInformation(generalInformationDto);
     }
 
     /**
@@ -43,7 +43,7 @@ public class GeneralInformationController {
      */
     @WebMethod(operationName = "getGeneralInformation")
     public ResponseWrapper getGeneralInformation() {
-        return companyService.getGeneralInformation();
+        return generalInformationService.getGeneralInformation();
     }
 
     /**
@@ -52,8 +52,8 @@ public class GeneralInformationController {
      *         GeneralInformationDto
      */
     @WebMethod(operationName = "getGeneralInformationById")
-    public ResponseWrapper getGeneralInformationById(Long id) {
-        return companyService.getGeneralInformationById(id);
+    public ResponseWrapper getGeneralInformation(Long id) {
+        return generalInformationService.getGeneralInformationById(id);
     }
 
     /**
@@ -63,7 +63,7 @@ public class GeneralInformationController {
      */
     @WebMethod(operationName = "deleteGeneralInformationById")
     public ResponseWrapper deleteGeneralInformation(Long id) {
-        return companyService.deleteGeneralInformation(id);
+        return generalInformationService.deleteGeneralInformation(id);
     }
 
 }

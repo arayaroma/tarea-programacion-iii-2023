@@ -1,5 +1,9 @@
 package cr.ac.una.util;
 
+/**
+ * 
+ * @author arayaroma
+ */
 public enum ResponseCode {
     OK(200),
     CREATED(201),

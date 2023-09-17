@@ -18,16 +18,6 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 
-     * @param id user id to be activated
-     * @return ResponseWrapper with the response of the service call
-     */
-    @WebMethod(operationName = "activateUser")
-    public ResponseWrapper activateUser(Long id) {
-        return userService.activateUser(id);
-    }
-
-    /**
      * @param userDto user to be created
      * @return ResponseWrapper with the response of the service call
      */

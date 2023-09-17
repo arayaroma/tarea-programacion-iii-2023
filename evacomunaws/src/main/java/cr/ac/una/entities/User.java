@@ -137,8 +137,7 @@ public class User implements Serializable {
     @Column(name = "PROFILEPHOTO")
     private byte[] profilePhoto;
 
-    @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "USERPOSITIONID")
     private Position position;
 

@@ -10,6 +10,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
+/**
+ * 
+ * @author arayaroma
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

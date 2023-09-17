@@ -14,8 +14,12 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
+
+import cr.ac.una.util.Constants;
 import cr.ac.una.util.EntityUtil;
+import cr.ac.una.util.HashGenerator;
 import cr.ac.una.util.HtmlFileReader;
+import cr.ac.una.util.LinkGenerator;
 import cr.ac.una.util.ListWrapper;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,23 +49,16 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public ResponseWrapper createUser(UserDto userDto) {
         try {
-            // User user = convertFromDTOToEntity(userDto, new User(userDto));
             User user = new User(userDto);
             user.setPosition(new Position(userDto.getPosition()));
             ResponseWrapper INVALID_REQUEST = verifyEntity(user, User.class);
             if (INVALID_REQUEST != null) {
                 return INVALID_REQUEST;
             }
-            System.out.println("User id" + user.getId());
-
-            em.persist(user);
-            em.flush();
             try {
-                emailService.sendRegistrationEmail(user.getEmail(), "Complete your account registration",
-                        HtmlFileReader.readRegistrationTemplate(
-                                user.getName(),
-                                user.getUsername(),
-                                user.getEmail()));
+                user.setActivationCode(generateHash(userDto));
+                userDto.setActivationCode(user.getActivationCode());
+                sendActivationEmail(userDto);
             } catch (Exception ex) {
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
@@ -69,6 +66,8 @@ public class UserServiceImpl implements UserService {
                         "User created successfully, but email could not be sent: " + ex.getMessage(),
                         userDto);
             }
+            em.persist(user);
+            em.flush();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -80,6 +79,38 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while creating user: " + ex.getMessage(),
                     null);
+        }
+    }
+
+    private String generateHash(UserDto userDto) {
+        return HashGenerator.generateHash(userDto.getUsername(),
+                HashGenerator.HashAlgorithm.SHA256.getAlgorithm());
+    }
+
+    private ResponseWrapper sendActivationEmail(UserDto userDto) {
+        try {
+            emailService.sendActivationHashLink(
+                    userDto.getEmail(), "Complete your account registration",
+                    HtmlFileReader.readEmailTemplate(
+                            "Complete your account registration",
+                            "Welcome to " + Constants.COMPANY_NAME + "!",
+                            userDto.getName(),
+                            "Please click the following link to complete your registration: " +
+                                    "<a href=" +
+                                    LinkGenerator.generateActivationLink(userDto.getId(), userDto.getActivationCode())
+                                    + "> Activate account!</a>",
+                            "Thank you for registering with us!"));
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User created successfully.",
+                    userDto);
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User created successfully, but email could not be sent: " + ex.getMessage(),
+                    userDto);
         }
     }
 
@@ -99,16 +130,28 @@ public class UserServiceImpl implements UserService {
             if (isUserNull(user)) {
                 return handleUserNull();
             }
+
             em.createNativeQuery("CALL EVACOMUNA.ACTIVATE_USER(?id)")
                     .setParameter("id", id)
                     .executeUpdate();
             em.merge(user);
             em.flush();
+
+            UserDto userDto = new UserDto(user);
+            emailService.sendActivatedUserEmail(
+                    userDto.getEmail(),
+                    "Registration completed successfully!",
+                    HtmlFileReader.readEmailTemplate(
+                            "Registration completed successfully!",
+                            "We're glad you just join us!",
+                            userDto.getName(),
+                            "Feel free to explore our application and get to know us better!",
+                            "Thank you for choosing us!"));
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User activated successfully.",
-                    new UserDto(user));
+                    userDto);
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
