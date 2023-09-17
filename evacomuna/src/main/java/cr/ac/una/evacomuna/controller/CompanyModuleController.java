@@ -90,6 +90,7 @@ public class CompanyModuleController implements Initializable {
         File selectedFile = Utilities.selectFile("HTML File", "*.html");
         if (selectedFile != null) {
             lblURLTemplate.setText(selectedFile.toURI().toString());
+            htmlBuffer = selectedFile;
         }
     }
 
