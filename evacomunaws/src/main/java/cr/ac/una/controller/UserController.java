@@ -116,4 +116,24 @@ public class UserController {
         return userService.getUsers();
     }
 
+    /**
+     * @param id user id to recover password
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "recoverPassword")
+    public ResponseWrapper recoverPassword(Long id) {
+        return userService.recoverPassword(id);
+    }
+
+    /**
+     * @param id          user id to change password
+     * @param oldPassword user old password
+     * @param newPassword user new password
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "changePassword")
+    public ResponseWrapper changePassword(Long id, String oldPassword, String newPassword) {
+        return userService.changePassword(id, oldPassword, newPassword);
+    }
+
 }
