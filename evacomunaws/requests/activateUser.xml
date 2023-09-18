@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:tns="http://controller.una.ac.cr/">
+    <soap:Body>
+        <tns:activateUser>
+            <arg0>9999</arg0>
+            <arg1>aaacda58fb02f12559b716381ae5ff93c88cdcc7dd57b50a59b0b04fb6a4b0ec</arg1>
+        </tns:activateUser>
+    </soap:Body>
+</soap:Envelope>
