@@ -36,4 +36,8 @@ public interface UserService {
 
     ResponseWrapper activateUser(Long id, String hash);
 
+    ResponseWrapper recoverPassword(Long id);
+
+    ResponseWrapper changePassword(Long id, String oldPassword, String newPassword);
+
 }
