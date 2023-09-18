@@ -162,7 +162,6 @@ public class User implements Serializable {
     /**
      * @param userDto updates the userDto
      */
-    // TODO: Remove position object by managing it in service
     public void updateUser(UserDto userDto) {
         this.username = userDto.getUsername();
         this.password = userDto.getPassword();
