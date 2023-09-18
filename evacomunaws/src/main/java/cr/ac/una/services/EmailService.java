@@ -25,7 +25,7 @@ public class EmailService {
     @Resource(name = "mail/EvaComMailSession")
     private Session mailSession;
 
-    private void sendEmail(String to, String subject, String body) throws MessagingException {
+    private void send(String to, String subject, String body) throws MessagingException {
         try {
             Message message = new MimeMessage(mailSession);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
@@ -45,7 +45,7 @@ public class EmailService {
         try {
             String subject = "Complete your account registration";
             String link = LinkGenerator.generateActivationLink(to.getId(), to.getActivationCode());
-            sendEmail(
+            send(
                     to.getEmail(),
                     subject,
                     HtmlFileReader.readEmailTemplate(
@@ -60,10 +60,10 @@ public class EmailService {
         }
     }
 
-    public void sendActivatedUserEmail(UserDto to) throws MessagingException {
+    public void sendUserActivated(UserDto to) throws MessagingException {
         try {
             String subject = "Account activated successfully";
-            sendEmail(
+            send(
                     to.getEmail(),
                     subject,
                     HtmlFileReader.readEmailTemplate(
@@ -72,6 +72,44 @@ public class EmailService {
                             to.getName(),
                             "Feel free to explore our application and enjoy!",
                             "Thank you for choosing us!"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MessagingException("Failed to send email: " + e.getMessage(), e);
+        }
+    }
+
+    public void sendPasswordRecovery(UserDto to) throws MessagingException {
+        try {
+            String subject = "Password recovery";
+            send(
+                    to.getEmail(),
+                    subject,
+                    HtmlFileReader.readEmailTemplate(
+                            subject,
+                            "Don't worry we got you covered",
+                            to.getName(),
+                            "Login with this password: " + "<h2>" + to.getPassword()
+                                    + "</h2> </br> and change it as soon as possible!",
+                            "Don't share this password with anyone!"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MessagingException("Failed to send email: " + e.getMessage(), e);
+        }
+    }
+
+    public void sendPasswordRecovered(UserDto to) throws MessagingException {
+        try {
+            String subject = "Password changed successfully";
+            send(
+                    to.getEmail(),
+                    subject,
+                    HtmlFileReader.readEmailTemplate(
+                            subject,
+                            "We're glad you recovered your password",
+                            to.getName(),
+                            "Now you can login with your new password!",
+                            "Thank you for choosing us!"));
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new MessagingException("Failed to send email: " + e.getMessage(), e);
