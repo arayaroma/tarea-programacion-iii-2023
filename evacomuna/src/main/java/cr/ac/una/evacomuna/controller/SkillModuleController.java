@@ -12,7 +12,9 @@ import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
@@ -30,7 +33,7 @@ import javafx.scene.layout.HBox;
  * @author estebannajera
  */
 public class SkillModuleController implements Initializable {
-    
+
     @FXML
     private HBox mainSkillsView;
     @FXML
@@ -41,7 +44,7 @@ public class SkillModuleController implements Initializable {
     private ListView<CharacteristicDto> listCharacteristicsMainSkillView;
     @FXML
     private ListView<CharacteristicDto> listCharacteristicsRegisterSkillView;
-    
+
     @FXML
     private TextField txfSkillNameRegister;
     @FXML
@@ -72,11 +75,12 @@ public class SkillModuleController implements Initializable {
             characteristicService = new Characteristic();
             initializeLists();
             initializeSkillMainView();
+            cbSkillsView.setOnKeyReleased(t -> searchSkillInput(t));
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
-    
+
     @FXML
     private void btnNewSkill(ActionEvent event) {
         registerSkillsView.toFront();
@@ -84,12 +88,22 @@ public class SkillModuleController implements Initializable {
         isEditingSkill = false;
         initializeSkillsRegisterView();
     }
-    String nameToSearch = "";
-    
-    @FXML
+
     private void searchSkillInput(KeyEvent event) {
+        if (event.getCode().isLetterKey()) {
+            String nameToSearch = cbSkillsView.getEditor().getText();
+            if (nameToSearch != null) {
+                cbSkillsView.getItems().clear();
+                if (nameToSearch.length() > 2) {
+                    cbSkillsView.getItems().addAll(skillsDtos.stream().filter(t -> t.getName().contains(nameToSearch)).map(t -> t.getName()).collect(Collectors.toList()));
+                    return;
+                }
+                cbSkillsView.getItems().addAll(Utilities.mapListToObsevableString(skillsDtos));
+                cbSkillsView.show();
+            }
+        }
     }
-    
+
     @FXML
     private void selectSkill(ActionEvent event) {
         String nameSkill = cbSkillsView.getValue();
@@ -102,7 +116,7 @@ public class SkillModuleController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void btnEditSkill(ActionEvent event) {
         if (skillBufferMainView != null) {
@@ -112,10 +126,10 @@ public class SkillModuleController implements Initializable {
             isEditingSkill = true;
             cleanFieldsSkillRegisterView();
             initializeSkillsRegisterView();
-            
+
         }
     }
-    
+
     @FXML
     private void btnDeleteSkill(ActionEvent event) {
         if (skillBufferMainView != null) {
@@ -127,14 +141,14 @@ public class SkillModuleController implements Initializable {
             initializeSkillMainView();
         }
     }
-    
+
     @FXML
     private void btnBackToSkillMain(ActionEvent event) {
         mainSkillsView.toFront();
         cleanFieldsSkillRegisterView();
         initializeSkillMainView();
     }
-    
+
     @FXML
     private void btnAddCharacteristicToSkill(ActionEvent event) {
         String characteristicName = txfCharacteristic.getText();
@@ -144,7 +158,7 @@ public class SkillModuleController implements Initializable {
             txfCharacteristic.setText("");
         }
     }
-    
+
     @FXML
     private void btnRemoveCharacteristicOfSkill(ActionEvent event) {
         if (characteristicViewBuffer != null) {
@@ -152,10 +166,10 @@ public class SkillModuleController implements Initializable {
                 characteristicService.deleteCharacteristicById(characteristicViewBuffer.getId());
             }
             listCharacteristicsRegisterSkillView.getItems().remove(characteristicViewBuffer);
-            
+
         }
     }
-    
+
     @FXML
     private void btnSaveSkill(ActionEvent event) {
         try {
@@ -170,12 +184,12 @@ public class SkillModuleController implements Initializable {
                 }
                 skillDto.setName(name);
                 skillDto.setState(state);
-                
+
                 ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
                     skillDto = (SkillDto) response.getData();
                     SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(), skillDto.getId());
-                    
+
                     for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
                         if (i.getId() == null) {
                             i.setSkill(newSkillWrapper.getDto());
@@ -197,24 +211,24 @@ public class SkillModuleController implements Initializable {
             System.out.println(e.toString());
         }
     }
-    
+
     private void initializeSkillsRegisterView() {
         cbStateSkillRegisterView.getItems().addAll("ACTIVE", "INACTIVE");
         if (skillBufferMainView != null && skillBufferMainView.getCharacteristics() != null) {
             txfSkillNameRegister.setText(skillBufferMainView.getName());
             skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
-            
+
         }
     }
-    
+
     private void initializeSkillMainView() {
         skillsDtos = Utilities.loadSkills();
         cbSkillsView.setValue(null);
         cbSkillsView.setItems(Utilities.mapListToObsevableString(skillsDtos));
         listCharacteristicsMainSkillView.getItems().clear();
-        
+
     }
-    
+
     private void cleanFieldsSkillRegisterView() {
         txfSkillNameRegister.setText("");
         cbStateSkillRegisterView.setValue(null);
@@ -222,7 +236,7 @@ public class SkillModuleController implements Initializable {
         txfCharacteristic.setText("");
         cbStateSkillRegisterView.getItems().clear();
     }
-    
+
     private void initializeLists() {
         // CELLSFACTORIES
         listCharacteristicsMainSkillView.setCellFactory((param) -> new ListCell() {
@@ -243,8 +257,8 @@ public class SkillModuleController implements Initializable {
         listCharacteristicsRegisterSkillView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     characteristicViewBuffer = newValue;
-                    
+
                 });
     }
-    
+
 }

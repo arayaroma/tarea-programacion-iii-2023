@@ -33,8 +33,11 @@ public class Skill {
         return port.getSkillByName(name);
     }
 
+    public ResponseWrapper getSkillByLikeName(String name) {
+        return port.getSkillByLikeName(name);
+    }
+
     public ResponseWrapper createSkill(SkillDto skillDto) {
         return port.createSkill(skillDto);
     }
-//    public  ResponseWrapper getSkill
 }

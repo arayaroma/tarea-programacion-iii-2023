@@ -8,7 +8,7 @@ import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @WebService(serviceName = "SkillController")
@@ -35,6 +35,11 @@ public class SkillController {
     @WebMethod(operationName = "getSkillByName")
     public ResponseWrapper getSkillByName(String name) {
         return skillService.getSkillByName(name);
+    }
+
+    @WebMethod(operationName = "getSkillByLikeName")
+    public ResponseWrapper getSkillByLikeName(String name) {
+        return skillService.getSkillByLikeName(name);
     }
 
     @WebMethod(operationName = "getSkills")

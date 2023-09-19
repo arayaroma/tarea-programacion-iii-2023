@@ -18,6 +18,8 @@ public interface SkillService {
     ResponseWrapper getSkillById(Long id);
 
     ResponseWrapper getSkillByName(String name);
+    
+    ResponseWrapper getSkillByLikeName(String name);
 
     ResponseWrapper getSkills();
 

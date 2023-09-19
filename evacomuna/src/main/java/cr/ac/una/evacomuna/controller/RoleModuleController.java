@@ -11,6 +11,7 @@ import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 /**
@@ -127,11 +129,27 @@ public class RoleModuleController implements Initializable {
     @FXML
     private void selectRole(ActionEvent event) {
         String name = cbRoles.getValue();
-        if (name != null && !name.isBlank()) {
+        if (name != null) {
             bufferRole = (PositionDto) roleService.getRoleByName(name).getData();
             listSkillsMain.getItems().clear();
             if (bufferRole != null && bufferRole.getSkills() != null) {
                 bufferRole.getSkills().forEach(t -> listSkillsMain.getItems().add(t));
+            }
+        }
+    }
+
+    @FXML
+    private void searchRoleInput(KeyEvent event) {
+        if (event.getCode().isLetterKey()) {
+            String nameToSearch = cbRoles.getEditor().getText();
+            if (nameToSearch != null) {
+                cbRoles.getItems().clear();
+                if (nameToSearch.length() > 2) {
+                    cbRoles.getItems().addAll(roleDtos.stream().filter(t -> t.getName().contains(nameToSearch)).map(t -> t.getName()).collect(Collectors.toList()));
+                    return;
+                }
+                cbRoles.getItems().addAll(Utilities.mapListToObsevableString(roleDtos));
+                cbRoles.show();
             }
         }
     }

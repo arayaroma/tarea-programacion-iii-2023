@@ -167,7 +167,7 @@ public class SkillServiceImpl implements SkillService {
 
     /**
      * @return ResponseWrapper with the response of the service call Get all
-     *         skills
+     * skills
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -199,7 +199,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     *         characteristics by skill id
+     * characteristics by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -232,7 +232,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     *         califications by skill id
+     * califications by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -265,7 +265,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     *         final califications by skill id
+     * final califications by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -298,7 +298,7 @@ public class SkillServiceImpl implements SkillService {
     /**
      * @param id skill id to be retrieved
      * @return ResponseWrapper with the response of the service call Get all
-     *         positions by skill id
+     * positions by skill id
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -394,7 +394,7 @@ public class SkillServiceImpl implements SkillService {
 
     /**
      * @return ResponseWrapper with the response of the service call Delete all
-     *         skills
+     * skills
      */
     @Override
     public ResponseWrapper deleteAllSkills() {
@@ -411,6 +411,26 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Exception occurred while deleting skills: " + ex.getMessage(),
+                    null);
+        }
+    }
+
+    @Override
+    public ResponseWrapper getSkillByLikeName(String name) {
+        try {
+            List<Skill> skills = em.createNamedQuery("Skill.findByLikeName")
+                    .setParameter("name", "%"+name+"%").getResultList();
+
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Successful retrieval of skills.",
+                    new ListWrapper<>(EntityUtil.fromDtoList(skills, SkillDto.class).getList()));
+        } catch (Exception ex) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Exception occurred while retrieving skill: " + ex.getMessage(),
                     null);
         }
     }

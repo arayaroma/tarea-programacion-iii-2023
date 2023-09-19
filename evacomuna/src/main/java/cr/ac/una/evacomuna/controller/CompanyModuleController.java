@@ -88,7 +88,7 @@ public class CompanyModuleController implements Initializable {
             generalInformationDto = companyBuffer;
         }
         generalInformationDto.setName(name);
-        
+
         if (companyBuffer != null) {
             if (htmlBuffer != null) {
                 generalInformationDto.setHtmltemplate(html);
@@ -96,9 +96,9 @@ public class CompanyModuleController implements Initializable {
             if (fileBuffer != null) {
                 generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
             }
-        }else{
-           generalInformationDto.setHtmltemplate(html);
-           generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
+        } else {
+            generalInformationDto.setHtmltemplate(html);
+            generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
         }
         generalInformationDto.setEmail(email);
         ResponseWrapper response = companyBuffer == null ? companyService.createGeneralInformation(generalInformationDto) : companyService.updateGeneralInformation(generalInformationDto);

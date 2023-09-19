@@ -41,12 +41,13 @@ import jakarta.persistence.QueryHint;
     @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
     @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
     @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+    @NamedQuery(name = "Skill.findByLikeName", query = "SELECT s FROM Skill s WHERE s.name like :name"),
     @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
     @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c WHERE c.skill.id = :id"),
     @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
     @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"),})
 @NamedNativeQueries({
-        @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT * FROM TBL_SKILL", resultClass = Skill.class)
+    @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT * FROM TBL_SKILL", resultClass = Skill.class)
 })
 public class Skill implements Serializable {
 
@@ -69,7 +70,7 @@ public class Skill implements Serializable {
     @Basic(optional = false)
     @Size(min = 1, max = 8)
     private String state;
-    
+
     @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
     private List<Position> positions;
 
