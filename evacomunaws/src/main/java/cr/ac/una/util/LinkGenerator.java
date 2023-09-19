@@ -7,7 +7,7 @@ package cr.ac.una.util;
 public class LinkGenerator {
 
     public static String generateActivationLink(String hash) {
-        return Connection.getSocket() + Constants.WEB_BASE_DIR + "activation.html?hash=" + hash;
+        return "http://" + Connection.getSocket() + Constants.WEB_BASE_DIR + "activation.html?hash=" + hash;
     }
 
 }

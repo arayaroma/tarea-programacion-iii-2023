@@ -218,7 +218,9 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            user = em.find(User.class, id);
+            user = em.createNamedQuery("user.findById", User.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
             if (isUserNull(user)) {
                 return handleUserNull();
             }
