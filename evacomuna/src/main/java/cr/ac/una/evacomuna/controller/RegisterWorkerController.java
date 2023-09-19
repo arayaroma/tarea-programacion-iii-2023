@@ -168,6 +168,7 @@ public class RegisterWorkerController implements Initializable {
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
         cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadRoles()));
+        imgPhoto.setImage(new Image(Utilities.byteToImage(user.getProfilePhoto())));
         if (user != null) {
             userModified = user;
             txfUserRegister.setText(user.getUsername());

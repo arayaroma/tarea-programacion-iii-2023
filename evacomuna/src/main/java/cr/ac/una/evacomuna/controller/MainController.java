@@ -134,6 +134,8 @@ public class MainController implements Initializable {
         Animations.translateTransition(parent, Duration.seconds(0.5), 1, -parent.getWidth(), 0, t -> {
             try {
                 App.setRoot("Login");
+                Data.setUserModified(null);
+                Data.setUserLogged(null);
             } catch (IOException ex) {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }

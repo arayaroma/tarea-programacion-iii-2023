@@ -23,7 +23,7 @@ import java.util.List;
 import cr.ac.una.dto.EvaluationDto;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Entity
@@ -32,6 +32,7 @@ import cr.ac.una.dto.EvaluationDto;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Evaluation implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = SEQ_EVALUATION, sequenceName = SCHEMA + "." + SEQ_EVALUATION, allocationSize = 1)
@@ -84,9 +85,10 @@ public class Evaluation implements Serializable {
      */
     public void updateEvaluation(EvaluationDto evaluationDto) {
         this.name = evaluationDto.getName();
-        this.applicationDate = evaluationDto.getApplicationDate();
-        this.InitialPeriod = evaluationDto.getInitialPeriod();
-        this.finalPeriod = evaluationDto.getFinalPeriod();
+
+        this.applicationDate = LocalDate.parse(evaluationDto.getApplicationDate());
+        this.InitialPeriod = LocalDate.parse(evaluationDto.getInitialPeriod());
+        this.finalPeriod = LocalDate.parse(evaluationDto.getFinalPeriod());
         this.state = evaluationDto.getState();
         this.version = evaluationDto.getVersion();
     }

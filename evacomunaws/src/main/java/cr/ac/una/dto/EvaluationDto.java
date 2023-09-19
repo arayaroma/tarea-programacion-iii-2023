@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Data
@@ -19,9 +19,9 @@ public class EvaluationDto {
 
     private Long id;
     private String name;
-    private LocalDate applicationDate;
-    private LocalDate InitialPeriod;
-    private LocalDate finalPeriod;
+    private String applicationDate;
+    private String InitialPeriod;
+    private String finalPeriod;
     private String state;
     private List<EvaluatedDto> evaluated;
     private Long version;
@@ -32,9 +32,9 @@ public class EvaluationDto {
     public EvaluationDto(Evaluation evaluation) {
         this.id = evaluation.getId();
         this.name = evaluation.getName();
-        this.applicationDate = evaluation.getApplicationDate();
-        this.InitialPeriod = evaluation.getInitialPeriod();
-        this.finalPeriod = evaluation.getFinalPeriod();
+        this.applicationDate = evaluation.getApplicationDate().toString();
+        this.InitialPeriod = evaluation.getInitialPeriod().toString();
+        this.finalPeriod = evaluation.getFinalPeriod().toString();
         this.state = evaluation.getState();
         this.version = evaluation.getVersion();
         this.evaluated = new ArrayList<>();

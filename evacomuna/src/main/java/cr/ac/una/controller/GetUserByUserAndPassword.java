@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getUserByUserAndPassword complex type.
+ * <p>Clase Java para getUserByUserAndPassword complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="getUserByUserAndPassword"&gt;
@@ -37,7 +37,7 @@ public class GetUserByUserAndPassword {
     protected String arg1;
 
     /**
-     * Gets the value of the arg0 property.
+     * Obtiene el valor de la propiedad arg0.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class GetUserByUserAndPassword {
     }
 
     /**
-     * Sets the value of the arg0 property.
+     * Define el valor de la propiedad arg0.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class GetUserByUserAndPassword {
     }
 
     /**
-     * Gets the value of the arg1 property.
+     * Obtiene el valor de la propiedad arg1.
      * 
      * @return
      *     possible object is
@@ -73,7 +73,7 @@ public class GetUserByUserAndPassword {
     }
 
     /**
-     * Sets the value of the arg1 property.
+     * Define el valor de la propiedad arg1.
      * 
      * @param value
      *     allowed object is

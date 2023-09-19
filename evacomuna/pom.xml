@@ -82,20 +82,19 @@
                             <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/UserService.wsdl</wsdl>
+                                    <wsdl>http://localhost:8080/evacomunaws/UserController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CharacteristicService.wsdl</wsdl>
+                                    <wsdl>http://localhost:8080/evacomunaws/CharacteristicController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/SkillService.wsdl</wsdl>
+                                    <wsdl>http://localhost:8080/evacomunaws/SkillController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
+                                    <wsdl>http://localhost:8080/evacomunaws/PositionController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>http://localhost:8080/evacomunaws/EvaluationController?wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

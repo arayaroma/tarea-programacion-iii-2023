@@ -10,20 +10,20 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for evaluationDto complex type.
+ * <p>Clase Java para evaluationDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="evaluationDto"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="applicationDate" type="{http://controller.una.ac.cr/}localDate" minOccurs="0"/&gt;
+ *         &lt;element name="applicationDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="evaluated" type="{http://controller.una.ac.cr/}evaluatedDto" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="finalPeriod" type="{http://controller.una.ac.cr/}localDate" minOccurs="0"/&gt;
+ *         &lt;element name="finalPeriod" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
- *         &lt;element name="initialPeriod" type="{http://controller.una.ac.cr/}localDate" minOccurs="0"/&gt;
+ *         &lt;element name="initialPeriod" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="state" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
@@ -48,37 +48,37 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 public class EvaluationDto {
 
-    protected LocalDate applicationDate;
+    protected String applicationDate;
     @XmlElement(nillable = true)
     protected List<EvaluatedDto> evaluated;
-    protected LocalDate finalPeriod;
+    protected String finalPeriod;
     protected Long id;
-    protected LocalDate initialPeriod;
+    protected String initialPeriod;
     protected String name;
     protected String state;
     protected Long version;
 
     /**
-     * Gets the value of the applicationDate property.
+     * Obtiene el valor de la propiedad applicationDate.
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getApplicationDate() {
+    public String getApplicationDate() {
         return applicationDate;
     }
 
     /**
-     * Sets the value of the applicationDate property.
+     * Define el valor de la propiedad applicationDate.
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setApplicationDate(LocalDate value) {
+    public void setApplicationDate(String value) {
         this.applicationDate = value;
     }
 
@@ -112,31 +112,31 @@ public class EvaluationDto {
     }
 
     /**
-     * Gets the value of the finalPeriod property.
+     * Obtiene el valor de la propiedad finalPeriod.
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getFinalPeriod() {
+    public String getFinalPeriod() {
         return finalPeriod;
     }
 
     /**
-     * Sets the value of the finalPeriod property.
+     * Define el valor de la propiedad finalPeriod.
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setFinalPeriod(LocalDate value) {
+    public void setFinalPeriod(String value) {
         this.finalPeriod = value;
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -148,7 +148,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -160,31 +160,31 @@ public class EvaluationDto {
     }
 
     /**
-     * Gets the value of the initialPeriod property.
+     * Obtiene el valor de la propiedad initialPeriod.
      * 
      * @return
      *     possible object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public LocalDate getInitialPeriod() {
+    public String getInitialPeriod() {
         return initialPeriod;
     }
 
     /**
-     * Sets the value of the initialPeriod property.
+     * Define el valor de la propiedad initialPeriod.
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDate }
+     *     {@link String }
      *     
      */
-    public void setInitialPeriod(LocalDate value) {
+    public void setInitialPeriod(String value) {
         this.initialPeriod = value;
     }
 
     /**
-     * Gets the value of the name property.
+     * Obtiene el valor de la propiedad name.
      * 
      * @return
      *     possible object is
@@ -196,7 +196,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Sets the value of the name property.
+     * Define el valor de la propiedad name.
      * 
      * @param value
      *     allowed object is
@@ -208,7 +208,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Gets the value of the state property.
+     * Obtiene el valor de la propiedad state.
      * 
      * @return
      *     possible object is
@@ -220,7 +220,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Sets the value of the state property.
+     * Define el valor de la propiedad state.
      * 
      * @param value
      *     allowed object is
@@ -232,7 +232,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Gets the value of the version property.
+     * Obtiene el valor de la propiedad version.
      * 
      * @return
      *     possible object is
@@ -244,7 +244,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Sets the value of the version property.
+     * Define el valor de la propiedad version.
      * 
      * @param value
      *     allowed object is
