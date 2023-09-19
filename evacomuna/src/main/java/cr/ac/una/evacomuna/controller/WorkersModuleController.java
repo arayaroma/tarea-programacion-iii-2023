@@ -26,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -60,7 +61,6 @@ public class WorkersModuleController implements Initializable {
 
     private static List<UserDto> users = new ArrayList<>();
     private UserDto userBuffer;
-    private VBox workersContainer;
     private User userService = new User();
 
     /**
@@ -73,7 +73,12 @@ public class WorkersModuleController implements Initializable {
         btnEdit.setDisable(true);
         initilizeLists();
         loadWorkers(users);
-        cbSearchParameter.getItems().addAll("Name", "Last Name", "Second Last Name", "Phone", "Email", "Identification", "User Name");
+        cbSearchParameter.getItems().addAll("Name", "Last Name", "Second Last Name", "Identification", "Role");
+        txfSearch.setOnKeyPressed(t -> {
+            if (t.getCode() == KeyCode.ENTER) {
+                searchWorker(null);
+            }
+        });
 
     }
 
@@ -88,11 +93,11 @@ public class WorkersModuleController implements Initializable {
         String key = txfSearch.getText(), parameterKey = cbSearchParameter.getValue();
 
         if (key.isBlank() || parameterKey == null) {
+            users = Utilities.loadUsers();
+            loadWorkers(users);
             return;
         }
-        users = filterUsers(users, parameterKey, key);
-        workersContainer.getChildren().clear();
-        loadWorkers(users);
+        loadWorkers(filterUsers(users, parameterKey, key));
     }
 
     @FXML
@@ -116,47 +121,46 @@ public class WorkersModuleController implements Initializable {
     }
 
     public void loadWorkers(List<UserDto> users) {
+
         tblUsersView.getItems().clear();
-        tblUsersView.getItems().addAll(users);
+        if (users != null) {
+            tblUsersView.getItems().addAll(users);
+        }
     }
 
     private List<UserDto> filterUsers(List<UserDto> users, String parameter, String key) {
-        List<UserDto> usersFiltered = null;
-        switch (parameter) {
-            case "Name":
-                users
-                        .stream()
-                        .filter(user -> user.getName().equals(key))
-                        .collect(Collectors.toList());
-                break;
-            case "Last Name":
-                usersFiltered = users
-                        .stream()
-                        .filter(user -> user.getLastname().equals(key))
-                        .collect(Collectors.toList());
-                break;
-            case "Second Last Name":
-                usersFiltered = users.stream()
-                        .filter(user -> user.getSecondLastname().equals(key))
-                        .collect(Collectors.toList());
-                break;
-            case "Email":
-                usersFiltered = users.stream()
-                        .filter(user -> user.getEmail().equals(key))
-                        .collect(Collectors.toList());
-                break;
-            case "Phone":
-                usersFiltered = users
-                        .stream()
-                        .filter(user -> user.getPhoneNumber().equals(key))
-                        .collect(Collectors.toList());
-                break;
-            case "User Name":
-                usersFiltered = users
-                        .stream()
-                        .filter(user -> user.getUsername().equals(key))
-                        .collect(Collectors.toList());
-                break;
+        List<UserDto> usersFiltered = new ArrayList<>();
+        if (users != null) {
+            switch (parameter) {
+                case "Name":
+                    usersFiltered = users
+                            .stream()
+                            .filter(user -> user.getName().contains(key))
+                            .collect(Collectors.toList());
+                    break;
+                case "Last Name":
+                    usersFiltered = users
+                            .stream()
+                            .filter(user -> user.getLastname().contains(key))
+                            .collect(Collectors.toList());
+                    break;
+                case "Second Last Name":
+                    usersFiltered = users.stream()
+                            .filter(user -> user.getSecondLastname().contains(key))
+                            .collect(Collectors.toList());
+                    break;
+                case "Identification":
+                    usersFiltered = users.stream()
+                            .filter(user -> user.getIdentification().contains(key))
+                            .collect(Collectors.toList());
+                    break;
+                case "Role":
+                    usersFiltered = users.stream()
+                            .filter(user -> user.getPosition().getName().contains(key))
+                            .collect(Collectors.toList());
+                    break;
+
+            }
         }
         return usersFiltered;
     }
