@@ -108,20 +108,20 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public ResponseWrapper activateUser(Long id, String hash) {
-        if (isUserIdNull(id)) {
-            return handleUserIdNull();
-        }
+    public ResponseWrapper activateUser(String hash) {
         try {
             User user;
-            user = em.find(User.class, id);
+            Query query = em.createNamedQuery("user.findByActivationCode", User.class)
+                    .setParameter("activationCode", hash);
+            user = (User) query.getSingleResult();
+            System.out.println(user.getActivationCode());
             if (isUserNull(user)) {
                 return handleUserNull();
             }
             UserDto userDto = new UserDto(user);
             if (HashGenerator.validateHash(userDto.getActivationCode(), hash)) {
                 em.createNativeQuery("CALL EVACOMUNA.ACTIVATE_USER(?id)")
-                        .setParameter("id", id)
+                        .setParameter("id", user.getId())
                         .executeUpdate();
 
                 em.merge(user);
