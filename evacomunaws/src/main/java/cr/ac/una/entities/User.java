@@ -24,6 +24,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.QueryHint;
 
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
@@ -38,13 +39,14 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u"),
-        @NamedQuery(name = "user.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-        @NamedQuery(name = "user.findByIdentification", query = "SELECT u FROM User u WHERE u.identification = :identification"),
-        @NamedQuery(name = "user.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
-        @NamedQuery(name = "user.findByUsernameAndPassword", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
-        @NamedQuery(name = "user.findByName", query = "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:name)"),
-        @NamedQuery(name = "user.findByPosition", query = "SELECT u FROM User u WHERE LOWER(u.position.name) = LOWER(:position)"),
+        @NamedQuery(name = "user.findAll", query = "SELECT u FROM User u", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findById", query = "SELECT u FROM User u WHERE u.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByIdentification", query = "SELECT u FROM User u WHERE u.identification = :identification", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByUsernameAndPassword", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByName", query = "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:name)", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByPosition", query = "SELECT u FROM User u WHERE LOWER(u.position.name) = LOWER(:position)", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByActivationCode", query = "SELECT u FROM User u WHERE u.activationCode = :activationCode", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
