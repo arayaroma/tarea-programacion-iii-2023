@@ -67,7 +67,7 @@ public class MainController implements Initializable {
         //Cut over the photo to make a circula effect
         imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
         imgProfilePhoto.setImage(new Image(Utilities.byteToImage(userLogged.getProfilePhoto())));
-        if (Data.isPasswordChanged()) {
+        if (userLogged.getPasswordChanged().equals("Y")) {
             changePasswordView.setVisible(true);
             menuPane.setDisable(true);
             return;

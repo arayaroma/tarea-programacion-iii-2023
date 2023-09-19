@@ -6,6 +6,7 @@ import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Data;
+import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.io.IOException;
 import java.net.URL;
@@ -17,7 +18,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -103,9 +106,11 @@ public class WorkersModuleController implements Initializable {
     @FXML
     private void deleteWorker(ActionEvent event) {
         if (userBuffer != null) {
-            ResponseWrapper response = userService.deleteUser(userBuffer.getId());
-            if (response.getCode() == ResponseCode.OK) {
-                tblUsersView.getItems().remove(userBuffer);
+            if (Message.showConfirmationAlert("Are you sure?", Alert.AlertType.CONFIRMATION, "Are you sure that you want to delete this user?") == ButtonType.OK) {
+                ResponseWrapper response = userService.deleteUser(userBuffer.getId());
+                if (response.getCode() == ResponseCode.OK) {
+                    tblUsersView.getItems().remove(userBuffer);
+                }
             }
         }
     }

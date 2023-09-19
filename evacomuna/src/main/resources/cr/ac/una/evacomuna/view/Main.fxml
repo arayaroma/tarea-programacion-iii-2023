@@ -136,7 +136,7 @@
          <center>
             <StackPane fx:id="mainScreen" BorderPane.alignment="CENTER">
                <children>
-                  <Group styleClass="recovery-screen" visible="false">
+                  <Group styleClass="recovery-screen">
                      <children>
                         <VBox fx:id="changePasswordView" alignment="CENTER">
                            <children>

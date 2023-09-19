@@ -1,0 +1,54 @@
+/* 
+    Created on : 19 sep. 2023, 11:05:32
+    Author     : estebannajera
+*/
+*{
+    -fx-blue: #4660f4;
+    -fx-white-white-blue:#b5bffb;
+    -fx-white-blue: #7e90f7;
+    -fx-dark-blue: #3f56dc;
+    -fx-white: #fff;
+    -fx-gray: #565a5c;
+    -fx-green:#23AA2A;
+    -fx-red:#AA2323;
+    -fx-dark-red:#881c1c;
+    -fx-dark-green:#1c8822;
+}
+
+/* styles.css */
+
+/* Estilo para el fondo de la alerta */
+.dialog-pane {
+    -fx-background-color: -fx-white-white-blue; /* Color de fondo */
+}
+
+/* Estilo para el título de la alerta */
+.dialog-pane .alert-title {
+    -fx-font-size: 18px; /* Tamaño de fuente del título */
+    -fx-text-fill: #333; /* Color del texto del título */
+}
+
+/* Estilo para el encabezado de la alerta */
+.dialog-pane .alert-header {
+    -fx-font-size: 14px; /* Tamaño de fuente del encabezado */
+    -fx-text-fill: #777; /* Color del texto del encabezado */
+}
+
+/* Estilo para el contenido de la alerta */
+.dialog-pane .alert-content {
+    -fx-font-size: 16px; /* Tamaño de fuente del contenido */
+    -fx-text-fill: #333; /* Color del texto del contenido */
+}
+
+/* Estilo para los botones de la alerta */
+.dialog-pane .button-bar .button {
+    -fx-font-size: 14px; /* Tamaño de fuente de los botones */
+    -fx-text-fill: #fff; /* Color del texto de los botones */
+    -fx-background-color: -fx-blue; /* Color de fondo de los botones */
+    -fx-background-radius: 5px; /* Bordes redondeados de los botones */
+}
+
+/* Estilo para los botones cuando se pasa el mouse por encima */
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: -fx-white-blue; /* Color de fondo al pasar el mouse por encima */
+}

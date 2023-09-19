@@ -35,4 +35,12 @@ public class User {
     public ResponseWrapper getByUserAndPassword(String user, String password) {
         return port.getUserByUserAndPassword(user, password);
     }
+
+    public ResponseWrapper recoverPassword(Long id) {
+        return port.recoverPassword(id);
+    }
+
+    public ResponseWrapper changePassword(Long id, String oldPassword, String newPassword) {
+        return port.changePassword(id, oldPassword, newPassword);
+    }
 }
