@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Activate Account</title>
+  </head>
+  <body>
+    <button id="activateButton">Activate Account</button>
+    <script>
+      const endpointUrl = "http://localhost:8080/evacomuna-1.0/UserController";
+
+      function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      function sendSOAPRequest() {
+        const hash = getQueryParam("hash");
+        if (!hash) {
+          console.error("Hash parameter is missing in the URL.");
+          return;
+        }
+
+        const headers = {
+          "Content-Type": "text/xml; charset=utf-8",
+          SOAPAction: "http://controller.una.ac.cr/activateUser",
+        };
+
+        const soapEnvelope = `<?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:tns="http://controller.una.ac.cr/">
+        <soap:Body>
+        <tns:activateUser>
+        <arg0>${hash}</arg0>
+        </tns:activateUser>
+        </soap:Body>
+        </soap:Envelope>`;
+
+        fetch(endpointUrl, {
+          method: "POST",
+          headers: headers,
+          body: soapEnvelope,
+        })
+          .then((response) => response.text())
+          .then((responseData) => {
+            console.log("SOAP Response:", responseData);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      const activateButton = document.getElementById("activateButton");
+      activateButton.addEventListener("click", sendSOAPRequest);
+    </script>
+  </body>
+</html>
