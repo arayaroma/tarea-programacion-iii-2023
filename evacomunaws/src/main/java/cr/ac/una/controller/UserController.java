@@ -117,6 +117,15 @@ public class UserController {
     }
 
     /**
+     * @param hash Hash from user to activate
+     * @return ResponseWrapper with the response of the service call
+     */
+    @WebMethod(operationName = "activateUser")
+    public ResponseWrapper activateUser(String hash) {
+        return userService.activateUser(hash);
+    }
+
+    /**
      * @param id user id to recover password
      * @return ResponseWrapper with the response of the service call
      */
