@@ -129,8 +129,8 @@ public class UserController {
      * @return ResponseWrapper with the response of the service call
      */
     @WebMethod(operationName = "recoverPassword")
-    public ResponseWrapper recoverPassword(Long id) {
-        return userService.recoverPassword(id);
+    public ResponseWrapper recoverPassword(String email) {
+        return userService.recoverPassword(email);
     }
 
     /**

@@ -46,6 +46,8 @@ public class EmailService {
             String subject = "Complete your account registration";
             String soapRequestContent = HtmlFileReader.readHtmlFromWebApp("activation.html");
             soapRequestContent = soapRequestContent.replace("{hash}", to.getActivationCode());
+            String activationLink = LinkGenerator.generateActivationLink(to.getActivationCode());
+            System.out.println(activationLink);
             send(
                     to.getEmail(),
                     subject,
@@ -53,7 +55,7 @@ public class EmailService {
                             subject,
                             "Welcome to " + Constants.COMPANY_NAME + "!",
                             to.getName(),
-                            "<a href=" + LinkGenerator.generateActivationLink(to.getActivationCode()) + ">" +
+                            "<a href=" + activationLink + ">" +
                                     "Click here to activate your account" +
                                     "</a>",
                             "Thank you for registering with us!"));

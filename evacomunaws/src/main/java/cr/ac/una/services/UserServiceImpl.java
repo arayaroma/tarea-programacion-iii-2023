@@ -155,24 +155,23 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public ResponseWrapper recoverPassword(Long id) {
-        if (isUserIdNull(id)) {
-            return handleUserIdNull();
-        }
+    public ResponseWrapper recoverPassword(String email) {
+
         try {
             User user;
-            user = em.find(User.class, id);
+            user = em.createNamedQuery("user.findByEmail", User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
             if (isUserNull(user)) {
                 return handleUserNull();
             }
+            String newPassword = generateRandomPassword(user.getId());
+            em.merge(user);
+            em.flush();
 
-            String newPassword = generateRandomPassword(id);
             UserDto userDto = new UserDto(user);
             userDto.setPassword(newPassword);
             emailService.sendPasswordRecovery(userDto);
-
-            em.merge(user);
-            em.flush();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

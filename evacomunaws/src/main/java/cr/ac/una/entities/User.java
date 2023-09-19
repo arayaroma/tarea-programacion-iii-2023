@@ -47,6 +47,7 @@ import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
         @NamedQuery(name = "user.findByName", query = "SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(:name)", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
         @NamedQuery(name = "user.findByPosition", query = "SELECT u FROM User u WHERE LOWER(u.position.name) = LOWER(:position)", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
         @NamedQuery(name = "user.findByActivationCode", query = "SELECT u FROM User u WHERE u.activationCode = :activationCode", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "user.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
