@@ -2,9 +2,58 @@
 <html>
   <head>
     <title>Activate Account</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Activation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
   </head>
   <body>
-    <button id="activateButton">Activate Account</button>
+    <div class="container">
+      <h1>User Activation</h1>
+      <p>Click the button below to activate your account.</p>
+      <button id="activateButton" type="submit">Activate</button>
+    </div>
     <script>
       const endpointUrl = "http://localhost:8080/evacomunaws/UserController";
 
