@@ -1,8 +1,13 @@
 package cr.ac.una.util;
 
+import static cr.ac.una.util.PlaceHolders.BODY;
+import static cr.ac.una.util.PlaceHolders.FOOTER;
+import static cr.ac.una.util.PlaceHolders.HEADER;
+import static cr.ac.una.util.PlaceHolders.TEAM;
+import static cr.ac.una.util.PlaceHolders.TITLE;
+import static cr.ac.una.util.PlaceHolders.USER_NAME;
 import java.io.IOException;
 import java.io.InputStream;
-import static cr.ac.una.util.PlaceHolders.*;
 
 /**
  * 
@@ -11,6 +16,11 @@ import static cr.ac.una.util.PlaceHolders.*;
 public class HtmlFileReader {
 
     public static final String TEMPLATE_DIR = "/templates/";
+
+    public static String readHtmlFromWebApp(String path) {
+        String WEBAPP_DIR = "src/main/webapp/";
+        return new String(WEBAPP_DIR + path);
+    }
 
     public static String readHtml(String path) throws IOException {
         return new String(HtmlFileReader.class
