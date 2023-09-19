@@ -44,7 +44,8 @@ public class EmailService {
     public void sendActivationHashLink(UserDto to) throws MessagingException {
         try {
             String subject = "Complete your account registration";
-            String link = LinkGenerator.generateActivationLink(to.getId(), to.getActivationCode());
+            String soapRequestContent = HtmlFileReader.readHtmlFromWebApp("activation.html");
+            soapRequestContent = soapRequestContent.replace("{hash}", to.getActivationCode());
             send(
                     to.getEmail(),
                     subject,
@@ -52,7 +53,9 @@ public class EmailService {
                             subject,
                             "Welcome to " + Constants.COMPANY_NAME + "!",
                             to.getName(),
-                            "Please <a href=" + link + "> Activate account!</a>",
+                            "<a href=" + LinkGenerator.generateActivationLink(to.getActivationCode()) + ">" +
+                                    "Click here to activate your account" +
+                                    "</a>",
                             "Thank you for registering with us!"));
         } catch (IOException e) {
             e.printStackTrace();
