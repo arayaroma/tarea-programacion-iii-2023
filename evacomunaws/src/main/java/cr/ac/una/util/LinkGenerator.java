@@ -6,7 +6,7 @@ package cr.ac.una.util;
  */
 public class LinkGenerator {
 
-    public static String generateActivationLink(Long id, String hash) {
-        return Constants.APP_ENDPOINT + "Activation?id=" + id + "&hash=" + hash;
+    public static String generateActivationLink(String hash) {
+        return Constants.APP_ENDPOINT + "activation.html?hash=" + hash;
     }
 }
