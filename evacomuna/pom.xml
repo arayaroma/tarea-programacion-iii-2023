@@ -97,10 +97,6 @@
                                     <wsdl>
                                         ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/PositionService.wsdl</wsdl>
                                 </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>
-                                        ${project.basedir}/src/main/resources/cr/ac/una/evacomuna/wsdl/CompanyService.wsdl</wsdl>
-                                </wsdlOption>
                             </wsdlOptions>
                         </configuration>
                         <goals>

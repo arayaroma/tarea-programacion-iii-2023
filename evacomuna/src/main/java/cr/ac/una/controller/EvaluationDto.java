@@ -10,9 +10,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para evaluationDto complex type.
+ * <p>Java class for evaluationDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="evaluationDto"&gt;
@@ -59,7 +59,7 @@ public class EvaluationDto {
     protected Long version;
 
     /**
-     * Obtiene el valor de la propiedad applicationDate.
+     * Gets the value of the applicationDate property.
      * 
      * @return
      *     possible object is
@@ -71,7 +71,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad applicationDate.
+     * Sets the value of the applicationDate property.
      * 
      * @param value
      *     allowed object is
@@ -112,7 +112,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad finalPeriod.
+     * Gets the value of the finalPeriod property.
      * 
      * @return
      *     possible object is
@@ -124,7 +124,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad finalPeriod.
+     * Sets the value of the finalPeriod property.
      * 
      * @param value
      *     allowed object is
@@ -136,7 +136,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -148,7 +148,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -160,7 +160,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad initialPeriod.
+     * Gets the value of the initialPeriod property.
      * 
      * @return
      *     possible object is
@@ -172,7 +172,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad initialPeriod.
+     * Sets the value of the initialPeriod property.
      * 
      * @param value
      *     allowed object is
@@ -184,7 +184,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad name.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
@@ -196,7 +196,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad name.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
@@ -208,7 +208,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad state.
+     * Gets the value of the state property.
      * 
      * @return
      *     possible object is
@@ -220,7 +220,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad state.
+     * Sets the value of the state property.
      * 
      * @param value
      *     allowed object is
@@ -232,7 +232,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad version.
+     * Gets the value of the version property.
      * 
      * @return
      *     possible object is
@@ -244,7 +244,7 @@ public class EvaluationDto {
     }
 
     /**
-     * Define el valor de la propiedad version.
+     * Sets the value of the version property.
      * 
      * @param value
      *     allowed object is

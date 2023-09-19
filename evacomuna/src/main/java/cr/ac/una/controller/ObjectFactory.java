@@ -24,17 +24,24 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _CreateGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "createGeneralInformation");
-    private final static QName _CreateGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "createGeneralInformationResponse");
-    private final static QName _DeleteGeneralInformationById_QNAME = new QName("http://controller.una.ac.cr/", "deleteGeneralInformationById");
-    private final static QName _DeleteGeneralInformationByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deleteGeneralInformationByIdResponse");
-    private final static QName _GetGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "getGeneralInformation");
-    private final static QName _GetGeneralInformationById_QNAME = new QName("http://controller.una.ac.cr/", "getGeneralInformationById");
-    private final static QName _GetGeneralInformationByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getGeneralInformationByIdResponse");
-    private final static QName _GetGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "getGeneralInformationResponse");
+    private final static QName _CharacteristicDto_QNAME = new QName("http://controller.una.ac.cr/", "CharacteristicDto");
+    private final static QName _PositionDto_QNAME = new QName("http://controller.una.ac.cr/", "PositionDto");
+    private final static QName _UserDto_QNAME = new QName("http://controller.una.ac.cr/", "UserDto");
+    private final static QName _CreatePosition_QNAME = new QName("http://controller.una.ac.cr/", "createPosition");
+    private final static QName _CreatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "createPositionResponse");
+    private final static QName _DeletePositionById_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionById");
+    private final static QName _DeletePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deletePositionByIdResponse");
+    private final static QName _GetPositionById_QNAME = new QName("http://controller.una.ac.cr/", "getPositionById");
+    private final static QName _GetPositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByIdResponse");
+    private final static QName _GetPositionByName_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByName");
+    private final static QName _GetPositionByNameResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionByNameResponse");
+    private final static QName _GetPositions_QNAME = new QName("http://controller.una.ac.cr/", "getPositions");
+    private final static QName _GetPositionsResponse_QNAME = new QName("http://controller.una.ac.cr/", "getPositionsResponse");
     private final static QName _ListWrapper_QNAME = new QName("http://controller.una.ac.cr/", "listWrapper");
-    private final static QName _UpdateGeneralInformation_QNAME = new QName("http://controller.una.ac.cr/", "updateGeneralInformation");
-    private final static QName _UpdateGeneralInformationResponse_QNAME = new QName("http://controller.una.ac.cr/", "updateGeneralInformationResponse");
+    private final static QName _UpdatePosition_QNAME = new QName("http://controller.una.ac.cr/", "updatePosition");
+    private final static QName _UpdatePositionById_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionById");
+    private final static QName _UpdatePositionByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionByIdResponse");
+    private final static QName _UpdatePositionResponse_QNAME = new QName("http://controller.una.ac.cr/", "updatePositionResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: cr.ac.una.controller
@@ -44,67 +51,107 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateGeneralInformation }
+     * Create an instance of {@link CharacteristicDto }
      * 
      */
-    public CreateGeneralInformation createCreateGeneralInformation() {
-        return new CreateGeneralInformation();
+    public CharacteristicDto createCharacteristicDto() {
+        return new CharacteristicDto();
     }
 
     /**
-     * Create an instance of {@link CreateGeneralInformationResponse }
+     * Create an instance of {@link PositionDto }
      * 
      */
-    public CreateGeneralInformationResponse createCreateGeneralInformationResponse() {
-        return new CreateGeneralInformationResponse();
+    public PositionDto createPositionDto() {
+        return new PositionDto();
     }
 
     /**
-     * Create an instance of {@link DeleteGeneralInformationById }
+     * Create an instance of {@link UserDto }
      * 
      */
-    public DeleteGeneralInformationById createDeleteGeneralInformationById() {
-        return new DeleteGeneralInformationById();
+    public UserDto createUserDto() {
+        return new UserDto();
     }
 
     /**
-     * Create an instance of {@link DeleteGeneralInformationByIdResponse }
+     * Create an instance of {@link CreatePosition }
      * 
      */
-    public DeleteGeneralInformationByIdResponse createDeleteGeneralInformationByIdResponse() {
-        return new DeleteGeneralInformationByIdResponse();
+    public CreatePosition createCreatePosition() {
+        return new CreatePosition();
     }
 
     /**
-     * Create an instance of {@link GetGeneralInformation }
+     * Create an instance of {@link CreatePositionResponse }
      * 
      */
-    public GetGeneralInformation createGetGeneralInformation() {
-        return new GetGeneralInformation();
+    public CreatePositionResponse createCreatePositionResponse() {
+        return new CreatePositionResponse();
     }
 
     /**
-     * Create an instance of {@link GetGeneralInformationById }
+     * Create an instance of {@link DeletePositionById }
      * 
      */
-    public GetGeneralInformationById createGetGeneralInformationById() {
-        return new GetGeneralInformationById();
+    public DeletePositionById createDeletePositionById() {
+        return new DeletePositionById();
     }
 
     /**
-     * Create an instance of {@link GetGeneralInformationByIdResponse }
+     * Create an instance of {@link DeletePositionByIdResponse }
      * 
      */
-    public GetGeneralInformationByIdResponse createGetGeneralInformationByIdResponse() {
-        return new GetGeneralInformationByIdResponse();
+    public DeletePositionByIdResponse createDeletePositionByIdResponse() {
+        return new DeletePositionByIdResponse();
     }
 
     /**
-     * Create an instance of {@link GetGeneralInformationResponse }
+     * Create an instance of {@link GetPositionById }
      * 
      */
-    public GetGeneralInformationResponse createGetGeneralInformationResponse() {
-        return new GetGeneralInformationResponse();
+    public GetPositionById createGetPositionById() {
+        return new GetPositionById();
+    }
+
+    /**
+     * Create an instance of {@link GetPositionByIdResponse }
+     * 
+     */
+    public GetPositionByIdResponse createGetPositionByIdResponse() {
+        return new GetPositionByIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPositionByName }
+     * 
+     */
+    public GetPositionByName createGetPositionByName() {
+        return new GetPositionByName();
+    }
+
+    /**
+     * Create an instance of {@link GetPositionByNameResponse }
+     * 
+     */
+    public GetPositionByNameResponse createGetPositionByNameResponse() {
+        return new GetPositionByNameResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPositions }
+     * 
+     */
+    public GetPositions createGetPositions() {
+        return new GetPositions();
+    }
+
+    /**
+     * Create an instance of {@link GetPositionsResponse }
+     * 
+     */
+    public GetPositionsResponse createGetPositionsResponse() {
+        return new GetPositionsResponse();
     }
 
     /**
@@ -116,27 +163,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UpdateGeneralInformation }
+     * Create an instance of {@link UpdatePosition }
      * 
      */
-    public UpdateGeneralInformation createUpdateGeneralInformation() {
-        return new UpdateGeneralInformation();
+    public UpdatePosition createUpdatePosition() {
+        return new UpdatePosition();
     }
 
     /**
-     * Create an instance of {@link UpdateGeneralInformationResponse }
+     * Create an instance of {@link UpdatePositionById }
      * 
      */
-    public UpdateGeneralInformationResponse createUpdateGeneralInformationResponse() {
-        return new UpdateGeneralInformationResponse();
+    public UpdatePositionById createUpdatePositionById() {
+        return new UpdatePositionById();
     }
 
     /**
-     * Create an instance of {@link GeneralInformationDto }
+     * Create an instance of {@link UpdatePositionByIdResponse }
      * 
      */
-    public GeneralInformationDto createGeneralInformationDto() {
-        return new GeneralInformationDto();
+    public UpdatePositionByIdResponse createUpdatePositionByIdResponse() {
+        return new UpdatePositionByIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdatePositionResponse }
+     * 
+     */
+    public UpdatePositionResponse createUpdatePositionResponse() {
+        return new UpdatePositionResponse();
     }
 
     /**
@@ -148,107 +203,228 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateGeneralInformation }{@code >}
+     * Create an instance of {@link EvaluatedDto }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreateGeneralInformation }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createGeneralInformation")
-    public JAXBElement<CreateGeneralInformation> createCreateGeneralInformation(CreateGeneralInformation value) {
-        return new JAXBElement<CreateGeneralInformation>(_CreateGeneralInformation_QNAME, CreateGeneralInformation.class, null, value);
+    public EvaluatedDto createEvaluatedDto() {
+        return new EvaluatedDto();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateGeneralInformationResponse }{@code >}
+     * Create an instance of {@link EvaluationDto }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreateGeneralInformationResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createGeneralInformationResponse")
-    public JAXBElement<CreateGeneralInformationResponse> createCreateGeneralInformationResponse(CreateGeneralInformationResponse value) {
-        return new JAXBElement<CreateGeneralInformationResponse>(_CreateGeneralInformationResponse_QNAME, CreateGeneralInformationResponse.class, null, value);
+    public EvaluationDto createEvaluationDto() {
+        return new EvaluationDto();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformationById }{@code >}
+     * Create an instance of {@link LocalDate }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformationById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteGeneralInformationById")
-    public JAXBElement<DeleteGeneralInformationById> createDeleteGeneralInformationById(DeleteGeneralInformationById value) {
-        return new JAXBElement<DeleteGeneralInformationById>(_DeleteGeneralInformationById_QNAME, DeleteGeneralInformationById.class, null, value);
+    public LocalDate createLocalDate() {
+        return new LocalDate();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformationByIdResponse }{@code >}
+     * Create an instance of {@link EvaluatorDto }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteGeneralInformationByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteGeneralInformationByIdResponse")
-    public JAXBElement<DeleteGeneralInformationByIdResponse> createDeleteGeneralInformationByIdResponse(DeleteGeneralInformationByIdResponse value) {
-        return new JAXBElement<DeleteGeneralInformationByIdResponse>(_DeleteGeneralInformationByIdResponse_QNAME, DeleteGeneralInformationByIdResponse.class, null, value);
+    public EvaluatorDto createEvaluatorDto() {
+        return new EvaluatorDto();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetGeneralInformation }{@code >}
+     * Create an instance of {@link FinalCalificationDto }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetGeneralInformation }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getGeneralInformation")
-    public JAXBElement<GetGeneralInformation> createGetGeneralInformation(GetGeneralInformation value) {
-        return new JAXBElement<GetGeneralInformation>(_GetGeneralInformation_QNAME, GetGeneralInformation.class, null, value);
+    public FinalCalificationDto createFinalCalificationDto() {
+        return new FinalCalificationDto();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationById }{@code >}
+     * Create an instance of {@link SkillDto }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getGeneralInformationById")
-    public JAXBElement<GetGeneralInformationById> createGetGeneralInformationById(GetGeneralInformationById value) {
-        return new JAXBElement<GetGeneralInformationById>(_GetGeneralInformationById_QNAME, GetGeneralInformationById.class, null, value);
+    public SkillDto createSkillDto() {
+        return new SkillDto();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationByIdResponse }{@code >}
+     * Create an instance of {@link CalificationDto }
      * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getGeneralInformationByIdResponse")
-    public JAXBElement<GetGeneralInformationByIdResponse> createGetGeneralInformationByIdResponse(GetGeneralInformationByIdResponse value) {
-        return new JAXBElement<GetGeneralInformationByIdResponse>(_GetGeneralInformationByIdResponse_QNAME, GetGeneralInformationByIdResponse.class, null, value);
+    public CalificationDto createCalificationDto() {
+        return new CalificationDto();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CharacteristicDto }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetGeneralInformationResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CharacteristicDto }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getGeneralInformationResponse")
-    public JAXBElement<GetGeneralInformationResponse> createGetGeneralInformationResponse(GetGeneralInformationResponse value) {
-        return new JAXBElement<GetGeneralInformationResponse>(_GetGeneralInformationResponse_QNAME, GetGeneralInformationResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "CharacteristicDto")
+    public JAXBElement<CharacteristicDto> createCharacteristicDto(CharacteristicDto value) {
+        return new JAXBElement<CharacteristicDto>(_CharacteristicDto_QNAME, CharacteristicDto.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PositionDto }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link PositionDto }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "PositionDto")
+    public JAXBElement<PositionDto> createPositionDto(PositionDto value) {
+        return new JAXBElement<PositionDto>(_PositionDto_QNAME, PositionDto.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UserDto }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UserDto }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "UserDto")
+    public JAXBElement<UserDto> createUserDto(UserDto value) {
+        return new JAXBElement<UserDto>(_UserDto_QNAME, UserDto.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreatePosition }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link CreatePosition }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createPosition")
+    public JAXBElement<CreatePosition> createCreatePosition(CreatePosition value) {
+        return new JAXBElement<CreatePosition>(_CreatePosition_QNAME, CreatePosition.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreatePositionResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link CreatePositionResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createPositionResponse")
+    public JAXBElement<CreatePositionResponse> createCreatePositionResponse(CreatePositionResponse value) {
+        return new JAXBElement<CreatePositionResponse>(_CreatePositionResponse_QNAME, CreatePositionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePositionById }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeletePositionById }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deletePositionById")
+    public JAXBElement<DeletePositionById> createDeletePositionById(DeletePositionById value) {
+        return new JAXBElement<DeletePositionById>(_DeletePositionById_QNAME, DeletePositionById.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePositionByIdResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeletePositionByIdResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deletePositionByIdResponse")
+    public JAXBElement<DeletePositionByIdResponse> createDeletePositionByIdResponse(DeletePositionByIdResponse value) {
+        return new JAXBElement<DeletePositionByIdResponse>(_DeletePositionByIdResponse_QNAME, DeletePositionByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionById }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionById }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionById")
+    public JAXBElement<GetPositionById> createGetPositionById(GetPositionById value) {
+        return new JAXBElement<GetPositionById>(_GetPositionById_QNAME, GetPositionById.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionByIdResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionByIdResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByIdResponse")
+    public JAXBElement<GetPositionByIdResponse> createGetPositionByIdResponse(GetPositionByIdResponse value) {
+        return new JAXBElement<GetPositionByIdResponse>(_GetPositionByIdResponse_QNAME, GetPositionByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionByName }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionByName }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByName")
+    public JAXBElement<GetPositionByName> createGetPositionByName(GetPositionByName value) {
+        return new JAXBElement<GetPositionByName>(_GetPositionByName_QNAME, GetPositionByName.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionByNameResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionByNameResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionByNameResponse")
+    public JAXBElement<GetPositionByNameResponse> createGetPositionByNameResponse(GetPositionByNameResponse value) {
+        return new JAXBElement<GetPositionByNameResponse>(_GetPositionByNameResponse_QNAME, GetPositionByNameResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositions }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositions }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositions")
+    public JAXBElement<GetPositions> createGetPositions(GetPositions value) {
+        return new JAXBElement<GetPositions>(_GetPositions_QNAME, GetPositions.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetPositionsResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetPositionsResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getPositionsResponse")
+    public JAXBElement<GetPositionsResponse> createGetPositionsResponse(GetPositionsResponse value) {
+        return new JAXBElement<GetPositionsResponse>(_GetPositionsResponse_QNAME, GetPositionsResponse.class, null, value);
     }
 
     /**
@@ -265,29 +441,55 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateGeneralInformation }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePosition }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UpdateGeneralInformation }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePosition }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updateGeneralInformation")
-    public JAXBElement<UpdateGeneralInformation> createUpdateGeneralInformation(UpdateGeneralInformation value) {
-        return new JAXBElement<UpdateGeneralInformation>(_UpdateGeneralInformation_QNAME, UpdateGeneralInformation.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePosition")
+    public JAXBElement<UpdatePosition> createUpdatePosition(UpdatePosition value) {
+        return new JAXBElement<UpdatePosition>(_UpdatePosition_QNAME, UpdatePosition.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateGeneralInformationResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePositionById }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UpdateGeneralInformationResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePositionById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updateGeneralInformationResponse")
-    public JAXBElement<UpdateGeneralInformationResponse> createUpdateGeneralInformationResponse(UpdateGeneralInformationResponse value) {
-        return new JAXBElement<UpdateGeneralInformationResponse>(_UpdateGeneralInformationResponse_QNAME, UpdateGeneralInformationResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePositionById")
+    public JAXBElement<UpdatePositionById> createUpdatePositionById(UpdatePositionById value) {
+        return new JAXBElement<UpdatePositionById>(_UpdatePositionById_QNAME, UpdatePositionById.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePositionByIdResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePositionByIdResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePositionByIdResponse")
+    public JAXBElement<UpdatePositionByIdResponse> createUpdatePositionByIdResponse(UpdatePositionByIdResponse value) {
+        return new JAXBElement<UpdatePositionByIdResponse>(_UpdatePositionByIdResponse_QNAME, UpdatePositionByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePositionResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePositionResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updatePositionResponse")
+    public JAXBElement<UpdatePositionResponse> createUpdatePositionResponse(UpdatePositionResponse value) {
+        return new JAXBElement<UpdatePositionResponse>(_UpdatePositionResponse_QNAME, UpdatePositionResponse.class, null, value);
     }
 
 }
