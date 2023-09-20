@@ -33,7 +33,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     private EntityManager em;
 
     /**
-     * @param characteristic characteristic to be created
+     * @param characteristicDto characteristic to be created
      * @return ResponseWrapper with the response of the service call
      *         createCharacteristic
      */
@@ -65,7 +65,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     }
 
     /**
-     * @param characteristic characteristic to be updated
+     * @param characteristicDto characteristic to be updated
      * @return ResponseWrapper with the response of the service call
      *         updateCharacteristic
      */
@@ -199,7 +199,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     }
 
     /**
-     * @param id
+     * @param id characteristic id to match skills with said characteristic
      * @return ResponseWrapper with the response of the service call
      *         getSkillsByCharacteristicId
      */
