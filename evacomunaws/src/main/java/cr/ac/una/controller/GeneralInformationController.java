@@ -18,7 +18,7 @@ public class GeneralInformationController {
     GeneralInformationService generalInformationService;
 
     /**
-     * @param generalInformationDto
+     * @param generalInformationDto the GeneralInformationDto to be created
      * @return ResponseWrapper with the result of the operation and the created
      *         GeneralInformationDto
      */
@@ -28,7 +28,7 @@ public class GeneralInformationController {
     }
 
     /**
-     * @param generalInformationDto
+     * @param generalInformationDto the GeneralInformationDto to be updated
      * @return ResponseWrapper with the result of the operation and the updated
      *         GeneralInformationDto
      */

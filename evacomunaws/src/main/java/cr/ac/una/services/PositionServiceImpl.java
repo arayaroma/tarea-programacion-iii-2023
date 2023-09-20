@@ -29,8 +29,9 @@ public class PositionServiceImpl implements PositionService {
     private EntityManager em;
 
     /**
-     * @param position position to be created
-     * @return ResponseWrapper with the response of the service call
+     * @param dto EntityDto to copy to
+     * @param entity Entity to copy from
+     * @return dto with the values from the entity
      */
     private PositionDto convertFromEntityToDTO(PositionDto dto, Position entity) {
         dto.setUsers(EntityUtil.fromEntityList(entity.getUsers(),
@@ -43,9 +44,9 @@ public class PositionServiceImpl implements PositionService {
     }
 
     /**
-     * @param entity
-     * @param dto
-     * @return
+     * @param entity Entity to copy to
+     * @param dto EntityDto to copy from
+     * @return entity with the values from the dto
      */
     private Position convertFromDTOToEntity(Position entity, PositionDto dto) {
         entity.setUsers(EntityUtil.fromDtoList(dto.getUsers(),
@@ -176,8 +177,7 @@ public class PositionServiceImpl implements PositionService {
     }
 
     /**
-     * @param id       position id to be updated
-     * @param position position to be updated
+     * @param id id of the position to be updated
      * @return ResponseWrapper with the response of the service call
      */
     @Override

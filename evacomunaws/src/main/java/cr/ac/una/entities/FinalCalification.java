@@ -62,7 +62,8 @@ public class FinalCalification implements Serializable {
     private Long version;
 
     /**
-     * @param entity constructor from a entity to dto
+     * Constructor from a dto to entity
+     * @param finalCalificationDto dto to copy from
      */
     public FinalCalification(FinalCalificationDto finalCalificationDto) {
         this.id = finalCalificationDto.getId();
@@ -70,7 +71,7 @@ public class FinalCalification implements Serializable {
     }
 
     /**
-     * @param evaluatedDto update the entity with the dto
+     * @param finalCalificationDto update the entity with the dto
      */
 
     public void updateFinalCalification(FinalCalificationDto finalCalificationDto) {

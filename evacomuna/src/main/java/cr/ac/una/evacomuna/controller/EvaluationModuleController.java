@@ -120,7 +120,7 @@ public class EvaluationModuleController implements Initializable {
         EvaluationWrapper evaluationWrapper = new EvaluationWrapper(null, name, aplicationDate, initialDate, endingDate, state);
         ResponseWrapper response = evaluationService.createEvaluation(evaluationWrapper.getDto());
         if (response.getCode() == ResponseCode.OK) {
-            //No implementado
+            //fixme: No implementado
         }
         System.out.println(response.getMessage());
     }

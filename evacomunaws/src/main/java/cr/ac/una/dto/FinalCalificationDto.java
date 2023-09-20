@@ -21,7 +21,8 @@ public class FinalCalificationDto {
     private Long version;
 
     /**
-     * @param entity constructor from a entity to dto
+     * Constructor from entity to dto
+     * @param finalCalification entity to copy from
      */
     public FinalCalificationDto(FinalCalification finalCalification) {
         this.id = finalCalification.getId();

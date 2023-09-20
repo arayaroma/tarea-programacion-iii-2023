@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * @param id user id to be activated
+     * @param hash hash to activate user
      * @return ResponseWrapper with the response from database, or null if an
      */
     @Override
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * @param id user id to recover password
+     * @param email user email to recover password
      * @return ResponseWrapper with the response from database, or null if an
      *         exception occurred
      */

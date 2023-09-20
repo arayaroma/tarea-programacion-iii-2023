@@ -24,7 +24,7 @@ public class EvaluatedDto {
     private Long version;
 
     /**
-     * @param entity constructor from a entity to dto
+     * @param evaluated constructor from an entity to dto
      */
     public EvaluatedDto(Evaluated evaluated) {
         this.id = evaluated.getId();

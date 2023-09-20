@@ -125,7 +125,7 @@ public class UserController {
     }
 
     /**
-     * @param id user id to recover password
+     * @param email user email to recover password
      * @return ResponseWrapper with the response of the service call
      */
     @WebMethod(operationName = "recoverPassword")
