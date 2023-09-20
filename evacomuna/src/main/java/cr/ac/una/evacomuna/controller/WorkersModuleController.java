@@ -7,6 +7,7 @@ import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
+import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +29,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -114,7 +114,17 @@ public class WorkersModuleController implements Initializable {
             if (Message.showConfirmationAlert("Are you sure?", Alert.AlertType.CONFIRMATION, "Are you sure that you want to delete this user?") == ButtonType.OK) {
                 ResponseWrapper response = userService.deleteUser(userBuffer.getId());
                 if (response.getCode() == ResponseCode.OK) {
-                    tblUsersView.getItems().remove(userBuffer);
+                    if (userBuffer.getId().equals(Data.getUserLogged().getId())) {
+                        try {
+                            App.setRoot("Login");
+                            Message.showNotification("Log Out", MessageType.INFO, "You just deleted the logged user");
+                            Data.setUserLogged(null);
+                        } catch (Exception e) {
+                            System.out.println(e.toString());
+                        }
+                    } else {
+                        tblUsersView.getItems().remove(userBuffer);
+                    }
                 }
             }
         }
