@@ -57,7 +57,7 @@ public class Calification implements Serializable {
     private Long version;
 
     /**
-     * @param skill constructor from entity to dto
+     * @param calificationDto constructor from entity to dto
      */
     public Calification(CalificationDto calificationDto) {
         this.id = calificationDto.getId();
