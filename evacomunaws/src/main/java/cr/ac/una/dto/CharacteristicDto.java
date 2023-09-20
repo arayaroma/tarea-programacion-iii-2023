@@ -48,7 +48,7 @@ public class CharacteristicDto implements EntityMapper<Characteristic, Character
     }
 
     /**
-     * @param skill constructor from entity to dto
+     * @param characteristic constructor from entity to dto
      */
     public CharacteristicDto(Characteristic characteristic) {
         this.id = characteristic.getId();
