@@ -101,7 +101,7 @@ public class MainController implements Initializable {
     private void btnEvaluationModule(ActionEvent event) {
         try {
             mainScreen.getChildren().clear();
-            FXMLLoader loader = App.getFXMLLoader("EvaluationModule");
+            FXMLLoader loader = App.getFXMLLoader("ContainerEvaluations");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
             System.out.println(e.toString());

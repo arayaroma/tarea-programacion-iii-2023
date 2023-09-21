@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="600.0" styleClass="bg-white" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.ContainerEvaluationsController">
+   <tabs>
+      <Tab fx:id="maintenanceView" onSelectionChanged="#tabEvaluationModule" text="Evaluation Maintenance" />
+      <Tab fx:id="appliedView" onSelectionChanged="#tabApliedEvaluations" text="Applied Evaluations" />
+      <Tab fx:id="pendingEvaluations" onSelectionChanged="#tabPendingEvaluations" text="Pending Evaluations" />
+   </tabs>
+   <stylesheets>
+      <URL value="@../style/evaluationmodule.css" />
+      <URL value="@../style/index.css" />
+   </stylesheets>
+</TabPane>

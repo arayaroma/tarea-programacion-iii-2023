@@ -4,7 +4,6 @@ import cr.ac.una.controller.EvaluationDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
-import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.dto.EvaluationWrapper;
 import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.util.Message;
@@ -17,16 +16,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
@@ -37,8 +32,6 @@ import javafx.scene.input.KeyEvent;
  */
 public class EvaluationModuleController implements Initializable {
 
-    @FXML
-    private TabPane parent;
     @FXML
     private TextField txfNameEvaluation;
     @FXML
@@ -61,10 +54,6 @@ public class EvaluationModuleController implements Initializable {
     private ListView<UserDto> listEvaluated;
     @FXML
     private ListView<UserDto> listEvaluatedFix;
-    @FXML
-    private Tab appliedView;
-    @FXML
-    private Tab maintenanceView;
 
     private Evaluation evaluationService;
     private EvaluationDto evaluationBuffer;
@@ -74,8 +63,6 @@ public class EvaluationModuleController implements Initializable {
     private UserDto finalEvaluatorBuffer;
     private List<UserDto> users;
     private ObservableList<EvaluationDto> evaluationDtos;
-    @FXML
-    private Tab pendingEvaluations;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -123,16 +110,6 @@ public class EvaluationModuleController implements Initializable {
         }
     }
 
-    @FXML
-    private void tabPendingEvaluations(Event event) {
-        try {
-
-            FXMLLoader loader = App.getFXMLLoader("PendingEvaluations");
-            pendingEvaluations.setContent(loader.load());
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
 
     @FXML
     private void searchByRoleAction(ActionEvent event) {

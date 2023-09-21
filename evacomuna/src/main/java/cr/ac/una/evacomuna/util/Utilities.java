@@ -60,6 +60,9 @@ public class Utilities {
             if (t instanceof PositionDto) {
                 return ((PositionDto) t).getName();
             }
+            if (t instanceof EvaluationDto) {
+                return ((EvaluationDto) t).getName();
+            }
             return "";
         }).collect(Collectors.toList()).stream().forEach(t -> stringList.add(t));
         return stringList;
@@ -169,5 +172,4 @@ public class Utilities {
         }
     }
 
-   
 }
