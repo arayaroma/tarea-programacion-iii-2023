@@ -12,7 +12,6 @@ import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
@@ -76,6 +75,11 @@ public class SkillModuleController implements Initializable {
             initializeLists();
             initializeSkillMainView();
             cbSkillsView.setOnKeyReleased(t -> searchSkillInput(t));
+            txfCharacteristic.setOnKeyReleased(t -> {
+                if (t.getCode() == KeyCode.ENTER) {
+                    btnAddCharacteristicToSkill(null);
+                }
+            });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -216,6 +220,7 @@ public class SkillModuleController implements Initializable {
         cbStateSkillRegisterView.getItems().addAll("ACTIVE", "INACTIVE");
         if (skillBufferMainView != null && skillBufferMainView.getCharacteristics() != null) {
             txfSkillNameRegister.setText(skillBufferMainView.getName());
+            cbStateSkillRegisterView.setValue(skillBufferMainView.getState());
             skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
 
         }

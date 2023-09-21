@@ -1,8 +1,10 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.EvaluationDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
+import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.dto.EvaluationWrapper;
 import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.util.Message;
@@ -12,8 +14,12 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -44,6 +50,8 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private ComboBox<String> cbState;
     @FXML
+    private ComboBox<String> cbEvaluations;
+    @FXML
     private TextField txfSearchEvaluators;
     @FXML
     private ListView<UserDto> listEvaluators;
@@ -59,18 +67,29 @@ public class EvaluationModuleController implements Initializable {
     private Tab maintenanceView;
 
     private Evaluation evaluationService;
+    private EvaluationDto evaluationBuffer;
     private UserDto evaluatedBuffer;
     private UserDto evaluatorBuffer;
     private UserDto finalEvaluatedBuffer;
     private UserDto finalEvaluatorBuffer;
     private List<UserDto> users;
+    private ObservableList<EvaluationDto> evaluationDtos;
+    @FXML
+    private Tab pendingEvaluations;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        evaluationService = new Evaluation();
+        try {
+            evaluationService = new Evaluation();
+            //initilizeLists();
+            users = Utilities.loadUsers();
+            //initializeView();
+            initializeView();
+        } catch (Exception e) {
+
+            System.out.println(e.toString());
+        }
         initilizeLists();
-        users = Utilities.loadUsers();
-        initializeView();
 
     }
 
@@ -105,6 +124,17 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
+    private void tabPendingEvaluations(Event event) {
+        try {
+
+            FXMLLoader loader = App.getFXMLLoader("PendingEvaluations");
+            pendingEvaluations.setContent(loader.load());
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    @FXML
     private void searchByRoleAction(ActionEvent event) {
     }
 
@@ -129,12 +159,53 @@ public class EvaluationModuleController implements Initializable {
     private void searchByIdentification(KeyEvent event) {
     }
 
+    @FXML
+    private void selectEvaluation(ActionEvent event) {
+        String name = cbEvaluations.getValue();
+        if (name != null) {
+            evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
+            if (evaluationBuffer != null) {
+                loadFields(evaluationBuffer);
+            }
+        }
+    }
+
+    @FXML
+    private void searchEvaluationInput(KeyEvent event) {
+        if (event.getCode().isLetterKey()) {
+            String nameToSearch = cbEvaluations.getEditor().getText();
+            if (nameToSearch != null) {
+                cbEvaluations.getItems().clear();
+                if (nameToSearch.length() > 2) {
+                    cbEvaluations.getItems().addAll(evaluationDtos.stream().filter(t -> t.getName().contains(nameToSearch)).map(t -> t.getName()).collect(Collectors.toList()));
+                    return;
+                }
+                cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
+                cbEvaluations.show();
+            }
+        }
+    }
+
     public void initializeView() {
         cbState.getItems().addAll("UNDER CONSTRUCTION", " IN APPLICATION", "UNDER REVIEW", "COMPLETED");
+        evaluationDtos = Utilities.loadEvaluations();
+        cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
         if (users != null) {
             listEvaluated.getItems().addAll(users);
             listEvaluators.getItems().addAll(users);
+
         }
+    }
+
+    public void loadFields(EvaluationDto evaluationDto) {
+        txfNameEvaluation.setText(evaluationDto.getName());
+        dpAplicationDate.setValue(LocalDate.parse((evaluationDto.getApplicationDate())));
+        dpEndDate.setValue(LocalDate.parse((evaluationDto.getFinalPeriod())));
+        dpStartDate.setValue(LocalDate.parse((evaluationDto.getInitialPeriod())));
+        listEvaluated.getItems().clear();
+        evaluationDto.getEvaluated().forEach(t -> listEvaluated.getItems().add(t.getEvaluated()));
+        evaluationDto.getEvaluated().forEach(t -> t.getEvaluators().forEach(s -> listEvaluators.getItems().add(s.getEvaluator())));
+
     }
 
     public void initilizeLists() {

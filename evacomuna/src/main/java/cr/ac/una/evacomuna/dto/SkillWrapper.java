@@ -1,16 +1,17 @@
 package cr.ac.una.evacomuna.dto;
 
 import cr.ac.una.controller.SkillDto;
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author estebannajera
  */
-public class SkillWrapper {
+public class SkillWrapper extends Pane{
 
     private String name;
     private String state;
-    private Long id;
+    private Long ID;
 
     public SkillWrapper() {
     }
@@ -18,20 +19,24 @@ public class SkillWrapper {
     public SkillWrapper(String name, String state, Long id) {
         this.name = name;
         this.state = state;
-        this.id = id;
+        this.ID = id;
+    }
+    public SkillWrapper(String name) {
+        this.name = name;
     }
 
     public SkillDto getDto() {
         SkillDto dto = new SkillDto();
         dto.setName(this.name);
         dto.setState(this.state);
-        dto.setId(this.id);
+        dto.setId(this.ID);
         return dto;
     }
 
-    public Long getId() {
-        return id;
+    public Long getID() {
+        return ID;
     }
+
 
     public String getState() {
         return state;

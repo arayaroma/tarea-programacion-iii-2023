@@ -121,6 +121,7 @@ public class CompanyModuleController implements Initializable {
 
     private void initializeView() {
         if (companyBuffer != null) {
+           // Utilities.createAndOpenFile(companyBuffer.getHtmltemplate(), ".html");
             txfCompanyName.setText(companyBuffer.getName());
             txfEmail.setText(companyBuffer.getEmail());
             imgPhoto.setImage(new Image(Utilities.byteToImage(companyBuffer.getPhoto())));

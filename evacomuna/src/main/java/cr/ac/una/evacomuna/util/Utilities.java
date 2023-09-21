@@ -1,6 +1,7 @@
 package cr.ac.una.evacomuna.util;
 
 import cr.ac.una.controller.CharacteristicDto;
+import cr.ac.una.controller.EvaluationDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
@@ -15,11 +16,15 @@ import javafx.stage.Stage;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
+import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.compress.utils.IOUtils;
@@ -34,6 +39,7 @@ public class Utilities {
     static Skill skillService = new Skill();
     static Position roleService = new Position();
     static User userService = new User();
+    static Evaluation evaluationService = new Evaluation();
     static Characteristic characteristicService = new Characteristic();
 
     public static File selectFile(String nameFilter, String... filters) {
@@ -71,6 +77,20 @@ public class Utilities {
             }
         }
         return skillsDto;
+    }
+
+    public static ObservableList<EvaluationDto> loadEvaluations() {
+        ObservableList<EvaluationDto> evaluationDtos = FXCollections.observableArrayList();
+        ResponseWrapper response = evaluationService.getEvaluations();
+        if (response.getCode() == ResponseCode.OK) {
+            ListWrapper wrapper = (ListWrapper) response.getData();
+            for (Object i : wrapper.getElement()) {
+                if (i instanceof EvaluationDto) {
+                    evaluationDtos.add((EvaluationDto) i);
+                }
+            }
+        }
+        return evaluationDtos;
     }
 
     public static List<UserDto> loadUsers() {
@@ -148,4 +168,6 @@ public class Utilities {
             System.out.println(e.toString());
         }
     }
+
+   
 }

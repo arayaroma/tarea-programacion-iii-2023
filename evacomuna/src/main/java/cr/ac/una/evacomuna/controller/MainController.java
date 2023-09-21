@@ -1,7 +1,10 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.ResponseCode;
+import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Animations;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
@@ -52,6 +55,7 @@ public class MainController implements Initializable {
     private StackPane parent;
 
     private UserDto userLogged;
+    private User userService;
 
     /**
      * Initializes the controller class.
@@ -61,19 +65,24 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        App.setMainController(this);
-        userLogged = Data.getUserLogged();
+        try {
+            App.setMainController(this);
+            userService = new User();
+            userLogged = Data.getUserLogged();
 
-        //Cut over the photo to make a circula effect
-        imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
-        imgProfilePhoto.setImage(new Image(Utilities.byteToImage(userLogged.getProfilePhoto())));
-        if (userLogged.getPasswordChanged().equals("Y")) {
-            changePasswordView.setVisible(true);
-            menuPane.setDisable(true);
-            return;
+            //Cut over the photo to make a circula effect
+            imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
+            imgProfilePhoto.setImage(new Image(Utilities.byteToImage(userLogged.getProfilePhoto())));
+            if (userLogged.getPasswordChanged().equals("Y")) {
+                changePasswordView.setVisible(true);
+                menuPane.setDisable(true);
+                return;
+            }
+            changePasswordView.setVisible(false);
+            menuPane.setDisable(false);
+        } catch (Exception e) {
+            System.out.println("Error while loading MainController: " + e.toString());
         }
-        changePasswordView.setVisible(false);
-        menuPane.setDisable(false);
     }
 
     @FXML
@@ -95,6 +104,7 @@ public class MainController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("EvaluationModule");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
+            System.out.println(e.toString());
         }
 
     }
@@ -150,11 +160,22 @@ public class MainController implements Initializable {
 
     @FXML
     private void submitChangesNewPassword(ActionEvent event) {
-        Message.showNotification("Succeed", MessageType.INFO, "Your password have been changed succesfully");
-        //send request here
-        changePasswordView.setVisible(false);
-        menuPane.setDisable(false);
-        Data.setPasswordChanged(false);
+        String password = txfNewPassword.getText(), confirmPassword = txfPasswordConfirm.getText();
+        if (password.isBlank() || !password.equals(confirmPassword)) {
+            Message.showNotification("Warning", MessageType.INFO, "You must to write a same password");
+            return;
+        }
+        ResponseWrapper response = userService.changePassword(userLogged.getId(), userLogged.getPassword(), password);
+        if (response.getCode() == ResponseCode.OK) {
+            Message.showNotification("Succeed", MessageType.INFO, "Your password have been changed succesfully");
+            //send request here
+            changePasswordView.setVisible(false);
+            menuPane.setDisable(false);
+            Data.setPasswordChanged(false);
+            return;
+        }
+        Message.showNotification("Internal Error", MessageType.ERROR, response.getMessage());
+
     }
 
     @FXML

@@ -111,15 +111,13 @@ public class RegisterWorkerController implements Initializable {
     private void registerUser(ActionEvent event) {
         try {
             ResponseWrapper response;
-
-            Image image = imgPhoto.getImage();
             String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(),
                     ced = txfCedRegister.getText(), name = txfNameRegister.getText(),
                     lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(),
                     phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(),
                     role = cbRoleRegister.getValue(), landLineNumber = txfLandLineNumberRegister.getText();
             if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank()
-                    || secondLastName.isBlank() || phoneNumber.isBlank() || landLineNumber.isBlank() || email.isBlank() || role == null || image == null) {
+                    || secondLastName.isBlank() || phoneNumber.isBlank() || landLineNumber.isBlank() || email.isBlank() || role == null || bufferFileImage == null) {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
             }

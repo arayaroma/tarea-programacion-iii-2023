@@ -67,7 +67,6 @@ public class LoginController implements Initializable {
     private void logIn(ActionEvent event) {
         try {
             String user = txfUser.getText(), password = txfPassword.getText();
-            //User verification here
             if (user.isBlank() || password.isBlank()) {
                 Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
                 return;
@@ -75,6 +74,10 @@ public class LoginController implements Initializable {
             ResponseWrapper responseWrapper = userService.getByUserAndPassword(user, password);
             if (responseWrapper.getCode() == ResponseCode.OK) {
                 UserDto userDto = (UserDto) responseWrapper.getData();
+                if (userDto.getIsActive().equals("N")) {
+                    Message.showNotification("Uh Oh", MessageType.INFO, "Your user is not already active, please verify your email");
+                    return;
+                }
                 Data.setUserLogged(userDto);
                 App.setRoot("Main");
             } else {
@@ -115,7 +118,8 @@ public class LoginController implements Initializable {
         }
         //send request new password here
         Data.setPasswordChanged(true);
-//        userService.recoverPassword(Long.MIN_VALUE)
+
+        ResponseWrapper response = userService.recoverPassword(email);
         Message.showNotification("Info", MessageType.INFO, "Request sent");
         loginView.toFront();
 

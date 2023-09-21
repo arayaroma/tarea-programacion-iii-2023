@@ -22,6 +22,9 @@ public class Evaluation {
     public ResponseWrapper getEvaluations() {
         return port.getAllEvaluation();
     }
+        public ResponseWrapper getEvaluationByName(String name) {
+            return port.getEvaluationByName(name);
+    }
 
     public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
         return port.createEvaluation(evaluationDto);
