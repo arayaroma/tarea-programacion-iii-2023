@@ -1,17 +1,6 @@
 package cr.ac.una.entities;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +20,9 @@ import cr.ac.una.dto.EvaluatedDto;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+        @NamedQueries({
+        @NamedQuery(name = "Evaluated.findAll", query = "SELECT e FROM Evaluated e"),
+        })
 public class Evaluated implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -82,4 +74,6 @@ public class Evaluated implements Serializable {
         this.finalNote = evaluatedDto.getFinalNote();
         this.version = evaluatedDto.getVersion();
     }
+
+
 }
