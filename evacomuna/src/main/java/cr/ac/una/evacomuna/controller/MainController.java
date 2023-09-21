@@ -7,6 +7,7 @@ import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Animations;
 import cr.ac.una.evacomuna.util.Data;
+import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -70,9 +71,10 @@ public class MainController implements Initializable {
             userService = new User();
             userLogged = Data.getUserLogged();
 
-            //Cut over the photo to make a circula effect
-            imgProfilePhoto.setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
-            imgProfilePhoto.setImage(new Image(Utilities.byteToImage(userLogged.getProfilePhoto())));
+            // Cut over the photo to make a circula effect
+            imgProfilePhoto
+                    .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
+            imgProfilePhoto.setImage(ImageLoader.setImage(userLogged.getProfilePhoto()));
             if (userLogged.getPasswordChanged().equals("Y")) {
                 changePasswordView.setVisible(true);
                 menuPane.setDisable(true);
@@ -168,7 +170,7 @@ public class MainController implements Initializable {
         ResponseWrapper response = userService.changePassword(userLogged.getId(), userLogged.getPassword(), password);
         if (response.getCode() == ResponseCode.OK) {
             Message.showNotification("Succeed", MessageType.INFO, "Your password have been changed succesfully");
-            //send request here
+            // send request here
             changePasswordView.setVisible(false);
             menuPane.setDisable(false);
             Data.setPasswordChanged(false);

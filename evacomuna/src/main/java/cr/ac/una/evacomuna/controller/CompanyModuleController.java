@@ -4,6 +4,7 @@ import cr.ac.una.controller.GeneralInformationDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.evacomuna.services.Company;
+import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -61,7 +62,7 @@ public class CompanyModuleController implements Initializable {
 
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
-        File selectedFile = Utilities.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
+        File selectedFile = ImageLoader.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
         if (selectedFile != null) {
             imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
             fileBuffer = selectedFile;
@@ -70,9 +71,10 @@ public class CompanyModuleController implements Initializable {
 
     @FXML
     private void saveChanges(ActionEvent event) {
-        String email = txfEmail.getText(), name = txfCompanyName.getText(), description = txaDescription.getText(), phoneNumber = txfPhoneNumber.getText();
+        String email = txfEmail.getText(), name = txfCompanyName.getText(), description = txaDescription.getText(),
+                phoneNumber = txfPhoneNumber.getText();
 
-        String html = htmlBuffer != null ? Utilities.FileToString(htmlBuffer) : "";
+        String html = htmlBuffer != null ? Utilities.fileToString(htmlBuffer) : "";
 
         if (email.isBlank() || name.isBlank() || phoneNumber.isBlank() || description.isBlank()) {
             Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
@@ -94,14 +96,16 @@ public class CompanyModuleController implements Initializable {
                 generalInformationDto.setHtmltemplate(html);
             }
             if (fileBuffer != null) {
-                generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
+                generalInformationDto.setPhoto(ImageLoader.imageToByteArray(fileBuffer));
             }
         } else {
             generalInformationDto.setHtmltemplate(html);
-            generalInformationDto.setPhoto(Utilities.imageToByte(fileBuffer));
+            generalInformationDto.setPhoto(ImageLoader.imageToByteArray(fileBuffer));
         }
         generalInformationDto.setEmail(email);
-        ResponseWrapper response = companyBuffer == null ? companyService.createGeneralInformation(generalInformationDto) : companyService.updateGeneralInformation(generalInformationDto);
+        ResponseWrapper response = companyBuffer == null
+                ? companyService.createGeneralInformation(generalInformationDto)
+                : companyService.updateGeneralInformation(generalInformationDto);
         if (response.getCode() == ResponseCode.OK) {
             Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
             return;
@@ -121,14 +125,14 @@ public class CompanyModuleController implements Initializable {
 
     private void initializeView() {
         if (companyBuffer != null) {
-           // Utilities.createAndOpenFile(companyBuffer.getHtmltemplate(), ".html");
+            // Utilities.createAndOpenFile(companyBuffer.getHtmltemplate(), ".html");
             txfCompanyName.setText(companyBuffer.getName());
             txfEmail.setText(companyBuffer.getEmail());
-            imgPhoto.setImage(new Image(Utilities.byteToImage(companyBuffer.getPhoto())));
+            imgPhoto.setImage(ImageLoader.setImage(companyBuffer.getPhoto()));
             lblURLTemplate.setText("Template Loaded");
-//            lblURLTemplate.setText(value);
-//            txfPhoneNumber.setText(companyBuffer.get);
-//            txaDescription.setText(companyBuffer.get);
+            // lblURLTemplate.setText(value);
+            // txfPhoneNumber.setText(companyBuffer.get);
+            // txaDescription.setText(companyBuffer.get);
         }
     }
 

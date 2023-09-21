@@ -16,15 +16,12 @@ import javafx.stage.Stage;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
-import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.compress.utils.IOUtils;
@@ -41,12 +38,6 @@ public class Utilities {
     static User userService = new User();
     static Evaluation evaluationService = new Evaluation();
     static Characteristic characteristicService = new Characteristic();
-
-    public static File selectFile(String nameFilter, String... filters) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(nameFilter, filters));
-        return fileChooser.showOpenDialog(new Stage());
-    }
 
     public static ObservableList<String> mapListToObsevableString(ObservableList<?> list) {
         ObservableList<String> stringList = FXCollections.observableArrayList();
@@ -139,26 +130,6 @@ public class Utilities {
         return characteristicDtosView;
     }
 
-    public static byte[] imageToByte(File file) {
-        try {
-            return IOUtils.toByteArray(new FileInputStream(file));
-        } catch (Exception ex) {
-            return null;
-        }
-    }
-
-    public static ByteArrayInputStream byteToImage(byte[] image) {
-        return new ByteArrayInputStream(image);
-    }
-
-    public static String FileToString(File file) {
-        try {
-            return FileUtils.readFileToString(file, "UTF-8");
-        } catch (IOException ex) {
-            return null;
-        }
-    }
-
     public static void openPath(String ruta) {
         try {
             File file;
@@ -172,4 +143,22 @@ public class Utilities {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public static String fileToString(File file) {
+        try {
+            return FileUtils.readFileToString(file, "UTF-8");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
+    public static File selectFile(String nameFilter, String... filters) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(nameFilter, filters));
+        return fileChooser.showOpenDialog(new Stage());
+    }
+
+>>>>>>> 99396b9 ([REFACTOR] Modularizing code, ImageLoader, FileLoader, Utilities)
 }
