@@ -1,9 +1,21 @@
 package cr.ac.una.services;
 
 import cr.ac.una.dto.EvaluationDto;
+import cr.ac.una.entities.Evaluation;
+import cr.ac.una.util.EntityUtil;
+import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import cr.ac.una.util.ListWrapper;
+import jakarta.persistence.Query;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 /**
  * 
@@ -12,41 +24,179 @@ import jakarta.ejb.Stateless;
 @Stateless
 @LocalBean
 public class EvaluationServiceImpl implements EvaluationService{
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
+    private EntityManager em;
 
     @Override
     public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createEvaluation'");
+        try{
+            Evaluation evaluation = new Evaluation(evaluationDto);
+            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluation,Evaluation.class);
+            if(CONSTRAINT_VIOLATION!=null){
+                return CONSTRAINT_VIOLATION;
+            }
+            em.persist(evaluation);
+            em.flush();
+            EvaluationDto createdDto = new EvaluationDto(evaluation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation created successfully.",
+                    createdDto);
+        }catch (Exception e){
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating evaluation:" + e.getMessage(),
+                    null
+            );
+        }
+
     }
 
     @Override
     public ResponseWrapper updateEvaluation(EvaluationDto evaluationDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateEvaluation'");
+        try{
+            Evaluation evaluation = em.find(Evaluation.class,evaluationDto.getId());
+            if(evaluation==null){
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Evaluation not found.",
+                        null
+                );
+            }
+            evaluation.updateEvaluation(evaluationDto);
+            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluation,Evaluation.class);
+            if(CONSTRAINT_VIOLATION!=null){
+                return CONSTRAINT_VIOLATION;
+            }
+            em.merge(evaluation);
+            EvaluationDto updatedDto = new EvaluationDto(evaluation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation updated successfully.",
+                    updatedDto);
+        }catch (Exception e){
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error updating evaluation:" + e.getMessage(),
+                    null
+            );
+        }
     }
 
     @Override
     public ResponseWrapper getEvaluationById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEvaluationById'");
+        try{
+            Evaluation evaluation = em.find(Evaluation.class,id);
+            if(evaluation==null){
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Evaluation not found.",
+                        null
+                );
+            }
+            EvaluationDto evaluationDto = new EvaluationDto(evaluation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation retrieved successfully.",
+                    evaluationDto);
+        }catch (Exception e){
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error retrieving evaluation:" + e.getMessage(),
+                    null
+            );
+        }
     }
 
     @Override
     public ResponseWrapper getEvaluationByName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEvaluationByName'");
+        try{
+            Evaluation evaluation = em.createNamedQuery("Evaluation.findByName",Evaluation.class)
+                    .setParameter("name",name)
+                    .getSingleResult();
+            if(evaluation==null){
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Evaluation not found.",
+                        null
+                );
+            }
+            EvaluationDto evaluationDto = new EvaluationDto(evaluation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation retrieved successfully.",
+                    evaluationDto);
+        }catch (Exception e){
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error retrieving evaluation:" + e.getMessage(),
+                    null
+            );
+        }
     }
 
     @Override
     public ResponseWrapper getAllEvaluation() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllEvaluation'");
+        try{
+            Query query = em.createNamedQuery("Evaluation.findAll",Evaluation.class);
+            List<Evaluation> evaluationList = query.getResultList();
+            ListWrapper<EvaluationDto> evaluationDtoList = new ListWrapper<>();
+            evaluationDtoList.setList(new ArrayList<>());
+            for(Evaluation evaluation:evaluationList){
+                evaluationDtoList.getList().add(new EvaluationDto(evaluation));
+            }
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluations retrieved successfully.",
+                    evaluationDtoList);
+        }catch (Exception e){
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error retrieving evaluations:" + e.getMessage(),
+                    null
+            );
+        }
     }
 
     @Override
     public ResponseWrapper deleteEvaluationById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteEvaluationById'");
+        try{
+            Evaluation evaluation = em.find(Evaluation.class,id);
+            if(evaluation==null){
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "Evaluation not found.",
+                        null
+                );
+            }
+            em.remove(evaluation);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation deleted successfully.",
+                    null);
+        }catch (Exception e){
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error deleting evaluation:" + e.getMessage(),
+                    null
+            );
+        }
     }
     
 }
