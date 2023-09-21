@@ -2,18 +2,10 @@ package cr.ac.una.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +23,10 @@ import cr.ac.una.dto.EvaluationDto;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+    @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
+    @NamedQuery(name = "Evaluation.findByName", query = "SELECT e FROM Evaluation e WHERE UPPER(e.name) = UPPER(:name)")
+})
 public class Evaluation implements Serializable {
 
     private static final long serialVersionUID = 1L;
