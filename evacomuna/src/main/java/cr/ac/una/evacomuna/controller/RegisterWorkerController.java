@@ -8,6 +8,7 @@ import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
 import cr.ac.una.evacomuna.util.Data;
+import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -22,7 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -74,7 +74,6 @@ public class RegisterWorkerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         App.setRegisterWorkerController(this);
         userService = new User();
         roleService = new Position();
@@ -88,15 +87,28 @@ public class RegisterWorkerController implements Initializable {
         }
     }
 
+    /**
+     * Modularizing the app.
+     * Changed the method to use the ImageLoader class
+     * instead of the Utilities class.
+     * 
+     * @param event when the user clicks on the image
+     */
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
-        File selectedFile = Utilities.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
+        File selectedFile = ImageLoader.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
         if (selectedFile != null) {
-            imgPhoto.setImage(new Image(selectedFile.toURI().toString()));
+            imgPhoto.setImage(ImageLoader.setImage(selectedFile));
             bufferFileImage = selectedFile;
         }
     }
 
+    /**
+     * Must be a enum with the fxml files names
+     * 
+     * @param event when the user clicks on the back button
+     * @throws IOException can't load the fxml file
+     */
     @FXML
     private void backToLogin(MouseEvent event) throws IOException {
         if (isFromLogin) {
@@ -107,6 +119,32 @@ public class RegisterWorkerController implements Initializable {
         App.getWorkersModuleController().loadWorkers(Utilities.loadUsers());
     }
 
+    /**
+     * Not validating if the bufferFileImage is null,
+     * because the user can register without a profile photo
+     * and the default photo will be setted, then the user can
+     * change the photo later.
+     * 
+     * @return
+     */
+    private Boolean areFieldsEmpty() {
+        return txfUserRegister.getText().isBlank() || txfPasswordRegister.getText().isBlank()
+                || txfCedRegister.getText().isBlank() || txfNameRegister.getText().isBlank()
+                || txfLastNameRegister.getText().isBlank() || txfSecondLastNameRegister.getText().isBlank()
+                || txfPhoneNumberRegister.getText().isBlank() || txfLandLineNumberRegister.getText().isBlank()
+                || txfEmailRegister.getText().isBlank() || cbRoleRegister.getValue() == null;
+    }
+
+    /**
+     * FIXME: It's not updating the profilePhoto when the user changes it
+     * it has to logout, and then login to see the change, and in the backend
+     * it sets the ISACTIVE to N, and the user can't login again.
+     * 
+     * Changed the method to use the ImageLoader class
+     * instead of the Utilities class.
+     * 
+     * @param event when the user clicks on the register button
+     */
     @FXML
     private void registerUser(ActionEvent event) {
         try {
@@ -116,14 +154,22 @@ public class RegisterWorkerController implements Initializable {
                     lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(),
                     phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(),
                     role = cbRoleRegister.getValue(), landLineNumber = txfLandLineNumberRegister.getText();
-            if (userName.isBlank() || password.isBlank() || ced.isBlank() || name.isBlank() || lastName.isBlank()
-                    || secondLastName.isBlank() || phoneNumber.isBlank() || landLineNumber.isBlank() || email.isBlank() || role == null || bufferFileImage == null) {
+            if (areFieldsEmpty()) {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
             }
-            UserDto userDto = createUser(userName, password, name, lastName, secondLastName, ced,
-                    email, phoneNumber, landLineNumber, role);
-            userDto.setProfilePhoto(Utilities.imageToByte(bufferFileImage));
+            UserDto userDto = createUser(
+                    ImageLoader.imageToByteArray(bufferFileImage),
+                    userName,
+                    password,
+                    name,
+                    lastName,
+                    secondLastName,
+                    ced,
+                    email,
+                    phoneNumber,
+                    landLineNumber,
+                    role);
             if (userModified == null) {
                 response = userService.createUser(userDto);
             } else {
@@ -131,13 +177,14 @@ public class RegisterWorkerController implements Initializable {
                 userDto.setIsAdmin(userModified.getIsAdmin());
                 userDto.setVersion(userModified.getVersion());
                 response = userService.updateUser(userDto);
+                UserDto user = (UserDto) response.getData();
+                imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
             }
             if (response.getCode() == ResponseCode.OK) {
                 Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
                 backToLogin(null);
             } else {
                 Message.showNotification(response.getCode().name(), MessageType.ERROR, response.getMessage());
-
             }
             System.out.println(response.getMessage());
         } catch (IOException e) {
@@ -145,8 +192,20 @@ public class RegisterWorkerController implements Initializable {
         }
     }
 
-    public UserDto createUser(String... args) {
+    /**
+     * Added the profile photo to the userDto
+     * 
+     * @param profilePhoto the profile photo of the user
+     * @param args         the user data
+     * @return the new object UserDto with the loaded data
+     */
+    private UserDto createUser(byte[] profilePhoto, String... args) {
         UserDto user = new UserDto();
+        if (profilePhoto == null) {
+            profilePhoto = ImageLoader
+                    .imageToByteArray(new File("src/main/resources/cr/ac/una/evacomuna/img/default_profile_photo.png"));
+        }
+        user.setProfilePhoto(profilePhoto);
         user.setUsername(args[0]);
         user.setPassword(args[1]);
         user.setName(args[2]);
@@ -163,10 +222,15 @@ public class RegisterWorkerController implements Initializable {
         return user;
     }
 
+    /**
+     * 
+     * @param isFromLogin if the user is from the login view
+     * @param user        the user to show in the view
+     */
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
         cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadRoles()));
-        imgPhoto.setImage(new Image(Utilities.byteToImage(user.getProfilePhoto())));
+        imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
         if (user != null) {
             userModified = user;
             txfUserRegister.setText(user.getUsername());
