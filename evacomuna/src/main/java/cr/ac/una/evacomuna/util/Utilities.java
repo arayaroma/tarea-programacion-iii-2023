@@ -19,12 +19,9 @@ import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -143,8 +140,6 @@ public class Utilities {
         }
     }
 
-<<<<<<< HEAD
-=======
     public static String fileToString(File file) {
         try {
             return FileUtils.readFileToString(file, "UTF-8");
@@ -160,5 +155,4 @@ public class Utilities {
         return fileChooser.showOpenDialog(new Stage());
     }
 
->>>>>>> 99396b9 ([REFACTOR] Modularizing code, ImageLoader, FileLoader, Utilities)
 }

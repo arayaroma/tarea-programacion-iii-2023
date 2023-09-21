@@ -14,17 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
@@ -43,8 +40,8 @@ public class PendingEvaluationsController implements Initializable {
     private Label lblRoleEvaluated;
     @FXML
     private GridPane gridEvaluation;
-//    @FXML
-//    private ImageView imgCheck;
+    // @FXML
+    // private ImageView imgCheck;
     @FXML
     private TextArea txaFeedBack;
 
@@ -76,7 +73,8 @@ public class PendingEvaluationsController implements Initializable {
         if (name != null) {
             PositionDto roleDto = (PositionDto) roleService.getRoleByName(name).getData();
             if (roleDto != null) {
-                skills = roleDto.getSkills().stream().map(t -> new SkillWrapper(t.getName())).collect(Collectors.toList());
+                skills = roleDto.getSkills().stream().map(t -> new SkillWrapper(t.getName()))
+                        .collect(Collectors.toList());
                 loadSkillsInGrid();
             }
         }
@@ -93,7 +91,8 @@ public class PendingEvaluationsController implements Initializable {
         check.setFitHeight(30);
         check.setFitWidth(30);
         check.getStyleClass().add("check");
-        gridEvaluation.addRow(0, check, createHeader("Excepcional"), createHeader("Por encima de las expectativas"), createHeader("Cumple las expectativas"), createHeader("Por debajo de las expectativas"));
+        gridEvaluation.addRow(0, check, createHeader("Excepcional"), createHeader("Por encima de las expectativas"),
+                createHeader("Cumple las expectativas"), createHeader("Por debajo de las expectativas"));
         ColumnConstraints constraints = new ColumnConstraints();
         constraints.setHalignment(HPos.CENTER);
         gridEvaluation.getColumnConstraints().add(constraints);
@@ -120,17 +119,17 @@ public class PendingEvaluationsController implements Initializable {
     }
 
     private void fillGrid() {
-//        int column = gridEvaluation.getColumnCount();
-//        int row = gridEvaluation.getRowCount();
-//        Pane pane;
-//        for (int i = 1; i < column; i++) {
-//            for (int j = 1; j < row; j++) {
-//                pane = new Pane();
-//                evaluation.add(pane);
-//                pane.getStyleClass().add("pane-content");
-//                gridEvaluation.add(pane, i, j);
-//            }
-//        }
+        // int column = gridEvaluation.getColumnCount();
+        // int row = gridEvaluation.getRowCount();
+        // Pane pane;
+        // for (int i = 1; i < column; i++) {
+        // for (int j = 1; j < row; j++) {
+        // pane = new Pane();
+        // evaluation.add(pane);
+        // pane.getStyleClass().add("pane-content");
+        // gridEvaluation.add(pane, i, j);
+        // }
+        // }
     }
 
     private void cleanGrid() {
