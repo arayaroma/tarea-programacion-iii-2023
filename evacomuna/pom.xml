@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cr.ac.una</groupId>
     <artifactId>evacomuna</artifactId>
@@ -48,24 +48,24 @@
             <artifactId>jaxws-rt</artifactId>
             <version>4.0.1</version>
         </dependency>
-        <!--AnimateFX Library-->
+        <!-- AnimateFX -->
         <dependency>
             <groupId>io.github.typhon0</groupId>
             <artifactId>AnimateFX</artifactId>
             <version>1.2.4</version>
-        </dependency>  
-        <!--        Serialize Byte-Image and Reverse-->
+        </dependency>
+        <!-- Serialize Byte-Image and Reverse -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
             <version>1.20</version>
             <type>jar</type>
         </dependency>
-        <!--        Parse HTML to String-->
+        <!-- Parse HTML to String -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version> <!-- Utiliza la versión más reciente -->
+            <version>2.11.0</version>
         </dependency>
     </dependencies>
     <build>
@@ -85,7 +85,8 @@
                                     <wsdl>http://localhost:8080/evacomunaws/UserController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/CharacteristicController?wsdl</wsdl>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/CharacteristicController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>http://localhost:8080/evacomunaws/SkillController?wsdl</wsdl>
@@ -94,7 +95,8 @@
                                     <wsdl>http://localhost:8080/evacomunaws/PositionController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/EvaluationController?wsdl</wsdl>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/EvaluationController?wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
