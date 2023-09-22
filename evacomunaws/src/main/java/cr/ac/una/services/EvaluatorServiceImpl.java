@@ -13,7 +13,7 @@ import jakarta.persistence.PersistenceContext;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Stateless
@@ -25,18 +25,18 @@ public class EvaluatorServiceImpl implements EvaluatorService {
 
     @Override
     public ResponseWrapper createEvaluator(EvaluatorDto evaluatorDto) {
-        try{
-            Evaluator evaluator = new Evaluator(evaluatorDto);
-            evaluator.setEvaluator(em.find(cr.ac.una.entities.User.class,evaluatorDto.getId()));
-            evaluator.setEvaluated(em.find(cr.ac.una.entities.Evaluated.class,evaluatorDto.getId()));
-            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator,Evaluator.class);
-            if(CONSTRAINT_VIOLATION != null)return CONSTRAINT_VIOLATION;
+        try {
+            Evaluator evaluator = evaluatorDto.convertFromDTOToEntity(evaluatorDto, new Evaluator(evaluatorDto));
+
+            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator, Evaluator.class);
+            if (CONSTRAINT_VIOLATION != null) {
+                return CONSTRAINT_VIOLATION;
+            }
             em.persist(evaluator);
             em.flush();
-            EvaluatorDto newEvaluatorDto = new EvaluatorDto(evaluator);
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK,"Evaluator successfully created" ,newEvaluatorDto);
-        }catch (Exception e){
-            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,"Error creating evaluator",e.getMessage());
+            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully created",  evaluatorDto.convertFromEntityToDTO(evaluator, new EvaluatorDto(evaluator)));
+        } catch (Exception e) {
+            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR, "Error creating evaluator: " + e.getMessage(), null);
         }
     }
 
@@ -47,16 +47,18 @@ public class EvaluatorServiceImpl implements EvaluatorService {
             if (evaluator == null) {
                 return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(), ResponseCode.NOT_FOUND, "The evaluator to be updated does not exist", null);
             }
-            evaluator.setEvaluator(em.find(cr.ac.una.entities.User.class,evaluatorDto.getId()));
-            evaluator.setEvaluated(em.find(cr.ac.una.entities.Evaluated.class,evaluatorDto.getId()));
-            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator,Evaluator.class);
-            if(CONSTRAINT_VIOLATION != null)return CONSTRAINT_VIOLATION;
+            evaluator.setEvaluator(em.find(cr.ac.una.entities.User.class, evaluatorDto.getId()));
+            evaluator.setEvaluated(em.find(cr.ac.una.entities.Evaluated.class, evaluatorDto.getId()));
+            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator, Evaluator.class);
+            if (CONSTRAINT_VIOLATION != null) {
+                return CONSTRAINT_VIOLATION;
+            }
             em.merge(evaluator);
             em.flush();
             EvaluatorDto newEvaluatorDto = new EvaluatorDto(evaluator);
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK,"Evaluator successfully updated" ,newEvaluatorDto);
-        }catch (Exception e){
-            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,"Error updating evaluator",e.getMessage());
+            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully updated", newEvaluatorDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR, "Error updating evaluator", e.getMessage());
         }
     }
 
@@ -68,9 +70,9 @@ public class EvaluatorServiceImpl implements EvaluatorService {
                 return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(), ResponseCode.NOT_FOUND, "The evaluator to be updated does not exist", null);
             }
             EvaluatorDto evaluatorDto = new EvaluatorDto(evaluator);
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK,"Evaluator successfully retrieved" ,evaluatorDto);
-        }catch (Exception e){
-            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,"Error retrieving evaluator",e.getMessage());
+            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully retrieved", evaluatorDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR, "Error retrieving evaluator", e.getMessage());
         }
     }
 

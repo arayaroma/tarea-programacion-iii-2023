@@ -92,6 +92,12 @@
                                     <wsdl>http://localhost:8080/evacomunaws/SkillController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
+                                    <wsdl>http://localhost:8080/evacomunaws/EvaluatedController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>http://localhost:8080/evacomunaws/EvaluatorController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
                                     <wsdl>http://localhost:8080/evacomunaws/PositionController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>

@@ -15,7 +15,7 @@ import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.EntityUtil;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Stateless
@@ -33,36 +33,19 @@ public class EvaluatedServiceImpl implements EvaluatedService {
     @Override
     public ResponseWrapper createEvaluated(EvaluatedDto evaluatedDto) {
         try {
-            Evaluated evaluated = new Evaluated(evaluatedDto);
-            evaluated.setEvaluated(em.find(cr.ac.una.entities.User.class, evaluatedDto.getId()));
-            // TODO: move to a proper method
-            if (evaluatedDto.getEvaluators() != null) {
-                evaluatedDto.getEvaluators().forEach(evaluatorDto -> {
-                    evaluated.getEvaluators().add(em.find(cr.ac.una.entities.Evaluator.class, evaluatorDto.getId()));
-                });
-            }
-            if (evaluatedDto.getFinalCalifications() != null) {
-                evaluatedDto.getFinalCalifications().forEach(finalCalificationDto -> {
-                    evaluated.getFinalCalifications()
-                            .add(em.find(cr.ac.una.entities.FinalCalification.class, finalCalificationDto.getId()));
-                });
-            }
-            if (evaluatedDto.getEvaluation() != null) {
-                evaluated.setEvaluation(
-                        em.find(cr.ac.una.entities.Evaluation.class, evaluatedDto.getEvaluation().getId()));
-            }
-
+            Evaluated evaluated = evaluatedDto.convertFromDTOToEntity(evaluatedDto, new Evaluated(evaluatedDto));
             ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluated, Evaluated.class);
-            if (CONSTRAINT_VIOLATION != null)
+            if (CONSTRAINT_VIOLATION != null) {
                 return CONSTRAINT_VIOLATION;
+            }
 
             em.persist(evaluated);
             em.flush();
-            EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
+
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated created successfully.",
-                    newEvaluatedDto);
+                    evaluatedDto.convertFromEntityToDTO(evaluated, new EvaluatedDto(evaluated)));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
@@ -83,8 +66,9 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
             evaluated.updateEvaluated(evaluatedDto);
             ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluated, Evaluated.class);
-            if (CONSTRAINT_VIOLATION != null)
+            if (CONSTRAINT_VIOLATION != null) {
                 return CONSTRAINT_VIOLATION;
+            }
             em.merge(evaluated);
             em.flush();
             EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);

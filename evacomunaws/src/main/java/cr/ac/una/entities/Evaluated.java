@@ -33,25 +33,25 @@ public class Evaluated implements Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "EVALUATEDID")
+    @ManyToOne
+    @JoinColumn(name = "EVALUATED")
     private User evaluated;
 
-    @NotNull
+//    @NotNull
     @Basic(optional = false)
     @Column(name = "FINALNOTE")
     private String finalNote;
 
-    @NotNull
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "EVALUATIONID")
+    //@NotNull
+    @ManyToOne
+    @JoinColumn(name = "EVALUATIONID", referencedColumnName = "ID")
     private Evaluation evaluation;
 
-    @NotNull
-    @OneToMany(mappedBy = "evaluated")
+//    @NotNull
+    @OneToMany(mappedBy = "evaluated", fetch = FetchType.LAZY)
     private List<Evaluator> evaluators;
 
-    @NotNull
+  //  @NotNull
     @OneToMany(mappedBy = "evaluated")
     private List<FinalCalification> finalCalifications;
 

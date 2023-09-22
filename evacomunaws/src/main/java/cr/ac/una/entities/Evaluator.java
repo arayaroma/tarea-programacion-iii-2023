@@ -15,19 +15,19 @@ import java.util.List;
 import cr.ac.una.dto.EvaluatorDto;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Entity
 @Table(name = "TBL_EVALUATOR", schema = SCHEMA)
-@SecondaryTable(name = "TBL_USER", schema = SCHEMA, pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID", referencedColumnName = "EVALUATORID"))
+//@SecondaryTable(name = "TBL_USER", schema = SCHEMA)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-@NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e"),
-})
+    @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e"),})
 public class Evaluator implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,10 +37,6 @@ public class Evaluator implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-    @NotNull
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "EVALUATORID")
-    private User evaluator;
 
     @NotNull
     @Basic(optional = false)
@@ -48,18 +44,20 @@ public class Evaluator implements Serializable {
     @Column(name = "ROLE")
     private String role;
 
-    @NotNull
+    //@NotNull
     @Basic(optional = false)
     @Size(min = 1, max = 100)
     @Column(name = "FEEDBACK")
     private String feedback;
 
-    @NotNull
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "EVALUATEDID")
+    @JoinColumn(name = "EVALUATEDID", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Evaluated evaluated;
+//    @JoinColumn(name = "EVALUATOR", referencedColumnName = "ID")
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private User evaluator;
 
-    @OneToMany(mappedBy = "evaluator")
+    @OneToMany(mappedBy = "EVALUATOR")
     private List<Calification> califications;
 
     @Version

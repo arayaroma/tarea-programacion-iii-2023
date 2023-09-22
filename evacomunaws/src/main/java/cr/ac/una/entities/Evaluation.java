@@ -61,7 +61,7 @@ public class Evaluation implements Serializable {
     @Column(name = "STATE")
     private String state;
 
-    @OneToMany(mappedBy = "evaluation")
+    @OneToMany(mappedBy = "evaluation", fetch = FetchType.LAZY)
     private List<Evaluated> evaluated;
 
     @Version

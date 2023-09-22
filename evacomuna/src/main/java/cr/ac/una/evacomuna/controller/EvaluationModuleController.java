@@ -1,11 +1,21 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.EvaluatedDto;
 import cr.ac.una.controller.EvaluationDto;
+import cr.ac.una.controller.EvaluatorDto;
+import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
+import cr.ac.una.evacomuna.dto.EvaluatedWrapper;
 import cr.ac.una.evacomuna.dto.EvaluationWrapper;
+import cr.ac.una.evacomuna.dto.EvaluatorWrapper;
+import cr.ac.una.evacomuna.dto.UserWrapper;
+import cr.ac.una.evacomuna.services.Evaluated;
 import cr.ac.una.evacomuna.services.Evaluation;
+import cr.ac.una.evacomuna.services.Evaluator;
+import cr.ac.una.evacomuna.services.Position;
+
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -45,24 +55,29 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private ComboBox<String> cbEvaluations;
     @FXML
+    private ComboBox<String> cbRoles;
+    @FXML
     private TextField txfSearchEvaluators;
     @FXML
-    private ListView<UserDto> listEvaluators;
+    private ListView<EvaluatorDto> listEvaluators;
     @FXML
-    private ListView<UserDto> listEvaluatorsFix;
+    private ListView<EvaluatorDto> listEvaluatorsFix;
     @FXML
-    private ListView<UserDto> listEvaluated;
+    private ListView<EvaluatedDto> listEvaluated;
     @FXML
-    private ListView<UserDto> listEvaluatedFix;
+    private ListView<EvaluatedDto> listEvaluatedFix;
 
     private Evaluation evaluationService;
     private EvaluationDto evaluationBuffer;
-    private UserDto evaluatedBuffer;
-    private UserDto evaluatorBuffer;
-    private UserDto finalEvaluatedBuffer;
-    private UserDto finalEvaluatorBuffer;
+    private EvaluatedDto evaluatedBuffer;
+    private EvaluatorDto evaluatorBuffer;
+    private EvaluatedDto finalEvaluatedBuffer;
+    private EvaluatorDto finalEvaluatorBuffer;
     private List<UserDto> users;
     private ObservableList<EvaluationDto> evaluationDtos;
+    private Position roleService = new Position();
+    private Evaluated evaluatedService = new Evaluated();
+    private Evaluator evaluatorService = new Evaluator();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,16 +97,31 @@ public class EvaluationModuleController implements Initializable {
 
     @FXML
     private void btnAddEvaluator(ActionEvent event) {
-        if (evaluatorBuffer != null) {
-            listEvaluatorsFix.getItems().remove(evaluatorBuffer);
-            listEvaluatorsFix.getItems().add(evaluatorBuffer);
+        if (finalEvaluatedBuffer != null) {
+            if (evaluatorBuffer != null) {
+                listEvaluatorsFix.getItems().remove(evaluatorBuffer);
+                listEvaluatorsFix.getItems().add(evaluatorBuffer);
+                finalEvaluatedBuffer.getEvaluators().add(evaluatorBuffer);
+//                for (EvaluatedDto i : evaluatedDtos) {
+//                    if (i.getEvaluated() == finalEvaluatedBuffer.getEvaluated()) {
+//                        i.getEvaluators().add(eva);
+//                        break;
+//                    }
+//                }
+                //evaluatedDtos.get(index).getEvaluators().add(new EvaluatorWrapper(evaluatorBuffer).getDto());
+            }
+        } else {
+            Message.showNotification("Alert", MessageType.INFO, "You must to choose a Evaluated to set the evaluators");
         }
     }
 
     @FXML
     private void btnDeleteEvaluator(ActionEvent event) {
         if (finalEvaluatorBuffer != null) {
+            finalEvaluatedBuffer.getEvaluators().remove(finalEvaluatorBuffer);
             listEvaluatorsFix.getItems().remove(finalEvaluatorBuffer);
+            //evaluatedDtos.remove(finalEvaluatedBuffer);
+
         }
     }
 
@@ -100,6 +130,7 @@ public class EvaluationModuleController implements Initializable {
         if (evaluatedBuffer != null) {
             listEvaluatedFix.getItems().remove(evaluatedBuffer);
             listEvaluatedFix.getItems().add(evaluatedBuffer);
+            //evaluatedDtos.add(new EvaluatedWrapper(evaluatedBuffer).getDto());
         }
     }
 
@@ -110,9 +141,16 @@ public class EvaluationModuleController implements Initializable {
         }
     }
 
-
     @FXML
     private void searchByRoleAction(ActionEvent event) {
+        String name = cbRoles.getValue();
+        if (name != null) {
+            PositionDto role = (PositionDto) roleService.getRoleByName(name).getData();
+            if (role != null && role.getUsers() != null) {
+                listEvaluated.getItems().clear();
+                listEvaluated.getItems().addAll(role.getUsers().stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
+            }
+        }
     }
 
     @FXML
@@ -123,11 +161,43 @@ public class EvaluationModuleController implements Initializable {
             Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
             return;
         }
-
+        //Create Evaluation
         EvaluationWrapper evaluationWrapper = new EvaluationWrapper(null, name, aplicationDate, initialDate, endingDate, state);
-        ResponseWrapper response = evaluationService.createEvaluation(evaluationWrapper.getDto());
+        EvaluationDto evaluationDto = evaluationWrapper.getDto();
+        ResponseWrapper response = evaluationService.createEvaluation(evaluationDto);
+
         if (response.getCode() == ResponseCode.OK) {
-            //fixme: No implementado
+            //Create evaluated
+            evaluationDto = (EvaluationDto) response.getData();
+            for (EvaluatedDto i : listEvaluatedFix.getItems()) {
+//                i.setEvaluation(evaluationDto);
+                i.setEvaluation(new EvaluationWrapper(evaluationDto).getDto());
+                response = evaluatedService.createEvaluated(i);
+                if (response.getCode() == ResponseCode.OK) {
+                    //Create Evaluator
+                    EvaluatedDto evaluatedDtoSaved = (EvaluatedDto) response.getData();
+                    System.out.println(response.getMessage());
+                    for (EvaluatorDto evaluator : i.getEvaluators()) {
+                        evaluator.setEvaluated(new EvaluatedWrapper(evaluatedDtoSaved).getDto());
+                        //evaluator.getEvaluated().setEvaluated(new UserWrapper(evaluatedDtoSaved.getEvaluated()).getDto());
+                        //  evaluator.set
+                        //evaluator.se
+                        // EvaluatedWrapper evaluatedWrapper = new EvaluatedWrapper(evaluatedDtoSaved);
+
+                        //evaluatedWrapper.setEvaluated(null);
+                        //evaluator.setEvaluated(evaluatedWrapper.getDto());
+                        //evaluator.setEvaluator(null);
+//                        evaluator.getEvaluator().setPosition(null);
+                        evaluator.setRole("PEER");
+                        response = evaluatorService.createEvaluator(evaluator);
+                        System.out.println(response.getMessage());
+                    }
+                }
+            }
+
+//
+//            //clean
+//            //fixme: No implementado
         }
         System.out.println(response.getMessage());
     }
@@ -164,13 +234,14 @@ public class EvaluationModuleController implements Initializable {
     }
 
     public void initializeView() {
-        cbState.getItems().addAll("UNDER CONSTRUCTION", " IN APPLICATION", "UNDER REVIEW", "COMPLETED");
+        cbState.getItems().addAll("UNDER CONSTRUCTION", "IN APPLICATION", "UNDER REVIEW", "COMPLETED");
+        cbRoles.getItems().addAll(Utilities.mapListToObsevableString(Utilities.loadPositions()));
         evaluationDtos = Utilities.loadEvaluations();
         cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
         if (users != null) {
-            listEvaluated.getItems().addAll(users);
-            listEvaluators.getItems().addAll(users);
 
+            listEvaluated.getItems().addAll(users.stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
+            listEvaluators.getItems().addAll(users.stream().map(t -> new EvaluatorWrapper(t).getDto()).collect(Collectors.toList()));
         }
     }
 
@@ -179,9 +250,13 @@ public class EvaluationModuleController implements Initializable {
         dpAplicationDate.setValue(LocalDate.parse((evaluationDto.getApplicationDate())));
         dpEndDate.setValue(LocalDate.parse((evaluationDto.getFinalPeriod())));
         dpStartDate.setValue(LocalDate.parse((evaluationDto.getInitialPeriod())));
-        listEvaluated.getItems().clear();
-        evaluationDto.getEvaluated().forEach(t -> listEvaluated.getItems().add(t.getEvaluated()));
-        evaluationDto.getEvaluated().forEach(t -> t.getEvaluators().forEach(s -> listEvaluators.getItems().add(s.getEvaluator())));
+//        listEvaluated.getItems().clear();
+        //evaluationDto.getEvaluated().forEach(t->lis);
+        listEvaluatedFix.getItems().addAll(evaluationDto.getEvaluated());
+//        evaluationDto.getEvaluated().forEach(t -> listEvaluated.getItems().add(t));
+        //evaluationDto.getEvaluated().forEach(t->listEvaluatorsFix.getItems().addAll(t.getEvaluators()));
+        //   evaluationDto.getEvaluated().forEach(t->);
+//        evaluationDto.getEvaluated().forEach(t -> t.getEvaluators().forEach(s -> listEvaluators.getItems().add(s.getEvaluator())));
 
     }
 
@@ -190,32 +265,54 @@ public class EvaluationModuleController implements Initializable {
             @Override
             protected void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                UserDto user = (UserDto) item;
-                setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " (" + user.getPosition().getName() + ")");
+                EvaluatedDto evaluatedDto = (EvaluatedDto) item;
+                if (evaluatedDto != null) {
+                    UserDto user = evaluatedDto.getEvaluated();
+                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                } else {
+                    setText(null);
+                }
+
             }
         });
         listEvaluators.setCellFactory((param) -> new ListCell() {
             @Override
             protected void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                UserDto user = (UserDto) item;
-                setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " (" + user.getPosition().getName() + ")");
+                EvaluatorDto evaluatorDto = (EvaluatorDto) item;
+                if (evaluatorDto != null) {
+                    UserDto user = evaluatorDto.getEvaluator();
+                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                } else {
+                    setText(null);
+                }
+
             }
         });
         listEvaluatedFix.setCellFactory((param) -> new ListCell() {
             @Override
             protected void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                UserDto user = (UserDto) item;
-                setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " (" + user.getPosition().getName() + ")");
+                EvaluatedDto evaluatedDto = (EvaluatedDto) item;
+                if (evaluatedDto != null) {
+                    UserDto user = evaluatedDto.getEvaluated();
+                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                } else {
+                    setText(null);
+                }
             }
         });
         listEvaluatorsFix.setCellFactory((param) -> new ListCell() {
             @Override
             protected void updateItem(Object item, boolean empty) {
                 super.updateItem(item, empty);
-                UserDto user = (UserDto) item;
-                setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " (" + user.getPosition().getName() + ")");
+                EvaluatorDto evaluatorDto = (EvaluatorDto) item;
+                if (evaluatorDto != null) {
+                    UserDto user = evaluatorDto.getEvaluator();
+                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                } else {
+                    setText(null);
+                }
             }
         });
         // LISTENERS
@@ -230,6 +327,8 @@ public class EvaluationModuleController implements Initializable {
         listEvaluatedFix.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     finalEvaluatedBuffer = newValue;
+                    listEvaluatorsFix.getItems().clear();
+                    newValue.getEvaluators().forEach(t -> listEvaluatorsFix.getItems().add(t));
                 });
         listEvaluatorsFix.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {

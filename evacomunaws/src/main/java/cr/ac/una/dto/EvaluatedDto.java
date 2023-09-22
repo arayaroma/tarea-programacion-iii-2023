@@ -3,18 +3,24 @@ package cr.ac.una.dto;
 import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Evaluated;
+import cr.ac.una.entities.Evaluation;
+import cr.ac.una.entities.Evaluator;
+import cr.ac.una.entities.User;
+import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.EntityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvaluatedDto {
+public class EvaluatedDto implements EntityMapper<Evaluated, EvaluatedDto> {
+
     private Long id;
     private UserDto evaluated;
     private String finalNote;
@@ -33,4 +39,22 @@ public class EvaluatedDto {
         this.finalCalifications = new ArrayList<>();
         this.evaluators = new ArrayList<>();
     }
+
+    @Override
+    public EvaluatedDto convertFromEntityToDTO(Evaluated entity, EvaluatedDto dto) {
+        dto.setEvaluated(new UserDto(entity.getEvaluated()));
+        dto.setEvaluation(new EvaluationDto(entity.getEvaluation()));
+        //dto.setEvaluators(EntityUtil.fromEntityList(entity.getEvaluators(), EvaluatorDto.class).getList());
+        return dto;
+    }
+
+    @Override
+    public Evaluated convertFromDTOToEntity(EvaluatedDto dto, Evaluated entity) {
+        entity.setEvaluated(new User(dto.getEvaluated()));
+        entity.setEvaluation(new Evaluation(dto.getEvaluation()));
+        //entity.setEvaluators(EntityUtil.fromDtoList(dto.getEvaluators(), Evaluator.class).getList());
+        return entity;
+
+    }
+
 }

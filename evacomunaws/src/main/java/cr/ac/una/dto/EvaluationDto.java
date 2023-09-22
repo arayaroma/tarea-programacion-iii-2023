@@ -1,9 +1,12 @@
 package cr.ac.una.dto;
 
-import java.time.LocalDate;
+import cr.ac.una.entities.Evaluated;
 import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Evaluation;
+import cr.ac.una.entities.User;
+import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.EntityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvaluationDto {
+public class EvaluationDto implements EntityMapper<Evaluation, EvaluationDto> {
 
     private Long id;
     private String name;
@@ -39,4 +42,22 @@ public class EvaluationDto {
         this.version = evaluation.getVersion();
         this.evaluated = new ArrayList<>();
     }
+
+    @Override
+    public EvaluationDto convertFromEntityToDTO(Evaluation entity, EvaluationDto dto) {
+        dto.setEvaluated(EntityUtil.fromEntityList(entity.getEvaluated(), EvaluatedDto.class).getList());
+        return dto;
+    }
+
+    @Override
+    public Evaluation convertFromDTOToEntity(EvaluationDto dto, Evaluation entity) {
+        entity.setEvaluated(EntityUtil.fromDtoList(dto.getEvaluated(), Evaluated.class).getList());
+//        for (int i = 0; i < entity.getEvaluated().size(); i++) {
+//            entity.getEvaluated().get(i).setEvaluated(new User(dto.getEvaluated().get(i).getEvaluated()));
+//            //entity.getEvaluated().get(i).setEvaluation(new Evaluation(dto.getEvaluated().get(i).getEvaluation()));
+//        }
+//        
+        return entity;
+    }
+
 }
