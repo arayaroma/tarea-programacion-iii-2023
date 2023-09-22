@@ -7,26 +7,22 @@ import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
 import cr.ac.una.evacomuna.services.Characteristic;
 import cr.ac.una.evacomuna.services.Skill;
-import java.io.File;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.services.Position;
 import cr.ac.una.evacomuna.services.User;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
  * @author estebannajera
+ * @author arayaroma
  */
 public class Utilities {
 
@@ -98,7 +94,7 @@ public class Utilities {
         return userDtos;
     }
 
-    public static ObservableList<PositionDto> loadRoles() {
+    public static ObservableList<PositionDto> loadPositions() {
         ObservableList<PositionDto> positionDtos = FXCollections.observableArrayList();
         ResponseWrapper response = roleService.getRoles();
         if (response.getCode() == ResponseCode.OK) {
@@ -126,33 +122,4 @@ public class Utilities {
         }
         return characteristicDtosView;
     }
-
-    public static void openPath(String ruta) {
-        try {
-            File file;
-            file = new File(ruta);
-            if (file.exists()) {
-                Process proces = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + ruta);
-                proces.waitFor();
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-
-    public static String fileToString(File file) {
-        try {
-            return FileUtils.readFileToString(file, "UTF-8");
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
-
-    public static File selectFile(String nameFilter, String... filters) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(nameFilter, filters));
-        return fileChooser.showOpenDialog(new Stage());
-    }
-
 }

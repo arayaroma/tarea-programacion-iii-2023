@@ -99,7 +99,8 @@ public class SkillModuleController implements Initializable {
             if (nameToSearch != null) {
                 cbSkillsView.getItems().clear();
                 if (nameToSearch.length() > 2) {
-                    cbSkillsView.getItems().addAll(skillsDtos.stream().filter(t -> t.getName().contains(nameToSearch)).map(t -> t.getName()).collect(Collectors.toList()));
+                    cbSkillsView.getItems().addAll(skillsDtos.stream().filter(t -> t.getName().contains(nameToSearch))
+                            .map(t -> t.getName()).collect(Collectors.toList()));
                     return;
                 }
                 cbSkillsView.getItems().addAll(Utilities.mapListToObsevableString(skillsDtos));
@@ -138,10 +139,13 @@ public class SkillModuleController implements Initializable {
     private void btnDeleteSkill(ActionEvent event) {
         if (skillBufferMainView != null) {
             if (skillBufferMainView.getCharacteristics() != null) {
-                skillBufferMainView.getCharacteristics().forEach(t -> characteristicService.deleteCharacteristicById(t.getId()));
+                skillBufferMainView.getCharacteristics()
+                        .forEach(t -> characteristicService.deleteCharacteristicById(t.getId()));
             }
             ResponseWrapper response = skillService.deleteSkillsById(skillBufferMainView.getId());
-            Message.showNotification(response.getCode().name(), response.getCode() == ResponseCode.OK ? MessageType.INFO : MessageType.ERROR, response.getMessage());
+            Message.showNotification(response.getCode().name(),
+                    response.getCode() == ResponseCode.OK ? MessageType.INFO : MessageType.ERROR,
+                    response.getMessage());
             initializeSkillMainView();
         }
     }
@@ -189,10 +193,12 @@ public class SkillModuleController implements Initializable {
                 skillDto.setName(name);
                 skillDto.setState(state);
 
-                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto) : skillService.createSkill(skillDto);
+                ResponseWrapper response = isEditingSkill ? skillService.updateSkills(skillDto)
+                        : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
                     skillDto = (SkillDto) response.getData();
-                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(), skillDto.getId());
+                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(),
+                            skillDto.getId());
 
                     for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
                         if (i.getId() == null) {
@@ -221,7 +227,8 @@ public class SkillModuleController implements Initializable {
         if (skillBufferMainView != null && skillBufferMainView.getCharacteristics() != null) {
             txfSkillNameRegister.setText(skillBufferMainView.getName());
             cbStateSkillRegisterView.setValue(skillBufferMainView.getState());
-            skillBufferMainView.getCharacteristics().forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
+            skillBufferMainView.getCharacteristics()
+                    .forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
 
         }
     }

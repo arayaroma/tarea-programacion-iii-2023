@@ -11,6 +11,7 @@ import org.controlsfx.control.Notifications;
 /**
  *
  * @author estebannajera
+ * @author arayaroma
  */
 public class Message {
 
@@ -30,13 +31,19 @@ public class Message {
             case INFO:
                 notification.show();
                 break;
+            case CONFIRMATION:
+                notification.showConfirm();
+                break;
+            default:
+                throw new AssertionError(type.name());
         }
     }
 
     public static ButtonType showConfirmationAlert(String title, AlertType type, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
-        alert.getDialogPane().getStylesheets().add(App.class.getResource("/cr/ac/una/evacomuna/style/alert.css").toString());
+        alert.getDialogPane().getStylesheets()
+                .add(App.class.getResource("/cr/ac/una/evacomuna/style/alert.css").toString());
         alert.setHeaderText(null);
         alert.setContentText(content);
         ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);

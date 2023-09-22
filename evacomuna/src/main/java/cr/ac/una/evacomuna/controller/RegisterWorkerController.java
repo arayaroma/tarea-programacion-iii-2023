@@ -32,6 +32,7 @@ import javafx.scene.shape.Circle;
  * FXML Controller class
  *
  * @author estebannajera
+ * @author arayaroma
  */
 public class RegisterWorkerController implements Initializable {
 
@@ -79,7 +80,7 @@ public class RegisterWorkerController implements Initializable {
         roleService = new Position();
         // Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
-        ObservableList<PositionDto> roleDtos = Utilities.loadRoles();
+        ObservableList<PositionDto> roleDtos = Utilities.loadPositions();
         roleDtos.stream().forEach(t -> cbRoleRegister.getItems().add(t.getName()));
         userModified = Data.getUserModified();
         if (userModified != null) {
@@ -229,7 +230,7 @@ public class RegisterWorkerController implements Initializable {
      */
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
-        cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadRoles()));
+        cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadPositions()));
         imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
         if (user != null) {
             userModified = user;

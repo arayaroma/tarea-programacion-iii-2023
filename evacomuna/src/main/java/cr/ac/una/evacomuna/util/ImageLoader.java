@@ -12,6 +12,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
+/**
+ * @author arayaroma
+ */
 public class ImageLoader {
 
     public static File selectFile(String nameFilter, String... filters) {

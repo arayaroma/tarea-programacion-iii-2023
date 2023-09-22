@@ -59,10 +59,10 @@ public class PendingEvaluationsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        skills = new ArrayList();
+        skills = new ArrayList<>();
         evaluation = new ArrayList<>();
         roleService = new Position();
-        cbPendingEvaluations.getItems().addAll(Utilities.mapListToObsevableString(Utilities.loadRoles()));
+        cbPendingEvaluations.getItems().addAll(Utilities.mapListToObsevableString(Utilities.loadPositions()));
         initializeGrid();
     }
 

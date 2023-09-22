@@ -31,14 +31,14 @@ public class ContainerModuleController implements Initializable {
     @FXML
     private Tab parentSkill;
 
-    //SERVICES
+    // SERVICES
     Skill skillService;
     Characteristic characteristicService;
-    //BUFFERS
+    // BUFFERS
     CharacteristicDto characteristicBuffer;
-    //CONTROLLERS
-//    SkillModuleController skillModuleController;
-//    CharacteristicModuleController characteristicModuleController;
+    // CONTROLLERS
+    // SkillModuleController skillModuleController;
+    // CharacteristicModuleController characteristicModuleController;
 
     /**
      * Initializes the controller class.
@@ -58,9 +58,9 @@ public class ContainerModuleController implements Initializable {
     @FXML
     private void tabRole(Event event) {
         try {
-            FXMLLoader loader = App.getFXMLLoader("RoleModule");
+            FXMLLoader loader = App.getFXMLLoader("PositionModule");
             parentRole.setContent(loader.load());
-//            rol = loader.getController();
+            // rol = loader.getController();
         } catch (IOException e) {
             System.out.println(e.toString());
         }
@@ -71,7 +71,7 @@ public class ContainerModuleController implements Initializable {
         try {
             FXMLLoader loader = App.getFXMLLoader("SkillModule");
             parentSkill.setContent(loader.load());
-//            skillModuleController = loader.getController();
+            // skillModuleController = loader.getController();
         } catch (IOException e) {
             System.out.println(e.toString());
         }

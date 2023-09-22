@@ -4,10 +4,10 @@ import cr.ac.una.controller.GeneralInformationDto;
 import cr.ac.una.controller.ResponseCode;
 import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.evacomuna.services.Company;
+import cr.ac.una.evacomuna.util.FileLoader;
 import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-import cr.ac.una.evacomuna.util.Utilities;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +26,7 @@ import javafx.scene.shape.Circle;
  * FXML Controller class
  *
  * @author estebannajera
+ * @author arayaroma
  */
 public class CompanyModuleController implements Initializable {
 
@@ -74,7 +75,7 @@ public class CompanyModuleController implements Initializable {
         String email = txfEmail.getText(), name = txfCompanyName.getText(), description = txaDescription.getText(),
                 phoneNumber = txfPhoneNumber.getText();
 
-        String html = htmlBuffer != null ? Utilities.fileToString(htmlBuffer) : "";
+        String html = htmlBuffer != null ? FileLoader.fileToString(htmlBuffer) : "";
 
         if (email.isBlank() || name.isBlank() || phoneNumber.isBlank() || description.isBlank()) {
             Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
@@ -116,7 +117,7 @@ public class CompanyModuleController implements Initializable {
 
     @FXML
     private void chooseHTMLTemplateAction(ActionEvent event) {
-        File selectedFile = Utilities.selectFile("HTML File", "*.html");
+        File selectedFile = FileLoader.selectFile("HTML File", "*.html");
         if (selectedFile != null) {
             lblURLTemplate.setText(selectedFile.toURI().toString());
             htmlBuffer = selectedFile;
