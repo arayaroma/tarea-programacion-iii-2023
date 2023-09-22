@@ -12,16 +12,19 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.RoleModuleController">
+<StackPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="cr.ac.una.evacomuna.controller.PositionModuleController">
    <children>
       <HBox fx:id="registerRolesView" styleClass="bg-white">
          <children>
             <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" onAction="#btnBackToMainRole" styleClass="btn" text="Back" />
+                  <Button mnemonicParsing="false" onAction="#btnBackToMainRole" styleClass="btn"
+                     text="Back" />
                   <HBox spacing="100.0">
                      <children>
-                        <TextField fx:id="txfRoleNameRegister" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Role Name" />
+                        <TextField fx:id="txfRoleNameRegister" maxHeight="-Infinity"
+                           maxWidth="-Infinity" promptText="Position Name" />
                         <ComboBox fx:id="cbStateRegister" prefWidth="150.0" promptText="State" />
                      </children>
                   </HBox>
@@ -75,12 +78,15 @@
                         <String fx:value="confirm-color" />
                      </styleClass>
                   </Button>
-                  <ComboBox fx:id="cbRoles" editable="true" onAction="#selectRole" onKeyReleased="#searchRoleInput" prefWidth="150.0" promptText="Roles" styleClass="searchBar" />
+                  <ComboBox fx:id="cbRoles" editable="true" onAction="#selectRole"
+                     onKeyReleased="#searchRoleInput" prefWidth="150.0" promptText="Positions"
+                     styleClass="searchBar" />
                   <Label styleClass="h1" text="Skills" />
                   <ListView fx:id="listSkillsMain" prefHeight="200.0" prefWidth="200.0" />
                   <HBox spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#btnEditRole" styleClass="btn" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#btnEditRole" styleClass="btn"
+                           text="Edit" />
                         <Button mnemonicParsing="false" onAction="#btnDeleteRole" text="Delete">
                            <styleClass>
                               <String fx:value="error-color" />

@@ -28,7 +28,7 @@ import javafx.scene.layout.HBox;
  *
  * @author estebannajera
  */
-public class RoleModuleController implements Initializable {
+public class PositionModuleController implements Initializable {
 
     @FXML
     private HBox registerRolesView;
@@ -46,16 +46,16 @@ public class RoleModuleController implements Initializable {
     private ListView<SkillDto> listSkillsMain;
     @FXML
     private ListView<SkillDto> listSkillsRegister;
-    //BUFFERS
+    // BUFFERS
     SkillDto bufferSkill;
     PositionDto bufferRole;
-    //SERVICES
+    // SERVICES
     Skill skillService;
     Position roleService;
-    //LISTS
+    // LISTS
     ObservableList<SkillDto> skillDtos;
-    ObservableList<PositionDto> roleDtos;
-    //FLAGS
+    ObservableList<PositionDto> positionDtos;
+    // FLAGS
     boolean isEditingRole = false;
 
     /**
@@ -145,10 +145,11 @@ public class RoleModuleController implements Initializable {
             if (nameToSearch != null) {
                 cbRoles.getItems().clear();
                 if (nameToSearch.length() > 2) {
-                    cbRoles.getItems().addAll(roleDtos.stream().filter(t -> t.getName().contains(nameToSearch)).map(t -> t.getName()).collect(Collectors.toList()));
+                    cbRoles.getItems().addAll(positionDtos.stream().filter(t -> t.getName().contains(nameToSearch))
+                            .map(t -> t.getName()).collect(Collectors.toList()));
                     return;
                 }
-                cbRoles.getItems().addAll(Utilities.mapListToObsevableString(roleDtos));
+                cbRoles.getItems().addAll(Utilities.mapListToObsevableString(positionDtos));
                 cbRoles.show();
             }
         }
@@ -192,7 +193,7 @@ public class RoleModuleController implements Initializable {
     }
 
     private void initializeLists() {
-        //CELLSFACTORIES
+        // CELLSFACTORIES
         listSkillsMain.setCellFactory((param) -> new ListCell() {
             @Override
             protected void updateItem(Object item, boolean empty) {
@@ -232,8 +233,8 @@ public class RoleModuleController implements Initializable {
     }
 
     private void initializeMainView() {
-        roleDtos = Utilities.loadRoles();
-        cbRoles.setItems(Utilities.mapListToObsevableString(roleDtos));
+        positionDtos = Utilities.loadPositions();
+        cbRoles.setItems(Utilities.mapListToObsevableString(positionDtos));
     }
 
 }
