@@ -50,7 +50,7 @@ public class Calification implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "EVALUATORID")
-    private User evaluator;
+    private Evaluator evaluator;
 
     @Version
     @Column(name = "VERSION")

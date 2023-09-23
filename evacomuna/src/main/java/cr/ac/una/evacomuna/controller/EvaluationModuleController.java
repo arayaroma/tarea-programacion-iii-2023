@@ -10,7 +10,6 @@ import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.dto.EvaluatedWrapper;
 import cr.ac.una.evacomuna.dto.EvaluationWrapper;
 import cr.ac.una.evacomuna.dto.EvaluatorWrapper;
-import cr.ac.una.evacomuna.dto.UserWrapper;
 import cr.ac.una.evacomuna.services.Evaluated;
 import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.services.Evaluator;
@@ -151,6 +150,26 @@ public class EvaluationModuleController implements Initializable {
                 listEvaluated.getItems().addAll(role.getUsers().stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
             }
         }
+    }
+
+    @FXML
+    private void deleteEvaluationAction(ActionEvent event) {
+        if (evaluationBuffer != null) {
+            for (EvaluatedDto evaluatedDto : evaluationBuffer.getEvaluated()) {
+                for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {
+                    evaluatorService.deleteEvaluatorById(evaluatorDto.getId());
+                }
+                evaluatedService.deleteEvaluatedById(evaluatedDto.getId());
+            }
+            ResponseWrapper response = evaluationService.deleteEvaluationById(evaluationBuffer.getId());
+            System.out.println(response.getMessage());
+            Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
+        }
+
+    }
+
+    @FXML
+    private void createEvaluationAction(ActionEvent event) {
     }
 
     @FXML

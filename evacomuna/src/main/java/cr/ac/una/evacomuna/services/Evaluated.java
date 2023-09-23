@@ -27,7 +27,7 @@ public class Evaluated {
         return port.updateEvaluated(evaluatedDto);
     }
 
-    public ResponseWrapper updateEvaluatedById(Long id) {
+    public ResponseWrapper deleteEvaluatedById(Long id) {
         return port.deleteEvaluatedById(id);
     }
 

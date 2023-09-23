@@ -57,7 +57,7 @@ public class Evaluator implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User evaluator;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evaluator")
     private List<Calification> califications;
 
     @Version

@@ -17,9 +17,15 @@
    <children>
       <VBox alignment="CENTER" spacing="20.0">
          <children>
-            <HBox>
+            <HBox spacing="100.0">
                <children>
                   <ComboBox fx:id="cbEvaluations" editable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onAction="#selectEvaluation" onKeyReleased="#searchEvaluationInput" promptText="Search Evaluations" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#deleteEvaluationAction" text="Delete Evaluation">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="error-color" />
+                     </styleClass>
+                  </Button>
                </children>
             </HBox>
             <TextField fx:id="txfNameEvaluation" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Name" />
@@ -96,7 +102,17 @@
                   </VBox>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#saveChangesAction" styleClass="btn" text="Save Changes" />
+            <HBox alignment="CENTER" spacing="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createEvaluationAction" text="Create Evaluation">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="confirm-color" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#saveChangesAction" styleClass="btn" text="Save Changes" />
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
