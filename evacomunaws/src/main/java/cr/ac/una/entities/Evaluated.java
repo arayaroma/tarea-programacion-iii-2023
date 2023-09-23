@@ -12,7 +12,7 @@ import java.util.List;
 import cr.ac.una.dto.EvaluatedDto;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Entity
@@ -20,10 +20,10 @@ import cr.ac.una.dto.EvaluatedDto;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-        @NamedQueries({
-        @NamedQuery(name = "Evaluated.findAll", query = "SELECT e FROM Evaluated e"),
-        })
+@NamedQueries({
+    @NamedQuery(name = "Evaluated.findAll", query = "SELECT e FROM Evaluated e"),})
 public class Evaluated implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = SEQ_EVALUATED, sequenceName = SCHEMA + "." + SEQ_EVALUATED, allocationSize = 1)
@@ -34,7 +34,7 @@ public class Evaluated implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "EVALUATED")
+    @JoinColumn(name = "EVALUATEDID")
     private User evaluated;
 
 //    @NotNull
@@ -42,17 +42,14 @@ public class Evaluated implements Serializable {
     @Column(name = "FINALNOTE")
     private String finalNote;
 
-    //@NotNull
     @ManyToOne
     @JoinColumn(name = "EVALUATIONID", referencedColumnName = "ID")
     private Evaluation evaluation;
 
-//    @NotNull
-    @OneToMany(mappedBy = "evaluated", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "evaluated",fetch = FetchType.LAZY)
     private List<Evaluator> evaluators;
 
-  //  @NotNull
-    @OneToMany(mappedBy = "evaluated")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<FinalCalification> finalCalifications;
 
     @Version
@@ -74,6 +71,5 @@ public class Evaluated implements Serializable {
         this.finalNote = evaluatedDto.getFinalNote();
         this.version = evaluatedDto.getVersion();
     }
-
 
 }

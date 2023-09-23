@@ -144,10 +144,10 @@ public class User implements Serializable {
     @JoinColumn(name = "USERPOSITIONID")
     private Position position;
 
-    @OneToMany(mappedBy = "evaluated")
+    @OneToMany
     private List<Evaluated> evaluated;
 
-    @OneToMany(mappedBy = "evaluator")
+    @OneToMany
     private List<Evaluator> evaluators;
 
     @Version

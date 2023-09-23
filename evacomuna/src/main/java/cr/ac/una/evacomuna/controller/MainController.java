@@ -68,15 +68,19 @@ public class MainController implements Initializable {
             App.setMainController(this);
             userService = new User();
             userLogged = Data.getUserLogged();
-
+//            if (Data.isHasPrivileges()) {
+//                return;
+//            }
             // Cut over the photo to make a circula effect
-            imgProfilePhoto
-                    .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
-            imgProfilePhoto.setImage(ImageLoader.setImage(userLogged.getProfilePhoto()));
-            if (userLogged.getPasswordChanged().equals("Y")) {
-                changePasswordView.setVisible(true);
-                menuPane.setDisable(true);
-                return;
+            if (userLogged != null) {
+                imgProfilePhoto
+                        .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
+                imgProfilePhoto.setImage(ImageLoader.setImage(userLogged.getProfilePhoto()));
+                if (userLogged.getPasswordChanged().equals("Y")) {
+                    changePasswordView.setVisible(true);
+                    menuPane.setDisable(true);
+                    return;
+                }
             }
             changePasswordView.setVisible(false);
             menuPane.setDisable(false);

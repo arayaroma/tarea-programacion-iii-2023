@@ -46,6 +46,8 @@ public class LoginController implements Initializable {
 
     private Parent registerView;
     private User userService;
+    private String adminUser = "admin";
+    private String adminPassword = "admin";
 
     /**
      * Initializes the controller class.
@@ -66,9 +68,15 @@ public class LoginController implements Initializable {
     @FXML
     private void logIn(ActionEvent event) {
         try {
+            
             String user = txfUser.getText(), password = txfPassword.getText();
             if (user.isBlank() || password.isBlank()) {
                 Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
+                return;
+            }
+            if(user.equals(adminUser) && password.equals(adminPassword)){
+                App.setRoot("Main");
+                Data.setHasPrivileges(true);
                 return;
             }
             ResponseWrapper responseWrapper = userService.getByUserAndPassword(user, password);

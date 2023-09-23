@@ -53,11 +53,11 @@ public class Evaluator implements Serializable {
     @JoinColumn(name = "EVALUATEDID", referencedColumnName = "ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Evaluated evaluated;
-//    @JoinColumn(name = "EVALUATOR", referencedColumnName = "ID")
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "EVALUATORID", referencedColumnName = "ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User evaluator;
 
-    @OneToMany(mappedBy = "EVALUATOR")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Calification> califications;
 
     @Version

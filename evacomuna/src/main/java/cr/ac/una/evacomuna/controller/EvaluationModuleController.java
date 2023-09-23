@@ -165,12 +165,11 @@ public class EvaluationModuleController implements Initializable {
         EvaluationWrapper evaluationWrapper = new EvaluationWrapper(null, name, aplicationDate, initialDate, endingDate, state);
         EvaluationDto evaluationDto = evaluationWrapper.getDto();
         ResponseWrapper response = evaluationService.createEvaluation(evaluationDto);
-
+        boolean allIsSaved = false;
         if (response.getCode() == ResponseCode.OK) {
             //Create evaluated
             evaluationDto = (EvaluationDto) response.getData();
             for (EvaluatedDto i : listEvaluatedFix.getItems()) {
-//                i.setEvaluation(evaluationDto);
                 i.setEvaluation(new EvaluationWrapper(evaluationDto).getDto());
                 response = evaluatedService.createEvaluated(i);
                 if (response.getCode() == ResponseCode.OK) {
@@ -179,27 +178,21 @@ public class EvaluationModuleController implements Initializable {
                     System.out.println(response.getMessage());
                     for (EvaluatorDto evaluator : i.getEvaluators()) {
                         evaluator.setEvaluated(new EvaluatedWrapper(evaluatedDtoSaved).getDto());
-                        //evaluator.getEvaluated().setEvaluated(new UserWrapper(evaluatedDtoSaved.getEvaluated()).getDto());
-                        //  evaluator.set
-                        //evaluator.se
-                        // EvaluatedWrapper evaluatedWrapper = new EvaluatedWrapper(evaluatedDtoSaved);
-
-                        //evaluatedWrapper.setEvaluated(null);
-                        //evaluator.setEvaluated(evaluatedWrapper.getDto());
-                        //evaluator.setEvaluator(null);
-//                        evaluator.getEvaluator().setPosition(null);
                         evaluator.setRole("PEER");
                         response = evaluatorService.createEvaluator(evaluator);
-                        System.out.println(response.getMessage());
+                        if (response.getCode() == ResponseCode.OK) {
+                            allIsSaved = true;
+                        }
                     }
                 }
             }
-
-//
-//            //clean
-//            //fixme: No implementado
         }
-        System.out.println(response.getMessage());
+        if (allIsSaved) {
+            Message.showNotification("OK", MessageType.INFO, "Evaluation successfully created");
+            cleanView();
+            initializeView();
+            return;
+        }
     }
 
     @FXML
@@ -245,6 +238,16 @@ public class EvaluationModuleController implements Initializable {
         }
     }
 
+    public void cleanView() {
+        cbState.getItems().clear();
+        cbRoles.getItems().clear();
+        cbEvaluations.getItems().clear();
+        listEvaluated.getItems().clear();
+        listEvaluators.getItems().clear();
+        listEvaluatorsFix.getItems().clear();
+        listEvaluatedFix.getItems().clear();
+    }
+
     public void loadFields(EvaluationDto evaluationDto) {
         txfNameEvaluation.setText(evaluationDto.getName());
         dpAplicationDate.setValue(LocalDate.parse((evaluationDto.getApplicationDate())));
@@ -252,12 +255,13 @@ public class EvaluationModuleController implements Initializable {
         dpStartDate.setValue(LocalDate.parse((evaluationDto.getInitialPeriod())));
 //        listEvaluated.getItems().clear();
         //evaluationDto.getEvaluated().forEach(t->lis);
+        listEvaluatedFix.getItems().clear();
         listEvaluatedFix.getItems().addAll(evaluationDto.getEvaluated());
+
 //        evaluationDto.getEvaluated().forEach(t -> listEvaluated.getItems().add(t));
         //evaluationDto.getEvaluated().forEach(t->listEvaluatorsFix.getItems().addAll(t.getEvaluators()));
         //   evaluationDto.getEvaluated().forEach(t->);
 //        evaluationDto.getEvaluated().forEach(t -> t.getEvaluators().forEach(s -> listEvaluators.getItems().add(s.getEvaluator())));
-
     }
 
     public void initilizeLists() {

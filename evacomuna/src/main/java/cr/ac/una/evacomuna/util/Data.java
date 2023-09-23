@@ -11,6 +11,8 @@ public class Data {
     private static boolean passwordChanged;
     private static UserDto userModified;
     private static UserDto userLogged;
+    private static boolean hasPrivileges;
+
     public Data() {
     }
 
@@ -34,10 +36,16 @@ public class Data {
         Data.userModified = userModified;
     }
 
+    public static void setHasPrivileges(boolean hasPrivileges) {
+        Data.hasPrivileges = hasPrivileges;
+    }
+
+    public static boolean isHasPrivileges() {
+        return hasPrivileges;
+    }
+
     public static void setUserLogged(UserDto userLogged) {
         Data.userLogged = userLogged;
     }
-
-    
 
 }

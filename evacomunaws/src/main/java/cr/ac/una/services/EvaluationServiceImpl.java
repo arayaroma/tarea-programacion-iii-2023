@@ -136,7 +136,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation retrieved successfully.",
-                    evaluationDto);
+                    evaluationDto.convertFromEntityToDTO(evaluation, evaluationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
