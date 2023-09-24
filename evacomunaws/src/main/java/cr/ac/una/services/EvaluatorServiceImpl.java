@@ -93,9 +93,6 @@ public class EvaluatorServiceImpl implements EvaluatorService {
         }
     }
 
-    //fixme: Server throws the following error when attempting to delete
-    //          <faultcode>S:Server</faultcode>
-    //         <faultstring>Transaction aborted</faultstring>
     @Override
     public ResponseWrapper deleteEvaluatorById(Long id) {
         try {

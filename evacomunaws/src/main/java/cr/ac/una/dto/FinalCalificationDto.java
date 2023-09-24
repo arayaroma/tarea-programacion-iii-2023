@@ -32,4 +32,14 @@ public class FinalCalificationDto {
         this.evaluated = new EvaluatedDto();
         this.skill = new SkillDto();
     }
+
+    public FinalCalificationDto convertFromEntityToDTO(FinalCalification finalCalification, FinalCalificationDto finalCalificationDto) {
+        finalCalificationDto.setId(finalCalification.getId());
+        finalCalificationDto.setFinalNote(finalCalification.getFinalNote());
+        finalCalificationDto.setAverage(finalCalification.getAverage());
+        finalCalificationDto.setVersion(finalCalification.getVersion());
+        finalCalificationDto.setEvaluated(new EvaluatedDto(finalCalification.getEvaluated()));
+        finalCalificationDto.setSkill(new SkillDto(finalCalification.getSkill()));
+        return finalCalificationDto;
+    }
 }
