@@ -148,3 +148,24 @@
   -fx-stroke: -fx-light-gray;
   stroke: -fx-light-gray;
 }
+
+.gp-header {
+  -fx-background-color: -fx-dark-blue;
+  background-color: -fx-dark-blue;
+  justify-content: center;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+}
+
+.gp-header .label {
+  -fx-text-fill: -fx-white;
+  justify-content: center;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+
+  -fx-font-size: 16px;
+  font-size: 16px;
+
+  -fx-font-weight: bold;
+  font-weight: bold;
+}

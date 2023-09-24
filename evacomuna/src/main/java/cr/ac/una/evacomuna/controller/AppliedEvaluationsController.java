@@ -11,12 +11,21 @@ import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
 import cr.ac.una.evacomuna.dto.SkillWrapper;
 import cr.ac.una.evacomuna.services.Skill;
+import cr.ac.una.evacomuna.util.RowContainer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+
 import java.util.stream.Collectors;
 
 /**
@@ -43,54 +52,93 @@ public class AppliedEvaluationsController implements Initializable {
     private CheckBox cb_client;
     @FXML
     private GridPane gp_table;
+    @FXML
+    private VBox gpContainer;
 
     private Skill skillService;
     private List<SkillWrapper> skills;
+
+    ColumnConstraints columnConstraints = new ColumnConstraints(150);
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         skillService = new Skill();
         skills = new ArrayList<>();
         loadGridPaneSkills();
+        addScrollPane(gp_table);
     }
 
-    /**
-     * FIXME: Fix this method to load the skills from the database
-     * and show them in the gridpane
-     */
     private void loadGridPaneSkills() {
-        skills = getSkills()
-        .stream()
-        .map(s -> new SkillWrapper(s.getName()))
-        .collect(Collectors.toList());
-      
+        addDiagonalRow();
+        addSkills();
+        addResult();
+        addFeedback();
+    }
 
-        SkillWrapper skill;
-        RowConstraints rowConstraints;
+    private void addDiagonalRow() {
+        RowContainer rowContainer = new RowContainer();
+        rowContainer.getChildren().add(
+                createHeader("Supervisor, Peer,\nClient, Self"));
+        rowContainer.getStyleClass().add("gp-header");
+        gp_table.addRow(0, rowContainer);
+        gp_table.getColumnConstraints().add(columnConstraints);
+    }
+
+    private void addSkills() {
+        skills = getSkillsWrapper(getSkills());
         for (int i = 0; i < skills.size(); i++) {
-            skill = skills.get(i);
+            SkillWrapper skill = skills.get(i);
+            skill.getChildren().add(createHeader(skill.getName()));
+            skill.getStyleClass().add("gp-header");
+            gp_table.addRow(0, skill);
+            gp_table.getColumnConstraints().add(columnConstraints);
         }
+    }
+
+    private void addResult() {
+        RowContainer rowContainer = new RowContainer();
+        rowContainer.getChildren().add(
+                createHeader("Result"));
+        rowContainer.getStyleClass().add("gp-header");
+        gp_table.addRow(0, rowContainer);
+        gp_table.getColumnConstraints().add(columnConstraints);
+    }
+
+    private void addFeedback() {
+        RowContainer rowContainer = new RowContainer();
+        rowContainer.getChildren().add(
+                createHeader("Feedback"));
+        rowContainer.getStyleClass().add("gp-header");
+        gp_table.addRow(0, rowContainer);
+    }
+
+    private void addScrollPane(GridPane gp) {
+        ScrollPane scrollPane = new ScrollPane(gp);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setPrefWidth(gp.getWidth());
+        gpContainer.getChildren().add(scrollPane);
+    }
+
+    private Node createHeader(String name) {
+        return new Label(name);
     }
 
     private List<SkillDto> getSkills() {
         ResponseWrapper response = skillService.getSkills();
         if (response.getCode() == ResponseCode.OK) {
-            System.out.println(response.getData());
             ListWrapper wrapper = (ListWrapper) response.getData();
-            List<SkillDto> skills = new ArrayList<>();
-            for (Object i : wrapper.getElement()) {
-                if (i instanceof SkillDto) {
-                    skills.add((SkillDto) i);
-                }
-            }
-            return skills;
+            return wrapper.getElement().stream()
+                    .filter(SkillDto.class::isInstance)
+                    .map(SkillDto.class::cast)
+                    .collect(Collectors.toList());
         }
         return null;
     }
 
-    private Label createHeader(String name) {
-        Label label = new Label(name);
-        return label;
+    private List<SkillWrapper> getSkillsWrapper(List<SkillDto> skills) {
+        return skills.stream()
+                .map(s -> new SkillWrapper(s.getName()))
+                .collect(Collectors.toList());
     }
 
 }
