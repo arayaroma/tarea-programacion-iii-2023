@@ -46,13 +46,13 @@ public class ContainerEvaluationsController implements Initializable {
     }
 
     @FXML
-    private void tabApliedEvaluations(Event event) {
-//        try {
-//            FXMLLoader loader = App.getFXMLLoader("EvaluationModule");
-//            maintenanceView.setContent(loader.load());
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//        }
+    private void tabAppliedEvaluations(Event event) {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("AppliedEvaluations");
+            appliedView.setContent(loader.load());
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
     }
 
     @FXML

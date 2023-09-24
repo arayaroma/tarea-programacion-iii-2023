@@ -7,7 +7,7 @@
 <TabPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="600.0" styleClass="bg-white" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.evacomuna.controller.ContainerEvaluationsController">
    <tabs>
       <Tab fx:id="maintenanceView" onSelectionChanged="#tabEvaluationModule" text="Evaluation Maintenance" />
-      <Tab fx:id="appliedView" onSelectionChanged="#tabApliedEvaluations" text="Applied Evaluations" />
+      <Tab fx:id="appliedView" onSelectionChanged="#tabAppliedEvaluations" text="Applied Evaluations" />
       <Tab fx:id="pendingEvaluations" onSelectionChanged="#tabPendingEvaluations" text="Pending Evaluations" />
    </tabs>
    <stylesheets>

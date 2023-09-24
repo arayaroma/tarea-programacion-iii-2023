@@ -10,18 +10,18 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for evaluatorDto complex type.
+ * <p>Java class for evaluator complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="evaluatorDto"&gt;
+ * &lt;complexType name="evaluator"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="califications" type="{http://controller.una.ac.cr/}calification" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="evaluated" type="{http://controller.una.ac.cr/}evaluatedDto" minOccurs="0"/&gt;
- *         &lt;element name="evaluator" type="{http://controller.una.ac.cr/}userDto" minOccurs="0"/&gt;
+ *         &lt;element name="evaluated" type="{http://controller.una.ac.cr/}evaluated" minOccurs="0"/&gt;
+ *         &lt;element name="evaluator" type="{http://controller.una.ac.cr/}user" minOccurs="0"/&gt;
  *         &lt;element name="feedback" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="role" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
@@ -35,7 +35,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "evaluatorDto", propOrder = {
+@XmlType(name = "evaluator", propOrder = {
     "califications",
     "evaluated",
     "evaluator",
@@ -44,12 +44,12 @@ import jakarta.xml.bind.annotation.XmlType;
     "role",
     "version"
 })
-public class EvaluatorDto {
+public class Evaluator {
 
     @XmlElement(nillable = true)
     protected List<Calification> califications;
-    protected EvaluatedDto evaluated;
-    protected UserDto evaluator;
+    protected Evaluated evaluated;
+    protected User evaluator;
     protected String feedback;
     protected Long id;
     protected String role;
@@ -89,10 +89,10 @@ public class EvaluatorDto {
      * 
      * @return
      *     possible object is
-     *     {@link EvaluatedDto }
+     *     {@link Evaluated }
      *     
      */
-    public EvaluatedDto getEvaluated() {
+    public Evaluated getEvaluated() {
         return evaluated;
     }
 
@@ -101,10 +101,10 @@ public class EvaluatorDto {
      * 
      * @param value
      *     allowed object is
-     *     {@link EvaluatedDto }
+     *     {@link Evaluated }
      *     
      */
-    public void setEvaluated(EvaluatedDto value) {
+    public void setEvaluated(Evaluated value) {
         this.evaluated = value;
     }
 
@@ -113,10 +113,10 @@ public class EvaluatorDto {
      * 
      * @return
      *     possible object is
-     *     {@link UserDto }
+     *     {@link User }
      *     
      */
-    public UserDto getEvaluator() {
+    public User getEvaluator() {
         return evaluator;
     }
 
@@ -125,10 +125,10 @@ public class EvaluatorDto {
      * 
      * @param value
      *     allowed object is
-     *     {@link UserDto }
+     *     {@link User }
      *     
      */
-    public void setEvaluator(UserDto value) {
+    public void setEvaluator(User value) {
         this.evaluator = value;
     }
 

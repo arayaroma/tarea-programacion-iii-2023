@@ -82,27 +82,27 @@
                             <sourceRoot>${project.basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/UserController?wsdl</wsdl>
+                                    <wsdl>http://10.0.0.3:8080/evacomunaws/UserController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-                                        http://localhost:8080/evacomunaws/CharacteristicController?wsdl</wsdl>
+                                        http://10.0.0.3:8080/evacomunaws/CharacteristicController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/SkillController?wsdl</wsdl>
+                                    <wsdl>http://10.0.0.3:8080/evacomunaws/SkillController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/EvaluatedController?wsdl</wsdl>
+                                    <wsdl>http://10.0.0.3:8080/evacomunaws/EvaluatedController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/EvaluatorController?wsdl</wsdl>
+                                    <wsdl>http://10.0.0.3:8080/evacomunaws/EvaluatorController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/PositionController?wsdl</wsdl>
+                                    <wsdl>http://10.0.0.3:8080/evacomunaws/PositionController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-                                        http://localhost:8080/evacomunaws/EvaluationController?wsdl</wsdl>
+                                        http://10.0.0.3:8080/evacomunaws/EvaluationController?wsdl</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

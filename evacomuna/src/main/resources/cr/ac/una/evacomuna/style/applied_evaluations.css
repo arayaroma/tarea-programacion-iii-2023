@@ -1,0 +1,150 @@
+* {
+  -fx-blue: #4660f4;
+  -fx-white-white-blue: #b5bffb;
+  -fx-white-blue: #7e90f7;
+  -fx-dark-blue: #3f56dc;
+  -fx-white: #fff;
+  -fx-gray: #565a5c;
+  -fx-green: #23aa2a;
+  -fx-red: #aa2323;
+  -fx-dark-red: #881c1c;
+  -fx-dark-green: #1c8822;
+  -fx-light-gray: #d0d0d0;
+}
+
+.principal-container {
+  -fx-padding: 12px;
+  padding: 12px;
+}
+
+/**
+*   Top bar styles
+*/
+.title {
+  -fx-font-size: 20px;
+  font-size: 20px;
+  -fx-font-weight: bold;
+  font-weight: bold;
+
+  justify-content: center;
+  -fx-alignment: center;
+  -fx-text-alignment: center;
+
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+.top-bar-container {
+  -fx-background-color: -fx-white;
+  background-color: -fx-white;
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+.card-container {
+  -fx-background-color: -fx-white;
+  background-color: -fx-white;
+
+  -fx-padding: 5px;
+  padding: 5px;
+
+  -fx-border-color: -fx-light-gray;
+  border-color: -fx-light-gray;
+
+  -fx-border-width: 1px;
+  border-width: 1px;
+
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-border-insets: 5px;
+
+  justify-content: center;
+  -fx-alignment: center;
+}
+
+.subcard-container {
+  -fx-pref-width: 350px;
+  -fx-pref-height: 50px;
+}
+
+.dark-grid {
+  -fx-background-color: -fx-dark-blue;
+  background-color: -fx-dark-blue;
+  -fx-text-fill: -fx-white;
+
+  -fx-pref-width: 220px;
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+.dark-grid .label {
+  -fx-text-fill: -fx-white;
+}
+
+.light-grid {
+  -fx-background-color: -fx-light-gray;
+  background-color: -fx-white-blue;
+
+  -fx-pref-width: 220px;
+
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+.light-grid .label {
+  -fx-text-fill: black;
+}
+
+/**
+*   Evaluation table styles
+*/
+.table-container {
+  -fx-margin: 5px;
+  margin: 5px;
+  -fx-padding: 10px;
+  padding: 10px;
+}
+
+.rows-titles {
+  -fx-font-size: 16px;
+  font-size: 16px;
+  -fx-font-weight: bold;
+  font-weight: bold;
+
+  justify-content: center;
+  -fx-alignment: center;
+  -fx-text-alignment: center;
+  -fx-background-color: -fx-white;
+  background-color: -fx-white;
+  -fx-padding: 5px;
+  padding: 5px;
+}
+
+/**
+*   Native JavaFX styles
+*/
+.check-box {
+  selected-box-color: -fx-blue;
+  box-color: -fx-white;
+  mark-color: -fx-white;
+}
+
+.check-box:selected > .box {
+  -fx-background-color: selected-box-color;
+  background-color: selected-box-color;
+}
+
+.check-box:selected > .box > .mark {
+  -fx-background-color: mark-color;
+  background-color: mark-color;
+}
+
+.grid-pane {
+  -fx-background-color: -fx-white;
+  background-color: -fx-white;
+}
+
+.grid-pane Line {
+  -fx-stroke: -fx-light-gray;
+  stroke: -fx-light-gray;
+}
