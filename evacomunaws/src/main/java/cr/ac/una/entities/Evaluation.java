@@ -24,9 +24,11 @@ import cr.ac.una.dto.EvaluationDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e"),
-    @NamedQuery(name = "Evaluation.findByName", query = "SELECT e FROM Evaluation e WHERE UPPER(e.name) = UPPER(:name)")
+    @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+    @NamedQuery(name = "Evaluation.findByName", query = "SELECT e FROM Evaluation e WHERE e.name = :name", hints = {
+        @QueryHint(name = "eclipselink.refresh", value = "true")})
 })
+
 public class Evaluation implements Serializable {
 
     private static final long serialVersionUID = 1L;

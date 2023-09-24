@@ -28,6 +28,7 @@ import jakarta.persistence.QueryHint;
 
 import static cr.ac.una.util.Constants.SCHEMA;
 import static cr.ac.una.util.DatabaseSequences.SEQ_USER;
+import jakarta.persistence.FetchType;
 
 /**
  * 
@@ -144,10 +145,10 @@ public class User implements Serializable {
     @JoinColumn(name = "USERPOSITIONID")
     private Position position;
 
-    @OneToMany
+    @OneToMany(mappedBy = "evaluated",fetch = FetchType.LAZY)
     private List<Evaluated> evaluated;
 
-    @OneToMany
+    @OneToMany(mappedBy = "evaluator",fetch = FetchType.LAZY)
     private List<Evaluator> evaluators;
 
     @Version

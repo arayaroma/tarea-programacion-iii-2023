@@ -104,13 +104,13 @@
             </HBox>
             <HBox alignment="CENTER" spacing="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#createEvaluationAction" text="Create Evaluation">
+                  <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#createEvaluationAction" text="Create Evaluation">
                      <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="confirm-color" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#saveChangesAction" styleClass="btn" text="Save Changes" />
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#saveChangesAction" styleClass="btn" text="Save Changes" />
                </children>
             </HBox>
          </children>

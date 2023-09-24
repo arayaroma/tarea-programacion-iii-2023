@@ -47,7 +47,7 @@ public class UserDto implements EntityMapper<User, UserDto> {
 
     /**
      * @param entity Entity to be converted
-     * @param dto    DTO to be updated
+     * @param dto DTO to be updated
      * @return DTO with the updated information
      */
     @Override
@@ -59,11 +59,13 @@ public class UserDto implements EntityMapper<User, UserDto> {
         dto.getPosition().setSkills(
                 EntityUtil.fromEntityList(entity.getPosition().getSkills(), SkillDto.class)
                         .getList());
+//        dto.setEvaluators(EntityUtil.fromEntityList(entity.getEvaluators(), EvaluatorDto.class).getList());
+//        dto.setEvaluated(EntityUtil.fromEntityList(entity.getEvaluated(), EvaluatedDto.class).getList());
         return dto;
     }
 
     /**
-     * @param dto    DTO to be converted
+     * @param dto DTO to be converted
      * @param entity Entity to be updated
      * @return Entity with the updated information
      */

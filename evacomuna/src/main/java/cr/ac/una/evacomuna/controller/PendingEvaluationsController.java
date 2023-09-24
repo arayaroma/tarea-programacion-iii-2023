@@ -1,15 +1,22 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.controller.EvaluatedDto;
+import cr.ac.una.controller.EvaluationDto;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.dto.SkillWrapper;
+import cr.ac.una.evacomuna.services.Evaluation;
 import cr.ac.una.evacomuna.services.Position;
+import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +24,8 @@ import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -44,14 +53,19 @@ public class PendingEvaluationsController implements Initializable {
     // private ImageView imgCheck;
     @FXML
     private TextArea txaFeedBack;
-
-    private List<SkillWrapper> skills;
-    private List<Node> evaluation;
     @FXML
     private ComboBox<String> cbPendingEvaluations;
-    Position roleService;
     @FXML
     private HBox gridContainer;
+    @FXML
+    private ListView<EvaluatedDto> listEvaluated;
+    private List<SkillWrapper> skills;
+    private List<Node> evaluation;
+    private Evaluation evaluationService;
+    private EvaluatedDto evaluatedBuffer;
+    private Position positionService;
+
+    private ObservableList<EvaluationDto> evaluationDtos = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -61,9 +75,17 @@ public class PendingEvaluationsController implements Initializable {
         // TODO
         skills = new ArrayList<>();
         evaluation = new ArrayList<>();
-        roleService = new Position();
-        cbPendingEvaluations.getItems().addAll(Utilities.mapListToObsevableString(Utilities.loadPositions()));
+        evaluationService = new Evaluation();
+        positionService = new Position();
+        evaluationDtos = Utilities.loadEvaluations();
+        List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
+                .filter(evaluationDto -> evaluationDto.getEvaluated().stream()
+                .anyMatch(evaluatedDto -> evaluatedDto.getEvaluators().stream()
+                .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId())))
+                .collect(Collectors.toList());
+        cbPendingEvaluations.getItems().addAll(Utilities.mapListToObsevableString(FXCollections.observableArrayList(evaluationDtosFiltered)));
         initializeGrid();
+        initializeList();
     }
 
     @FXML
@@ -71,11 +93,15 @@ public class PendingEvaluationsController implements Initializable {
         cleanGrid();
         String name = cbPendingEvaluations.getValue();
         if (name != null) {
-            PositionDto roleDto = (PositionDto) roleService.getRoleByName(name).getData();
-            if (roleDto != null) {
-                skills = roleDto.getSkills().stream().map(t -> new SkillWrapper(t.getName()))
-                        .collect(Collectors.toList());
-                loadSkillsInGrid();
+            EvaluationDto evaluationDto = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
+            if (evaluationDto != null) {
+                listEvaluated.getItems().clear();
+                listEvaluated.getItems().addAll(evaluationDto.getEvaluated().stream()
+                        .filter(evaluated -> evaluated.getEvaluators().stream()
+                        .anyMatch(evaluator -> evaluator.getEvaluator().getId() == Data.getUserLogged().getId())).collect(Collectors.toList()));
+//                skills = roleDto.getSkills().stream().map(t -> new SkillWrapper(t.getName()))
+//                        .collect(Collectors.toList());
+                //loadSkillsInGrid();
             }
         }
     }
@@ -98,6 +124,30 @@ public class PendingEvaluationsController implements Initializable {
         gridEvaluation.getColumnConstraints().add(constraints);
     }
 
+    private void initializeList() {
+        listEvaluated.setCellFactory((param) -> new ListCell() {
+            @Override
+            protected void updateItem(Object item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : ((EvaluatedDto) item).getEvaluated().getName() + " " + ((EvaluatedDto) item).getEvaluated().getSecondLastname());
+            }
+        });
+        // LISTENERS
+        listEvaluated.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    evaluatedBuffer = newValue;
+                    if (evaluatedBuffer != null) {
+
+                        PositionDto position = (PositionDto) positionService.getRoleByName(evaluatedBuffer.getEvaluated().getPosition().getName()).getData();
+                        if (position != null) {
+                            skills.clear();
+                            skills.addAll(position.getSkills().stream().map(t -> new SkillWrapper(t.getName())).collect(Collectors.toList()));
+                            loadSkillsInGrid();
+                        }
+                    }
+                });
+    }
+
     private void loadSkillsInGrid() {
         RowConstraints rowConstraints;
         ColumnConstraints columnConstraints;
@@ -108,7 +158,6 @@ public class PendingEvaluationsController implements Initializable {
             rowConstraints = new RowConstraints(50);
             gridEvaluation.getRowConstraints().add(rowConstraints);
             gridEvaluation.add(skill, 0, i + 1);
-
         }
     }
 

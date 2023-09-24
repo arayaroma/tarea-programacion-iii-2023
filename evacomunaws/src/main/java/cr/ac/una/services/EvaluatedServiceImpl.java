@@ -13,6 +13,8 @@ import cr.ac.una.dto.EvaluatedDto;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.EntityUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -157,13 +159,16 @@ public class EvaluatedServiceImpl implements EvaluatedService {
     @Override
     public ResponseWrapper getAllEvaluated() {
         try {
-            ListWrapper<EvaluatedDto> evaluatedDtos = EntityUtil
-                    .fromEntityList(em.createNamedQuery("Evaluated.findAll", Evaluated.class)
-                            .getResultList(), EvaluatedDto.class);
+            List<Evaluated> evaluated = em.createNamedQuery("Evaluated.findAll", Evaluated.class).getResultList();
+            List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
+            for (Evaluated i : evaluated) {
+                evaluatedDtos.add(new EvaluatedDto(i).convertFromEntityToDTO(i, new EvaluatedDto(i)))              ;
+            }
+
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated list retrieved successfully.",
-                    evaluatedDtos);
+                    new ListWrapper<>(evaluatedDtos));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,

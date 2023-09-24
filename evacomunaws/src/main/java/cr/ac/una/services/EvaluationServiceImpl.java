@@ -39,6 +39,7 @@ public class EvaluationServiceImpl implements EvaluationService {
             }
             em.persist(evaluation);
             em.flush();
+            em.refresh(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -73,6 +74,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                 return CONSTRAINT_VIOLATION;
             }
             em.merge(evaluation);
+            em.flush();
             EvaluationDto updatedDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -120,9 +122,11 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Override
     public ResponseWrapper getEvaluationByName(String name) {
         try {
-            Evaluation evaluation = em.createNamedQuery("Evaluation.findByName", Evaluation.class)
-                    .setParameter("name", name)
+            Evaluation evaluation = em.createNamedQuery("Evaluation.findByName", Evaluation.class).setParameter("name", name)
                     .getSingleResult();
+            System.out.println("Size evaluated: "+evaluation.getEvaluated().size());
+            evaluation.getEvaluated().forEach((t -> System.out.print("Size ebvalators: "+t.getEvaluators().size())));
+
             if (evaluation == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -150,10 +154,11 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Override
     public ResponseWrapper getAllEvaluation() {
         try {
+        //    em.clear();
             Query query = em.createNamedQuery("Evaluation.findAll", Evaluation.class);
             List<Evaluation> evaluationList = query.getResultList();
             List<EvaluationDto> evaluationDtos = new ArrayList<>();
-            evaluationList.forEach(t->evaluationDtos.add(new EvaluationDto(t).convertFromEntityToDTO(t, new EvaluationDto(t))));
+            evaluationList.forEach(t -> evaluationDtos.add(new EvaluationDto(t).convertFromEntityToDTO(t, new EvaluationDto(t))));
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -182,6 +187,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                 );
             }
             em.remove(evaluation);
+            em.flush();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

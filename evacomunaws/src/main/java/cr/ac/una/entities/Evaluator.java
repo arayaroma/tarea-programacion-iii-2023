@@ -25,7 +25,7 @@ import cr.ac.una.dto.EvaluatorDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e"),})
+    @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),})
 public class Evaluator implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,6 @@ public class Evaluator implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Long id;
-
 
     @NotNull
     @Basic(optional = false)

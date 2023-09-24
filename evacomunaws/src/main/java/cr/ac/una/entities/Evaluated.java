@@ -21,7 +21,7 @@ import cr.ac.una.dto.EvaluatedDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Evaluated.findAll", query = "SELECT e FROM Evaluated e"),})
+    @NamedQuery(name = "Evaluated.findAll", query = "SELECT e FROM Evaluated e", hints = @QueryHint(name = "eclipselink.refresh", value = "true"))})
 public class Evaluated implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class Evaluated implements Serializable {
     @OneToMany(mappedBy = "evaluated",fetch = FetchType.LAZY)
     private List<Evaluator> evaluators;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evaluated")
     private List<FinalCalification> finalCalifications;
 
     @Version

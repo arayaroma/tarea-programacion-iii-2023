@@ -20,6 +20,7 @@ import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -27,6 +28,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
@@ -41,6 +45,10 @@ import javafx.scene.input.KeyEvent;
  */
 public class EvaluationModuleController implements Initializable {
 
+    @FXML
+    private Button btnCreate;
+    @FXML
+    private Button btnSave;
     @FXML
     private TextField txfNameEvaluation;
     @FXML
@@ -77,6 +85,7 @@ public class EvaluationModuleController implements Initializable {
     private Position roleService = new Position();
     private Evaluated evaluatedService = new Evaluated();
     private Evaluator evaluatorService = new Evaluator();
+    private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -84,6 +93,7 @@ public class EvaluationModuleController implements Initializable {
             evaluationService = new Evaluation();
             //initilizeLists();
             users = Utilities.loadUsers();
+            btnSave.setDisable(true);
             //initializeView();
             initializeView();
         } catch (Exception e) {
@@ -97,17 +107,10 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private void btnAddEvaluator(ActionEvent event) {
         if (finalEvaluatedBuffer != null) {
-            if (evaluatorBuffer != null) {
-                listEvaluatorsFix.getItems().remove(evaluatorBuffer);
+            if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream().anyMatch(t -> t.getId() != null && t.getEvaluator().getId() == evaluatorBuffer.getId())) {
+                listEvaluatorsFix.getItems().remove(evaluatedBuffer);
                 listEvaluatorsFix.getItems().add(evaluatorBuffer);
                 finalEvaluatedBuffer.getEvaluators().add(evaluatorBuffer);
-//                for (EvaluatedDto i : evaluatedDtos) {
-//                    if (i.getEvaluated() == finalEvaluatedBuffer.getEvaluated()) {
-//                        i.getEvaluators().add(eva);
-//                        break;
-//                    }
-//                }
-                //evaluatedDtos.get(index).getEvaluators().add(new EvaluatorWrapper(evaluatorBuffer).getDto());
             }
         } else {
             Message.showNotification("Alert", MessageType.INFO, "You must to choose a Evaluated to set the evaluators");
@@ -117,31 +120,42 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private void btnDeleteEvaluator(ActionEvent event) {
         if (finalEvaluatorBuffer != null) {
+            if (evaluationBuffer != null) {
+                ResponseWrapper responseWrapper = evaluatorService.deleteEvaluatorById(finalEvaluatorBuffer.getId());
+                System.out.println(responseWrapper.getMessage());
+            }
             finalEvaluatedBuffer.getEvaluators().remove(finalEvaluatorBuffer);
             listEvaluatorsFix.getItems().remove(finalEvaluatorBuffer);
-            //evaluatedDtos.remove(finalEvaluatedBuffer);
 
         }
     }
 
     @FXML
     private void btnAddEvaluated(ActionEvent event) {
-        if (evaluatedBuffer != null) {
+        if (evaluatedBuffer != null && !listEvaluatedFix.getItems().stream().anyMatch(t -> t.getId() != null && t.getEvaluated().getId() == evaluatedBuffer.getId())) {
+
+            //if(listEvaluatedFix.getItems().stream().anyMatch(t->t.getId() ==))
             listEvaluatedFix.getItems().remove(evaluatedBuffer);
             listEvaluatedFix.getItems().add(evaluatedBuffer);
-            //evaluatedDtos.add(new EvaluatedWrapper(evaluatedBuffer).getDto());
         }
     }
 
     @FXML
-    private void btnDeleteEvaluated(ActionEvent event) {
+    private void btnDeleteEvaluated(ActionEvent event
+    ) {
         if (finalEvaluatedBuffer != null) {
+            if (evaluationBuffer != null) {
+                deleteEvaluated(finalEvaluatedBuffer);
+            }
             listEvaluatedFix.getItems().remove(finalEvaluatedBuffer);
+            listEvaluatorsFix.getItems().clear();
+
         }
     }
 
     @FXML
-    private void searchByRoleAction(ActionEvent event) {
+    private void searchByRoleAction(ActionEvent event
+    ) {
         String name = cbRoles.getValue();
         if (name != null) {
             PositionDto role = (PositionDto) roleService.getRoleByName(name).getData();
@@ -153,27 +167,40 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
-    private void deleteEvaluationAction(ActionEvent event) {
+    private void deleteEvaluationAction(ActionEvent event
+    ) {
         if (evaluationBuffer != null) {
+            boolean evaluatedDeleted = true;
             for (EvaluatedDto evaluatedDto : evaluationBuffer.getEvaluated()) {
-                for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {
-                    evaluatorService.deleteEvaluatorById(evaluatorDto.getId());
+                evaluatedDeleted = deleteEvaluated(evaluatedDto);
+                if (!evaluatedDeleted) {
+                    break;
                 }
-                evaluatedService.deleteEvaluatedById(evaluatedDto.getId());
             }
-            ResponseWrapper response = evaluationService.deleteEvaluationById(evaluationBuffer.getId());
-            System.out.println(response.getMessage());
-            Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
+            if (evaluatedDeleted) {
+                ResponseWrapper response = evaluationService.deleteEvaluationById(evaluationBuffer.getId());
+                System.out.println(response.getMessage());
+                if (response.getCode() == ResponseCode.OK) {
+                    cleanView();
+                    initializeView();
+                }
+                Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
+            } else {
+                Message.showNotification("Error", MessageType.ERROR, "Error removing evaluated");
+            }
         }
-
     }
 
     @FXML
-    private void createEvaluationAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void saveChangesAction(ActionEvent event) {
+    private void createEvaluationAction(ActionEvent event
+    ) {
+        if (evaluationBuffer != null) {
+            if (Message.showConfirmationAlert("Clean", Alert.AlertType.CONFIRMATION, "Do you wish clean the fields?") == ButtonType.OK) {
+                cleanView();
+                initializeView();
+            }
+            return;
+        }
         String name = txfNameEvaluation.getText(), state = cbState.getValue();
         LocalDate initialDate = dpStartDate.getValue(), endingDate = dpEndDate.getValue(), aplicationDate = dpAplicationDate.getValue();
         if (name.isBlank() || state == null || initialDate == null || endingDate == null || aplicationDate == null) {
@@ -189,21 +216,7 @@ public class EvaluationModuleController implements Initializable {
             //Create evaluated
             evaluationDto = (EvaluationDto) response.getData();
             for (EvaluatedDto i : listEvaluatedFix.getItems()) {
-                i.setEvaluation(new EvaluationWrapper(evaluationDto).getDto());
-                response = evaluatedService.createEvaluated(i);
-                if (response.getCode() == ResponseCode.OK) {
-                    //Create Evaluator
-                    EvaluatedDto evaluatedDtoSaved = (EvaluatedDto) response.getData();
-                    System.out.println(response.getMessage());
-                    for (EvaluatorDto evaluator : i.getEvaluators()) {
-                        evaluator.setEvaluated(new EvaluatedWrapper(evaluatedDtoSaved).getDto());
-                        evaluator.setRole("PEER");
-                        response = evaluatorService.createEvaluator(evaluator);
-                        if (response.getCode() == ResponseCode.OK) {
-                            allIsSaved = true;
-                        }
-                    }
-                }
+                allIsSaved = createEvaluated(i, evaluationDto);
             }
         }
         if (allIsSaved) {
@@ -215,7 +228,43 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
+    private void saveChangesAction(ActionEvent event
+    ) {
+        String name = txfNameEvaluation.getText(), state = cbState.getValue();
+        LocalDate initialDate = dpStartDate.getValue(), endingDate = dpEndDate.getValue(), aplicationDate = dpAplicationDate.getValue();
+        if (name.isBlank() || state == null || initialDate == null || endingDate == null || aplicationDate == null) {
+            Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
+            return;
+        }
+        EvaluationDto evaluationDto;
+        //Create Evaluation
+        evaluationBuffer.setApplicationDate(aplicationDate.toString());
+        evaluationBuffer.setFinalPeriod(endingDate.toString());
+        evaluationBuffer.setInitialPeriod(initialDate.toString());
+        evaluationBuffer.setName(name);
+        evaluationBuffer.setState(state);
+
+        ResponseWrapper response = evaluationService.updateEvaluation(evaluationBuffer);
+        if (response.getCode() == ResponseCode.OK) {
+            evaluationDto = (EvaluationDto) response.getData();
+            for (EvaluatedDto i : listEvaluatedFix.getItems()) {
+                createEvaluated(i, evaluationDto);
+            }
+            cleanView();
+            initializeView();
+        }
+        Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
+    }
+
+    @FXML
     private void searchByIdentification(KeyEvent event) {
+        String identificationToSearch = txfSearchEvaluators.getText();
+        listEvaluators.getItems().clear();
+        if (identificationToSearch.length() > 2) {
+            listEvaluators.getItems().addAll(evaluatorDtos.stream().filter(t -> t.getEvaluator().getIdentification().contains(identificationToSearch)).collect(Collectors.toList()));
+            return;
+        }
+        listEvaluators.getItems().addAll(evaluatorDtos);
     }
 
     @FXML
@@ -230,7 +279,8 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
-    private void searchEvaluationInput(KeyEvent event) {
+    private void searchEvaluationInput(KeyEvent event
+    ) {
         if (event.getCode().isLetterKey()) {
             String nameToSearch = cbEvaluations.getEditor().getText();
             if (nameToSearch != null) {
@@ -251,20 +301,29 @@ public class EvaluationModuleController implements Initializable {
         evaluationDtos = Utilities.loadEvaluations();
         cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
         if (users != null) {
-
+            evaluatorDtos = users.stream().map(t -> new EvaluatorWrapper(t).getDto()).collect(Collectors.toList());
             listEvaluated.getItems().addAll(users.stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
-            listEvaluators.getItems().addAll(users.stream().map(t -> new EvaluatorWrapper(t).getDto()).collect(Collectors.toList()));
+            listEvaluators.getItems().addAll(evaluatorDtos);
         }
     }
 
     public void cleanView() {
         cbState.getItems().clear();
         cbRoles.getItems().clear();
+        txfNameEvaluation.setText("");
+        txfSearchEvaluators.setText("");
+        cbState.setValue(null);
+        dpAplicationDate.setValue(null);
+        dpEndDate.setValue(null);
+        dpStartDate.setValue(null);
         cbEvaluations.getItems().clear();
         listEvaluated.getItems().clear();
         listEvaluators.getItems().clear();
         listEvaluatorsFix.getItems().clear();
         listEvaluatedFix.getItems().clear();
+        evaluationBuffer = null;
+        btnSave.setDisable(true);
+        btnCreate.setText("Create Evaluation");
     }
 
     public void loadFields(EvaluationDto evaluationDto) {
@@ -272,15 +331,11 @@ public class EvaluationModuleController implements Initializable {
         dpAplicationDate.setValue(LocalDate.parse((evaluationDto.getApplicationDate())));
         dpEndDate.setValue(LocalDate.parse((evaluationDto.getFinalPeriod())));
         dpStartDate.setValue(LocalDate.parse((evaluationDto.getInitialPeriod())));
-//        listEvaluated.getItems().clear();
-        //evaluationDto.getEvaluated().forEach(t->lis);
+        cbState.setValue(evaluationDto.getState());
+        btnSave.setDisable(false);
         listEvaluatedFix.getItems().clear();
         listEvaluatedFix.getItems().addAll(evaluationDto.getEvaluated());
-
-//        evaluationDto.getEvaluated().forEach(t -> listEvaluated.getItems().add(t));
-        //evaluationDto.getEvaluated().forEach(t->listEvaluatorsFix.getItems().addAll(t.getEvaluators()));
-        //   evaluationDto.getEvaluated().forEach(t->);
-//        evaluationDto.getEvaluated().forEach(t -> t.getEvaluators().forEach(s -> listEvaluators.getItems().add(s.getEvaluator())));
+        btnCreate.setText("+New Evaluation");
     }
 
     public void initilizeLists() {
@@ -295,7 +350,6 @@ public class EvaluationModuleController implements Initializable {
                 } else {
                     setText(null);
                 }
-
             }
         });
         listEvaluators.setCellFactory((param) -> new ListCell() {
@@ -350,13 +404,67 @@ public class EvaluationModuleController implements Initializable {
         listEvaluatedFix.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     finalEvaluatedBuffer = newValue;
-                    listEvaluatorsFix.getItems().clear();
-                    newValue.getEvaluators().forEach(t -> listEvaluatorsFix.getItems().add(t));
+                    if (finalEvaluatedBuffer != null) {
+                        listEvaluatorsFix.getItems().clear();
+                        newValue.getEvaluators().forEach(t -> listEvaluatorsFix.getItems().add(t));
+                    }
                 });
         listEvaluatorsFix.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     finalEvaluatorBuffer = newValue;
                 });
+    }
+
+    public boolean deleteEvaluated(EvaluatedDto evaluated) {
+        ResponseWrapper response = null;
+        boolean evaluatorsDeleted = true;
+        boolean evaluatedDeleted = true;
+        for (EvaluatorDto evaluatorDto : evaluated.getEvaluators()) {
+            response = evaluatorService.deleteEvaluatorById(evaluatorDto.getId());
+            evaluatorsDeleted = response.getCode() == ResponseCode.OK;
+        }
+        if (evaluatorsDeleted) {
+            response = evaluatedService.deleteEvaluatedById(evaluated.getId());
+            evaluatedDeleted = response.getCode() == ResponseCode.OK;
+            return evaluatorsDeleted;
+        } else {
+            Message.showNotification("Error", MessageType.ERROR, "Error removing evaluators: " + response.getMessage());
+        }
+        return evaluatorsDeleted;
+    }
+
+    public boolean createEvaluated(EvaluatedDto evaluated, EvaluationDto evaluationDto) {
+        ResponseWrapper response = null;
+        boolean allIsSaved = false;
+        evaluated.setEvaluation(new EvaluationWrapper(evaluationDto).getDto());
+        if (evaluated.getId() == null) {
+            response = evaluatedService.createEvaluated(evaluated);
+        }
+        if (response == null || response.getCode() == ResponseCode.OK) {
+            //Create Evaluator
+            EvaluatedDto evaluatedDtoSaved = response == null ? evaluated : (EvaluatedDto) response.getData();
+            for (EvaluatorDto evaluator : evaluated.getEvaluators()) {
+                evaluator.setEvaluated(new EvaluatedWrapper(evaluatedDtoSaved).getDto());
+                evaluator.setRole("PEER");
+                if (evaluator.getId() == null) {
+                    response = evaluatorService.createEvaluator(evaluator);
+                    if (response.getCode() == ResponseCode.OK) {
+                        allIsSaved = true;
+                    }
+                }
+            }
+        }
+        return allIsSaved;
+    }
+
+    private void setRole(EvaluatorDto evaluatorDto) {
+        if (evaluatorDto.getEvaluator().getId() == evaluatorDto.getId()) {
+            evaluatorDto.setRole("SELF");
+        } else if (evaluatorDto.getEvaluator().getIsAdmin() == "Y") {
+            evaluatorDto.setRole("SUPERVISOR");
+        } else {
+            evaluatorDto.setRole("PEER");
+        }
     }
 
 }
