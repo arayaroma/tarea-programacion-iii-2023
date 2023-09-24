@@ -17,7 +17,9 @@ public class CalificationDto {
     private Long id;
     private String calification;
     private SkillDto skill;
-    private UserDto evaluator;
+
+    //Previously was UserDto, but entity provides Evaluator, so it was changed
+    private EvaluatorDto evaluator;
     private Long version;
 
     /**
@@ -27,5 +29,14 @@ public class CalificationDto {
         this.id = calification.getId();
         this.calification = calification.getCalification();
         this.version = calification.getVersion();
+    }
+
+    public CalificationDto convertFromEntityToDTO(Calification calification, CalificationDto calificationDto) {
+        calificationDto.setId(calification.getId());
+        calificationDto.setCalification(calification.getCalification());
+        calificationDto.setVersion(calification.getVersion());
+        calificationDto.setEvaluator(new EvaluatorDto(calification.getEvaluator()));
+        calificationDto.setSkill(new SkillDto(calification.getSkill()));
+        return calificationDto;
     }
 }
