@@ -1,11 +1,9 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.CharacteristicDto;
-
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.services.Characteristic;
-import cr.ac.una.evacomuna.services.Skill;
-
+import cr.ac.una.evacomuna.services.CharacteristicService;
+import cr.ac.una.evacomuna.services.SkillService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +11,6 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -32,8 +29,8 @@ public class ContainerModuleController implements Initializable {
     private Tab parentSkill;
 
     // SERVICES
-    Skill skillService;
-    Characteristic characteristicService;
+    SkillService skillService;
+    CharacteristicService characteristicService;
     // BUFFERS
     CharacteristicDto characteristicBuffer;
     // CONTROLLERS
@@ -46,8 +43,8 @@ public class ContainerModuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            characteristicService = new Characteristic();
-            skillService = new Skill();
+            characteristicService = new CharacteristicService();
+            skillService = new SkillService();
             tabRole(null);
         } catch (Exception e) {
 
