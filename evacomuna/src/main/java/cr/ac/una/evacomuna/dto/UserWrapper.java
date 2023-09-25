@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cr.ac.una.evacomuna.dto;
 
 import cr.ac.una.controller.EvaluatedDto;
@@ -15,11 +11,6 @@ import java.util.List;
  * @author estebannajera
  */
 public class UserWrapper {
-// private String activationCode;
-// private String username;
-// private String password;
-// private String email;
-// private String activationCode;
 
     private Long id;
     private String username;

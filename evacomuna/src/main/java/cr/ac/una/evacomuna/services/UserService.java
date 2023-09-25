@@ -3,6 +3,8 @@ package cr.ac.una.evacomuna.services;
 import cr.ac.una.controller.UserController_Service;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.controller.UserController;
+import cr.ac.una.evacomuna.util.Connection;
+import cr.ac.una.evacomuna.util.Constants;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
@@ -21,6 +23,11 @@ public class UserService {
     public UserService() {
         service = new UserController_Service();
         port = service.getUserControllerPort();
+    }
+
+    public boolean checkConnection() {
+        String serviceUrl = Connection.getSocket() + Constants.DOMAIN + "UserController?wsdl";
+        return Connection.isConnected(serviceUrl);
     }
 
     /**
