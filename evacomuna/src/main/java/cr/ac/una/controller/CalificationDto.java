@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for calificationDto complex type.
+ * <p>Clase Java para calificationDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="calificationDto"&gt;
@@ -17,7 +17,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="calification" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="evaluator" type="{http://controller.una.ac.cr/}userDto" minOccurs="0"/&gt;
+ *         &lt;element name="evaluator" type="{http://controller.una.ac.cr/}evaluatorDto" minOccurs="0"/&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="skill" type="{http://controller.una.ac.cr/}skillDto" minOccurs="0"/&gt;
  *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
@@ -40,13 +40,13 @@ import jakarta.xml.bind.annotation.XmlType;
 public class CalificationDto {
 
     protected String calification;
-    protected UserDto evaluator;
+    protected EvaluatorDto evaluator;
     protected Long id;
     protected SkillDto skill;
     protected Long version;
 
     /**
-     * Gets the value of the calification property.
+     * Obtiene el valor de la propiedad calification.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class CalificationDto {
     }
 
     /**
-     * Sets the value of the calification property.
+     * Define el valor de la propiedad calification.
      * 
      * @param value
      *     allowed object is
@@ -70,31 +70,31 @@ public class CalificationDto {
     }
 
     /**
-     * Gets the value of the evaluator property.
+     * Obtiene el valor de la propiedad evaluator.
      * 
      * @return
      *     possible object is
-     *     {@link UserDto }
+     *     {@link EvaluatorDto }
      *     
      */
-    public UserDto getEvaluator() {
+    public EvaluatorDto getEvaluator() {
         return evaluator;
     }
 
     /**
-     * Sets the value of the evaluator property.
+     * Define el valor de la propiedad evaluator.
      * 
      * @param value
      *     allowed object is
-     *     {@link UserDto }
+     *     {@link EvaluatorDto }
      *     
      */
-    public void setEvaluator(UserDto value) {
+    public void setEvaluator(EvaluatorDto value) {
         this.evaluator = value;
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class CalificationDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class CalificationDto {
     }
 
     /**
-     * Gets the value of the skill property.
+     * Obtiene el valor de la propiedad skill.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class CalificationDto {
     }
 
     /**
-     * Sets the value of the skill property.
+     * Define el valor de la propiedad skill.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class CalificationDto {
     }
 
     /**
-     * Gets the value of the version property.
+     * Obtiene el valor de la propiedad version.
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class CalificationDto {
     }
 
     /**
-     * Sets the value of the version property.
+     * Define el valor de la propiedad version.
      * 
      * @param value
      *     allowed object is

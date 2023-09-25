@@ -209,14 +209,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FinalCalificationDto }
-     * 
-     */
-    public FinalCalificationDto createFinalCalificationDto() {
-        return new FinalCalificationDto();
-    }
-
-    /**
      * Create an instance of {@link EvaluatorDto }
      * 
      */
@@ -302,6 +294,14 @@ public class ObjectFactory {
      */
     public LocalDate createLocalDate() {
         return new LocalDate();
+    }
+
+    /**
+     * Create an instance of {@link FinalCalificationDto }
+     * 
+     */
+    public FinalCalificationDto createFinalCalificationDto() {
+        return new FinalCalificationDto();
     }
 
     /**
