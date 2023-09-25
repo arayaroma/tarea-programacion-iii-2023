@@ -8,7 +8,7 @@ import cr.ac.una.evacomuna.services.UserService;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-import cr.ac.una.evacomuna.util.Utilities;
+import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class WorkersModuleController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        users = Utilities.loadUsers();
+        users = ObservableListParser.loadUsers();
         App.setWorkersModuleController(this);
         btnEdit.setDisable(true);
         initilizeLists();
@@ -93,7 +93,7 @@ public class WorkersModuleController implements Initializable {
         String key = txfSearch.getText(), parameterKey = cbSearchParameter.getValue();
 
         if (key.isBlank() || parameterKey == null) {
-            users = Utilities.loadUsers();
+            users = ObservableListParser.loadUsers();
             loadWorkers(users);
             return;
         }

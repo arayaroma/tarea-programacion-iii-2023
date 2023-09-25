@@ -16,7 +16,7 @@ import cr.ac.una.evacomuna.services.EvaluatorService;
 import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-import cr.ac.una.evacomuna.util.Utilities;
+import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class EvaluationModuleController implements Initializable {
         try {
             evaluationService = new EvaluationService();
             // initilizeLists();
-            users = Utilities.loadUsers();
+            users = ObservableListParser.loadUsers();
             btnSave.setDisable(true);
             // initializeView();
             initializeView();
@@ -294,7 +294,7 @@ public class EvaluationModuleController implements Initializable {
                                     .map(t -> t.getName()).collect(Collectors.toList()));
                     return;
                 }
-                cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
+                cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
                 cbEvaluations.show();
             }
         }
@@ -302,9 +302,9 @@ public class EvaluationModuleController implements Initializable {
 
     public void initializeView() {
         cbState.getItems().addAll("UNDER CONSTRUCTION", "IN APPLICATION", "UNDER REVIEW", "COMPLETED");
-        cbRoles.getItems().addAll(Utilities.mapListToObsevableString(Utilities.loadPositions()));
-        evaluationDtos = Utilities.loadEvaluations();
-        cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
+        cbRoles.getItems().addAll(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
+        evaluationDtos = ObservableListParser.loadEvaluations();
+        cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
         if (users != null) {
             evaluatorDtos = users.stream().map(t -> new EvaluatorWrapper(t).getDto()).collect(Collectors.toList());
             listEvaluated.getItems()

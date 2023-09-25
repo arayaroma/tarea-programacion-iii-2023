@@ -8,7 +8,7 @@ import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.services.SkillService;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-import cr.ac.una.evacomuna.util.Utilities;
+import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -149,7 +149,7 @@ public class PositionModuleController implements Initializable {
                             .map(t -> t.getName()).collect(Collectors.toList()));
                     return;
                 }
-                cbRoles.getItems().addAll(Utilities.mapListToObsevableString(positionDtos));
+                cbRoles.getItems().addAll(ObservableListParser.mapListToObsevableString(positionDtos));
                 cbRoles.show();
             }
         }
@@ -216,9 +216,9 @@ public class PositionModuleController implements Initializable {
     }
 
     private void initializeRegisterView() {
-        skillDtos = Utilities.loadSkills();
+        skillDtos = ObservableListParser.loadSkills();
         cbStateRegister.getItems().addAll("ACTIVE", "INACTIVE");
-        cbRolesSkillsRegister.setItems(Utilities.mapListToObsevableString(skillDtos));
+        cbRolesSkillsRegister.setItems(ObservableListParser.mapListToObsevableString(skillDtos));
         if (bufferRole != null && bufferRole.getSkills() != null) {
             bufferRole.getSkills().forEach(t -> listSkillsRegister.getItems().add(t));
         }
@@ -234,8 +234,8 @@ public class PositionModuleController implements Initializable {
     }
 
     private void initializeMainView() {
-        positionDtos = Utilities.loadPositions();
-        cbRoles.setItems(Utilities.mapListToObsevableString(positionDtos));
+        positionDtos = ObservableListParser.loadPositions();
+        cbRoles.setItems(ObservableListParser.mapListToObsevableString(positionDtos));
     }
 
 }

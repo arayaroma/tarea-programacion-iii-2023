@@ -9,7 +9,7 @@ import cr.ac.una.evacomuna.dto.SkillWrapper;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.util.Data;
-import cr.ac.una.evacomuna.util.Utilities;
+import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,14 +82,14 @@ public class PendingEvaluationsController implements Initializable {
         calificationWrappers = new ArrayList<>();
         evaluationService = new EvaluationService();
         positionService = new PositionService();
-        evaluationDtos = Utilities.loadEvaluations();
+        evaluationDtos = ObservableListParser.loadEvaluations();
         List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
                 .filter(evaluationDto -> evaluationDto.getEvaluated().stream()
                         .anyMatch(evaluatedDto -> evaluatedDto.getEvaluators().stream()
                                 .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId())))
                 .collect(Collectors.toList());
         cbPendingEvaluations.getItems()
-                .addAll(Utilities.mapListToObsevableString(FXCollections.observableArrayList(evaluationDtosFiltered)));
+                .addAll(ObservableListParser.mapListToObsevableString(FXCollections.observableArrayList(evaluationDtosFiltered)));
         initializeGrid();
         initializeList();
     }

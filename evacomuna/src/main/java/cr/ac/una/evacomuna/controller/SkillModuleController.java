@@ -10,7 +10,7 @@ import cr.ac.una.evacomuna.services.CharacteristicService;
 import cr.ac.una.evacomuna.services.SkillService;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-import cr.ac.una.evacomuna.util.Utilities;
+import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -103,7 +103,7 @@ public class SkillModuleController implements Initializable {
                             .map(t -> t.getName()).collect(Collectors.toList()));
                     return;
                 }
-                cbSkillsView.getItems().addAll(Utilities.mapListToObsevableString(skillsDtos));
+                cbSkillsView.getItems().addAll(ObservableListParser.mapListToObsevableString(skillsDtos));
                 cbSkillsView.show();
             }
         }
@@ -234,9 +234,9 @@ public class SkillModuleController implements Initializable {
     }
 
     private void initializeSkillMainView() {
-        skillsDtos = Utilities.loadSkills();
+        skillsDtos = ObservableListParser.loadSkills();
         cbSkillsView.setValue(null);
-        cbSkillsView.setItems(Utilities.mapListToObsevableString(skillsDtos));
+        cbSkillsView.setItems(ObservableListParser.mapListToObsevableString(skillsDtos));
         listCharacteristicsMainSkillView.getItems().clear();
 
     }

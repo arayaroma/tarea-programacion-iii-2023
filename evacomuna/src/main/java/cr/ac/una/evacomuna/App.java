@@ -1,6 +1,5 @@
 package cr.ac.una.evacomuna;
 
-
 import cr.ac.una.evacomuna.controller.LoginController;
 import cr.ac.una.evacomuna.controller.MainController;
 import cr.ac.una.evacomuna.controller.RegisterWorkerController;

@@ -11,7 +11,7 @@ import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
-import cr.ac.una.evacomuna.util.Utilities;
+import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -80,7 +80,7 @@ public class RegisterWorkerController implements Initializable {
         roleService = new PositionService();
         // Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
-        ObservableList<PositionDto> roleDtos = Utilities.loadPositions();
+        ObservableList<PositionDto> roleDtos = ObservableListParser.loadPositions();
         roleDtos.stream().forEach(t -> cbRoleRegister.getItems().add(t.getName()));
         userModified = Data.getUserModified();
         if (userModified != null) {
@@ -117,7 +117,7 @@ public class RegisterWorkerController implements Initializable {
             return;
         }
         App.getMainController().removeMainView(parent);
-        App.getWorkersModuleController().loadWorkers(Utilities.loadUsers());
+        App.getWorkersModuleController().loadWorkers(ObservableListParser.loadUsers());
     }
 
     /**
@@ -226,7 +226,7 @@ public class RegisterWorkerController implements Initializable {
      */
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
-        cbRoleRegister.setItems(Utilities.mapListToObsevableString(Utilities.loadPositions()));
+        cbRoleRegister.setItems(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
         imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
         if (user != null) {
             userModified = user;
