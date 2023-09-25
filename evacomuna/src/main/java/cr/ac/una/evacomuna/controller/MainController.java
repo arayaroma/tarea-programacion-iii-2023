@@ -1,11 +1,11 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.services.User;
-import cr.ac.una.evacomuna.util.Animations;
+import cr.ac.una.evacomuna.services.UserService;
+import cr.ac.una.evacomuna.components.Animations;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
@@ -54,7 +54,7 @@ public class MainController implements Initializable {
     private StackPane parent;
 
     private UserDto userLogged;
-    private User userService;
+    private UserService userService;
 
     /**
      * Initializes the controller class.
@@ -66,11 +66,11 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             App.setMainController(this);
-            userService = new User();
+            userService = new UserService();
             userLogged = Data.getUserLogged();
-//            if (Data.isHasPrivileges()) {
-//                return;
-//            }
+            // if (Data.isHasPrivileges()) {
+            // return;
+            // }
             // Cut over the photo to make a circula effect
             if (userLogged != null) {
                 imgProfilePhoto
