@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para calification complex type.
+ * <p>Java class for calification complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="calification"&gt;
@@ -46,7 +46,7 @@ public class Calification {
     protected Long version;
 
     /**
-     * Obtiene el valor de la propiedad calification.
+     * Gets the value of the calification property.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class Calification {
     }
 
     /**
-     * Define el valor de la propiedad calification.
+     * Sets the value of the calification property.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class Calification {
     }
 
     /**
-     * Obtiene el valor de la propiedad evaluator.
+     * Gets the value of the evaluator property.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class Calification {
     }
 
     /**
-     * Define el valor de la propiedad evaluator.
+     * Sets the value of the evaluator property.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class Calification {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class Calification {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class Calification {
     }
 
     /**
-     * Obtiene el valor de la propiedad skill.
+     * Gets the value of the skill property.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class Calification {
     }
 
     /**
-     * Define el valor de la propiedad skill.
+     * Sets the value of the skill property.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class Calification {
     }
 
     /**
-     * Obtiene el valor de la propiedad version.
+     * Gets the value of the version property.
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class Calification {
     }
 
     /**
-     * Define el valor de la propiedad version.
+     * Sets the value of the version property.
      * 
      * @param value
      *     allowed object is

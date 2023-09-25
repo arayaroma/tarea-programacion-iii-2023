@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para finalCalification complex type.
+ * <p>Java class for finalCalification complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="finalCalification"&gt;
@@ -49,7 +49,7 @@ public class FinalCalification {
     protected Long version;
 
     /**
-     * Obtiene el valor de la propiedad average.
+     * Gets the value of the average property.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class FinalCalification {
     }
 
     /**
-     * Define el valor de la propiedad average.
+     * Sets the value of the average property.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class FinalCalification {
     }
 
     /**
-     * Obtiene el valor de la propiedad evaluated.
+     * Gets the value of the evaluated property.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class FinalCalification {
     }
 
     /**
-     * Define el valor de la propiedad evaluated.
+     * Sets the value of the evaluated property.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class FinalCalification {
     }
 
     /**
-     * Obtiene el valor de la propiedad finalNote.
+     * Gets the value of the finalNote property.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class FinalCalification {
     }
 
     /**
-     * Define el valor de la propiedad finalNote.
+     * Sets the value of the finalNote property.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class FinalCalification {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class FinalCalification {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class FinalCalification {
     }
 
     /**
-     * Obtiene el valor de la propiedad skill.
+     * Gets the value of the skill property.
      * 
      * @return
      *     possible object is
@@ -157,7 +157,7 @@ public class FinalCalification {
     }
 
     /**
-     * Define el valor de la propiedad skill.
+     * Sets the value of the skill property.
      * 
      * @param value
      *     allowed object is
@@ -169,7 +169,7 @@ public class FinalCalification {
     }
 
     /**
-     * Obtiene el valor de la propiedad version.
+     * Gets the value of the version property.
      * 
      * @return
      *     possible object is
@@ -181,7 +181,7 @@ public class FinalCalification {
     }
 
     /**
-     * Define el valor de la propiedad version.
+     * Sets the value of the version property.
      * 
      * @param value
      *     allowed object is
