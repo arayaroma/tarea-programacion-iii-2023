@@ -1,9 +1,9 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.GeneralInformationDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
-import cr.ac.una.evacomuna.services.Company;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
+import cr.ac.una.evacomuna.services.GeneralInformationService;
 import cr.ac.una.evacomuna.util.FileLoader;
 import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
@@ -46,7 +46,7 @@ public class CompanyModuleController implements Initializable {
     private Label lblURLTemplate;
     private File fileBuffer;
     private File htmlBuffer;
-    private Company companyService;
+    private GeneralInformationService companyService;
     private GeneralInformationDto companyBuffer;
 
     /**
@@ -56,7 +56,7 @@ public class CompanyModuleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
-        companyService = new Company();
+        companyService = new GeneralInformationService();
         companyBuffer = (GeneralInformationDto) companyService.getGeneralInformation().getData();
         initializeView();
     }
