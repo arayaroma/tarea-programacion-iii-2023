@@ -11,6 +11,7 @@ import cr.ac.una.evacomuna.util.ResponseWrapper;
 /**
  *
  * @author estebannajera
+ * @author arayaroma
  */
 public class UserService {
 
