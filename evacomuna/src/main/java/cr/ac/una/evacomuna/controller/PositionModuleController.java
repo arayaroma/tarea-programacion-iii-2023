@@ -1,11 +1,11 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.PositionDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
-import cr.ac.una.evacomuna.services.Position;
-import cr.ac.una.evacomuna.services.Skill;
+import cr.ac.una.evacomuna.services.PositionService;
+import cr.ac.una.evacomuna.services.SkillService;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -50,8 +50,8 @@ public class PositionModuleController implements Initializable {
     SkillDto bufferSkill;
     PositionDto bufferRole;
     // SERVICES
-    Skill skillService;
-    Position roleService;
+    SkillService skillService;
+    PositionService roleService;
     // LISTS
     ObservableList<SkillDto> skillDtos;
     ObservableList<PositionDto> positionDtos;
@@ -64,8 +64,8 @@ public class PositionModuleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            skillService = new Skill();
-            roleService = new Position();
+            skillService = new SkillService();
+            roleService = new PositionService();
             initializeLists();
             initializeMainView();
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class PositionModuleController implements Initializable {
     @FXML
     private void btnDeleteRole(ActionEvent event) {
         if (bufferRole != null) {
-            roleService.deleteRoleById(bufferRole.getId());
+            roleService.deletePositionById(bufferRole.getId());
             initializeMainView();
         }
     }
@@ -130,7 +130,7 @@ public class PositionModuleController implements Initializable {
     private void selectRole(ActionEvent event) {
         String name = cbRoles.getValue();
         if (name != null) {
-            bufferRole = (PositionDto) roleService.getRoleByName(name).getData();
+            bufferRole = (PositionDto) roleService.getPositionByName(name).getData();
             listSkillsMain.getItems().clear();
             if (bufferRole != null && bufferRole.getSkills() != null) {
                 bufferRole.getSkills().forEach(t -> listSkillsMain.getItems().add(t));
@@ -173,7 +173,8 @@ public class PositionModuleController implements Initializable {
                 for (SkillDto i : listSkillsRegister.getItems()) {
                     role.getSkills().add(i);
                 }
-                ResponseWrapper response = isEditingRole ? roleService.updateRole(role) : roleService.createRole(role);
+                ResponseWrapper response = isEditingRole ? roleService.updatePosition(role)
+                        : roleService.createPosition(role);
                 if (response.getCode() == ResponseCode.OK) {
                     Message.showNotification("Succeed", MessageType.INFO, response.getMessage());
                     cleanRegisterView();
