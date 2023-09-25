@@ -1,10 +1,10 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.services.User;
+import cr.ac.una.evacomuna.services.UserService;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
@@ -61,7 +61,7 @@ public class WorkersModuleController implements Initializable {
 
     private static List<UserDto> users = new ArrayList<>();
     private UserDto userBuffer;
-    private User userService = new User();
+    private UserService userService = new UserService();
 
     /**
      * Initializes the controller class.
@@ -111,7 +111,8 @@ public class WorkersModuleController implements Initializable {
     @FXML
     private void deleteWorker(ActionEvent event) {
         if (userBuffer != null) {
-            if (Message.showConfirmationAlert("Are you sure?", Alert.AlertType.CONFIRMATION, "Are you sure that you want to delete this user?") == ButtonType.OK) {
+            if (Message.showConfirmationAlert("Are you sure?", Alert.AlertType.CONFIRMATION,
+                    "Are you sure that you want to delete this user?") == ButtonType.OK) {
                 ResponseWrapper response = userService.deleteUser(userBuffer.getId());
                 if (response.getCode() == ResponseCode.OK) {
                     if (userBuffer.getId().equals(Data.getUserLogged().getId())) {
