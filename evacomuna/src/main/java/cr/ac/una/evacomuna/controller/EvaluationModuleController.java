@@ -4,17 +4,16 @@ import cr.ac.una.controller.EvaluatedDto;
 import cr.ac.una.controller.EvaluationDto;
 import cr.ac.una.controller.EvaluatorDto;
 import cr.ac.una.controller.PositionDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.dto.EvaluatedWrapper;
 import cr.ac.una.evacomuna.dto.EvaluationWrapper;
 import cr.ac.una.evacomuna.dto.EvaluatorWrapper;
-import cr.ac.una.evacomuna.services.Evaluated;
-import cr.ac.una.evacomuna.services.Evaluation;
-import cr.ac.una.evacomuna.services.Evaluator;
-import cr.ac.una.evacomuna.services.Position;
-
+import cr.ac.una.evacomuna.services.EvaluatedService;
+import cr.ac.una.evacomuna.services.EvaluationService;
+import cr.ac.una.evacomuna.services.EvaluatorService;
+import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -74,7 +73,7 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private ListView<EvaluatedDto> listEvaluatedFix;
 
-    private Evaluation evaluationService;
+    private EvaluationService evaluationService;
     private EvaluationDto evaluationBuffer;
     private EvaluatedDto evaluatedBuffer;
     private EvaluatorDto evaluatorBuffer;
@@ -82,19 +81,19 @@ public class EvaluationModuleController implements Initializable {
     private EvaluatorDto finalEvaluatorBuffer;
     private List<UserDto> users;
     private ObservableList<EvaluationDto> evaluationDtos;
-    private Position roleService = new Position();
-    private Evaluated evaluatedService = new Evaluated();
-    private Evaluator evaluatorService = new Evaluator();
+    private PositionService roleService = new PositionService();
+    private EvaluatedService evaluatedService = new EvaluatedService();
+    private EvaluatorService evaluatorService = new EvaluatorService();
     private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            evaluationService = new Evaluation();
-            //initilizeLists();
+            evaluationService = new EvaluationService();
+            // initilizeLists();
             users = Utilities.loadUsers();
             btnSave.setDisable(true);
-            //initializeView();
+            // initializeView();
             initializeView();
         } catch (Exception e) {
 
@@ -107,7 +106,8 @@ public class EvaluationModuleController implements Initializable {
     @FXML
     private void btnAddEvaluator(ActionEvent event) {
         if (finalEvaluatedBuffer != null) {
-            if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream().anyMatch(t -> t.getId() != null && t.getEvaluator().getId() == evaluatorBuffer.getId())) {
+            if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream()
+                    .anyMatch(t -> t.getId() != null && t.getEvaluator().getId() == evaluatorBuffer.getId())) {
                 listEvaluatorsFix.getItems().remove(evaluatedBuffer);
                 listEvaluatorsFix.getItems().add(evaluatorBuffer);
                 finalEvaluatedBuffer.getEvaluators().add(evaluatorBuffer);
@@ -132,17 +132,17 @@ public class EvaluationModuleController implements Initializable {
 
     @FXML
     private void btnAddEvaluated(ActionEvent event) {
-        if (evaluatedBuffer != null && !listEvaluatedFix.getItems().stream().anyMatch(t -> t.getId() != null && t.getEvaluated().getId() == evaluatedBuffer.getId())) {
+        if (evaluatedBuffer != null && !listEvaluatedFix.getItems().stream()
+                .anyMatch(t -> t.getId() != null && t.getEvaluated().getId() == evaluatedBuffer.getId())) {
 
-            //if(listEvaluatedFix.getItems().stream().anyMatch(t->t.getId() ==))
+            // if(listEvaluatedFix.getItems().stream().anyMatch(t->t.getId() ==))
             listEvaluatedFix.getItems().remove(evaluatedBuffer);
             listEvaluatedFix.getItems().add(evaluatedBuffer);
         }
     }
 
     @FXML
-    private void btnDeleteEvaluated(ActionEvent event
-    ) {
+    private void btnDeleteEvaluated(ActionEvent event) {
         if (finalEvaluatedBuffer != null) {
             if (evaluationBuffer != null) {
                 deleteEvaluated(finalEvaluatedBuffer);
@@ -154,21 +154,20 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
-    private void searchByRoleAction(ActionEvent event
-    ) {
+    private void searchByRoleAction(ActionEvent event) {
         String name = cbRoles.getValue();
         if (name != null) {
-            PositionDto role = (PositionDto) roleService.getRoleByName(name).getData();
+            PositionDto role = (PositionDto) roleService.getPositionByName(name).getData();
             if (role != null && role.getUsers() != null) {
                 listEvaluated.getItems().clear();
-                listEvaluated.getItems().addAll(role.getUsers().stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
+                listEvaluated.getItems().addAll(role.getUsers().stream().map(t -> new EvaluatedWrapper(t).getDto())
+                        .collect(Collectors.toList()));
             }
         }
     }
 
     @FXML
-    private void deleteEvaluationAction(ActionEvent event
-    ) {
+    private void deleteEvaluationAction(ActionEvent event) {
         if (evaluationBuffer != null) {
             boolean evaluatedDeleted = true;
             for (EvaluatedDto evaluatedDto : evaluationBuffer.getEvaluated()) {
@@ -192,28 +191,30 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
-    private void createEvaluationAction(ActionEvent event
-    ) {
+    private void createEvaluationAction(ActionEvent event) {
         if (evaluationBuffer != null) {
-            if (Message.showConfirmationAlert("Clean", Alert.AlertType.CONFIRMATION, "Do you wish clean the fields?") == ButtonType.OK) {
+            if (Message.showConfirmationAlert("Clean", Alert.AlertType.CONFIRMATION,
+                    "Do you wish clean the fields?") == ButtonType.OK) {
                 cleanView();
                 initializeView();
             }
             return;
         }
         String name = txfNameEvaluation.getText(), state = cbState.getValue();
-        LocalDate initialDate = dpStartDate.getValue(), endingDate = dpEndDate.getValue(), aplicationDate = dpAplicationDate.getValue();
+        LocalDate initialDate = dpStartDate.getValue(), endingDate = dpEndDate.getValue(),
+                aplicationDate = dpAplicationDate.getValue();
         if (name.isBlank() || state == null || initialDate == null || endingDate == null || aplicationDate == null) {
             Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
             return;
         }
-        //Create Evaluation
-        EvaluationWrapper evaluationWrapper = new EvaluationWrapper(null, name, aplicationDate, initialDate, endingDate, state);
+        // Create Evaluation
+        EvaluationWrapper evaluationWrapper = new EvaluationWrapper(null, name, aplicationDate, initialDate, endingDate,
+                state);
         EvaluationDto evaluationDto = evaluationWrapper.getDto();
         ResponseWrapper response = evaluationService.createEvaluation(evaluationDto);
         boolean allIsSaved = false;
         if (response.getCode() == ResponseCode.OK) {
-            //Create evaluated
+            // Create evaluated
             evaluationDto = (EvaluationDto) response.getData();
             for (EvaluatedDto i : listEvaluatedFix.getItems()) {
                 allIsSaved = createEvaluated(i, evaluationDto);
@@ -228,16 +229,16 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
-    private void saveChangesAction(ActionEvent event
-    ) {
+    private void saveChangesAction(ActionEvent event) {
         String name = txfNameEvaluation.getText(), state = cbState.getValue();
-        LocalDate initialDate = dpStartDate.getValue(), endingDate = dpEndDate.getValue(), aplicationDate = dpAplicationDate.getValue();
+        LocalDate initialDate = dpStartDate.getValue(), endingDate = dpEndDate.getValue(),
+                aplicationDate = dpAplicationDate.getValue();
         if (name.isBlank() || state == null || initialDate == null || endingDate == null || aplicationDate == null) {
             Message.showNotification("Ups", MessageType.INFO, "All the fields are required");
             return;
         }
         EvaluationDto evaluationDto;
-        //Create Evaluation
+        // Create Evaluation
         evaluationBuffer.setApplicationDate(aplicationDate.toString());
         evaluationBuffer.setFinalPeriod(endingDate.toString());
         evaluationBuffer.setInitialPeriod(initialDate.toString());
@@ -261,7 +262,10 @@ public class EvaluationModuleController implements Initializable {
         String identificationToSearch = txfSearchEvaluators.getText();
         listEvaluators.getItems().clear();
         if (identificationToSearch.length() > 2) {
-            listEvaluators.getItems().addAll(evaluatorDtos.stream().filter(t -> t.getEvaluator().getIdentification().contains(identificationToSearch)).collect(Collectors.toList()));
+            listEvaluators.getItems()
+                    .addAll(evaluatorDtos.stream()
+                            .filter(t -> t.getEvaluator().getIdentification().contains(identificationToSearch))
+                            .collect(Collectors.toList()));
             return;
         }
         listEvaluators.getItems().addAll(evaluatorDtos);
@@ -279,14 +283,15 @@ public class EvaluationModuleController implements Initializable {
     }
 
     @FXML
-    private void searchEvaluationInput(KeyEvent event
-    ) {
+    private void searchEvaluationInput(KeyEvent event) {
         if (event.getCode().isLetterKey()) {
             String nameToSearch = cbEvaluations.getEditor().getText();
             if (nameToSearch != null) {
                 cbEvaluations.getItems().clear();
                 if (nameToSearch.length() > 2) {
-                    cbEvaluations.getItems().addAll(evaluationDtos.stream().filter(t -> t.getName().contains(nameToSearch)).map(t -> t.getName()).collect(Collectors.toList()));
+                    cbEvaluations.getItems()
+                            .addAll(evaluationDtos.stream().filter(t -> t.getName().contains(nameToSearch))
+                                    .map(t -> t.getName()).collect(Collectors.toList()));
                     return;
                 }
                 cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
@@ -302,7 +307,8 @@ public class EvaluationModuleController implements Initializable {
         cbEvaluations.getItems().addAll(Utilities.mapListToObsevableString(evaluationDtos));
         if (users != null) {
             evaluatorDtos = users.stream().map(t -> new EvaluatorWrapper(t).getDto()).collect(Collectors.toList());
-            listEvaluated.getItems().addAll(users.stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
+            listEvaluated.getItems()
+                    .addAll(users.stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
             listEvaluators.getItems().addAll(evaluatorDtos);
         }
     }
@@ -346,7 +352,8 @@ public class EvaluationModuleController implements Initializable {
                 EvaluatedDto evaluatedDto = (EvaluatedDto) item;
                 if (evaluatedDto != null) {
                     UserDto user = evaluatedDto.getEvaluated();
-                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                    setText(empty || item == null ? null
+                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 } else {
                     setText(null);
                 }
@@ -359,7 +366,8 @@ public class EvaluationModuleController implements Initializable {
                 EvaluatorDto evaluatorDto = (EvaluatorDto) item;
                 if (evaluatorDto != null) {
                     UserDto user = evaluatorDto.getEvaluator();
-                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                    setText(empty || item == null ? null
+                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 } else {
                     setText(null);
                 }
@@ -373,7 +381,8 @@ public class EvaluationModuleController implements Initializable {
                 EvaluatedDto evaluatedDto = (EvaluatedDto) item;
                 if (evaluatedDto != null) {
                     UserDto user = evaluatedDto.getEvaluated();
-                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                    setText(empty || item == null ? null
+                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 } else {
                     setText(null);
                 }
@@ -386,7 +395,8 @@ public class EvaluationModuleController implements Initializable {
                 EvaluatorDto evaluatorDto = (EvaluatorDto) item;
                 if (evaluatorDto != null) {
                     UserDto user = evaluatorDto.getEvaluator();
-                    setText(empty || item == null ? null : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                    setText(empty || item == null ? null
+                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 } else {
                     setText(null);
                 }
@@ -441,7 +451,7 @@ public class EvaluationModuleController implements Initializable {
             response = evaluatedService.createEvaluated(evaluated);
         }
         if (response == null || response.getCode() == ResponseCode.OK) {
-            //Create Evaluator
+            // Create Evaluator
             EvaluatedDto evaluatedDtoSaved = response == null ? evaluated : (EvaluatedDto) response.getData();
             for (EvaluatorDto evaluator : evaluated.getEvaluators()) {
                 evaluator.setEvaluated(new EvaluatedWrapper(evaluatedDtoSaved).getDto());
