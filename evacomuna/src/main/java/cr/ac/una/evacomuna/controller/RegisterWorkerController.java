@@ -1,12 +1,12 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.PositionDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.services.Position;
-import cr.ac.una.evacomuna.services.User;
+import cr.ac.una.evacomuna.services.PositionService;
+import cr.ac.una.evacomuna.services.UserService;
 import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
@@ -63,8 +63,8 @@ public class RegisterWorkerController implements Initializable {
     private HBox parent;
 
     private File bufferFileImage;
-    private User userService;
-    private Position roleService;
+    private UserService userService;
+    private PositionService roleService;
 
     private boolean isFromLogin;
 
@@ -76,8 +76,8 @@ public class RegisterWorkerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         App.setRegisterWorkerController(this);
-        userService = new User();
-        roleService = new Position();
+        userService = new UserService();
+        roleService = new PositionService();
         // Cut over the photo to make a circula effect
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
         ObservableList<PositionDto> roleDtos = Utilities.loadPositions();
@@ -137,10 +137,6 @@ public class RegisterWorkerController implements Initializable {
     }
 
     /**
-     * FIXME: It's not updating the profilePhoto when the user changes it
-     * it has to logout, and then login to see the change, and in the backend
-     * it sets the ISACTIVE to N, and the user can't login again.
-     * 
      * Changed the method to use the ImageLoader class
      * instead of the Utilities class.
      * 
@@ -219,7 +215,7 @@ public class RegisterWorkerController implements Initializable {
         user.setIsActive("N");
         user.setIsAdmin("N");
         user.setPasswordChanged("N");
-        user.setPosition((PositionDto) roleService.getRoleByName(args[9]).getData());
+        user.setPosition((PositionDto) roleService.getPositionByName(args[9]).getData());
         return user;
     }
 
