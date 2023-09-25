@@ -5,7 +5,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     1,
-    'Experiencia en desarrollo de software',
+    'Software development experience',
     1,
     0
 );
@@ -17,7 +17,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     2,
-    'Fuerza de voluntad',
+    'Power of will',
     1,
     0
 );
@@ -29,7 +29,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     3,
-    'Conocimiento sobre sistemas operativos',
+    'Operating system knowledge',
     2,
     0
 );
@@ -41,7 +41,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     4,
-    'Manejo de procesos e hilos',
+    'Process and thread management',
     2,
     0
 );
@@ -53,7 +53,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     5,
-    'Conocimiento tecnico en redes',
+    'Network protocols knowledge',
     3,
     0
 );
@@ -65,7 +65,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     6,
-    'Entendimiento protocolos de red',
+    'Network security knowledge',
     3,
     0
 );
@@ -77,7 +77,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     7,
-    'Experiencia realizando consultas SQL',
+    'SQL query experience',
     4,
     0
 );
@@ -89,7 +89,7 @@ INSERT INTO EVACOMUNA."TBL_CHARACTERISTIC" (
     "VERSION"
 ) VALUES (
     8,
-    'Creacion de consultas eficientes',
+    'Database design experience',
     4,
     0
 );
