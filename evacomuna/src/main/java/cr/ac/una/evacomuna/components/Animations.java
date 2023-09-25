@@ -1,4 +1,4 @@
-package cr.ac.una.evacomuna.util;
+package cr.ac.una.evacomuna.components;
 
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
