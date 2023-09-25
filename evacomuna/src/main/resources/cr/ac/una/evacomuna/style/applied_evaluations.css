@@ -120,6 +120,41 @@
   padding: 5px;
 }
 
+.gp-header {
+  -fx-background-color: -fx-dark-blue;
+  background-color: -fx-dark-blue;
+  justify-content: center;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+}
+
+.gp-header .label {
+  -fx-text-fill: -fx-white;
+  justify-content: center;
+  -fx-text-alignment: center;
+  -fx-alignment: center;
+
+  -fx-font-size: 16px;
+  font-size: 16px;
+
+  -fx-font-weight: bold;
+  font-weight: bold;
+}
+
+.evaluated-box {
+  -fx-margin: 5px;
+  margin: 5px;
+
+  -fx-border-color: -fx-white-blue;
+  border-color: -fx-white-blue;
+
+  -fx-border-width: 1px;
+  border-width: 1px;
+
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+}
+
 /**
 *   Native JavaFX styles
 */
@@ -149,23 +184,7 @@
   stroke: -fx-light-gray;
 }
 
-.gp-header {
-  -fx-background-color: -fx-dark-blue;
-  background-color: -fx-dark-blue;
-  justify-content: center;
-  -fx-text-alignment: center;
-  -fx-alignment: center;
-}
-
-.gp-header .label {
-  -fx-text-fill: -fx-white;
-  justify-content: center;
-  -fx-text-alignment: center;
-  -fx-alignment: center;
-
-  -fx-font-size: 16px;
-  font-size: 16px;
-
-  -fx-font-weight: bold;
-  font-weight: bold;
+.choice-box {
+  -fx-background-color: -fx-light-gray;
+  background-color: -fx-light-gray;
 }

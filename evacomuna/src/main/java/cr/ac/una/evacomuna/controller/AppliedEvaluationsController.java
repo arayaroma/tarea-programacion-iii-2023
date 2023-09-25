@@ -4,28 +4,23 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import cr.ac.una.controller.ListWrapper;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
+import cr.ac.una.evacomuna.components.PaneContainer;
 import cr.ac.una.evacomuna.dto.SkillWrapper;
-import cr.ac.una.evacomuna.services.Skill;
-import cr.ac.una.evacomuna.util.RowContainer;
+import cr.ac.una.evacomuna.services.SkillService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-
 import java.util.stream.Collectors;
 
 /**
@@ -54,18 +49,27 @@ public class AppliedEvaluationsController implements Initializable {
     private GridPane gp_table;
     @FXML
     private VBox gpContainer;
+    @FXML
+    private ChoiceBox<String> cbEvaluated;
 
-    private Skill skillService;
+    private SkillService skillService;
     private List<SkillWrapper> skills;
 
     ColumnConstraints columnConstraints = new ColumnConstraints(150);
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        skillService = new Skill();
+        skillService = new SkillService();
         skills = new ArrayList<>();
         loadGridPaneSkills();
         addScrollPane(gp_table);
+    }
+
+    private void cleanLabels() {
+        lb_evaluatorName.setText("");
+        lb_evaluatorPosition.setText("");
+        lb_evaluationPeriod.setText("");
+        lb_evaluationApplicationDate.setText("");
     }
 
     private void loadGridPaneSkills() {
@@ -76,7 +80,7 @@ public class AppliedEvaluationsController implements Initializable {
     }
 
     private void addDiagonalRow() {
-        RowContainer rowContainer = new RowContainer();
+        PaneContainer rowContainer = new PaneContainer();
         rowContainer.getChildren().add(
                 createHeader("Supervisor, Peer,\nClient, Self"));
         rowContainer.getStyleClass().add("gp-header");
@@ -96,7 +100,7 @@ public class AppliedEvaluationsController implements Initializable {
     }
 
     private void addResult() {
-        RowContainer rowContainer = new RowContainer();
+        PaneContainer rowContainer = new PaneContainer();
         rowContainer.getChildren().add(
                 createHeader("Result"));
         rowContainer.getStyleClass().add("gp-header");
@@ -105,7 +109,7 @@ public class AppliedEvaluationsController implements Initializable {
     }
 
     private void addFeedback() {
-        RowContainer rowContainer = new RowContainer();
+        PaneContainer rowContainer = new PaneContainer();
         rowContainer.getChildren().add(
                 createHeader("Feedback"));
         rowContainer.getStyleClass().add("gp-header");
