@@ -7,20 +7,20 @@
     <version>1.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <dependencies>
         <!-- JavaFX dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
+            <version>20.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>20.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -48,24 +48,30 @@
             <artifactId>jaxws-rt</artifactId>
             <version>4.0.1</version>
         </dependency>
-        <!-- AnimateFX -->
+        <!--AnimateFX
+        Library-->
         <dependency>
             <groupId>io.github.typhon0</groupId>
             <artifactId>AnimateFX</artifactId>
             <version>1.2.4</version>
         </dependency>
-        <!-- Serialize Byte-Image and Reverse -->
+        <!--        Serialize Byte-Image and Reverse-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
-            <version>1.20</version>
+            <version>1.24.0</version>
             <type>jar</type>
         </dependency>
-        <!-- Parse HTML to String -->
+        <!--        Parse HTML to String-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>2.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.11</version>
         </dependency>
     </dependencies>
     <build>
@@ -90,12 +96,6 @@
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>http://localhost:8080/evacomunaws/SkillController?wsdl</wsdl>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/EvaluatedController?wsdl</wsdl>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>http://localhost:8080/evacomunaws/EvaluatorController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>http://localhost:8080/evacomunaws/PositionController?wsdl</wsdl>
@@ -130,9 +130,9 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.8</version>
                 <configuration>
-                    <mainClass>cr.ac.una.evacomuna.App</mainClass>
+                    <mainClass>Evacomuna/cr.ac.una.evacomuna.App</mainClass>
                 </configuration>
                 <executions>
                     <execution>
