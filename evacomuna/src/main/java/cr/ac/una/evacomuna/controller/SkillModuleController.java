@@ -1,13 +1,13 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.controller.CharacteristicDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
 import cr.ac.una.evacomuna.dto.CharacteristicWrapper;
 import cr.ac.una.evacomuna.dto.SkillWrapper;
-import cr.ac.una.evacomuna.services.Characteristic;
-import cr.ac.una.evacomuna.services.Skill;
+import cr.ac.una.evacomuna.services.CharacteristicService;
+import cr.ac.una.evacomuna.services.SkillService;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.Utilities;
@@ -52,8 +52,8 @@ public class SkillModuleController implements Initializable {
     private ComboBox<String> cbStateSkillRegisterView;
 
     // SERVICES
-    Skill skillService;
-    Characteristic characteristicService;
+    SkillService skillService;
+    CharacteristicService characteristicService;
     // BUFFERS
     SkillDto skillBufferMainView;
     CharacteristicDto characteristicViewBuffer;
@@ -70,8 +70,8 @@ public class SkillModuleController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {
-            skillService = new Skill();
-            characteristicService = new Characteristic();
+            skillService = new SkillService();
+            characteristicService = new CharacteristicService();
             initializeLists();
             initializeSkillMainView();
             cbSkillsView.setOnKeyReleased(t -> searchSkillInput(t));
