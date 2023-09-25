@@ -2,20 +2,18 @@ package cr.ac.una.evacomuna.util;
 
 import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.controller.EvaluationDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
 import cr.ac.una.controller.SkillDto;
-import cr.ac.una.evacomuna.services.Characteristic;
-import cr.ac.una.evacomuna.services.Skill;
+import cr.ac.una.evacomuna.services.CharacteristicService;
+import cr.ac.una.evacomuna.services.SkillService;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.controller.PositionDto;
 import cr.ac.una.controller.UserDto;
-import cr.ac.una.evacomuna.services.Evaluation;
-import cr.ac.una.evacomuna.services.Position;
-import cr.ac.una.evacomuna.services.User;
+import cr.ac.una.evacomuna.services.EvaluationService;
+import cr.ac.una.evacomuna.services.PositionService;
+import cr.ac.una.evacomuna.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +24,11 @@ import java.util.List;
  */
 public class Utilities {
 
-    static Skill skillService = new Skill();
-    static Position roleService = new Position();
-    static User userService = new User();
-    static Evaluation evaluationService = new Evaluation();
-    static Characteristic characteristicService = new Characteristic();
+    static SkillService skillService = new SkillService();
+    static PositionService roleService = new PositionService();
+    static UserService userService = new UserService();
+    static EvaluationService evaluationService = new EvaluationService();
+    static CharacteristicService characteristicService = new CharacteristicService();
 
     public static ObservableList<String> mapListToObsevableString(ObservableList<?> list) {
         ObservableList<String> stringList = FXCollections.observableArrayList();
@@ -68,7 +66,7 @@ public class Utilities {
 
     public static ObservableList<EvaluationDto> loadEvaluations() {
         ObservableList<EvaluationDto> evaluationDtos = FXCollections.observableArrayList();
-        ResponseWrapper response = evaluationService.getEvaluations();
+        ResponseWrapper response = evaluationService.getAllEvaluation();
         if (response.getCode() == ResponseCode.OK) {
             ListWrapper wrapper = (ListWrapper) response.getData();
             for (Object i : wrapper.getElement()) {
@@ -96,7 +94,7 @@ public class Utilities {
 
     public static ObservableList<PositionDto> loadPositions() {
         ObservableList<PositionDto> positionDtos = FXCollections.observableArrayList();
-        ResponseWrapper response = roleService.getRoles();
+        ResponseWrapper response = roleService.getPositions();
         if (response.getCode() == ResponseCode.OK) {
             ListWrapper wrapper = (ListWrapper) response.getData();
             for (Object i : wrapper.getElement()) {
