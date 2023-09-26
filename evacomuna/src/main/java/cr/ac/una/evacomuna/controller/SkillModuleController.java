@@ -1,11 +1,9 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
-import cr.ac.una.controller.SkillDto;
-import cr.ac.una.evacomuna.dto.CharacteristicWrapper;
-import cr.ac.una.evacomuna.dto.SkillWrapper;
+import cr.ac.una.evacomuna.dto.CharacteristicDto;
+import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.services.CharacteristicService;
 import cr.ac.una.evacomuna.services.SkillService;
 import cr.ac.una.evacomuna.util.Message;
@@ -142,7 +140,7 @@ public class SkillModuleController implements Initializable {
                 skillBufferMainView.getCharacteristics()
                         .forEach(t -> characteristicService.deleteCharacteristicById(t.getId()));
             }
-            ResponseWrapper response = skillService.deleteSkillsById(skillBufferMainView.getId());
+            ResponseWrapper response = skillService.deleteSkillsById(skillBufferMainView.getID());
             Message.showNotification(response.getCode().name(),
                     response.getCode() == ResponseCode.OK ? MessageType.INFO : MessageType.ERROR,
                     response.getMessage());
@@ -161,8 +159,8 @@ public class SkillModuleController implements Initializable {
     private void btnAddCharacteristicToSkill(ActionEvent event) {
         String characteristicName = txfCharacteristic.getText();
         if (!characteristicName.isBlank()) {
-            CharacteristicWrapper characteristicWrapper = new CharacteristicWrapper(characteristicName, null, null);
-            listCharacteristicsRegisterSkillView.getItems().add(characteristicWrapper.getDto());
+            CharacteristicDto characteristicDto = new CharacteristicDto(characteristicName, null, null);
+            listCharacteristicsRegisterSkillView.getItems().add(characteristicDto);
             txfCharacteristic.setText("");
         }
     }
@@ -197,12 +195,14 @@ public class SkillModuleController implements Initializable {
                         : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
                     skillDto = (SkillDto) response.getData();
-                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto.getName(), skillDto.getState(),
-                            skillDto.getId());
+                    SkillDto newSkillDto = new SkillDto(
+                            skillDto.getName(),
+                            skillDto.getState(),
+                            skillDto.getID());
 
                     for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
                         if (i.getId() == null) {
-                            i.setSkill(newSkillWrapper.getDto());
+                            i.setSkill(newSkillDto);
                             characteristicService.createCharacteristic(i);
                         }
                     }

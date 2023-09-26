@@ -1,15 +1,12 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.EvaluatedDto;
-import cr.ac.una.controller.EvaluationDto;
-import cr.ac.una.controller.EvaluatorDto;
-import cr.ac.una.controller.PositionDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
-import cr.ac.una.controller.UserDto;
-import cr.ac.una.evacomuna.dto.EvaluatedWrapper;
-import cr.ac.una.evacomuna.dto.EvaluationWrapper;
-import cr.ac.una.evacomuna.dto.EvaluatorWrapper;
+import cr.ac.una.evacomuna.dto.UserDto;
+import cr.ac.una.evacomuna.dto.EvaluatedDto;
+import cr.ac.una.evacomuna.dto.EvaluationDto;
+import cr.ac.una.evacomuna.dto.EvaluatorDto;
+import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.services.EvaluatedService;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.EvaluatorService;
@@ -160,7 +157,7 @@ public class EvaluationModuleController implements Initializable {
             PositionDto role = (PositionDto) roleService.getPositionByName(name).getData();
             if (role != null && role.getUsers() != null) {
                 listEvaluated.getItems().clear();
-                listEvaluated.getItems().addAll(role.getUsers().stream().map(t -> new EvaluatedWrapper(t).getDto())
+                listEvaluated.getItems().addAll(role.getUsers().stream().map(t -> new EvaluatedDto(t))
                         .collect(Collectors.toList()));
             }
         }
@@ -208,9 +205,8 @@ public class EvaluationModuleController implements Initializable {
             return;
         }
         // Create Evaluation
-        EvaluationWrapper evaluationWrapper = new EvaluationWrapper(null, name, aplicationDate, initialDate, endingDate,
+        EvaluationDto evaluationDto = new EvaluationDto(null, name, aplicationDate, initialDate, endingDate,
                 state);
-        EvaluationDto evaluationDto = evaluationWrapper.getDto();
         ResponseWrapper response = evaluationService.createEvaluation(evaluationDto);
         boolean allIsSaved = false;
         if (response.getCode() == ResponseCode.OK) {
@@ -239,9 +235,9 @@ public class EvaluationModuleController implements Initializable {
         }
         EvaluationDto evaluationDto;
         // Create Evaluation
-        evaluationBuffer.setApplicationDate(aplicationDate.toString());
-        evaluationBuffer.setFinalPeriod(endingDate.toString());
-        evaluationBuffer.setInitialPeriod(initialDate.toString());
+        evaluationBuffer.setApplicationDate(aplicationDate);
+        evaluationBuffer.setFinalPeriod(endingDate);
+        evaluationBuffer.setInitialPeriod(initialDate);
         evaluationBuffer.setName(name);
         evaluationBuffer.setState(state);
 
@@ -306,9 +302,9 @@ public class EvaluationModuleController implements Initializable {
         evaluationDtos = ObservableListParser.loadEvaluations();
         cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
         if (users != null) {
-            evaluatorDtos = users.stream().map(t -> new EvaluatorWrapper(t).getDto()).collect(Collectors.toList());
+            evaluatorDtos = users.stream().map(t -> new EvaluatorDto(t)).collect(Collectors.toList());
             listEvaluated.getItems()
-                    .addAll(users.stream().map(t -> new EvaluatedWrapper(t).getDto()).collect(Collectors.toList()));
+                    .addAll(users.stream().map(t -> new EvaluatedDto(t)).collect(Collectors.toList()));
             listEvaluators.getItems().addAll(evaluatorDtos);
         }
     }
@@ -334,9 +330,9 @@ public class EvaluationModuleController implements Initializable {
 
     public void loadFields(EvaluationDto evaluationDto) {
         txfNameEvaluation.setText(evaluationDto.getName());
-        dpAplicationDate.setValue(LocalDate.parse((evaluationDto.getApplicationDate())));
-        dpEndDate.setValue(LocalDate.parse((evaluationDto.getFinalPeriod())));
-        dpStartDate.setValue(LocalDate.parse((evaluationDto.getInitialPeriod())));
+        dpAplicationDate.setValue(evaluationDto.getApplicationDate());
+        dpEndDate.setValue(evaluationDto.getFinalPeriod());
+        dpStartDate.setValue(evaluationDto.getInitialPeriod());
         cbState.setValue(evaluationDto.getState());
         btnSave.setDisable(false);
         listEvaluatedFix.getItems().clear();
@@ -443,10 +439,11 @@ public class EvaluationModuleController implements Initializable {
         return evaluatorsDeleted;
     }
 
-    public boolean createEvaluated(EvaluatedDto evaluated, EvaluationDto evaluationDto) {
+    public boolean createEvaluated(EvaluatedDto evaluated,
+            EvaluationDto evaluationDto) {
         ResponseWrapper response = null;
         boolean allIsSaved = false;
-        evaluated.setEvaluation(new EvaluationWrapper(evaluationDto).getDto());
+        evaluated.setEvaluation(evaluationDto);
         if (evaluated.getId() == null) {
             response = evaluatedService.createEvaluated(evaluated);
         }
@@ -454,7 +451,7 @@ public class EvaluationModuleController implements Initializable {
             // Create Evaluator
             EvaluatedDto evaluatedDtoSaved = response == null ? evaluated : (EvaluatedDto) response.getData();
             for (EvaluatorDto evaluator : evaluated.getEvaluators()) {
-                evaluator.setEvaluated(new EvaluatedWrapper(evaluatedDtoSaved).getDto());
+                evaluator.setEvaluated(evaluatedDtoSaved);
                 evaluator.setRole("PEER");
                 if (evaluator.getId() == null) {
                     response = evaluatorService.createEvaluator(evaluator);

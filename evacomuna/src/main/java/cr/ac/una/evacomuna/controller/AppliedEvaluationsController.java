@@ -4,18 +4,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import cr.ac.una.controller.EvaluatedDto;
+import cr.ac.una.controller.EvaluationDto;
+import cr.ac.una.controller.EvaluatorDto;
 import cr.ac.una.controller.ListWrapper;
+import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
-import cr.ac.una.controller.SkillDto;
 import cr.ac.una.evacomuna.components.PaneContainer;
-import cr.ac.una.evacomuna.dto.SkillWrapper;
+import cr.ac.una.evacomuna.dto.SkillDto;
+import cr.ac.una.evacomuna.services.EvaluatedService;
+import cr.ac.una.evacomuna.services.EvaluationService;
+import cr.ac.una.evacomuna.services.EvaluatorService;
 import cr.ac.una.evacomuna.services.SkillService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -50,19 +56,33 @@ public class AppliedEvaluationsController implements Initializable {
     @FXML
     private VBox gpContainer;
     @FXML
-    private ChoiceBox<String> cbEvaluated;
+    private ComboBox<String> cbEvaluated;
 
     private SkillService skillService;
-    private List<SkillWrapper> skills;
+    private EvaluatedService evaluatedService;
+    private EvaluationService evaluationService;
+    private EvaluatorService evaluatorService;
+
+    private List<SkillDto> skills;
+
+    private EvaluatedDto evaluatedDto;
+    private EvaluationDto evaluationDto;
+    private EvaluatorDto evaluatorDto;
 
     ColumnConstraints columnConstraints = new ColumnConstraints(150);
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         skillService = new SkillService();
+        evaluatedService = new EvaluatedService();
+        evaluationService = new EvaluationService();
+        evaluatorService = new EvaluatorService();
         skills = new ArrayList<>();
         loadGridPaneSkills();
         addScrollPane(gp_table);
+        //loadChoiceBox();
+        cleanLabels();
+        // loadLabels();
     }
 
     private void cleanLabels() {
@@ -91,7 +111,7 @@ public class AppliedEvaluationsController implements Initializable {
     private void addSkills() {
         skills = getSkillsWrapper(getSkills());
         for (int i = 0; i < skills.size(); i++) {
-            SkillWrapper skill = skills.get(i);
+            SkillDto skill = skills.get(i);
             skill.getChildren().add(createHeader(skill.getName()));
             skill.getStyleClass().add("gp-header");
             gp_table.addRow(0, skill);
@@ -131,7 +151,8 @@ public class AppliedEvaluationsController implements Initializable {
         ResponseWrapper response = skillService.getSkills();
         if (response.getCode() == ResponseCode.OK) {
             ListWrapper wrapper = (ListWrapper) response.getData();
-            return wrapper.getElement().stream()
+            return wrapper.getElement()
+                    .stream()
                     .filter(SkillDto.class::isInstance)
                     .map(SkillDto.class::cast)
                     .collect(Collectors.toList());
@@ -139,10 +160,50 @@ public class AppliedEvaluationsController implements Initializable {
         return null;
     }
 
-    private List<SkillWrapper> getSkillsWrapper(List<SkillDto> skills) {
-        return skills.stream()
-                .map(s -> new SkillWrapper(s.getName()))
+    private List<SkillDto> getSkillsWrapper(List<SkillDto> skills) {
+        return skills
+                .stream()
+                .map(s -> new SkillDto(s.getName()))
                 .collect(Collectors.toList());
+    }
+
+    private void loadChoiceBox() {
+        cbEvaluated.setPromptText("tremendo");
+        cbEvaluated.getItems().addAll(
+                getEvaluation(getEvaluated()).getName());
+    }
+
+    private void loadLabels() {
+        evaluatorDto = getEvaluator(getEvaluated());
+        // evaluationDto = getEvaluation(evaluatedDto);
+        String evaluatorName = evaluatorDto.getEvaluator().getName();
+        System.out.println(evaluatorName);
+        // lb_evaluatorName.setText(evaluatorName);
+        // lb_evaluatorPosition.setText(evaluatorDto.getEvaluator().getPosition().getName());
+        // lb_evaluationPeriod.setText(evaluationDto.getInitialPeriod() +
+        // evaluationDto.getFinalPeriod());
+        // lb_evaluationApplicationDate.setText(evaluationDto.getApplicationDate());
+    }
+
+    private EvaluatedDto getEvaluated() {
+        evaluatedDto = (EvaluatedDto) evaluatedService
+                .getEvaluatedById(Data.getUserLogged().getId()).getData();
+        System.out.println(evaluatedDto.toString());
+        return evaluatedDto;
+    }
+
+    private EvaluationDto getEvaluation(EvaluatedDto evaluatedDto) {
+        evaluationDto = (EvaluationDto) evaluationService
+                .getEvaluationById(evaluatedDto.getEvaluation().getId()).getData();
+        System.out.println(evaluationDto.toString());
+        return evaluationDto;
+    }
+
+    private EvaluatorDto getEvaluator(EvaluatedDto evaluatedDto) {
+        evaluatorDto = (EvaluatorDto) evaluatorService
+                .getEvaluatorByEvaluatedId(evaluatedDto.getId()).getData();
+        System.out.println(evaluatorDto.toString());
+        return evaluatorDto;
     }
 
 }

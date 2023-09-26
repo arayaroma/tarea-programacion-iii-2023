@@ -1,11 +1,12 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.EvaluatedDto;
-import cr.ac.una.controller.EvaluationDto;
-import cr.ac.una.controller.PositionDto;
+import cr.ac.una.evacomuna.dto.EvaluatedDto;
+import cr.ac.una.evacomuna.dto.EvaluationDto;
+import cr.ac.una.evacomuna.dto.EvaluatorDto;
+import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.dto.CalificationWrapper;
-import cr.ac.una.evacomuna.dto.SkillWrapper;
+import cr.ac.una.evacomuna.dto.CalificationDto;
+import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.util.Data;
@@ -13,6 +14,7 @@ import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -63,8 +65,8 @@ public class PendingEvaluationsController implements Initializable {
     private HBox gridContainer;
     @FXML
     private ListView<EvaluatedDto> listEvaluated;
-    private List<SkillWrapper> skills;
-    private List<CalificationWrapper> calificationWrappers;
+    private List<SkillDto> skills;
+    private List<CalificationDto> calificationWrappers;
     private EvaluationService evaluationService;
     private EvaluatedDto evaluatedBuffer;
     private PositionService positionService;
@@ -83,13 +85,28 @@ public class PendingEvaluationsController implements Initializable {
         evaluationService = new EvaluationService();
         positionService = new PositionService();
         evaluationDtos = ObservableListParser.loadEvaluations();
-        List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
-                .filter(evaluationDto -> evaluationDto.getEvaluated().stream()
-                        .anyMatch(evaluatedDto -> evaluatedDto.getEvaluators().stream()
+        List<EvaluationDto> evaluationDtosFiltered = evaluationDtos
+                .stream()
+                .filter(evaluationDto -> evaluationDto.getEvaluated()
+                        .stream()
+                        .anyMatch(evaluatedDto -> evaluatedDto.getEvaluators()
+                                .stream()
                                 .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId())))
                 .collect(Collectors.toList());
+
+        /**
+         * Evaluator
+         */
+        Optional<EvaluatorDto> actualEvaluator = evaluationDtosFiltered
+                .stream()
+                .flatMap(t -> t.getEvaluated().stream())
+                .flatMap(e -> e.getEvaluators().stream())
+                .filter(ev -> ev.getEvaluator().getId() == Data.getUserLogged().getId())
+                .findFirst();
+
         cbPendingEvaluations.getItems()
-                .addAll(ObservableListParser.mapListToObsevableString(FXCollections.observableArrayList(evaluationDtosFiltered)));
+                .addAll(ObservableListParser
+                        .mapListToObsevableString(FXCollections.observableArrayList(evaluationDtosFiltered)));
         initializeGrid();
         initializeList();
     }
@@ -142,7 +159,7 @@ public class PendingEvaluationsController implements Initializable {
                     if (event.getTarget() != null && row != null && col != null && col != 0) {
                         verifyCalificationPosition(row, col);
                         gridEvaluation.add(newCheck, col, row);
-                        CalificationWrapper calificationWrapper = new CalificationWrapper(col, row, newCheck);
+                        CalificationDto calificationWrapper = new CalificationDto(col, row, newCheck);
                         calificationWrappers.add(calificationWrapper);
                         success = true;
                     }
@@ -154,7 +171,7 @@ public class PendingEvaluationsController implements Initializable {
     }
 
     private void verifyCalificationPosition(int row, int col) {
-        for (CalificationWrapper i : calificationWrappers) {
+        for (CalificationDto i : calificationWrappers) {
             if (i.getX() != col && i.getY() == row) {
                 gridEvaluation.getChildren().remove(i.getData());
             }
@@ -202,7 +219,7 @@ public class PendingEvaluationsController implements Initializable {
                                     + evaluatedBuffer.getEvaluated().getLastname());
                             lblRoleEvaluated.setText("Position: " + position.getName());
                             cleanGrid();
-                            skills.addAll(position.getSkills().stream().map(t -> new SkillWrapper(t.getName()))
+                            skills.addAll(position.getSkills().stream().map(t -> new SkillDto(t.getName()))
                                     .collect(Collectors.toList()));
                             loadSkillsInGrid();
                         }
@@ -215,7 +232,7 @@ public class PendingEvaluationsController implements Initializable {
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setHalignment(HPos.CENTER);
         for (int i = 0; i < skills.size(); i++) {
-            SkillWrapper skill = skills.get(i);
+            SkillDto skill = skills.get(i);
             skill.getChildren().add(createHeader(skill.getName()));
             rowConstraints = new RowConstraints(50);
             rowConstraints.setValignment(VPos.CENTER);

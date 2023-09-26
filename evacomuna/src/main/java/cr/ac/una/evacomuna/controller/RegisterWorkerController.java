@@ -1,9 +1,9 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.PositionDto;
+import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
-import cr.ac.una.controller.UserDto;
+import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.services.UserService;
