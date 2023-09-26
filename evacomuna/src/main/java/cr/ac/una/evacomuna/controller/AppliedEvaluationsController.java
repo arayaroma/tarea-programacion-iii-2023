@@ -4,12 +4,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import cr.ac.una.controller.EvaluatedDto;
-import cr.ac.una.controller.EvaluationDto;
-import cr.ac.una.controller.EvaluatorDto;
-import cr.ac.una.controller.ListWrapper;
+import cr.ac.una.evacomuna.dto.EvaluatedDto;
+import cr.ac.una.evacomuna.dto.EvaluationDto;
+import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.util.Data;
-import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.components.PaneContainer;
 import cr.ac.una.evacomuna.dto.SkillDto;
@@ -80,7 +78,7 @@ public class AppliedEvaluationsController implements Initializable {
         skills = new ArrayList<>();
         loadGridPaneSkills();
         addScrollPane(gp_table);
-        //loadChoiceBox();
+        // loadChoiceBox();
         cleanLabels();
         // loadLabels();
     }
@@ -147,17 +145,12 @@ public class AppliedEvaluationsController implements Initializable {
         return new Label(name);
     }
 
+    @SuppressWarnings("unchecked")
     private List<SkillDto> getSkills() {
+        List<SkillDto> listDto = new ArrayList<>();
         ResponseWrapper response = skillService.getSkills();
-        if (response.getCode() == ResponseCode.OK) {
-            ListWrapper wrapper = (ListWrapper) response.getData();
-            return wrapper.getElement()
-                    .stream()
-                    .filter(SkillDto.class::isInstance)
-                    .map(SkillDto.class::cast)
-                    .collect(Collectors.toList());
-        }
-        return null;
+        listDto = (List<SkillDto>) response.getData();
+        return listDto;
     }
 
     private List<SkillDto> getSkillsWrapper(List<SkillDto> skills) {

@@ -250,22 +250,20 @@ public class SkillModuleController implements Initializable {
     }
 
     private void initializeLists() {
-        // CELLSFACTORIES
-        listCharacteristicsMainSkillView.setCellFactory((param) -> new ListCell() {
+        listCharacteristicsMainSkillView.setCellFactory(param -> new ListCell<CharacteristicDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(CharacteristicDto item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : ((CharacteristicDto) item).getName());
+                setText(empty || item == null ? null : item.getName());
             }
         });
-        listCharacteristicsRegisterSkillView.setCellFactory((param) -> new ListCell() {
+        listCharacteristicsRegisterSkillView.setCellFactory(param -> new ListCell<CharacteristicDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(CharacteristicDto item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : ((CharacteristicDto) item).getName());
+                setText(empty || item == null ? null : item.getName());
             }
         });
-        // LISTENERS
         listCharacteristicsRegisterSkillView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     characteristicViewBuffer = newValue;

@@ -1,6 +1,6 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.GeneralInformationDto;
+import cr.ac.una.evacomuna.dto.GeneralInformationDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.services.GeneralInformationService;

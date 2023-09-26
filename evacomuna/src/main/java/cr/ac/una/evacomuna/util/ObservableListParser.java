@@ -10,7 +10,6 @@ import cr.ac.una.evacomuna.services.SkillService;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import cr.ac.una.controller.ListWrapper;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.services.UserService;
@@ -50,34 +49,27 @@ public class ObservableListParser {
         return stringList;
     }
 
+    @SuppressWarnings("unchecked")
     public static ObservableList<SkillDto> loadSkills() {
-        ObservableList<SkillDto> skillsDto = FXCollections.observableArrayList();
+        ObservableList<SkillDto> skillObservableDtos = FXCollections.observableArrayList();
+        List<SkillDto> skillDtos = new ArrayList<>();
         ResponseWrapper response = skillService.getSkills();
-        if (response.getCode() == ResponseCode.OK) {
-            ListWrapper wrapper = (ListWrapper) response.getData();
-            for (Object i : wrapper.getElement()) {
-                if (i instanceof SkillDto) {
-                    skillsDto.add((SkillDto) i);
-                }
-            }
-        }
-        return skillsDto;
+        skillDtos = (List<SkillDto>) response.getData();
+        skillObservableDtos.addAll(skillDtos);
+        return skillObservableDtos;
     }
 
+    @SuppressWarnings("unchecked")
     public static ObservableList<EvaluationDto> loadEvaluations() {
-        ObservableList<EvaluationDto> evaluationDtos = FXCollections.observableArrayList();
+        ObservableList<EvaluationDto> evaluationObsevableDtos = FXCollections.observableArrayList();
+        List<EvaluationDto> evaluationDtos = new ArrayList<>();
         ResponseWrapper response = evaluationService.getAllEvaluation();
-        if (response.getCode() == ResponseCode.OK) {
-            ListWrapper wrapper = (ListWrapper) response.getData();
-            for (Object i : wrapper.getElement()) {
-                if (i instanceof EvaluationDto) {
-                    evaluationDtos.add((EvaluationDto) i);
-                }
-            }
-        }
-        return evaluationDtos;
+        evaluationDtos = (List<EvaluationDto>) response.getData();
+        evaluationObsevableDtos.addAll(evaluationDtos);
+        return evaluationObsevableDtos;
     }
 
+    @SuppressWarnings("unchecked")
     public static List<UserDto> loadUsers() {
         List<UserDto> userDtos = new ArrayList<>();
         ResponseWrapper response = userService.getUsers();
@@ -85,32 +77,24 @@ public class ObservableListParser {
         return userDtos;
     }
 
+    @SuppressWarnings("unchecked")
     public static ObservableList<PositionDto> loadPositions() {
-        ObservableList<PositionDto> positionDtos = FXCollections.observableArrayList();
+        ObservableList<PositionDto> positionObservableDtos = FXCollections.observableArrayList();
+        List<PositionDto> positionDtos = new ArrayList<>();
         ResponseWrapper response = roleService.getPositions();
-        if (response.getCode() == ResponseCode.OK) {
-            ListWrapper wrapper = (ListWrapper) response.getData();
-            for (Object i : wrapper.getElement()) {
-                if (i instanceof PositionDto) {
-                    positionDtos.add((PositionDto) i);
-                }
-            }
-        }
-        return positionDtos;
+        positionDtos = (List<PositionDto>) response.getData();
+        positionObservableDtos.addAll(positionDtos);
+
+        return positionObservableDtos;
     }
 
+    @SuppressWarnings("unchecked")
     public static ObservableList<CharacteristicDto> loadCharacteristics() {
-        ObservableList<CharacteristicDto> characteristicDtosView = FXCollections.observableArrayList();
+        ObservableList<CharacteristicDto> characteristicObservableDtos = FXCollections.observableArrayList();
+        List<CharacteristicDto> characteristicDtos = new ArrayList<>();
         ResponseWrapper response = characteristicService.getCharacteristics();
-        if (response.getCode() == ResponseCode.OK) {
-            ListWrapper listWrapper = (ListWrapper) response.getData();
-
-            for (Object i : listWrapper.getElement()) {
-                if (i instanceof CharacteristicDto) {
-                    characteristicDtosView.add((CharacteristicDto) i);
-                }
-            }
-        }
-        return characteristicDtosView;
+        characteristicDtos = (List<CharacteristicDto>) response.getData();
+        characteristicObservableDtos.addAll(characteristicDtos);
+        return characteristicObservableDtos;
     }
 }

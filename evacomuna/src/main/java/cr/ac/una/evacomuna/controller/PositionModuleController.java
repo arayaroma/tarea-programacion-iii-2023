@@ -46,16 +46,16 @@ public class PositionModuleController implements Initializable {
     private ListView<SkillDto> listSkillsMain;
     @FXML
     private ListView<SkillDto> listSkillsRegister;
-    // BUFFERS
+
     SkillDto bufferSkill;
     PositionDto bufferRole;
-    // SERVICES
+
     SkillService skillService;
     PositionService positionService;
-    // LISTS
+
     ObservableList<SkillDto> skillDtos;
     ObservableList<PositionDto> positionDtos;
-    // FLAGS
+
     boolean isEditingRole = false;
 
     /**
@@ -69,7 +69,7 @@ public class PositionModuleController implements Initializable {
             initializeLists();
             initializeMainView();
         } catch (Exception e) {
-            System.out.println("Exception while loading RoleModuleController: " + e.toString());
+            System.out.println("Exception while loading PositionModuleController: " + e.toString());
         }
 
     }
@@ -194,19 +194,18 @@ public class PositionModuleController implements Initializable {
     }
 
     private void initializeLists() {
-        // CELLSFACTORIES
-        listSkillsMain.setCellFactory((param) -> new ListCell() {
+        listSkillsMain.setCellFactory((param) -> new ListCell<SkillDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(SkillDto item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : ((SkillDto) item).getName());
+                setText(empty || item == null ? null : item.getName());
             }
         });
-        listSkillsRegister.setCellFactory((param) -> new ListCell() {
+        listSkillsRegister.setCellFactory((param) -> new ListCell<SkillDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(SkillDto item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : ((SkillDto) item).getName());
+                setText(empty || item == null ? null : item.getName());
             }
         });
         listSkillsRegister.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

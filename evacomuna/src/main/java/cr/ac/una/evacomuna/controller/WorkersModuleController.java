@@ -131,7 +131,6 @@ public class WorkersModuleController implements Initializable {
     }
 
     public void loadWorkers(List<UserDto> users) {
-
         tblUsersView.getItems().clear();
         if (users != null) {
             tblUsersView.getItems().addAll(users);
