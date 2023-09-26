@@ -10,9 +10,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for evaluated complex type.
+ * <p>Clase Java para evaluated complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="evaluated"&gt;
@@ -57,7 +57,7 @@ public class Evaluated {
     protected Long version;
 
     /**
-     * Gets the value of the evaluated property.
+     * Obtiene el valor de la propiedad evaluated.
      * 
      * @return
      *     possible object is
@@ -69,7 +69,7 @@ public class Evaluated {
     }
 
     /**
-     * Sets the value of the evaluated property.
+     * Define el valor de la propiedad evaluated.
      * 
      * @param value
      *     allowed object is
@@ -81,7 +81,7 @@ public class Evaluated {
     }
 
     /**
-     * Gets the value of the evaluation property.
+     * Obtiene el valor de la propiedad evaluation.
      * 
      * @return
      *     possible object is
@@ -93,7 +93,7 @@ public class Evaluated {
     }
 
     /**
-     * Sets the value of the evaluation property.
+     * Define el valor de la propiedad evaluation.
      * 
      * @param value
      *     allowed object is
@@ -163,7 +163,7 @@ public class Evaluated {
     }
 
     /**
-     * Gets the value of the finalNote property.
+     * Obtiene el valor de la propiedad finalNote.
      * 
      * @return
      *     possible object is
@@ -175,7 +175,7 @@ public class Evaluated {
     }
 
     /**
-     * Sets the value of the finalNote property.
+     * Define el valor de la propiedad finalNote.
      * 
      * @param value
      *     allowed object is
@@ -187,7 +187,7 @@ public class Evaluated {
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -199,7 +199,7 @@ public class Evaluated {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -211,7 +211,7 @@ public class Evaluated {
     }
 
     /**
-     * Gets the value of the version property.
+     * Obtiene el valor de la propiedad version.
      * 
      * @return
      *     possible object is
@@ -223,7 +223,7 @@ public class Evaluated {
     }
 
     /**
-     * Sets the value of the version property.
+     * Define el valor de la propiedad version.
      * 
      * @param value
      *     allowed object is

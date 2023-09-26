@@ -10,16 +10,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for evaluatorDto complex type.
+ * <p>Clase Java para evaluatorDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="evaluatorDto"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="califications" type="{http://controller.una.ac.cr/}calification" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="califications" type="{http://controller.una.ac.cr/}calificationDto" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="evaluated" type="{http://controller.una.ac.cr/}evaluatedDto" minOccurs="0"/&gt;
  *         &lt;element name="evaluator" type="{http://controller.una.ac.cr/}userDto" minOccurs="0"/&gt;
  *         &lt;element name="feedback" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
@@ -47,7 +47,7 @@ import jakarta.xml.bind.annotation.XmlType;
 public class EvaluatorDto {
 
     @XmlElement(nillable = true)
-    protected List<Calification> califications;
+    protected List<CalificationDto> califications;
     protected EvaluatedDto evaluated;
     protected UserDto evaluator;
     protected String feedback;
@@ -73,19 +73,19 @@ public class EvaluatorDto {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Calification }
+     * {@link CalificationDto }
      * 
      * 
      */
-    public List<Calification> getCalifications() {
+    public List<CalificationDto> getCalifications() {
         if (califications == null) {
-            califications = new ArrayList<Calification>();
+            califications = new ArrayList<CalificationDto>();
         }
         return this.califications;
     }
 
     /**
-     * Gets the value of the evaluated property.
+     * Obtiene el valor de la propiedad evaluated.
      * 
      * @return
      *     possible object is
@@ -97,7 +97,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Sets the value of the evaluated property.
+     * Define el valor de la propiedad evaluated.
      * 
      * @param value
      *     allowed object is
@@ -109,7 +109,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Gets the value of the evaluator property.
+     * Obtiene el valor de la propiedad evaluator.
      * 
      * @return
      *     possible object is
@@ -121,7 +121,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Sets the value of the evaluator property.
+     * Define el valor de la propiedad evaluator.
      * 
      * @param value
      *     allowed object is
@@ -133,7 +133,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Gets the value of the feedback property.
+     * Obtiene el valor de la propiedad feedback.
      * 
      * @return
      *     possible object is
@@ -145,7 +145,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Sets the value of the feedback property.
+     * Define el valor de la propiedad feedback.
      * 
      * @param value
      *     allowed object is
@@ -157,7 +157,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -169,7 +169,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -181,7 +181,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Gets the value of the role property.
+     * Obtiene el valor de la propiedad role.
      * 
      * @return
      *     possible object is
@@ -193,7 +193,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Sets the value of the role property.
+     * Define el valor de la propiedad role.
      * 
      * @param value
      *     allowed object is
@@ -205,7 +205,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Gets the value of the version property.
+     * Obtiene el valor de la propiedad version.
      * 
      * @return
      *     possible object is
@@ -217,7 +217,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Sets the value of the version property.
+     * Define el valor de la propiedad version.
      * 
      * @param value
      *     allowed object is

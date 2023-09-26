@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for generalInformationDto complex type.
+ * <p>Clase Java para generalInformationDto complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="generalInformationDto"&gt;
@@ -49,7 +49,7 @@ public class GeneralInformationDto {
     protected Long version;
 
     /**
-     * Gets the value of the email property.
+     * Obtiene el valor de la propiedad email.
      * 
      * @return
      *     possible object is
@@ -61,7 +61,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Sets the value of the email property.
+     * Define el valor de la propiedad email.
      * 
      * @param value
      *     allowed object is
@@ -73,7 +73,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Gets the value of the htmltemplate property.
+     * Obtiene el valor de la propiedad htmltemplate.
      * 
      * @return
      *     possible object is
@@ -85,7 +85,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Sets the value of the htmltemplate property.
+     * Define el valor de la propiedad htmltemplate.
      * 
      * @param value
      *     allowed object is
@@ -97,7 +97,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Gets the value of the id property.
+     * Obtiene el valor de la propiedad id.
      * 
      * @return
      *     possible object is
@@ -109,7 +109,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Sets the value of the id property.
+     * Define el valor de la propiedad id.
      * 
      * @param value
      *     allowed object is
@@ -121,7 +121,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Gets the value of the name property.
+     * Obtiene el valor de la propiedad name.
      * 
      * @return
      *     possible object is
@@ -133,7 +133,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Sets the value of the name property.
+     * Define el valor de la propiedad name.
      * 
      * @param value
      *     allowed object is
@@ -145,7 +145,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Gets the value of the photo property.
+     * Obtiene el valor de la propiedad photo.
      * 
      * @return
      *     possible object is
@@ -156,7 +156,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Sets the value of the photo property.
+     * Define el valor de la propiedad photo.
      * 
      * @param value
      *     allowed object is
@@ -167,7 +167,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Gets the value of the version property.
+     * Obtiene el valor de la propiedad version.
      * 
      * @return
      *     possible object is
@@ -179,7 +179,7 @@ public class GeneralInformationDto {
     }
 
     /**
-     * Sets the value of the version property.
+     * Define el valor de la propiedad version.
      * 
      * @param value
      *     allowed object is

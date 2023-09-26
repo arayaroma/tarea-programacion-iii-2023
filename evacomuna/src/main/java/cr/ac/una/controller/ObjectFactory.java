@@ -200,91 +200,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Calification }
+     * Create an instance of {@link CalificationDto }
      * 
      */
-    public Calification createCalification() {
-        return new Calification();
-    }
-
-    /**
-     * Create an instance of {@link Evaluator }
-     * 
-     */
-    public Evaluator createEvaluator() {
-        return new Evaluator();
-    }
-
-    /**
-     * Create an instance of {@link Evaluated }
-     * 
-     */
-    public Evaluated createEvaluated() {
-        return new Evaluated();
-    }
-
-    /**
-     * Create an instance of {@link User }
-     * 
-     */
-    public User createUser() {
-        return new User();
-    }
-
-    /**
-     * Create an instance of {@link Position }
-     * 
-     */
-    public Position createPosition() {
-        return new Position();
-    }
-
-    /**
-     * Create an instance of {@link Skill }
-     * 
-     */
-    public Skill createSkill() {
-        return new Skill();
-    }
-
-    /**
-     * Create an instance of {@link Characteristic }
-     * 
-     */
-    public Characteristic createCharacteristic() {
-        return new Characteristic();
-    }
-
-    /**
-     * Create an instance of {@link FinalCalification }
-     * 
-     */
-    public FinalCalification createFinalCalification() {
-        return new FinalCalification();
-    }
-
-    /**
-     * Create an instance of {@link Evaluation }
-     * 
-     */
-    public Evaluation createEvaluation() {
-        return new Evaluation();
-    }
-
-    /**
-     * Create an instance of {@link LocalDate }
-     * 
-     */
-    public LocalDate createLocalDate() {
-        return new LocalDate();
-    }
-
-    /**
-     * Create an instance of {@link PositionDto }
-     * 
-     */
-    public PositionDto createPositionDto() {
-        return new PositionDto();
+    public CalificationDto createCalificationDto() {
+        return new CalificationDto();
     }
 
     /**
@@ -296,19 +216,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CalificationDto }
-     * 
-     */
-    public CalificationDto createCalificationDto() {
-        return new CalificationDto();
-    }
-
-    /**
      * Create an instance of {@link CharacteristicDto }
      * 
      */
     public CharacteristicDto createCharacteristicDto() {
         return new CharacteristicDto();
+    }
+
+    /**
+     * Create an instance of {@link PositionDto }
+     * 
+     */
+    public PositionDto createPositionDto() {
+        return new PositionDto();
     }
 
     /**
