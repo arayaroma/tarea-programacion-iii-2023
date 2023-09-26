@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * 
  * @author arayaroma
  */
-public interface EntityMapper<E, D> {
+public interface DtoMapper<E, D> {
 
     D convertFromEntityToDTO(E entity, D dto);
 
