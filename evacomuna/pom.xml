@@ -104,6 +104,26 @@
                                     <wsdl>
                                         http://localhost:8080/evacomunaws/EvaluationController?wsdl</wsdl>
                                 </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/EvaluatorController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/EvaluatedController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/GeneralInformationController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/CalificationController?wsdl</wsdl>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>
+                                        http://localhost:8080/evacomunaws/FinalCalificationController?wsdl</wsdl>
+                                </wsdlOption>
                             </wsdlOptions>
                         </configuration>
                         <goals>
