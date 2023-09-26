@@ -1,6 +1,6 @@
 package cr.ac.una.evacomuna.util;
 
-import cr.ac.una.controller.UserDto;
+import cr.ac.una.evacomuna.dto.UserDto;
 
 /**
  *
