@@ -5,7 +5,6 @@ import java.util.List;
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
- * FIXME: Add Equals and Hash
  * API WORKING, REPLICATE OVER ALL DTOS AND SERVICES
  * 
  * @author estebannajera

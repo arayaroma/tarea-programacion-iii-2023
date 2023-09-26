@@ -3,13 +3,14 @@ package cr.ac.una.evacomuna.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
+
 /**
- * FIXME: Equals and Hash
  * 
  * @author estebannajera
  * @author arayaroma
  */
-public class PositionDto {
+public class PositionDto implements DtoMapper<cr.ac.una.controller.PositionDto, PositionDto> {
 
     private Long id;
     private String name;
@@ -17,6 +18,23 @@ public class PositionDto {
     private Long version;
     private List<UserDto> users;
     private List<SkillDto> skills;
+
+    @Override
+    public PositionDto convertFromGeneratedToDTO(cr.ac.una.controller.PositionDto generated, PositionDto dto) {
+        dto.setUsers(DtoMapper.fromGeneratedList(generated.getUsers(), UserDto.class).getList());
+        dto.setSkills(DtoMapper.fromGeneratedList(generated.getSkills(), SkillDto.class).getList());
+        return dto;
+    }
+
+    @Override
+    public cr.ac.una.controller.PositionDto convertFromDTOToGenerated(PositionDto dto,
+            cr.ac.una.controller.PositionDto generated) {
+        generated.getUsers()
+                .addAll(DtoMapper.fromDtoList(dto.getUsers(), cr.ac.una.controller.UserDto.class).getList());
+        generated.getSkills()
+                .addAll(DtoMapper.fromDtoList(dto.getSkills(), cr.ac.una.controller.SkillDto.class).getList());
+        return generated;
+    }
 
     public PositionDto() {
     }

@@ -1,11 +1,13 @@
 package cr.ac.una.evacomuna.dto;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
+
 /**
- * FIXME: Equals and Hash
  * 
  * @author arayaroma
  */
-public class GeneralInformationDto {
+public class GeneralInformationDto
+        implements DtoMapper<cr.ac.una.controller.GeneralInformationDto, GeneralInformationDto> {
 
     private Long id;
     private String name;
@@ -13,6 +15,18 @@ public class GeneralInformationDto {
     private byte[] photo;
     private String htmltemplate;
     private Long version;
+
+    @Override
+    public GeneralInformationDto convertFromGeneratedToDTO(cr.ac.una.controller.GeneralInformationDto generated,
+            GeneralInformationDto dto) {
+        return new GeneralInformationDto(generated);
+    }
+
+    @Override
+    public cr.ac.una.controller.GeneralInformationDto convertFromDTOToGenerated(GeneralInformationDto dto,
+            cr.ac.una.controller.GeneralInformationDto generated) {
+        return dto.getDto();
+    }
 
     public GeneralInformationDto() {
     }
@@ -24,6 +38,16 @@ public class GeneralInformationDto {
         this.photo = generalInformationDto.getPhoto();
         this.htmltemplate = generalInformationDto.getHtmltemplate();
         this.version = generalInformationDto.getVersion();
+    }
+
+    public cr.ac.una.controller.GeneralInformationDto getDto() {
+        cr.ac.una.controller.GeneralInformationDto dto = new cr.ac.una.controller.GeneralInformationDto();
+        dto.setName(this.name);
+        dto.setEmail(this.email);
+        dto.setPhoto(this.photo);
+        dto.setHtmltemplate(this.htmltemplate);
+        dto.setVersion(this.version);
+        return dto;
     }
 
     public Long getId() {
@@ -85,4 +109,5 @@ public class GeneralInformationDto {
                 ", version='" + getVersion() + "'" +
                 "}";
     }
+
 }

@@ -4,7 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
- * FIXME: Equals and Hash
+ * FIXME: API LEVEL
  * 
  * @author estebannajera
  * @author arayaroma

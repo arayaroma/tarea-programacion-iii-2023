@@ -4,13 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
+
 /**
- * FIXME: Equals and Hash
  * 
  * @author estebannajera
  * @author arayaroma
  */
-public class EvaluationDto {
+public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationDto, EvaluationDto> {
 
     private Long id;
     private String name;
@@ -20,6 +21,38 @@ public class EvaluationDto {
     private String state;
     private List<EvaluatedDto> evaluated;
     private Long version;
+
+    @Override
+    public EvaluationDto convertFromGeneratedToDTO(cr.ac.una.controller.EvaluationDto generated, EvaluationDto dto) {
+        dto.setEvaluated(DtoMapper.fromGeneratedList(generated.getEvaluated(), EvaluatedDto.class).getList());
+        if (dto.getEvaluated() != null) {
+            for (int i = 0; i < dto.getEvaluated().size(); i++) {
+                dto.getEvaluated().get(i).setEvaluated(new UserDto(generated.getEvaluated().get(i).getEvaluated()));
+                dto.getEvaluated().get(i)
+                        .setEvaluators(DtoMapper
+                                .fromGeneratedList(generated.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class)
+                                .getList());
+
+                if (dto.getEvaluated().get(i).getEvaluators() != null) {
+                    for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
+                        dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(
+                                new UserDto(generated.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
+                    }
+                }
+                dto.getEvaluated().get(i).getEvaluated()
+                        .setPosition(new PositionDto(generated.getEvaluated().get(i).getEvaluated().getPosition()));
+            }
+        }
+        return dto;
+    }
+
+    @Override
+    public cr.ac.una.controller.EvaluationDto convertFromDTOToGenerated(EvaluationDto dto,
+            cr.ac.una.controller.EvaluationDto generated) {
+        generated.getEvaluated()
+                .addAll(DtoMapper.fromDtoList(dto.getEvaluated(), cr.ac.una.controller.EvaluatedDto.class).getList());
+        return generated;
+    }
 
     public EvaluationDto() {
     }

@@ -1,17 +1,32 @@
 package cr.ac.una.evacomuna.dto;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
+
 /**
- * FIXME: Equals and Hash
  * 
  * @author estebannajera
  * @author arayaroma
  */
-public class CharacteristicDto {
+public class CharacteristicDto implements DtoMapper<cr.ac.una.controller.CharacteristicDto, CharacteristicDto> {
 
     private Long id;
     private String name;
     private Long version;
     private SkillDto skill;
+
+    @Override
+    public CharacteristicDto convertFromGeneratedToDTO(cr.ac.una.controller.CharacteristicDto generated,
+            CharacteristicDto dto) {
+
+        return dto;
+    }
+
+    @Override
+    public cr.ac.una.controller.CharacteristicDto convertFromDTOToGenerated(CharacteristicDto dto,
+            cr.ac.una.controller.CharacteristicDto generated) {
+
+        return generated;
+    }
 
     public CharacteristicDto() {
     }

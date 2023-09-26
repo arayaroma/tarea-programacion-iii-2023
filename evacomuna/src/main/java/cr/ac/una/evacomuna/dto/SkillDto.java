@@ -2,15 +2,16 @@ package cr.ac.una.evacomuna.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cr.ac.una.evacomuna.util.DtoMapper;
 import javafx.scene.layout.Pane;
 
 /**
- * FIXME: Generate Equals and Hash
  *
  * @author estebannajera
  * @author arayaroma
  */
-public class SkillDto extends Pane {
+public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.SkillDto, SkillDto> {
 
     private Long id;
     private String name;
@@ -20,6 +21,23 @@ public class SkillDto extends Pane {
     private List<CalificationDto> califications;
     private List<FinalCalificationDto> finalCalifications;
     private List<CharacteristicDto> characteristics;
+
+    @Override
+    public SkillDto convertFromGeneratedToDTO(cr.ac.una.controller.SkillDto generated, SkillDto dto) {
+        /**
+         * TODO: Califications and FinalCalifications lists
+         */
+        return dto;
+    }
+
+    @Override
+    public cr.ac.una.controller.SkillDto convertFromDTOToGenerated(SkillDto dto,
+            cr.ac.una.controller.SkillDto generated) {
+        /**
+         * TODO: Califications and FinalCalifications lists
+         */
+        return generated;
+    }
 
     public SkillDto() {
     }

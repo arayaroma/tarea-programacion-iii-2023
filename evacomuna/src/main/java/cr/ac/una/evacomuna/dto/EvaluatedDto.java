@@ -3,13 +3,14 @@ package cr.ac.una.evacomuna.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
+
 /**
- * FIXME: Equals and Hash
  * 
  * @author estebannajera
  * @author arayaroma
  */
-public class EvaluatedDto {
+public class EvaluatedDto implements DtoMapper<cr.ac.una.controller.EvaluatedDto, EvaluatedDto> {
 
     private Long id;
     private UserDto evaluated;
@@ -18,6 +19,21 @@ public class EvaluatedDto {
     private List<EvaluatorDto> evaluators;
     private EvaluationDto evaluation;
     private Long version;
+
+    @Override
+    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.controller.EvaluatedDto generated, EvaluatedDto dto) {
+        dto.setEvaluated(new UserDto(generated.getEvaluated()));
+        dto.setEvaluation(new EvaluationDto(generated.getEvaluation()));
+        return dto;
+    }
+
+    @Override
+    public cr.ac.una.controller.EvaluatedDto convertFromDTOToGenerated(EvaluatedDto dto,
+            cr.ac.una.controller.EvaluatedDto generated) {
+        generated.setEvaluated(dto.getEvaluated().getDto());
+        generated.setEvaluation(dto.getEvaluation().getDto());
+        return generated;
+    }
 
     public EvaluatedDto() {
     }

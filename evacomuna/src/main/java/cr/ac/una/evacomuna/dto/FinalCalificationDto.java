@@ -1,11 +1,14 @@
 package cr.ac.una.evacomuna.dto;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
+
 /**
- * FIXME: Equals and Hash
+ * FIXME: API LEVEL
  * 
  * @author arayaroma
  */
-public class FinalCalificationDto {
+public class FinalCalificationDto
+        implements DtoMapper<cr.ac.una.controller.FinalCalificationDto, FinalCalificationDto> {
 
     private Long id;
     private Long finalNote;
@@ -13,6 +16,20 @@ public class FinalCalificationDto {
     private EvaluatedDto evaluated;
     private SkillDto skill;
     private Long version;
+
+    @Override
+    public FinalCalificationDto convertFromGeneratedToDTO(cr.ac.una.controller.FinalCalificationDto generated,
+            FinalCalificationDto dto) {
+        // TODO
+        return dto;
+    }
+
+    @Override
+    public cr.ac.una.controller.FinalCalificationDto convertFromDTOToGenerated(FinalCalificationDto dto,
+            cr.ac.una.controller.FinalCalificationDto generated) {
+        // TODO
+        return generated;
+    }
 
     public FinalCalificationDto() {
     }

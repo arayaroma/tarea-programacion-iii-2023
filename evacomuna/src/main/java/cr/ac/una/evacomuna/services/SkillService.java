@@ -2,6 +2,10 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cr.ac.una.controller.SkillController;
 import cr.ac.una.controller.SkillController_Service;
 import cr.ac.una.evacomuna.dto.SkillDto;
@@ -33,6 +37,18 @@ public class SkillService {
     public ResponseWrapper getSkills() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getSkills();
+            cr.ac.una.controller.ListWrapper skills = (cr.ac.una.controller.ListWrapper) response.getData();
+            List<cr.ac.una.controller.SkillDto> skillsDto = new ArrayList<>();
+            List<SkillDto> skillsDtoClient = new ArrayList<>();
+            for (Object i : skills.getElement()) {
+                if (i instanceof cr.ac.una.controller.SkillDto) {
+                    skillsDto.add((cr.ac.una.controller.SkillDto) i);
+                }
+            }
+            for (cr.ac.una.controller.SkillDto i : skillsDto) {
+                SkillDto userDto = new SkillDto(i);
+                skillsDtoClient.add(userDto.convertFromGeneratedToDTO(i, userDto));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
