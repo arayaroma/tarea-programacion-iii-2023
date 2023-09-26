@@ -2,7 +2,7 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.EvaluatorController;
 import cr.ac.una.controller.EvaluatorController_Service;
-import cr.ac.una.controller.EvaluatorDto;
+import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
@@ -32,7 +32,7 @@ public class EvaluatorService {
      */
     public ResponseWrapper createEvaluator(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createEvaluator(evaluatorDto);
+            cr.ac.una.controller.ResponseWrapper response = port.createEvaluator(evaluatorDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -47,6 +47,57 @@ public class EvaluatorService {
         }
     }
 
+    public ResponseWrapper getEvaluatorById(Long id) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getEvaluatorById(id);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluator retrieved successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error retrieving the evaluator",
+                    null);
+        }
+    }
+
+    public ResponseWrapper getEvaluatorByEvaluatedId(Long id) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getEvaluatorByEvaluatedId(id);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluator retrieved successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error retrieving the evaluator",
+                    null);
+        }
+    }
+
+    public ResponseWrapper getAllEvaluator() {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getAllEvaluator();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluators retrieved successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error retrieving the evaluators",
+                    null);
+        }
+    }
+
     /**
      * Updates the evaluator with the given id
      * 
@@ -55,7 +106,7 @@ public class EvaluatorService {
      */
     public ResponseWrapper updateEvaluator(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluator(evaluatorDto);
+            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluator(evaluatorDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

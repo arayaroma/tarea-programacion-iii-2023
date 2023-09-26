@@ -1,7 +1,9 @@
 package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.UserController_Service;
-import cr.ac.una.controller.UserDto;
+import cr.ac.una.evacomuna.dto.UserDto;
+import java.util.ArrayList;
+import java.util.List;
 import cr.ac.una.controller.UserController;
 import cr.ac.una.evacomuna.util.Connection;
 import cr.ac.una.evacomuna.util.Constants;
@@ -9,6 +11,7 @@ import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
 /**
+ * FIXME: Change to CLIENT DTOS
  *
  * @author estebannajera
  * @author arayaroma
@@ -39,8 +42,9 @@ public class UserService {
      */
     public ResponseWrapper createUser(UserDto userDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createUser(userDto);
-            userDto = (UserDto) response.getData();
+            cr.ac.una.controller.ResponseWrapper response = port.createUser(userDto.getDto());
+            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            userDto = new UserDto(user);
             System.out.println("response: " + userDto.toString());
 
             return new ResponseWrapper(
@@ -65,12 +69,14 @@ public class UserService {
      */
     public ResponseWrapper updateUser(UserDto userDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateUser(userDto);
+            cr.ac.una.controller.ResponseWrapper response = port.updateUser(userDto.getDto());
+            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            userDto = new UserDto(user);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User updated successfully",
-                    response.getData());
+                    userDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -88,11 +94,28 @@ public class UserService {
     public ResponseWrapper getUsers() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getUsers();
+            cr.ac.una.controller.ListWrapper users = (cr.ac.una.controller.ListWrapper) response.getData();
+            List<cr.ac.una.controller.UserDto> usersDto = new ArrayList<>();
+            List<UserDto> usersDtoClient = new ArrayList<>();
+            for (Object i : users.getElement()) {
+                if (i instanceof cr.ac.una.controller.UserDto) {
+                    usersDto.add((cr.ac.una.controller.UserDto) i);
+                }
+            }
+
+            /*
+             * If god exists that must be me
+             */
+            for (cr.ac.una.controller.UserDto i : usersDto) {
+                UserDto userDto = new UserDto(i);
+                usersDtoClient.add(userDto.convertFromGeneratedToDTO(i, userDto));
+            }
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users found",
-                    response.getData());
+                    usersDtoClient);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -135,11 +158,12 @@ public class UserService {
     public ResponseWrapper getByUserAndPassword(String username, String password) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getUserByUserAndPassword(username, password);
+            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User found",
-                    response.getData());
+                    new UserDto(user));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),

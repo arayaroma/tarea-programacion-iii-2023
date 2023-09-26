@@ -4,7 +4,7 @@ import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.controller.SkillController;
 import cr.ac.una.controller.SkillController_Service;
-import cr.ac.una.controller.SkillDto;
+import cr.ac.una.evacomuna.dto.SkillDto;
 
 /**
  *
@@ -55,7 +55,7 @@ public class SkillService {
      */
     public ResponseWrapper updateSkills(SkillDto skillDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateSkill(skillDto);
+            cr.ac.una.controller.ResponseWrapper response = port.updateSkill(skillDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -147,7 +147,7 @@ public class SkillService {
      */
     public ResponseWrapper createSkill(SkillDto skillDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createSkill(skillDto);
+            cr.ac.una.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

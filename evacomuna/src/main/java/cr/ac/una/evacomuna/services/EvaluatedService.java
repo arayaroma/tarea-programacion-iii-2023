@@ -2,7 +2,7 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.EvaluatedController;
 import cr.ac.una.controller.EvaluatedController_Service;
-import cr.ac.una.controller.EvaluatedDto;
+import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.util.ResponseCode;
 
@@ -32,7 +32,7 @@ public class EvaluatedService {
      */
     public ResponseWrapper createEvaluated(EvaluatedDto evaluatedDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createEvaluated(evaluatedDto);
+            cr.ac.una.controller.ResponseWrapper response = port.createEvaluated(evaluatedDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -55,7 +55,7 @@ public class EvaluatedService {
      */
     public ResponseWrapper updateEvaluated(EvaluatedDto evaluatedDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluated(evaluatedDto);
+            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluated(evaluatedDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

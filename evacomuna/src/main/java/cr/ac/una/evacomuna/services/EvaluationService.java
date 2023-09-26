@@ -2,7 +2,7 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.EvaluationController;
 import cr.ac.una.controller.EvaluationController_Service;
-import cr.ac.una.controller.EvaluationDto;
+import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
@@ -46,6 +46,23 @@ public class EvaluationService {
         }
     }
 
+    public ResponseWrapper getEvaluationById(Long id) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getEvaluationById(id);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation found successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "Evaluation not found",
+                    null);
+        }
+    }
+
     /**
      * Get evaluation by name
      * 
@@ -77,7 +94,7 @@ public class EvaluationService {
      */
     public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createEvaluation(evaluationDto);
+            cr.ac.una.controller.ResponseWrapper response = port.createEvaluation(evaluationDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -100,7 +117,7 @@ public class EvaluationService {
      */
     public ResponseWrapper updateEvaluation(EvaluationDto evaluationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluation(evaluationDto);
+            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluation(evaluationDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

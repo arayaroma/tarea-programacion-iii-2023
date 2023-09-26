@@ -2,7 +2,7 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.CharacteristicController;
 import cr.ac.una.controller.CharacteristicController_Service;
-import cr.ac.una.controller.CharacteristicDto;
+import cr.ac.una.evacomuna.dto.CharacteristicDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.util.ResponseCode;
 
@@ -32,7 +32,7 @@ public class CharacteristicService {
      */
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createCharacteristic(characteristicDto);
+            cr.ac.una.controller.ResponseWrapper response = port.createCharacteristic(characteristicDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -100,7 +100,7 @@ public class CharacteristicService {
      */
     public ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateCharacteristic(characteristicDto);
+            cr.ac.una.controller.ResponseWrapper response = port.updateCharacteristic(characteristicDto.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

@@ -2,7 +2,7 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.PositionController;
 import cr.ac.una.controller.PositionController_Service;
-import cr.ac.una.controller.PositionDto;
+import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
@@ -26,6 +26,29 @@ public class PositionService {
     }
 
     /**
+     * Creates a new position
+     * 
+     * @param position to create
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper createPosition(PositionDto position) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.createPosition(position.getDto());
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Position created successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating position",
+                    null);
+        }
+    }
+
+    /**
      * Get all positions
      * 
      * @return ResponseWrapper with the response of the request
@@ -43,6 +66,29 @@ public class PositionService {
                     ResponseCode.NOT_FOUND.getCode(),
                     ResponseCode.NOT_FOUND,
                     "Positions not found",
+                    null);
+        }
+    }
+
+    /**
+     * Get position by name
+     * 
+     * @param name of the position
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getPositionByName(String name) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getPositionByName(name);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Position found successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "Position not found",
                     null);
         }
     }
@@ -78,7 +124,7 @@ public class PositionService {
      */
     public ResponseWrapper updatePosition(PositionDto position) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updatePosition(position);
+            cr.ac.una.controller.ResponseWrapper response = port.updatePosition(position.getDto());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -89,29 +135,6 @@ public class PositionService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error updating position",
-                    null);
-        }
-    }
-
-    /**
-     * Get position by name
-     * 
-     * @param name of the position
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper getPositionByName(String name) {
-        try {
-            cr.ac.una.controller.ResponseWrapper response = port.getPositionByName(name);
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Position found successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.NOT_FOUND.getCode(),
-                    ResponseCode.NOT_FOUND,
-                    "Position not found",
                     null);
         }
     }
@@ -135,29 +158,6 @@ public class PositionService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error deleting position",
-                    null);
-        }
-    }
-
-    /**
-     * Creates a new position
-     * 
-     * @param position to create
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper createPosition(PositionDto position) {
-        try {
-            cr.ac.una.controller.ResponseWrapper response = port.createPosition(position);
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Position created successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
-                    ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error creating position",
                     null);
         }
     }
