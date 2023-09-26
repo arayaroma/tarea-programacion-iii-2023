@@ -25,7 +25,10 @@ import cr.ac.una.dto.EvaluatorDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),})
+    @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+    @NamedQuery(name = "Evaluator.findById", query = "SELECT e FROM Evaluator e WHERE e.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+    @NamedQuery(name = "Evaluator.findByEvaluatedId", query = "SELECT e FROM Evaluator e WHERE e.evaluated.id = :evaluatedId", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+})
 public class Evaluator implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +46,6 @@ public class Evaluator implements Serializable {
     @Column(name = "ROLE")
     private String role;
 
-    //@NotNull
     @Basic(optional = false)
     @Size(min = 1, max = 100)
     @Column(name = "FEEDBACK")

@@ -15,7 +15,7 @@ public interface EvaluatorService {
 
     ResponseWrapper getEvaluatorById(Long id);
 
-    ResponseWrapper getEvaluatorByName(String name);
+    ResponseWrapper getEvaluatorByEvaluatedId(Long id);
 
     ResponseWrapper getAllEvaluator();
 

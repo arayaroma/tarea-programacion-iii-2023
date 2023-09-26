@@ -21,7 +21,7 @@ public class EvaluatorController {
     public ResponseWrapper createEvaluator(EvaluatorDto evaluatorDto) {
         return evaluatorService.createEvaluator(evaluatorDto);
     }
-    
+
     @WebMethod(operationName = "updateEvaluator")
     public ResponseWrapper updateEvaluator(EvaluatorDto evaluatorDto) {
         return evaluatorService.updateEvaluator(evaluatorDto);
@@ -32,9 +32,9 @@ public class EvaluatorController {
         return evaluatorService.getEvaluatorById(id);
     }
 
-    @WebMethod(operationName = "getEvaluatorByName")
-    public ResponseWrapper getEvaluatorByName(String name) {
-        return evaluatorService.getEvaluatorByName(name);
+    @WebMethod(operationName = "getEvaluatorByEvaluatedId")
+    public ResponseWrapper getEvaluatorByEvaluatedId(Long id) {
+        return evaluatorService.getEvaluatorByEvaluatedId(id);
     }
 
     @WebMethod(operationName = "getAllEvaluator")

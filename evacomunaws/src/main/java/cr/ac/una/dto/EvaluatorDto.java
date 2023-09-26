@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- *
+ * FIXME: Change List<Calification> -> List<CalificationDto>
  * @author arayaroma
  */
 @Data
