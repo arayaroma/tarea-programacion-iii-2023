@@ -1,16 +1,16 @@
 package cr.ac.una.evacomuna.util;
 
-import cr.ac.una.controller.CharacteristicDto;
-import cr.ac.una.controller.EvaluationDto;
-import cr.ac.una.controller.SkillDto;
+import cr.ac.una.evacomuna.dto.CharacteristicDto;
+import cr.ac.una.evacomuna.dto.EvaluationDto;
+import cr.ac.una.evacomuna.dto.SkillDto;
+import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.services.CharacteristicService;
+import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.services.SkillService;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import cr.ac.una.controller.ListWrapper;
-import cr.ac.una.controller.PositionDto;
-import cr.ac.una.controller.UserDto;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.PositionService;
 import cr.ac.una.evacomuna.services.UserService;
@@ -81,14 +81,7 @@ public class ObservableListParser {
     public static List<UserDto> loadUsers() {
         List<UserDto> userDtos = new ArrayList<>();
         ResponseWrapper response = userService.getUsers();
-        if (response.getCode() == ResponseCode.OK) {
-            ListWrapper wrapper = (ListWrapper) response.getData();
-            for (Object i : wrapper.getElement()) {
-                if (i instanceof UserDto) {
-                    userDtos.add((UserDto) i);
-                }
-            }
-        }
+        userDtos = (List<UserDto>) response.getData();
         return userDtos;
     }
 
