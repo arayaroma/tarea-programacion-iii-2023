@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cr.ac.una</groupId>
     <artifactId>evacomuna</artifactId>
@@ -106,7 +106,6 @@
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>
-<<<<<<< HEAD
                                         http://localhost:8080/evacomunaws/EvaluatorController?wsdl</wsdl>
                                 </wsdlOption>
                                 <wsdlOption>
@@ -125,10 +124,6 @@
                                     <wsdl>
                                         http://localhost:8080/evacomunaws/FinalCalificationController?wsdl</wsdl>
                                 </wsdlOption>
-=======
-                                        http://localhost:8080/evacomunaws/CalificationController?wsdl</wsdl>
-                                </wsdlOption>
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
                             </wsdlOptions>
                         </configuration>
                         <goals>

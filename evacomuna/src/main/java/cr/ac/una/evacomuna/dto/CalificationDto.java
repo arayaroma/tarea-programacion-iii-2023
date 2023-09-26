@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.controller.CalificationDto, CalificationDto> {
 
     private Long id;
-    private String calification;
+    private Long calification;
     private SkillDto skill;
     private EvaluatorDto evaluator;
     private Long version;
@@ -77,11 +77,11 @@ public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.control
         this.id = id;
     }
 
-    public String getCalification() {
+    public Long getCalification() {
         return this.calification;
     }
 
-    public void setCalification(String calification) {
+    public void setCalification(Long calification) {
         this.calification = calification;
     }
 

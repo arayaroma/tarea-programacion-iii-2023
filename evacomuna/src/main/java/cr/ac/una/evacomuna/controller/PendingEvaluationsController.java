@@ -1,6 +1,5 @@
 package cr.ac.una.evacomuna.controller;
 
-<<<<<<< HEAD
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
@@ -8,21 +7,7 @@ import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.dto.SkillDto;
-=======
-import cr.ac.una.controller.CalificationDto;
-import cr.ac.una.controller.EvaluatedDto;
-import cr.ac.una.controller.EvaluationDto;
-import cr.ac.una.controller.EvaluatorDto;
-import cr.ac.una.controller.PositionDto;
-import cr.ac.una.controller.ResponseCode;
-import cr.ac.una.controller.ResponseWrapper;
-import cr.ac.una.controller.SkillDto;
-import cr.ac.una.evacomuna.App;
-import cr.ac.una.evacomuna.dto.CalificationWrapper;
-import cr.ac.una.evacomuna.dto.EvaluatedWrapper;
-import cr.ac.una.evacomuna.dto.SkillWrapper;
 import cr.ac.una.evacomuna.services.CalificationService;
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.EvaluatorService;
 import cr.ac.una.evacomuna.services.PositionService;
@@ -30,6 +15,9 @@ import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.ObservableListParser;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +84,7 @@ public class PendingEvaluationsController implements Initializable {
     private EvaluatorService evaluatorService;
     private ObservableList<EvaluationDto> evaluationDtos = FXCollections.observableArrayList();
     boolean isEditing = false;
-    //private ImageView imageViewCheck;
+    // private ImageView imageViewCheck;
 
     /**
      * Initializes the controller class.
@@ -112,8 +100,8 @@ public class PendingEvaluationsController implements Initializable {
         evaluatorService = new EvaluatorService();
         evaluationDtos = FXCollections.observableArrayList(filterEvaluations(evaluationDtos));
         cbPendingEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
-        //imageViewCheck = createImageCheck();
-        //loadEvaluator();
+        // imageViewCheck = createImageCheck();
+        // loadEvaluator();
         initializeGrid();
         initializeList();
     }
@@ -123,13 +111,13 @@ public class PendingEvaluationsController implements Initializable {
         String name = cbPendingEvaluations.getValue();
         if (name != null) {
             EvaluationDto evaluationDto = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
-            
+
             if (evaluationDto != null) {
                 listEvaluated.getItems().clear();
                 listEvaluated.getItems().addAll(evaluationDto.getEvaluated().stream()
                         .filter(evaluated -> evaluated.getEvaluators().stream()
-                        .anyMatch(
-                                evaluator -> evaluator.getEvaluator().getId() == Data.getUserLogged().getId()))
+                                .anyMatch(
+                                        evaluator -> evaluator.getEvaluator().getId() == Data.getUserLogged().getId()))
                         .collect(Collectors.toList()));
             }
         }
@@ -142,17 +130,18 @@ public class PendingEvaluationsController implements Initializable {
             return;
         }
         evaluatorBuffer.setFeedback(txaFeedBack.getText());
-        evaluatorBuffer.setEvaluated(new EvaluatedWrapper(evaluatedBuffer).getDto());
+        evaluatorBuffer.setEvaluated(evaluatedBuffer);
         boolean allIsSaved;
         evaluatorBuffer.getCalifications().clear();
-        for (CalificationWrapper i : calificationWrappers) {
-            ResponseWrapper response = calificationService.createCalification(i.getDto());
+        for (CalificationDto i : calificationWrappers) {
+            ResponseWrapper response = calificationService.createCalification(i);
             allIsSaved = response.getCode() == ResponseCode.OK;
             if (!allIsSaved) {
                 Message.showNotification("Error", MessageType.ERROR, response.getMessage());
                 return;
             }
-            //evaluatorBuffer.getCalifications().add(new CalificationWrapper((CalificationDto) response.getData()).getDto());
+            // evaluatorBuffer.getCalifications().add(new
+            // CalificationWrapper((CalificationDto) response.getData()).getDto());
         }
 
         cr.ac.una.evacomuna.util.ResponseWrapper response = evaluatorService.updateEvaluator(evaluatorBuffer);
@@ -160,9 +149,9 @@ public class PendingEvaluationsController implements Initializable {
     }
 
     private void loadEvaluator() {
-        //for (EvaluationDto evaluationDto : evaluationDtos) {
+        // for (EvaluationDto evaluationDto : evaluationDtos) {
         if (evaluatedBuffer != null) {
-            //for (EvaluatedDto evaluatedDto : evaluationDto.getEvaluated()) {
+            // for (EvaluatedDto evaluatedDto : evaluationDto.getEvaluated()) {
             for (EvaluatorDto evaluatorDto : evaluatedBuffer.getEvaluators()) {
                 if (Objects.equals(evaluatorDto.getEvaluator().getId(), Data.getUserLogged().getId())) {
                     evaluatorBuffer = evaluatorDto;
@@ -170,20 +159,21 @@ public class PendingEvaluationsController implements Initializable {
                 }
             }
         }
-        //  }
-        //  }
-//        Optional<EvaluatorDto> evaluatorOptional = evaluationDtos.stream()
-//                .flatMap(evaluation -> evaluation.getEvaluated().stream())
-//                .flatMap(evaluated -> evaluated.getEvaluators().stream())
-//                .filter(evaluator -> evaluator.getEvaluator().getId().equals(Data.getUserLogged().getId()))
-//                .findFirst();
-//        evaluatorOptional.ifPresent(evaluator -> evaluatorBuffer = evaluator);
+        // }
+        // }
+        // Optional<EvaluatorDto> evaluatorOptional = evaluationDtos.stream()
+        // .flatMap(evaluation -> evaluation.getEvaluated().stream())
+        // .flatMap(evaluated -> evaluated.getEvaluators().stream())
+        // .filter(evaluator ->
+        // evaluator.getEvaluator().getId().equals(Data.getUserLogged().getId()))
+        // .findFirst();
+        // evaluatorOptional.ifPresent(evaluator -> evaluatorBuffer = evaluator);
     }
 
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
         Predicate<EvaluationDto> hasEvaluator = evaluationDto -> evaluationDto.getEvaluated().stream()
                 .anyMatch(evaluatedDto -> evaluatedDto.getEvaluators().stream()
-                .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId()));
+                        .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId()));
         List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
                 .filter(hasEvaluator.and(evaluation -> evaluation.getState().equals("IN APPLICATION")))
                 .collect(Collectors.toList());
@@ -221,18 +211,12 @@ public class PendingEvaluationsController implements Initializable {
                         Node note = getNodeInGrid(0, col);
                         Node skill = getNodeInGrid(row, 0);
                         if (note != null && skill != null) {
-                            calificationWrapper.setCalification(((Label) note).getText());
-<<<<<<< HEAD
+                            calificationWrapper.setCalification(Long.parseLong(((Label) note).getText()));
                             calificationWrapper.setSkill(skills.get(skills.indexOf(skill)));
-                            //calificationWrapper.setEvaluatorDto(evaluatorDto);
-//                            System.out.println(skills.indexOf(skill));
-//                            System.out.println(((Label) note).getText());
-=======
-                            calificationWrapper.setSkillDto(skills.get(skills.indexOf(skill)).getDto());
-                            calificationWrapper.setEvaluatorDto(evaluatorBuffer);
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
+                            calificationWrapper.setEvaluator(evaluatorBuffer);
                         }
-                        calificationWrappers.removeIf(calification -> calification.getSkillDto().getId().equals(calificationWrapper.getSkillDto().getId()));
+                        calificationWrappers.removeIf(calification -> calification.getSkill().getId()
+                                .equals(calificationWrapper.getSkill().getId()));
                         calificationWrappers.add(calificationWrapper);
                         success = true;
                     }
@@ -296,8 +280,8 @@ public class PendingEvaluationsController implements Initializable {
 
                     isEditing = ((EvaluatedDto) item).getEvaluators().stream()
                             .anyMatch(evaluator -> evaluator.getFeedback() != null
-                            && !evaluator.getFeedback().isEmpty()
-                            && evaluator.getEvaluator().getId() == Data.getUserLogged().getId()) ? true : false;
+                                    && !evaluator.getFeedback().isEmpty()
+                                    && evaluator.getEvaluator().getId() == Data.getUserLogged().getId()) ? true : false;
 
                     if (isEditing) {
                         completed = " (COMPLETED)";
@@ -308,7 +292,9 @@ public class PendingEvaluationsController implements Initializable {
                         evaluatedBuffer.getEvaluators().stream()
                                 .filter(evaluator -> evaluator.getId() == evaluatorBuffer.getId())
                                 .findFirst()
-                                .ifPresent(ev -> ev.getCalifications().forEach(calification -> calificationWrappers.add(new CalificationWrapper(calification))));
+                                .ifPresent(ev -> ev.getCalifications().forEach(
+                                        calification -> calificationWrappers
+                                                .add(new CalificationDto(calification.getDto()))));
                         loadCalificationsInGrid();
                         txaFeedBack.setText(evaluatorBuffer.getFeedback());
                     }
@@ -316,7 +302,7 @@ public class PendingEvaluationsController implements Initializable {
 
                 setText(empty || item == null ? null
                         : ((EvaluatedDto) item).getEvaluated().getName() + " "
-                        + ((EvaluatedDto) item).getEvaluated().getSecondLastname() + completed);
+                                + ((EvaluatedDto) item).getEvaluated().getSecondLastname() + completed);
             }
         });
         // LISTENERS
@@ -331,11 +317,7 @@ public class PendingEvaluationsController implements Initializable {
                                     + evaluatedBuffer.getEvaluated().getLastname());
                             lblRoleEvaluated.setText("Position: " + position.getName());
                             cleanGrid();
-<<<<<<< HEAD
-                            skills.addAll(position.getSkills().stream().map(t -> new SkillDto(t.getName()))
-=======
-                            skills.addAll(position.getSkills().stream().map(t -> new SkillWrapper(t))
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
+                            skills.addAll(position.getSkills().stream().map(t -> new SkillDto(t.getDto()))
                                     .collect(Collectors.toList()));
                             loadSkillsInGrid();
                         }
@@ -345,10 +327,10 @@ public class PendingEvaluationsController implements Initializable {
 
     private void loadCalificationsInGrid() {
 
-        for (CalificationWrapper calificationWrapper : calificationWrappers) {
+        for (CalificationDto calificationWrapper : calificationWrappers) {
             calificationWrapper.setData(createImageCheck());
             Integer row = 0, col = 0;
-            row = GridPane.getRowIndex(getSkillWrapperById(calificationWrapper.getSkillDto()));
+            row = GridPane.getRowIndex(getSkillWrapperById(calificationWrapper.getSkill()));
 
             for (Node node : gridEvaluation.getChildren()) {
                 if (node instanceof Label) {
@@ -365,13 +347,13 @@ public class PendingEvaluationsController implements Initializable {
 
     }
 
-    private SkillWrapper getSkillWrapperById(SkillDto skillDto) {
-        for (SkillWrapper i : skills) {
-            if (i.getID() == skillDto.getId()) {
+    private SkillDto getSkillWrapperById(SkillDto skillDto) {
+        for (SkillDto i : skills) {
+            if (i.getID() == skillDto.getID()) {
                 return i;
             }
         }
-        return new SkillWrapper();
+        return new SkillDto();
     }
 
     private void loadSkillsInGrid() {

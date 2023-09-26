@@ -1,15 +1,11 @@
 package cr.ac.una.evacomuna.services;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-=======
-import cr.ac.una.controller.CalificationDto;
-import cr.ac.una.controller.EvaluationDto;
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
 import cr.ac.una.controller.EvaluatorController;
 import cr.ac.una.controller.EvaluatorController_Service;
+import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
@@ -175,7 +171,7 @@ public class EvaluatorService {
     public ResponseWrapper deleteEvaluatorById(EvaluatorDto evaluatorDto) {
         try {
             for (CalificationDto i : evaluatorDto.getCalifications()) {
-                calificationService.deleteByIdCalification(i.getId());
+                calificationService.deleteCalificationById(i.getID());
             }
             cr.ac.una.controller.ResponseWrapper response = port.deleteEvaluatorById(evaluatorDto.getId());
             return new ResponseWrapper(

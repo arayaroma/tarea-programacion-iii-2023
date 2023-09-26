@@ -10,9 +10,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para evaluatorDto complex type.
+ * <p>Java class for evaluatorDto complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="evaluatorDto"&gt;
@@ -85,7 +85,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad evaluated.
+     * Gets the value of the evaluated property.
      * 
      * @return
      *     possible object is
@@ -97,7 +97,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Define el valor de la propiedad evaluated.
+     * Sets the value of the evaluated property.
      * 
      * @param value
      *     allowed object is
@@ -109,7 +109,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad evaluator.
+     * Gets the value of the evaluator property.
      * 
      * @return
      *     possible object is
@@ -121,7 +121,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Define el valor de la propiedad evaluator.
+     * Sets the value of the evaluator property.
      * 
      * @param value
      *     allowed object is
@@ -133,7 +133,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad feedback.
+     * Gets the value of the feedback property.
      * 
      * @return
      *     possible object is
@@ -145,7 +145,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Define el valor de la propiedad feedback.
+     * Sets the value of the feedback property.
      * 
      * @param value
      *     allowed object is
@@ -157,7 +157,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad id.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
@@ -169,7 +169,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Define el valor de la propiedad id.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
@@ -181,7 +181,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad role.
+     * Gets the value of the role property.
      * 
      * @return
      *     possible object is
@@ -193,7 +193,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Define el valor de la propiedad role.
+     * Sets the value of the role property.
      * 
      * @param value
      *     allowed object is
@@ -205,7 +205,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Obtiene el valor de la propiedad version.
+     * Gets the value of the version property.
      * 
      * @return
      *     possible object is
@@ -217,7 +217,7 @@ public class EvaluatorDto {
     }
 
     /**
-     * Define el valor de la propiedad version.
+     * Sets the value of the version property.
      * 
      * @param value
      *     allowed object is

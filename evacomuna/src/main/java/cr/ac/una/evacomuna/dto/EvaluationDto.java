@@ -28,15 +28,28 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationD
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
                 dto.getEvaluated().get(i).setEvaluated(new UserDto(generated.getEvaluated().get(i).getEvaluated()));
-                dto.getEvaluated().get(i)
-                        .setEvaluators(DtoMapper
-                                .fromGeneratedList(generated.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class)
+                dto.getEvaluated().get(i).setEvaluators(
+                        DtoMapper.fromGeneratedList(generated.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class)
                                 .getList());
 
                 if (dto.getEvaluated().get(i).getEvaluators() != null) {
                     for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
                         dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(
                                 new UserDto(generated.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
+                        dto.getEvaluated().get(i).getEvaluators().get(j)
+                                .setCalifications(
+                                        DtoMapper.fromDtoList(
+                                                generated.getEvaluated().get(i).getEvaluators().get(j)
+                                                        .getCalifications(),
+                                                CalificationDto.class).getList());
+                        if (dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications() != null) {
+                            for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications()
+                                    .size(); k++) {
+                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
+                                        .setSkill(new SkillDto(generated.getEvaluated().get(i).getEvaluators().get(j)
+                                                .getCalifications().get(k).getSkill()));
+                            }
+                        }
                     }
                 }
                 dto.getEvaluated().get(i).getEvaluated()
