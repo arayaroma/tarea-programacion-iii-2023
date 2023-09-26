@@ -14,6 +14,7 @@ module Evacomuna {
     opens cr.ac.una.evacomuna to javafx.fxml;
     opens cr.ac.una.evacomuna.util to javafx.fxml;
     opens cr.ac.una.evacomuna.controller to javafx.fxml;
+    opens cr.ac.una.evacomuna.dto;
     opens cr.ac.una.controller;
 
     exports cr.ac.una.evacomuna;
