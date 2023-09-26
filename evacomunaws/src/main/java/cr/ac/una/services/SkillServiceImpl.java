@@ -7,7 +7,7 @@ import cr.ac.una.dto.CharacteristicDto;
 import cr.ac.una.dto.FinalCalificationDto;
 import cr.ac.una.dto.PositionDto;
 import cr.ac.una.entities.Characteristic;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.ResponseCode;
@@ -217,7 +217,7 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of characteristics.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Skill.getCharacteristicsBySkillId").getResultList(),
                             CharacteristicDto.class));
         } catch (Exception ex) {
@@ -250,7 +250,7 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of califications.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Skill.getCalificationsBySkillId").getResultList(),
                             CalificationDto.class));
         } catch (Exception ex) {
@@ -283,7 +283,7 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of final califications.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Skill.getFinalCalificationsBySkillId").getResultList(),
                             FinalCalificationDto.class));
         } catch (Exception ex) {
@@ -316,7 +316,7 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of positions.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Skill.getPositionsBySkillId").getResultList(),
                             PositionDto.class));
         } catch (Exception ex) {
@@ -426,7 +426,7 @@ public class SkillServiceImpl implements SkillService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of skills.",
-                    new ListWrapper<>(EntityMapper.fromDtoList(skills, SkillDto.class).getList()));
+                    new ListWrapper<>(DtoMapper.fromDtoList(skills, SkillDto.class).getList()));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

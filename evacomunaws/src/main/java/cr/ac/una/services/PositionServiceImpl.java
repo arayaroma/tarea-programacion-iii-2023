@@ -6,7 +6,7 @@ import cr.ac.una.dto.UserDto;
 import cr.ac.una.entities.Position;
 import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import cr.ac.una.util.EntityUtil;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -35,11 +35,11 @@ public class PositionServiceImpl implements PositionService {
      * @return dto with the values from the entity
      */
     private PositionDto convertFromEntityToDTO(PositionDto dto, Position entity) {
-        dto.setUsers(EntityMapper.fromEntityList(entity.getUsers(),
+        dto.setUsers(DtoMapper.fromEntityList(entity.getUsers(),
                 UserDto.class).getList());
 
         dto.setSkills(
-                EntityMapper.fromEntityList(entity.getSkills(),
+                DtoMapper.fromEntityList(entity.getSkills(),
                         SkillDto.class).getList());
         return dto;
     }
@@ -50,10 +50,10 @@ public class PositionServiceImpl implements PositionService {
      * @return entity with the values from the dto
      */
     private Position convertFromDTOToEntity(Position entity, PositionDto dto) {
-        entity.setUsers(EntityMapper.fromDtoList(dto.getUsers(),
+        entity.setUsers(DtoMapper.fromDtoList(dto.getUsers(),
                 User.class).getList());
 
-        entity.setSkills(EntityMapper.fromDtoList(dto.getSkills(),
+        entity.setSkills(DtoMapper.fromDtoList(dto.getSkills(),
                 Skill.class).getList());
         return entity;
     }
@@ -132,7 +132,7 @@ public class PositionServiceImpl implements PositionService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users retrieved successfully.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Position.getUsersByPositionId").getResultList(),
                             UserDto.class));
         } catch (Exception e) {
@@ -165,7 +165,7 @@ public class PositionServiceImpl implements PositionService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Skills retrieved successfully.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Position.getSkillsByPositionId").getResultList(),
                             SkillDto.class));
         } catch (Exception e) {

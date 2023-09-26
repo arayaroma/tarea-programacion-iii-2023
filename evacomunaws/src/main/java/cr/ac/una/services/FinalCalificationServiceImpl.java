@@ -3,7 +3,7 @@ package cr.ac.una.services;
 import cr.ac.una.dto.FinalCalificationDto;
 import cr.ac.una.entities.Evaluated;
 import cr.ac.una.entities.Skill;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
@@ -161,7 +161,7 @@ public class FinalCalificationServiceImpl implements FinalCalificationService {
     public ResponseWrapper getAllFinalCalification() {
         try {
             ListWrapper<FinalCalificationDto> finalCalificationDtoList;
-            finalCalificationDtoList = EntityMapper.fromEntityList(
+            finalCalificationDtoList = DtoMapper.fromEntityList(
                     em.createQuery("select fc from FinalCalification fc", FinalCalification.class).getResultList(),
                     FinalCalificationDto.class);
             return new ResponseWrapper(ResponseCode.OK.getCode(),

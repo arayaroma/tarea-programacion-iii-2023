@@ -4,7 +4,7 @@ import cr.ac.una.dto.CalificationDto;
 import cr.ac.una.entities.Calification;
 import cr.ac.una.entities.Evaluator;
 import cr.ac.una.entities.Skill;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -113,7 +113,7 @@ public class CalificationServiceImpl implements CalificationService {
     public ResponseWrapper getAllCalification() {
         try {
             ListWrapper<CalificationDto> calificationDtoList;
-            calificationDtoList = EntityMapper.fromEntityList(
+            calificationDtoList = DtoMapper.fromEntityList(
                     em.createQuery("select c from Calification c", Calification.class).getResultList(),
                     CalificationDto.class);
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK,

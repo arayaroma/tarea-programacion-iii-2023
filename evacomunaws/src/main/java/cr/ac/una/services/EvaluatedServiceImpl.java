@@ -10,7 +10,7 @@ import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import cr.ac.una.dto.EvaluatedDto;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ListWrapper;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import cr.ac.una.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +99,9 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
             EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
             newEvaluatedDto.setEvaluators(
-                    EntityMapper.fromEntityList(evaluated.getEvaluators(), cr.ac.una.dto.EvaluatorDto.class).getList());
+                    DtoMapper.fromEntityList(evaluated.getEvaluators(), cr.ac.una.dto.EvaluatorDto.class).getList());
             newEvaluatedDto.setEvaluation(new cr.ac.una.dto.EvaluationDto(evaluated.getEvaluation()));
-            newEvaluatedDto.setFinalCalifications(EntityMapper
+            newEvaluatedDto.setFinalCalifications(DtoMapper
                     .fromEntityList(evaluated.getFinalCalifications(), cr.ac.una.dto.FinalCalificationDto.class)
                     .getList());
             newEvaluatedDto.setEvaluated(new cr.ac.una.dto.UserDto(evaluated.getEvaluated()));

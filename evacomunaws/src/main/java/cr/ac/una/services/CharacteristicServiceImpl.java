@@ -8,7 +8,7 @@ import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
 import java.util.ArrayList;
 import java.util.List;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.ResponseCode;
 import cr.ac.una.util.ResponseWrapper;
@@ -217,7 +217,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Skills retrieved successfully.",
-                    EntityMapper.fromEntityList(
+                    DtoMapper.fromEntityList(
                             em.createNamedQuery("Characteristic.getSkillsByCharacteristicId").getResultList(),
                             SkillDto.class));
         } catch (Exception e) {
