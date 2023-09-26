@@ -30,36 +30,19 @@ public class CalificationServiceImpl implements CalificationService {
     @Override
     public ResponseWrapper createCalification(CalificationDto calificationDto) {
         try {
-<<<<<<< HEAD
-            Calification calification = new Calification(calificationDto);
-            Skill skill = em.find(Skill.class, calificationDto.getSkill().getId());
-            Evaluator evaluator = em.find(Evaluator.class, calificationDto.getEvaluator().getId());
-            calification.setSkill(skill);
-            calification.setEvaluator(evaluator);
-=======
-            Calification calification = calificationDto.convertFromDTOToEntity(calificationDto, new Calification(calificationDto));
-//            Skill skill = em.find(Skill.class, calificationDto.getSkill().getId());
-//            Evaluator evaluator = em.find(Evaluator.class, calificationDto.getEvaluator().getId());
-//            calification.setSkill(skill);
-//            calification.setEvaluator(evaluator);
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
+            Calification calification = calificationDto.convertFromDTOToEntity(calificationDto,
+                    new Calification(calificationDto));
             ResponseWrapper CONSTRAINT_VIOLATION = verifyEntity(calification, Calification.class);
             if (CONSTRAINT_VIOLATION != null) {
                 return CONSTRAINT_VIOLATION;
             }
             em.persist(calification);
             em.flush();
-<<<<<<< HEAD
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Calification successfully created",
                     calificationDto.convertFromEntityToDTO(calification, new CalificationDto(calification)));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error creating calification: " + e.getMessage(), null);
-=======
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Calification successfully created", calificationDto.convertFromEntityToDTO(calification, new CalificationDto(calification)));
-        } catch (Exception e) {
-            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR, "Error creating calification: " + e.getMessage(), null);
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
         }
     }
 
@@ -128,7 +111,6 @@ public class CalificationServiceImpl implements CalificationService {
     public ResponseWrapper getAllCalification() {
         try {
             ListWrapper<CalificationDto> calificationDtoList;
-<<<<<<< HEAD
             calificationDtoList = DtoMapper.fromEntityList(
                     em.createQuery("select c from Calification c", Calification.class).getResultList(),
                     CalificationDto.class);
@@ -137,12 +119,6 @@ public class CalificationServiceImpl implements CalificationService {
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error retrieving califications: " + e.getMessage(), null);
-=======
-            calificationDtoList = EntityUtil.fromEntityList(em.createQuery("select c from Calification c", Calification.class).getResultList(), CalificationDto.class);
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "All califications successfully retrieved", calificationDtoList);
-        } catch (Exception e) {
-            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR, "Error retrieving califications: " + e.getMessage(), null);
->>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
         }
     }
 
