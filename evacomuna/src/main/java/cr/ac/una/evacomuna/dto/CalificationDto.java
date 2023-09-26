@@ -1,15 +1,15 @@
 package cr.ac.una.evacomuna.dto;
 
+import cr.ac.una.evacomuna.util.DtoMapper;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
- * FIXME: API LEVEL
  * 
  * @author estebannajera
  * @author arayaroma
  */
-public class CalificationDto extends Pane {
+public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.controller.CalificationDto, CalificationDto> {
 
     private Long id;
     private String calification;
@@ -19,6 +19,23 @@ public class CalificationDto extends Pane {
     private int x;
     private int y;
     private Node data;
+
+    @Override
+    public CalificationDto convertFromGeneratedToDTO(cr.ac.una.controller.CalificationDto generated,
+            CalificationDto dto) {
+        dto.setEvaluator(new EvaluatorDto(generated.getEvaluator()));
+        dto.setSkill(new SkillDto(generated.getSkill()));
+        return dto;
+
+    }
+
+    @Override
+    public cr.ac.una.controller.CalificationDto convertFromDTOToGenerated(CalificationDto dto,
+            cr.ac.una.controller.CalificationDto generated) {
+        generated.setEvaluator(dto.getEvaluator().getDto());
+        generated.setSkill(dto.getSkill().getDto());
+        return generated;
+    }
 
     public CalificationDto() {
     }

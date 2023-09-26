@@ -3,7 +3,6 @@ package cr.ac.una.evacomuna.dto;
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
- * FIXME: API LEVEL
  * 
  * @author arayaroma
  */
@@ -20,14 +19,16 @@ public class FinalCalificationDto
     @Override
     public FinalCalificationDto convertFromGeneratedToDTO(cr.ac.una.controller.FinalCalificationDto generated,
             FinalCalificationDto dto) {
-        // TODO
+        dto.setEvaluated(new EvaluatedDto(generated.getEvaluated()));
+        dto.setSkill(new SkillDto(generated.getSkill()));
         return dto;
     }
 
     @Override
     public cr.ac.una.controller.FinalCalificationDto convertFromDTOToGenerated(FinalCalificationDto dto,
             cr.ac.una.controller.FinalCalificationDto generated) {
-        // TODO
+        generated.setEvaluated(dto.getEvaluated().getDto());
+        generated.setSkill(dto.getSkill().getDto());
         return generated;
     }
 
