@@ -1,6 +1,9 @@
 package cr.ac.una.dto;
 
+import cr.ac.una.entities.Evaluated;
 import cr.ac.una.entities.FinalCalification;
+import cr.ac.una.entities.Skill;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinalCalificationDto {
+public class FinalCalificationDto implements DtoMapper<FinalCalification, FinalCalificationDto> {
     private Long id;
     private Long finalNote;
     private Long average;
@@ -20,8 +23,24 @@ public class FinalCalificationDto {
     private SkillDto skill;
     private Long version;
 
+    @Override
+    public FinalCalificationDto convertFromEntityToDTO(FinalCalification entity,
+            FinalCalificationDto dto) {
+        dto.setEvaluated(new EvaluatedDto(entity.getEvaluated()));
+        dto.setSkill(new SkillDto(entity.getSkill()));
+        return dto;
+    }
+
+    @Override
+    public FinalCalification convertFromDTOToEntity(FinalCalificationDto dto, FinalCalification entity) {
+        entity.setEvaluated(new Evaluated(dto.getEvaluated()));
+        entity.setSkill(new Skill(dto.getSkill()));
+        return entity;
+    }
+
     /**
      * Constructor from entity to dto
+     * 
      * @param finalCalification entity to copy from
      */
     public FinalCalificationDto(FinalCalification finalCalification) {
@@ -33,13 +52,4 @@ public class FinalCalificationDto {
         this.skill = new SkillDto();
     }
 
-    public FinalCalificationDto convertFromEntityToDTO(FinalCalification finalCalification, FinalCalificationDto finalCalificationDto) {
-        finalCalificationDto.setId(finalCalification.getId());
-        finalCalificationDto.setFinalNote(finalCalification.getFinalNote());
-        finalCalificationDto.setAverage(finalCalification.getAverage());
-        finalCalificationDto.setVersion(finalCalification.getVersion());
-        finalCalificationDto.setEvaluated(new EvaluatedDto(finalCalification.getEvaluated()));
-        finalCalificationDto.setSkill(new SkillDto(finalCalification.getSkill()));
-        return finalCalificationDto;
-    }
 }

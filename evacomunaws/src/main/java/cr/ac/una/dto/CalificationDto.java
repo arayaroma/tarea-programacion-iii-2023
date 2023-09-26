@@ -1,6 +1,9 @@
 package cr.ac.una.dto;
 
 import cr.ac.una.entities.Calification;
+import cr.ac.una.entities.Evaluator;
+import cr.ac.una.entities.Skill;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +15,27 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CalificationDto {
+public class CalificationDto implements DtoMapper<Calification, CalificationDto> {
 
     private Long id;
     private String calification;
     private SkillDto skill;
     private EvaluatorDto evaluator;
     private Long version;
+
+    @Override
+    public CalificationDto convertFromEntityToDTO(Calification entity, CalificationDto dto) {
+        dto.setEvaluator(new EvaluatorDto(entity.getEvaluator()));
+        dto.setSkill(new SkillDto(entity.getSkill()));
+        return dto;
+    }
+
+    @Override
+    public Calification convertFromDTOToEntity(CalificationDto dto, Calification entity) {
+        entity.setEvaluator(new Evaluator(dto.getEvaluator()));
+        entity.setSkill(new Skill(dto.getSkill()));
+        return entity;
+    }
 
     /**
      * @param calification constructor from entity to dto
@@ -29,12 +46,4 @@ public class CalificationDto {
         this.version = calification.getVersion();
     }
 
-    public CalificationDto convertFromEntityToDTO(Calification calification, CalificationDto calificationDto) {
-        calificationDto.setId(calification.getId());
-        calificationDto.setCalification(calification.getCalification());
-        calificationDto.setVersion(calification.getVersion());
-        calificationDto.setEvaluator(new EvaluatorDto(calification.getEvaluator()));
-        calificationDto.setSkill(new SkillDto(calification.getSkill()));
-        return calificationDto;
-    }
 }

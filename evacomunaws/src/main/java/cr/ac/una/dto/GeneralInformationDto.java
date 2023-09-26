@@ -1,7 +1,7 @@
 package cr.ac.una.dto;
 
 import cr.ac.una.entities.GeneralInformation;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeneralInformationDto implements EntityMapper<GeneralInformation, GeneralInformationDto> {
+public class GeneralInformationDto implements DtoMapper<GeneralInformation, GeneralInformationDto> {
 
     private Long id;
     private String name;

@@ -5,7 +5,7 @@ import java.util.List;
 import cr.ac.una.entities.Position;
 import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto implements EntityMapper<User, UserDto> {
+public class UserDto implements DtoMapper<User, UserDto> {
 
         private Long id;
         private String username;
@@ -48,10 +48,10 @@ public class UserDto implements EntityMapper<User, UserDto> {
         public UserDto convertFromEntityToDTO(User entity, UserDto dto) {
                 dto.setPosition(new PositionDto(entity.getPosition()));
                 dto.getPosition().setUsers(
-                                EntityMapper.fromEntityList(entity.getPosition().getUsers(), UserDto.class)
+                                DtoMapper.fromEntityList(entity.getPosition().getUsers(), UserDto.class)
                                                 .getList());
                 dto.getPosition().setSkills(
-                                EntityMapper.fromEntityList(entity.getPosition().getSkills(), SkillDto.class)
+                                DtoMapper.fromEntityList(entity.getPosition().getSkills(), SkillDto.class)
                                                 .getList());
                 // dto.setEvaluators(EntityUtil.fromEntityList(entity.getEvaluators(),
                 // EvaluatorDto.class).getList());
@@ -69,10 +69,10 @@ public class UserDto implements EntityMapper<User, UserDto> {
         public User convertFromDTOToEntity(UserDto dto, User entity) {
                 entity.setPosition(new Position(dto.getPosition()));
                 entity.getPosition().setUsers(
-                                EntityMapper.fromDtoList(dto.getPosition().getUsers(), User.class)
+                                DtoMapper.fromDtoList(dto.getPosition().getUsers(), User.class)
                                                 .getList());
                 entity.getPosition().setSkills(
-                                EntityMapper.fromDtoList(dto.getPosition().getSkills(), Skill.class)
+                                DtoMapper.fromDtoList(dto.getPosition().getSkills(), Skill.class)
                                                 .getList());
                 return entity;
         }

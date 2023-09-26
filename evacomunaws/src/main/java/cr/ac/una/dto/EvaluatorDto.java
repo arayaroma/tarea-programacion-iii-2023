@@ -4,7 +4,7 @@ import cr.ac.una.entities.Calification;
 import cr.ac.una.entities.Evaluated;
 import cr.ac.una.entities.Evaluator;
 import cr.ac.una.entities.User;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvaluatorDto implements EntityMapper<Evaluator, EvaluatorDto> {
+public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
 
     private Long id;
     private UserDto evaluator;

@@ -4,7 +4,7 @@ import cr.ac.una.entities.Evaluated;
 import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Evaluation;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvaluationDto implements EntityMapper<Evaluation, EvaluationDto> {
+public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
 
     private Long id;
     private String name;
@@ -43,11 +43,11 @@ public class EvaluationDto implements EntityMapper<Evaluation, EvaluationDto> {
 
     @Override
     public EvaluationDto convertFromEntityToDTO(Evaluation entity, EvaluationDto dto) {
-        dto.setEvaluated(EntityMapper.fromEntityList(entity.getEvaluated(), EvaluatedDto.class).getList());
+        dto.setEvaluated(DtoMapper.fromEntityList(entity.getEvaluated(), EvaluatedDto.class).getList());
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
                 dto.getEvaluated().get(i).setEvaluated(new UserDto(entity.getEvaluated().get(i).getEvaluated()));
-                dto.getEvaluated().get(i).setEvaluators(EntityMapper
+                dto.getEvaluated().get(i).setEvaluators(DtoMapper
                         .fromEntityList(entity.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class).getList());
                 if (dto.getEvaluated().get(i).getEvaluators() != null) {
                     for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
@@ -65,7 +65,7 @@ public class EvaluationDto implements EntityMapper<Evaluation, EvaluationDto> {
 
     @Override
     public Evaluation convertFromDTOToEntity(EvaluationDto dto, Evaluation entity) {
-        entity.setEvaluated(EntityMapper.fromDtoList(dto.getEvaluated(), Evaluated.class).getList());
+        entity.setEvaluated(DtoMapper.fromDtoList(dto.getEvaluated(), Evaluated.class).getList());
         // for (int i = 0; i < entity.getEvaluated().size(); i++) {
         // entity.getEvaluated().get(i).setEvaluated(new
         // User(dto.getEvaluated().get(i).getEvaluated()));

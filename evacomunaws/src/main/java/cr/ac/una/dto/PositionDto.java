@@ -5,7 +5,7 @@ import java.util.List;
 import cr.ac.una.entities.Position;
 import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PositionDto implements EntityMapper<Position, PositionDto> {
+public class PositionDto implements DtoMapper<Position, PositionDto> {
 
     private Long id;
     private String name;
@@ -33,11 +33,11 @@ public class PositionDto implements EntityMapper<Position, PositionDto> {
      */
     @Override
     public PositionDto convertFromEntityToDTO(Position entity, PositionDto dto) {
-        dto.setUsers(EntityMapper.fromEntityList(entity.getUsers(),
+        dto.setUsers(DtoMapper.fromEntityList(entity.getUsers(),
                 UserDto.class).getList());
 
         dto.setSkills(
-                EntityMapper.fromEntityList(entity.getSkills(),
+                DtoMapper.fromEntityList(entity.getSkills(),
                         SkillDto.class).getList());
         return dto;
     }
@@ -49,10 +49,10 @@ public class PositionDto implements EntityMapper<Position, PositionDto> {
      */
     @Override
     public Position convertFromDTOToEntity(PositionDto dto, Position entity) {
-        entity.setUsers(EntityMapper.fromDtoList(dto.getUsers(),
+        entity.setUsers(DtoMapper.fromDtoList(dto.getUsers(),
                 User.class).getList());
 
-        entity.setSkills(EntityMapper.fromDtoList(dto.getSkills(),
+        entity.setSkills(DtoMapper.fromDtoList(dto.getSkills(),
                 Skill.class).getList());
         return entity;
     }

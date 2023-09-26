@@ -3,7 +3,7 @@ package cr.ac.una.dto;
 import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Skill;
-import cr.ac.una.util.EntityMapper;
+import cr.ac.una.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SkillDto implements EntityMapper<Skill, SkillDto> {
+public class SkillDto implements DtoMapper<Skill, SkillDto> {
 
     private Long id;
     private String name;
@@ -63,7 +63,7 @@ public class SkillDto implements EntityMapper<Skill, SkillDto> {
         this.positions = new ArrayList<>();
         this.califications = new ArrayList<>();
         this.finalCalifications = new ArrayList<>();
-        this.characteristics = EntityMapper.fromEntityList(skill.getCharacteristics(), CharacteristicDto.class)
+        this.characteristics = DtoMapper.fromEntityList(skill.getCharacteristics(), CharacteristicDto.class)
                 .getList();
     }
 }
