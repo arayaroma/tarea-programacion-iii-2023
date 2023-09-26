@@ -24,6 +24,5 @@ public class ListWrapper<D> {
     public void setList(List<D> list) {
         this.list = list;
     }
-    
-    
+
 }
