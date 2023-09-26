@@ -27,19 +27,21 @@ public class ObjectFactory {
     private final static QName _CharacteristicDto_QNAME = new QName("http://controller.una.ac.cr/", "CharacteristicDto");
     private final static QName _PositionDto_QNAME = new QName("http://controller.una.ac.cr/", "PositionDto");
     private final static QName _UserDto_QNAME = new QName("http://controller.una.ac.cr/", "UserDto");
-    private final static QName _CreateEvaluation_QNAME = new QName("http://controller.una.ac.cr/", "createEvaluation");
-    private final static QName _CreateEvaluationResponse_QNAME = new QName("http://controller.una.ac.cr/", "createEvaluationResponse");
-    private final static QName _DeleteEvaluationById_QNAME = new QName("http://controller.una.ac.cr/", "deleteEvaluationById");
-    private final static QName _DeleteEvaluationByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deleteEvaluationByIdResponse");
-    private final static QName _GetAllEvaluation_QNAME = new QName("http://controller.una.ac.cr/", "getAllEvaluation");
-    private final static QName _GetAllEvaluationResponse_QNAME = new QName("http://controller.una.ac.cr/", "getAllEvaluationResponse");
-    private final static QName _GetEvaluationById_QNAME = new QName("http://controller.una.ac.cr/", "getEvaluationById");
-    private final static QName _GetEvaluationByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getEvaluationByIdResponse");
-    private final static QName _GetEvaluationByName_QNAME = new QName("http://controller.una.ac.cr/", "getEvaluationByName");
-    private final static QName _GetEvaluationByNameResponse_QNAME = new QName("http://controller.una.ac.cr/", "getEvaluationByNameResponse");
+    private final static QName _CreateFinalCalification_QNAME = new QName("http://controller.una.ac.cr/", "createFinalCalification");
+    private final static QName _CreateFinalCalificationResponse_QNAME = new QName("http://controller.una.ac.cr/", "createFinalCalificationResponse");
+    private final static QName _DeleteFinalCalificationById_QNAME = new QName("http://controller.una.ac.cr/", "deleteFinalCalificationById");
+    private final static QName _DeleteFinalCalificationByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "deleteFinalCalificationByIdResponse");
+    private final static QName _GetAllFinalCalification_QNAME = new QName("http://controller.una.ac.cr/", "getAllFinalCalification");
+    private final static QName _GetAllFinalCalificationResponse_QNAME = new QName("http://controller.una.ac.cr/", "getAllFinalCalificationResponse");
+    private final static QName _GetAverage_QNAME = new QName("http://controller.una.ac.cr/", "getAverage");
+    private final static QName _GetAverageResponse_QNAME = new QName("http://controller.una.ac.cr/", "getAverageResponse");
+    private final static QName _GetFinalCalificationById_QNAME = new QName("http://controller.una.ac.cr/", "getFinalCalificationById");
+    private final static QName _GetFinalCalificationByIdResponse_QNAME = new QName("http://controller.una.ac.cr/", "getFinalCalificationByIdResponse");
+    private final static QName _GetFinalCalificationNote_QNAME = new QName("http://controller.una.ac.cr/", "getFinalCalificationNote");
+    private final static QName _GetFinalCalificationNoteResponse_QNAME = new QName("http://controller.una.ac.cr/", "getFinalCalificationNoteResponse");
     private final static QName _ListWrapper_QNAME = new QName("http://controller.una.ac.cr/", "listWrapper");
-    private final static QName _UpdateEvaluation_QNAME = new QName("http://controller.una.ac.cr/", "updateEvaluation");
-    private final static QName _UpdateEvaluationResponse_QNAME = new QName("http://controller.una.ac.cr/", "updateEvaluationResponse");
+    private final static QName _UpdateFinalCalification_QNAME = new QName("http://controller.una.ac.cr/", "updateFinalCalification");
+    private final static QName _UpdateFinalCalificationResponse_QNAME = new QName("http://controller.una.ac.cr/", "updateFinalCalificationResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: cr.ac.una.controller
@@ -73,83 +75,99 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateEvaluation }
+     * Create an instance of {@link CreateFinalCalification }
      * 
      */
-    public CreateEvaluation createCreateEvaluation() {
-        return new CreateEvaluation();
+    public CreateFinalCalification createCreateFinalCalification() {
+        return new CreateFinalCalification();
     }
 
     /**
-     * Create an instance of {@link CreateEvaluationResponse }
+     * Create an instance of {@link CreateFinalCalificationResponse }
      * 
      */
-    public CreateEvaluationResponse createCreateEvaluationResponse() {
-        return new CreateEvaluationResponse();
+    public CreateFinalCalificationResponse createCreateFinalCalificationResponse() {
+        return new CreateFinalCalificationResponse();
     }
 
     /**
-     * Create an instance of {@link DeleteEvaluationById }
+     * Create an instance of {@link DeleteFinalCalificationById }
      * 
      */
-    public DeleteEvaluationById createDeleteEvaluationById() {
-        return new DeleteEvaluationById();
+    public DeleteFinalCalificationById createDeleteFinalCalificationById() {
+        return new DeleteFinalCalificationById();
     }
 
     /**
-     * Create an instance of {@link DeleteEvaluationByIdResponse }
+     * Create an instance of {@link DeleteFinalCalificationByIdResponse }
      * 
      */
-    public DeleteEvaluationByIdResponse createDeleteEvaluationByIdResponse() {
-        return new DeleteEvaluationByIdResponse();
+    public DeleteFinalCalificationByIdResponse createDeleteFinalCalificationByIdResponse() {
+        return new DeleteFinalCalificationByIdResponse();
     }
 
     /**
-     * Create an instance of {@link GetAllEvaluation }
+     * Create an instance of {@link GetAllFinalCalification }
      * 
      */
-    public GetAllEvaluation createGetAllEvaluation() {
-        return new GetAllEvaluation();
+    public GetAllFinalCalification createGetAllFinalCalification() {
+        return new GetAllFinalCalification();
     }
 
     /**
-     * Create an instance of {@link GetAllEvaluationResponse }
+     * Create an instance of {@link GetAllFinalCalificationResponse }
      * 
      */
-    public GetAllEvaluationResponse createGetAllEvaluationResponse() {
-        return new GetAllEvaluationResponse();
+    public GetAllFinalCalificationResponse createGetAllFinalCalificationResponse() {
+        return new GetAllFinalCalificationResponse();
     }
 
     /**
-     * Create an instance of {@link GetEvaluationById }
+     * Create an instance of {@link GetAverage }
      * 
      */
-    public GetEvaluationById createGetEvaluationById() {
-        return new GetEvaluationById();
+    public GetAverage createGetAverage() {
+        return new GetAverage();
     }
 
     /**
-     * Create an instance of {@link GetEvaluationByIdResponse }
+     * Create an instance of {@link GetAverageResponse }
      * 
      */
-    public GetEvaluationByIdResponse createGetEvaluationByIdResponse() {
-        return new GetEvaluationByIdResponse();
+    public GetAverageResponse createGetAverageResponse() {
+        return new GetAverageResponse();
     }
 
     /**
-     * Create an instance of {@link GetEvaluationByName }
+     * Create an instance of {@link GetFinalCalificationById }
      * 
      */
-    public GetEvaluationByName createGetEvaluationByName() {
-        return new GetEvaluationByName();
+    public GetFinalCalificationById createGetFinalCalificationById() {
+        return new GetFinalCalificationById();
     }
 
     /**
-     * Create an instance of {@link GetEvaluationByNameResponse }
+     * Create an instance of {@link GetFinalCalificationByIdResponse }
      * 
      */
-    public GetEvaluationByNameResponse createGetEvaluationByNameResponse() {
-        return new GetEvaluationByNameResponse();
+    public GetFinalCalificationByIdResponse createGetFinalCalificationByIdResponse() {
+        return new GetFinalCalificationByIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFinalCalificationNote }
+     * 
+     */
+    public GetFinalCalificationNote createGetFinalCalificationNote() {
+        return new GetFinalCalificationNote();
+    }
+
+    /**
+     * Create an instance of {@link GetFinalCalificationNoteResponse }
+     * 
+     */
+    public GetFinalCalificationNoteResponse createGetFinalCalificationNoteResponse() {
+        return new GetFinalCalificationNoteResponse();
     }
 
     /**
@@ -161,27 +179,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UpdateEvaluation }
+     * Create an instance of {@link UpdateFinalCalification }
      * 
      */
-    public UpdateEvaluation createUpdateEvaluation() {
-        return new UpdateEvaluation();
+    public UpdateFinalCalification createUpdateFinalCalification() {
+        return new UpdateFinalCalification();
     }
 
     /**
-     * Create an instance of {@link UpdateEvaluationResponse }
+     * Create an instance of {@link UpdateFinalCalificationResponse }
      * 
      */
-    public UpdateEvaluationResponse createUpdateEvaluationResponse() {
-        return new UpdateEvaluationResponse();
+    public UpdateFinalCalificationResponse createUpdateFinalCalificationResponse() {
+        return new UpdateFinalCalificationResponse();
     }
 
     /**
-     * Create an instance of {@link EvaluationDto }
+     * Create an instance of {@link FinalCalificationDto }
      * 
      */
-    public EvaluationDto createEvaluationDto() {
-        return new EvaluationDto();
+    public FinalCalificationDto createFinalCalificationDto() {
+        return new FinalCalificationDto();
     }
 
     /**
@@ -297,11 +315,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FinalCalificationDto }
+     * Create an instance of {@link EvaluationDto }
      * 
      */
-    public FinalCalificationDto createFinalCalificationDto() {
-        return new FinalCalificationDto();
+    public EvaluationDto createEvaluationDto() {
+        return new EvaluationDto();
     }
 
     /**
@@ -352,133 +370,159 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateEvaluation }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateFinalCalification }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreateEvaluation }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CreateFinalCalification }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createEvaluation")
-    public JAXBElement<CreateEvaluation> createCreateEvaluation(CreateEvaluation value) {
-        return new JAXBElement<CreateEvaluation>(_CreateEvaluation_QNAME, CreateEvaluation.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createFinalCalification")
+    public JAXBElement<CreateFinalCalification> createCreateFinalCalification(CreateFinalCalification value) {
+        return new JAXBElement<CreateFinalCalification>(_CreateFinalCalification_QNAME, CreateFinalCalification.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateEvaluationResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateFinalCalificationResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreateEvaluationResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link CreateFinalCalificationResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createEvaluationResponse")
-    public JAXBElement<CreateEvaluationResponse> createCreateEvaluationResponse(CreateEvaluationResponse value) {
-        return new JAXBElement<CreateEvaluationResponse>(_CreateEvaluationResponse_QNAME, CreateEvaluationResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "createFinalCalificationResponse")
+    public JAXBElement<CreateFinalCalificationResponse> createCreateFinalCalificationResponse(CreateFinalCalificationResponse value) {
+        return new JAXBElement<CreateFinalCalificationResponse>(_CreateFinalCalificationResponse_QNAME, CreateFinalCalificationResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteEvaluationById }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteFinalCalificationById }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteEvaluationById }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteFinalCalificationById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteEvaluationById")
-    public JAXBElement<DeleteEvaluationById> createDeleteEvaluationById(DeleteEvaluationById value) {
-        return new JAXBElement<DeleteEvaluationById>(_DeleteEvaluationById_QNAME, DeleteEvaluationById.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteFinalCalificationById")
+    public JAXBElement<DeleteFinalCalificationById> createDeleteFinalCalificationById(DeleteFinalCalificationById value) {
+        return new JAXBElement<DeleteFinalCalificationById>(_DeleteFinalCalificationById_QNAME, DeleteFinalCalificationById.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteEvaluationByIdResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteFinalCalificationByIdResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteEvaluationByIdResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteFinalCalificationByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteEvaluationByIdResponse")
-    public JAXBElement<DeleteEvaluationByIdResponse> createDeleteEvaluationByIdResponse(DeleteEvaluationByIdResponse value) {
-        return new JAXBElement<DeleteEvaluationByIdResponse>(_DeleteEvaluationByIdResponse_QNAME, DeleteEvaluationByIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "deleteFinalCalificationByIdResponse")
+    public JAXBElement<DeleteFinalCalificationByIdResponse> createDeleteFinalCalificationByIdResponse(DeleteFinalCalificationByIdResponse value) {
+        return new JAXBElement<DeleteFinalCalificationByIdResponse>(_DeleteFinalCalificationByIdResponse_QNAME, DeleteFinalCalificationByIdResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllEvaluation }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllFinalCalification }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetAllEvaluation }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetAllFinalCalification }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getAllEvaluation")
-    public JAXBElement<GetAllEvaluation> createGetAllEvaluation(GetAllEvaluation value) {
-        return new JAXBElement<GetAllEvaluation>(_GetAllEvaluation_QNAME, GetAllEvaluation.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getAllFinalCalification")
+    public JAXBElement<GetAllFinalCalification> createGetAllFinalCalification(GetAllFinalCalification value) {
+        return new JAXBElement<GetAllFinalCalification>(_GetAllFinalCalification_QNAME, GetAllFinalCalification.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllEvaluationResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllFinalCalificationResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetAllEvaluationResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetAllFinalCalificationResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getAllEvaluationResponse")
-    public JAXBElement<GetAllEvaluationResponse> createGetAllEvaluationResponse(GetAllEvaluationResponse value) {
-        return new JAXBElement<GetAllEvaluationResponse>(_GetAllEvaluationResponse_QNAME, GetAllEvaluationResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getAllFinalCalificationResponse")
+    public JAXBElement<GetAllFinalCalificationResponse> createGetAllFinalCalificationResponse(GetAllFinalCalificationResponse value) {
+        return new JAXBElement<GetAllFinalCalificationResponse>(_GetAllFinalCalificationResponse_QNAME, GetAllFinalCalificationResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetEvaluationById }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAverage }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetEvaluationById }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetAverage }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getEvaluationById")
-    public JAXBElement<GetEvaluationById> createGetEvaluationById(GetEvaluationById value) {
-        return new JAXBElement<GetEvaluationById>(_GetEvaluationById_QNAME, GetEvaluationById.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getAverage")
+    public JAXBElement<GetAverage> createGetAverage(GetAverage value) {
+        return new JAXBElement<GetAverage>(_GetAverage_QNAME, GetAverage.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetEvaluationByIdResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAverageResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetEvaluationByIdResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetAverageResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getEvaluationByIdResponse")
-    public JAXBElement<GetEvaluationByIdResponse> createGetEvaluationByIdResponse(GetEvaluationByIdResponse value) {
-        return new JAXBElement<GetEvaluationByIdResponse>(_GetEvaluationByIdResponse_QNAME, GetEvaluationByIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getAverageResponse")
+    public JAXBElement<GetAverageResponse> createGetAverageResponse(GetAverageResponse value) {
+        return new JAXBElement<GetAverageResponse>(_GetAverageResponse_QNAME, GetAverageResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetEvaluationByName }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationById }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetEvaluationByName }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getEvaluationByName")
-    public JAXBElement<GetEvaluationByName> createGetEvaluationByName(GetEvaluationByName value) {
-        return new JAXBElement<GetEvaluationByName>(_GetEvaluationByName_QNAME, GetEvaluationByName.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getFinalCalificationById")
+    public JAXBElement<GetFinalCalificationById> createGetFinalCalificationById(GetFinalCalificationById value) {
+        return new JAXBElement<GetFinalCalificationById>(_GetFinalCalificationById_QNAME, GetFinalCalificationById.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetEvaluationByNameResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationByIdResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link GetEvaluationByNameResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getEvaluationByNameResponse")
-    public JAXBElement<GetEvaluationByNameResponse> createGetEvaluationByNameResponse(GetEvaluationByNameResponse value) {
-        return new JAXBElement<GetEvaluationByNameResponse>(_GetEvaluationByNameResponse_QNAME, GetEvaluationByNameResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getFinalCalificationByIdResponse")
+    public JAXBElement<GetFinalCalificationByIdResponse> createGetFinalCalificationByIdResponse(GetFinalCalificationByIdResponse value) {
+        return new JAXBElement<GetFinalCalificationByIdResponse>(_GetFinalCalificationByIdResponse_QNAME, GetFinalCalificationByIdResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationNote }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationNote }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getFinalCalificationNote")
+    public JAXBElement<GetFinalCalificationNote> createGetFinalCalificationNote(GetFinalCalificationNote value) {
+        return new JAXBElement<GetFinalCalificationNote>(_GetFinalCalificationNote_QNAME, GetFinalCalificationNote.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationNoteResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetFinalCalificationNoteResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "getFinalCalificationNoteResponse")
+    public JAXBElement<GetFinalCalificationNoteResponse> createGetFinalCalificationNoteResponse(GetFinalCalificationNoteResponse value) {
+        return new JAXBElement<GetFinalCalificationNoteResponse>(_GetFinalCalificationNoteResponse_QNAME, GetFinalCalificationNoteResponse.class, null, value);
     }
 
     /**
@@ -495,29 +539,29 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateEvaluation }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateFinalCalification }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UpdateEvaluation }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdateFinalCalification }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updateEvaluation")
-    public JAXBElement<UpdateEvaluation> createUpdateEvaluation(UpdateEvaluation value) {
-        return new JAXBElement<UpdateEvaluation>(_UpdateEvaluation_QNAME, UpdateEvaluation.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updateFinalCalification")
+    public JAXBElement<UpdateFinalCalification> createUpdateFinalCalification(UpdateFinalCalification value) {
+        return new JAXBElement<UpdateFinalCalification>(_UpdateFinalCalification_QNAME, UpdateFinalCalification.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateEvaluationResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UpdateFinalCalificationResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UpdateEvaluationResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link UpdateFinalCalificationResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updateEvaluationResponse")
-    public JAXBElement<UpdateEvaluationResponse> createUpdateEvaluationResponse(UpdateEvaluationResponse value) {
-        return new JAXBElement<UpdateEvaluationResponse>(_UpdateEvaluationResponse_QNAME, UpdateEvaluationResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "updateFinalCalificationResponse")
+    public JAXBElement<UpdateFinalCalificationResponse> createUpdateFinalCalificationResponse(UpdateFinalCalificationResponse value) {
+        return new JAXBElement<UpdateFinalCalificationResponse>(_UpdateFinalCalificationResponse_QNAME, UpdateFinalCalificationResponse.class, null, value);
     }
 
 }
