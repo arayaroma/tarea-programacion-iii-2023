@@ -1,5 +1,9 @@
 package cr.ac.una.evacomuna.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import cr.ac.una.controller.EvaluationController;
 import cr.ac.una.controller.EvaluationController_Service;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
@@ -25,6 +29,30 @@ public class EvaluationService {
     }
 
     /**
+     * Creates a new evaluation
+     * 
+     * @param evaluationDto object to create
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.createEvaluation(evaluationDto.getDto());
+            cr.ac.una.controller.EvaluationDto evaluation = (cr.ac.una.controller.EvaluationDto) response.getData();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation created successfully",
+                    new EvaluationDto(evaluation));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating evaluation",
+                    null);
+        }
+    }
+
+    /**
      * Get all evaluations
      * 
      * @return ResponseWrapper with the response of the request
@@ -32,11 +60,24 @@ public class EvaluationService {
     public ResponseWrapper getAllEvaluation() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getAllEvaluation();
+            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
+            List<cr.ac.una.controller.EvaluationDto> listGenerated = new ArrayList<>();
+            List<EvaluationDto> listDto = listWrapper
+                    .getElement()
+                    .stream()
+                    .filter(i -> i instanceof cr.ac.una.controller.EvaluationDto)
+                    .map(i -> {
+                        cr.ac.una.controller.EvaluationDto evaluationDto = (cr.ac.una.controller.EvaluationDto) i;
+                        listGenerated.add(evaluationDto);
+                        EvaluationDto evaluationDtoClient = new EvaluationDto(evaluationDto);
+                        return evaluationDtoClient.convertFromGeneratedToDTO(evaluationDto, evaluationDtoClient);
+                    })
+                    .collect(Collectors.toList());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluations found successfully",
-                    response.getData());
+                    listDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -49,11 +90,12 @@ public class EvaluationService {
     public ResponseWrapper getEvaluationById(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getEvaluationById(id);
+            cr.ac.una.controller.EvaluationDto evaluation = (cr.ac.una.controller.EvaluationDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation found successfully",
-                    response.getData());
+                    new EvaluationDto(evaluation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -72,39 +114,17 @@ public class EvaluationService {
     public ResponseWrapper getEvaluationByName(String name) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getEvaluationByName(name);
+            cr.ac.una.controller.EvaluationDto evaluation = (cr.ac.una.controller.EvaluationDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation found successfully",
-                    response.getData());
+                    new EvaluationDto(evaluation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
                     ResponseCode.NOT_FOUND,
                     "Evaluation not found",
-                    null);
-        }
-    }
-
-    /**
-     * Creates a new evaluation
-     * 
-     * @param evaluationDto object to create
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
-        try {
-            cr.ac.una.controller.ResponseWrapper response = port.createEvaluation(evaluationDto.getDto());
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Evaluation created successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
-                    ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error creating evaluation",
                     null);
         }
     }
@@ -118,11 +138,12 @@ public class EvaluationService {
     public ResponseWrapper updateEvaluation(EvaluationDto evaluationDto) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.updateEvaluation(evaluationDto.getDto());
+            cr.ac.una.controller.EvaluationDto evaluation = (cr.ac.una.controller.EvaluationDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation updated successfully",
-                    response.getData());
+                    new EvaluationDto(evaluation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

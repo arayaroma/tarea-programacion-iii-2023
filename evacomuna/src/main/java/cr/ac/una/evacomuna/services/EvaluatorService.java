@@ -1,5 +1,8 @@
 package cr.ac.una.evacomuna.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import cr.ac.una.controller.EvaluatorController;
 import cr.ac.una.controller.EvaluatorController_Service;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
@@ -33,11 +36,12 @@ public class EvaluatorService {
     public ResponseWrapper createEvaluator(EvaluatorDto evaluatorDto) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.createEvaluator(evaluatorDto.getDto());
+            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator created successfully",
-                    response.getData());
+                    new EvaluatorDto(evaluator));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -47,14 +51,21 @@ public class EvaluatorService {
         }
     }
 
+    /**
+     * Gets the evaluator with the given id
+     * 
+     * @param id of the evaluator to get
+     * @return EvaluatorDto with the found evaluator if found, null otherwise
+     */
     public ResponseWrapper getEvaluatorById(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getEvaluatorById(id);
+            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator retrieved successfully",
-                    response.getData());
+                    new EvaluatorDto(evaluator));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -64,14 +75,21 @@ public class EvaluatorService {
         }
     }
 
+    /**
+     * Gets the evaluator with the given id of the evaluated
+     * 
+     * @param id of the evaluted to get
+     * @return EvaluatorDto with the found evaluator if found, null otherwise
+     */
     public ResponseWrapper getEvaluatorByEvaluatedId(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getEvaluatorByEvaluatedId(id);
+            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator retrieved successfully",
-                    response.getData());
+                    new EvaluatorDto(evaluator));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -81,14 +99,33 @@ public class EvaluatorService {
         }
     }
 
+    /**
+     * Gets all the evaluators
+     * 
+     * @return List of EvaluatorDto with the found evaluators if found, null
+     *         otherwise
+     */
     public ResponseWrapper getAllEvaluator() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getAllEvaluator();
+            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
+            List<cr.ac.una.controller.EvaluatorDto> listGenerated = new ArrayList<>();
+            List<EvaluatorDto> listDto = listWrapper
+                    .getElement()
+                    .stream()
+                    .filter(i -> i instanceof cr.ac.una.controller.EvaluatorDto)
+                    .map(i -> {
+                        cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) i;
+                        listGenerated.add(evaluator);
+                        EvaluatorDto evaluatorDto = new EvaluatorDto(evaluator);
+                        return evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto);
+                    })
+                    .collect(Collectors.toList());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluators retrieved successfully",
-                    response.getData());
+                    listDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -107,11 +144,12 @@ public class EvaluatorService {
     public ResponseWrapper updateEvaluator(EvaluatorDto evaluatorDto) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.updateEvaluator(evaluatorDto.getDto());
+            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator updated successfully",
-                    response.getData());
+                    new EvaluatorDto(evaluator));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

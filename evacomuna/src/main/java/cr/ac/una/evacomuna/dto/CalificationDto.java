@@ -59,6 +59,16 @@ public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.control
         this.version = calificationDto.getVersion();
     }
 
+    public cr.ac.una.controller.CalificationDto getDto() {
+        cr.ac.una.controller.CalificationDto dto = new cr.ac.una.controller.CalificationDto();
+        dto.setId(this.id);
+        dto.setCalification(this.calification);
+        dto.setSkill(this.skill.getDto());
+        dto.setEvaluator(this.evaluator.getDto());
+        dto.setVersion(this.version);
+        return dto;
+    }
+
     public Long getID() {
         return this.id;
     }

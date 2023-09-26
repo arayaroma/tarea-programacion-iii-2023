@@ -1,5 +1,8 @@
 package cr.ac.una.evacomuna.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import cr.ac.una.controller.PositionController;
 import cr.ac.una.controller.PositionController_Service;
 import cr.ac.una.evacomuna.dto.PositionDto;
@@ -34,11 +37,12 @@ public class PositionService {
     public ResponseWrapper createPosition(PositionDto position) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.createPosition(position.getDto());
+            cr.ac.una.controller.PositionDto positionDto = (cr.ac.una.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position created successfully",
-                    response.getData());
+                    new PositionDto(positionDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -56,11 +60,25 @@ public class PositionService {
     public ResponseWrapper getPositions() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getPositions();
+            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
+            List<cr.ac.una.controller.PositionDto> listGenerated = new ArrayList<>();
+            List<PositionDto> listDto = listWrapper
+                    .getElement()
+                    .stream()
+                    .filter(i -> i instanceof cr.ac.una.controller.PositionDto)
+                    .map(i -> {
+                        cr.ac.una.controller.PositionDto position = (cr.ac.una.controller.PositionDto) i;
+                        listGenerated.add(position);
+                        PositionDto positionDto = new PositionDto(position);
+                        return positionDto.convertFromGeneratedToDTO(position, positionDto);
+                    })
+                    .collect(Collectors.toList());
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Positions found successfully",
-                    response.getData());
+                    listDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -79,11 +97,12 @@ public class PositionService {
     public ResponseWrapper getPositionByName(String name) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getPositionByName(name);
+            cr.ac.una.controller.PositionDto position = (cr.ac.una.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position found successfully",
-                    response.getData());
+                    new PositionDto(position));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -102,11 +121,12 @@ public class PositionService {
     public ResponseWrapper updatePositionById(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.updatePositionById(id);
+            cr.ac.una.controller.PositionDto position = (cr.ac.una.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position found successfully",
-                    response.getData());
+                    new PositionDto(position));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -125,11 +145,12 @@ public class PositionService {
     public ResponseWrapper updatePosition(PositionDto position) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.updatePosition(position.getDto());
+            cr.ac.una.controller.PositionDto positionDto = (cr.ac.una.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position updated successfully",
-                    response.getData());
+                    new PositionDto(positionDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

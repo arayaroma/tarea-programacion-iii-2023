@@ -2,7 +2,7 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.controller.GeneralInformationController_Service;
 import cr.ac.una.controller.GeneralInformationController;
-import cr.ac.una.controller.GeneralInformationDto;
+import cr.ac.una.evacomuna.dto.GeneralInformationDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
@@ -33,12 +33,15 @@ public class GeneralInformationService {
      */
     public ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createGeneralInformation(generalInformationDto);
+            cr.ac.una.controller.ResponseWrapper response = port
+                    .createGeneralInformation(generalInformationDto.getDto());
+            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "GeneralInformation created successfully",
-                    response.getData());
+                    new GeneralInformationDto(generalInformation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -57,12 +60,15 @@ public class GeneralInformationService {
      */
     public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateGeneralInformation(generalInformationDto);
+            cr.ac.una.controller.ResponseWrapper response = port
+                    .updateGeneralInformation(generalInformationDto.getDto());
+            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "GeneralInformation updated successfully",
-                    response.getData());
+                    new GeneralInformationDto(generalInformation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -80,11 +86,13 @@ public class GeneralInformationService {
     public ResponseWrapper getGeneralInformation() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getGeneralInformation();
+            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "GeneralInformation found successfully",
-                    response.getData());
+                    new GeneralInformationDto(generalInformation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -103,11 +111,13 @@ public class GeneralInformationService {
     public ResponseWrapper getGeneralInformationById(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getGeneralInformationById(id);
+            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "GeneralInformation found successfully",
-                    response.getData());
+                    new GeneralInformationDto(generalInformation));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),

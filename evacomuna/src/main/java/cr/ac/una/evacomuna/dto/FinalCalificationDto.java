@@ -44,6 +44,17 @@ public class FinalCalificationDto
         this.version = finalCalificationDto.getVersion();
     }
 
+    public cr.ac.una.controller.FinalCalificationDto getDto() {
+        cr.ac.una.controller.FinalCalificationDto dto = new cr.ac.una.controller.FinalCalificationDto();
+        dto.setId(this.id);
+        dto.setFinalNote(this.finalNote);
+        dto.setAverage(this.average);
+        dto.setEvaluated(this.evaluated.getDto());
+        dto.setSkill(this.skill.getDto());
+        dto.setVersion(this.version);
+        return dto;
+    }
+
     public Long getId() {
         return this.id;
     }

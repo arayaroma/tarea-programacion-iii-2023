@@ -30,6 +30,78 @@ public class SkillService {
     }
 
     /**
+     * Create a skill
+     * 
+     * @param skillDto skill to create
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper createSkill(SkillDto skillDto) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
+            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Skill created successfully",
+                    new SkillDto(skill));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating skill",
+                    null);
+        }
+    }
+
+    /**
+     * Get a skill by name
+     * 
+     * @param name of the skill
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getSkillByName(String name) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getSkillByName(name);
+            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Skill found successfully",
+                    new SkillDto(skill));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "Skill not found",
+                    null);
+        }
+    }
+
+    /**
+     * Get a skill by like name
+     * 
+     * @param name of the skill
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getSkillByLikeName(String name) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getSkillByLikeName(name);
+            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Skill found successfully",
+                    new SkillDto(skill));
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "Skill not found",
+                    null);
+        }
+    }
+
+    /**
      * Get all skills
      * 
      * @return ResponseWrapper with the response of the request
@@ -53,7 +125,7 @@ public class SkillService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Skills found successfully",
-                    response.getData());
+                    skillsDtoClient);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -72,11 +144,12 @@ public class SkillService {
     public ResponseWrapper updateSkills(SkillDto skillDto) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.updateSkill(skillDto.getDto());
+            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Skill updated successfully",
-                    response.getData());
+                    new SkillDto(skill));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -109,72 +182,4 @@ public class SkillService {
         }
     }
 
-    /**
-     * Get a skill by name
-     * 
-     * @param name of the skill
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper getSkillByName(String name) {
-        try {
-            cr.ac.una.controller.ResponseWrapper response = port.getSkillByName(name);
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Skill found successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.NOT_FOUND.getCode(),
-                    ResponseCode.NOT_FOUND,
-                    "Skill not found",
-                    null);
-        }
-    }
-
-    /**
-     * Get a skill by like name
-     * 
-     * @param name of the skill
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper getSkillByLikeName(String name) {
-        try {
-            cr.ac.una.controller.ResponseWrapper response = port.getSkillByLikeName(name);
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Skill found successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.NOT_FOUND.getCode(),
-                    ResponseCode.NOT_FOUND,
-                    "Skill not found",
-                    null);
-        }
-    }
-
-    /**
-     * Create a skill
-     * 
-     * @param skillDto skill to create
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper createSkill(SkillDto skillDto) {
-        try {
-            cr.ac.una.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Skill created successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
-                    ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error creating skill",
-                    null);
-        }
-    }
 }

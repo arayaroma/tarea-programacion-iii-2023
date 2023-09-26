@@ -112,7 +112,7 @@ public class WorkersModuleController implements Initializable {
         if (userBuffer != null) {
             if (Message.showConfirmationAlert("Are you sure?", Alert.AlertType.CONFIRMATION,
                     "Are you sure that you want to delete this user?") == ButtonType.OK) {
-                ResponseWrapper response = userService.deleteUser(userBuffer.getId());
+                ResponseWrapper response = userService.deleteUserById(userBuffer.getId());
                 if (response.getCode() == ResponseCode.OK) {
                     if (userBuffer.getId().equals(Data.getUserLogged().getId())) {
                         try {

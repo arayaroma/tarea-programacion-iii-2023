@@ -4,6 +4,7 @@ import cr.ac.una.controller.UserController_Service;
 import cr.ac.una.evacomuna.dto.UserDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import cr.ac.una.controller.UserController;
 import cr.ac.una.evacomuna.util.Connection;
 import cr.ac.una.evacomuna.util.Constants;
@@ -11,7 +12,6 @@ import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
 /**
- * FIXME: Change to CLIENT DTOS
  *
  * @author estebannajera
  * @author arayaroma
@@ -94,28 +94,25 @@ public class UserService {
     public ResponseWrapper getUsers() {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getUsers();
-            cr.ac.una.controller.ListWrapper users = (cr.ac.una.controller.ListWrapper) response.getData();
-            List<cr.ac.una.controller.UserDto> usersDto = new ArrayList<>();
-            List<UserDto> usersDtoClient = new ArrayList<>();
-            for (Object i : users.getElement()) {
-                if (i instanceof cr.ac.una.controller.UserDto) {
-                    usersDto.add((cr.ac.una.controller.UserDto) i);
-                }
-            }
-
-            /*
-             * If god exists that must be me
-             */
-            for (cr.ac.una.controller.UserDto i : usersDto) {
-                UserDto userDto = new UserDto(i);
-                usersDtoClient.add(userDto.convertFromGeneratedToDTO(i, userDto));
-            }
+            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
+            List<cr.ac.una.controller.UserDto> listGenerated = new ArrayList<>();
+            List<UserDto> listDto = listWrapper
+                    .getElement()
+                    .stream()
+                    .filter(i -> i instanceof cr.ac.una.controller.UserDto)
+                    .map(i -> {
+                        cr.ac.una.controller.UserDto userDto = (cr.ac.una.controller.UserDto) i;
+                        listGenerated.add(userDto);
+                        UserDto userDtoClient = new UserDto(userDto);
+                        return userDtoClient.convertFromGeneratedToDTO(userDto, userDtoClient);
+                    })
+                    .collect(Collectors.toList());
 
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users found",
-                    usersDtoClient);
+                    listDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -131,7 +128,7 @@ public class UserService {
      * @param id of the user
      * @return ResponseWrapper with the response of the request
      */
-    public ResponseWrapper deleteUser(Long id) {
+    public ResponseWrapper deleteUserById(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.deleteUserById(id);
             return new ResponseWrapper(
@@ -182,11 +179,12 @@ public class UserService {
     public ResponseWrapper recoverPassword(String email) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.recoverPassword(email);
+            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Password recovered successfully",
-                    response.getData());
+                    new UserDto(user));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -207,11 +205,12 @@ public class UserService {
     public ResponseWrapper changePassword(Long id, String oldPassword, String newPassword) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.changePassword(id, oldPassword, newPassword);
+            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Password changed successfully",
-                    response.getData());
+                    new UserDto(user));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
