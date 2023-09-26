@@ -9,6 +9,7 @@
     - [Oracle 21c XE Container](#oracle-21c-xe-container)
     - [Cómo levantar todos los contenedores del docker-compose](#cómo-levantar-todos-los-contenedores-del-docker-compose)
     - [Como detener los contenedores](#como-detener-los-contenedores)
+    - [Como crear el esquema de la base de datos](#como-crear-el-esquema-de-la-base-de-datos)
   - [Git](#git)
     - [Convenciones](#convenciones)
       - [Commits](#commits)
@@ -44,6 +45,11 @@ docker-compose start
 ### Como detener los contenedores
 ```docker
 docker-compose stop
+```
+
+### Como crear el esquema de la base de datos
+```docker
+docker exec oracle createAppUser EvaComUNA una 
 ```
 
 Esencialmente se utilizaran las siguientes im&aacute;genes:
@@ -105,7 +111,7 @@ Para los merge coflicts, deben de estar al menos 2 personas presentes para resol
 Para instalar Payara Server, se debe de descargar el archivo zip de la p&aacute;gina oficial de [Payara](https://www.payara.fish/). Una vez descargado, se debe de descomprimir el archivo en la carpeta deseada.
 
 ### Agregar Oracle JDBC Driver
-Para agregar el driver de Oracle, se debe agregar el archivo `docker/ojdbc11.jar`, a la carpeta `payara/glassfish/domains/domain1/lib/`. Una vez agregado, se debe de reiniciar el servidor.
+Para agregar el driver de Oracle, se debe descargar el archivo [ojdbc11.jar](https://download.oracle.com/otn-pub/otn_software/jdbc/233/ojdbc11.jar), a la carpeta `payara/glassfish/domains/domain1/lib/`. Una vez agregado, se debe de reiniciar el servidor.
 
 ### C&oacute;mo levantar Payara Server en Netbeans
 Para levantar Payara Server en Netbeans, se debe de ir a la pesta&ntilde;a de `Services`, en la secci&oacute;n de `Servers`, dar click derecho, agregar servidor, seleccionar Payara Server, y seleccionar la carpeta donde se instal&oacute; Payara Server.
@@ -132,7 +138,7 @@ En general, volver y probar donde dice `Ping`, para verificar que el pool se hay
 ### C&oacute;mo crear el JDBC Resource
 Para crear el JDBC Resource, se debe de ir a la pesta&ntilde;a de `Services`, en la secci&oacute;n de `Servers`, dar click derecho, y seleccionar `View Admin Console`. Una vez en la consola de administraci&oacute;n, se debe de ir a la secci&oacute;n de `Resources`, y seleccionar `JDBC`, luego seleccionar `JDBC Resources`, y dar click en `New`.
 
-En la secci&oacute;n de `General Settings`, se debe de agregar el nombre del pool (jdbc/EvaComPool), y seleccionar el pool creado anteriormente. Luego dar click en `OK`.
+En la secci&oacute;n de `General Settings`, se debe de agregar el nombre del pool (jdbc/EvaCom), y seleccionar el pool creado anteriormente. Luego dar click en `OK`.
 
 ## Herramientas
 - [Docker](https://www.docker.com/)
