@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Skill;
 import cr.ac.una.util.EntityMapper;
-import cr.ac.una.util.EntityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -64,6 +63,7 @@ public class SkillDto implements EntityMapper<Skill, SkillDto> {
         this.positions = new ArrayList<>();
         this.califications = new ArrayList<>();
         this.finalCalifications = new ArrayList<>();
-        this.characteristics = EntityUtil.fromEntityList(skill.getCharacteristics(), CharacteristicDto.class).getList();
+        this.characteristics = EntityMapper.fromEntityList(skill.getCharacteristics(), CharacteristicDto.class)
+                .getList();
     }
 }

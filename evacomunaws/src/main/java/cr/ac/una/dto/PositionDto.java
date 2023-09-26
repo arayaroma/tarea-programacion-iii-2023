@@ -6,22 +6,17 @@ import cr.ac.una.entities.Position;
 import cr.ac.una.entities.Skill;
 import cr.ac.una.entities.User;
 import cr.ac.una.util.EntityMapper;
-import cr.ac.una.util.EntityUtil;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 
  * @author arayaroma
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@XmlRootElement(name = "PositionDto")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class PositionDto implements EntityMapper<Position, PositionDto> {
 
     private Long id;
@@ -38,11 +33,11 @@ public class PositionDto implements EntityMapper<Position, PositionDto> {
      */
     @Override
     public PositionDto convertFromEntityToDTO(Position entity, PositionDto dto) {
-        dto.setUsers(EntityUtil.fromEntityList(entity.getUsers(),
+        dto.setUsers(EntityMapper.fromEntityList(entity.getUsers(),
                 UserDto.class).getList());
 
         dto.setSkills(
-                EntityUtil.fromEntityList(entity.getSkills(),
+                EntityMapper.fromEntityList(entity.getSkills(),
                         SkillDto.class).getList());
         return dto;
     }
@@ -54,10 +49,10 @@ public class PositionDto implements EntityMapper<Position, PositionDto> {
      */
     @Override
     public Position convertFromDTOToEntity(PositionDto dto, Position entity) {
-        entity.setUsers(EntityUtil.fromDtoList(dto.getUsers(),
+        entity.setUsers(EntityMapper.fromDtoList(dto.getUsers(),
                 User.class).getList());
 
-        entity.setSkills(EntityUtil.fromDtoList(dto.getSkills(),
+        entity.setSkills(EntityMapper.fromDtoList(dto.getSkills(),
                 Skill.class).getList());
         return entity;
     }

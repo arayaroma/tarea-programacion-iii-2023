@@ -2,9 +2,6 @@ package cr.ac.una.dto;
 
 import cr.ac.una.entities.Characteristic;
 import cr.ac.una.util.EntityMapper;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@XmlRootElement(name = "CharacteristicDto")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class CharacteristicDto implements EntityMapper<Characteristic, CharacteristicDto> {
 
     private Long id;

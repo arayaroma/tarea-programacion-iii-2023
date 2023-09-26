@@ -50,8 +50,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error creating evaluation:" + e.getMessage(),
-                    null
-            );
+                    null);
         }
 
     }
@@ -65,8 +64,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                         ResponseCode.NOT_FOUND.getCode(),
                         ResponseCode.NOT_FOUND,
                         "Evaluation not found.",
-                        null
-                );
+                        null);
             }
             evaluation.updateEvaluation(evaluationDto);
             ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluation, Evaluation.class);
@@ -86,8 +84,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error updating evaluation:" + e.getMessage(),
-                    null
-            );
+                    null);
         }
     }
 
@@ -100,8 +97,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                         ResponseCode.NOT_FOUND.getCode(),
                         ResponseCode.NOT_FOUND,
                         "Evaluation not found.",
-                        null
-                );
+                        null);
             }
             EvaluationDto evaluationDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
@@ -114,27 +110,18 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error retrieving evaluation:" + e.getMessage(),
-                    null
-            );
+                    null);
         }
     }
 
     @Override
     public ResponseWrapper getEvaluationByName(String name) {
         try {
-            Evaluation evaluation = em.createNamedQuery("Evaluation.findByName", Evaluation.class).setParameter("name", name)
+            Evaluation evaluation = em.createNamedQuery("Evaluation.findByName", Evaluation.class)
+                    .setParameter("name", name)
                     .getSingleResult();
-            System.out.println("Size evaluated: "+evaluation.getEvaluated().size());
-            evaluation.getEvaluated().forEach((t -> System.out.print("Size ebvalators: "+t.getEvaluators().size())));
-
-            if (evaluation == null) {
-                return new ResponseWrapper(
-                        ResponseCode.NOT_FOUND.getCode(),
-                        ResponseCode.NOT_FOUND,
-                        "Evaluation not found.",
-                        null
-                );
-            }
+            System.out.println("Size evaluated: " + evaluation.getEvaluated().size());
+            evaluation.getEvaluated().forEach((t -> System.out.print("Size ebvalators: " + t.getEvaluators().size())));
             EvaluationDto evaluationDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -146,19 +133,20 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error retrieving evaluation:" + e.getMessage(),
-                    null
-            );
+                    null);
         }
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public ResponseWrapper getAllEvaluation() {
         try {
-        //    em.clear();
+            // em.clear();
             Query query = em.createNamedQuery("Evaluation.findAll", Evaluation.class);
-            List<Evaluation> evaluationList = query.getResultList();
+            List<Evaluation> evaluationList = (List<Evaluation>) query.getResultList();
             List<EvaluationDto> evaluationDtos = new ArrayList<>();
-            evaluationList.forEach(t -> evaluationDtos.add(new EvaluationDto(t).convertFromEntityToDTO(t, new EvaluationDto(t))));
+            evaluationList.forEach(
+                    t -> evaluationDtos.add(new EvaluationDto(t).convertFromEntityToDTO(t, new EvaluationDto(t))));
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -169,8 +157,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error retrieving evaluations:" + e.getMessage(),
-                    null
-            );
+                    null);
         }
     }
 
@@ -183,8 +170,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                         ResponseCode.NOT_FOUND.getCode(),
                         ResponseCode.NOT_FOUND,
                         "Evaluation not found.",
-                        null
-                );
+                        null);
             }
             em.remove(evaluation);
             em.flush();
@@ -198,8 +184,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error deleting evaluation:" + e.getMessage(),
-                    null
-            );
+                    null);
         }
     }
 

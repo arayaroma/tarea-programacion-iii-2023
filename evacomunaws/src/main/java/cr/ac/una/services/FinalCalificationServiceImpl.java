@@ -3,14 +3,13 @@ package cr.ac.una.services;
 import cr.ac.una.dto.FinalCalificationDto;
 import cr.ac.una.entities.Evaluated;
 import cr.ac.una.entities.Skill;
-import cr.ac.una.util.EntityUtil;
+import cr.ac.una.util.EntityMapper;
 import cr.ac.una.util.ListWrapper;
 import cr.ac.una.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
 import cr.ac.una.entities.FinalCalification;
@@ -26,9 +25,10 @@ import cr.ac.una.util.ResponseCode;
 public class FinalCalificationServiceImpl implements FinalCalificationService {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
+
     @Override
     public ResponseWrapper createFinalCalification(FinalCalificationDto finalCalificationDto) {
-        try{
+        try {
             FinalCalification finalCalification = new FinalCalification(finalCalificationDto);
 
             Evaluated evaluated = em.find(Evaluated.class, finalCalificationDto.getEvaluated().getId());
@@ -36,8 +36,8 @@ public class FinalCalificationServiceImpl implements FinalCalificationService {
             finalCalification.setEvaluated(evaluated);
             finalCalification.setSkill(skill);
 
-            ResponseWrapper CONSTRAINT_VIOLATION = verifyEntity(finalCalification,FinalCalification.class);
-            if(CONSTRAINT_VIOLATION != null){
+            ResponseWrapper CONSTRAINT_VIOLATION = verifyEntity(finalCalification, FinalCalification.class);
+            if (CONSTRAINT_VIOLATION != null) {
                 return CONSTRAINT_VIOLATION;
             }
             em.persist(finalCalification);
@@ -45,8 +45,9 @@ public class FinalCalificationServiceImpl implements FinalCalificationService {
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "FinalCalification successfully created",
-                    finalCalificationDto.convertFromEntityToDTO(finalCalification, new FinalCalificationDto(finalCalification)));
-        } catch (Exception e){
+                    finalCalificationDto.convertFromEntityToDTO(finalCalification,
+                            new FinalCalificationDto(finalCalification)));
+        } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error creating finalCalification: " + e.getMessage(),
@@ -77,7 +78,8 @@ public class FinalCalificationServiceImpl implements FinalCalificationService {
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "FinalCalification successfully updated",
-                    finalCalificationDto.convertFromEntityToDTO(finalCalification, new FinalCalificationDto(finalCalification)));
+                    finalCalificationDto.convertFromEntityToDTO(finalCalification,
+                            new FinalCalificationDto(finalCalification)));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
@@ -159,7 +161,9 @@ public class FinalCalificationServiceImpl implements FinalCalificationService {
     public ResponseWrapper getAllFinalCalification() {
         try {
             ListWrapper<FinalCalificationDto> finalCalificationDtoList;
-            finalCalificationDtoList = EntityUtil.fromEntityList(em.createQuery("select fc from FinalCalification fc", FinalCalification.class).getResultList(), FinalCalificationDto.class);
+            finalCalificationDtoList = EntityMapper.fromEntityList(
+                    em.createQuery("select fc from FinalCalification fc", FinalCalification.class).getResultList(),
+                    FinalCalificationDto.class);
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "All finalCalifications successfully retrieved",

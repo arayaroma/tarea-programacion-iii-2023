@@ -17,8 +17,6 @@ public class CalificationDto {
     private Long id;
     private String calification;
     private SkillDto skill;
-
-    //Previously was UserDto, but entity provides Evaluator, so it was changed
     private EvaluatorDto evaluator;
     private Long version;
 

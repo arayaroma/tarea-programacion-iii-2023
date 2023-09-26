@@ -16,7 +16,7 @@ import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.util.EntityUtil.verifyEntity;
-import cr.ac.una.util.EntityUtil;
+import cr.ac.una.util.EntityMapper;
 import cr.ac.una.util.HashGenerator;
 import cr.ac.una.util.ListWrapper;
 import java.util.ArrayList;
@@ -669,7 +669,7 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User retrieved successfully.",
-                    EntityUtil.fromEntityList(
+                    EntityMapper.fromEntityList(
                             em.createNamedQuery("user.findByName", User.class)
                                     .setParameter("name", "%" + name + "%")
                                     .getResultList(),
@@ -703,7 +703,7 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Users retrieved successfully.",
-                    EntityUtil.fromEntityList(
+                    EntityMapper.fromEntityList(
                             em.createNamedQuery("user.findByPosition", User.class)
                                     .setParameter("position", "%" + position + "%")
                                     .getResultList(),

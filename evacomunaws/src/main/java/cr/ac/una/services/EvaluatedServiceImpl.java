@@ -6,12 +6,11 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
-
 import cr.ac.una.dto.EvaluatedDto;
 import cr.ac.una.util.ResponseWrapper;
 import cr.ac.una.util.ListWrapper;
+import cr.ac.una.util.EntityMapper;
 import cr.ac.una.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +88,9 @@ public class EvaluatedServiceImpl implements EvaluatedService {
     @Override
     public ResponseWrapper getEvaluatedById(Long id) {
         try {
-            Evaluated evaluated = em.find(Evaluated.class, id);
+            Evaluated evaluated = em.createNamedQuery("Evaluated.findById", Evaluated.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
             if (evaluated == null) {
                 return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(),
                         ResponseCode.NOT_FOUND,
@@ -98,9 +99,9 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
             EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
             newEvaluatedDto.setEvaluators(
-                    EntityUtil.fromEntityList(evaluated.getEvaluators(), cr.ac.una.dto.EvaluatorDto.class).getList());
+                    EntityMapper.fromEntityList(evaluated.getEvaluators(), cr.ac.una.dto.EvaluatorDto.class).getList());
             newEvaluatedDto.setEvaluation(new cr.ac.una.dto.EvaluationDto(evaluated.getEvaluation()));
-            newEvaluatedDto.setFinalCalifications(EntityUtil
+            newEvaluatedDto.setFinalCalifications(EntityMapper
                     .fromEntityList(evaluated.getFinalCalifications(), cr.ac.una.dto.FinalCalificationDto.class)
                     .getList());
             newEvaluatedDto.setEvaluated(new cr.ac.una.dto.UserDto(evaluated.getEvaluated()));
@@ -162,7 +163,7 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             List<Evaluated> evaluated = em.createNamedQuery("Evaluated.findAll", Evaluated.class).getResultList();
             List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
             for (Evaluated i : evaluated) {
-                evaluatedDtos.add(new EvaluatedDto(i).convertFromEntityToDTO(i, new EvaluatedDto(i)))              ;
+                evaluatedDtos.add(new EvaluatedDto(i).convertFromEntityToDTO(i, new EvaluatedDto(i)));
             }
 
             return new ResponseWrapper(ResponseCode.OK.getCode(),

@@ -4,9 +4,7 @@ import cr.ac.una.entities.Evaluated;
 import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.entities.Evaluation;
-import cr.ac.una.entities.User;
 import cr.ac.una.util.EntityMapper;
-import cr.ac.una.util.EntityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,17 +43,20 @@ public class EvaluationDto implements EntityMapper<Evaluation, EvaluationDto> {
 
     @Override
     public EvaluationDto convertFromEntityToDTO(Evaluation entity, EvaluationDto dto) {
-        dto.setEvaluated(EntityUtil.fromEntityList(entity.getEvaluated(), EvaluatedDto.class).getList());
+        dto.setEvaluated(EntityMapper.fromEntityList(entity.getEvaluated(), EvaluatedDto.class).getList());
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
                 dto.getEvaluated().get(i).setEvaluated(new UserDto(entity.getEvaluated().get(i).getEvaluated()));
-                dto.getEvaluated().get(i).setEvaluators(EntityUtil.fromEntityList(entity.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class).getList());
+                dto.getEvaluated().get(i).setEvaluators(EntityMapper
+                        .fromEntityList(entity.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class).getList());
                 if (dto.getEvaluated().get(i).getEvaluators() != null) {
                     for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
-                        dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(new UserDto(entity.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
+                        dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(
+                                new UserDto(entity.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
                     }
                 }
-                dto.getEvaluated().get(i).getEvaluated().setPosition(new PositionDto(entity.getEvaluated().get(i).getEvaluated().getPosition()));
+                dto.getEvaluated().get(i).getEvaluated()
+                        .setPosition(new PositionDto(entity.getEvaluated().get(i).getEvaluated().getPosition()));
             }
 
         }
@@ -64,12 +65,14 @@ public class EvaluationDto implements EntityMapper<Evaluation, EvaluationDto> {
 
     @Override
     public Evaluation convertFromDTOToEntity(EvaluationDto dto, Evaluation entity) {
-        entity.setEvaluated(EntityUtil.fromDtoList(dto.getEvaluated(), Evaluated.class).getList());
-//        for (int i = 0; i < entity.getEvaluated().size(); i++) {
-//            entity.getEvaluated().get(i).setEvaluated(new User(dto.getEvaluated().get(i).getEvaluated()));
-//            //entity.getEvaluated().get(i).setEvaluation(new Evaluation(dto.getEvaluated().get(i).getEvaluation()));
-//        }
-//        
+        entity.setEvaluated(EntityMapper.fromDtoList(dto.getEvaluated(), Evaluated.class).getList());
+        // for (int i = 0; i < entity.getEvaluated().size(); i++) {
+        // entity.getEvaluated().get(i).setEvaluated(new
+        // User(dto.getEvaluated().get(i).getEvaluated()));
+        // //entity.getEvaluated().get(i).setEvaluation(new
+        // Evaluation(dto.getEvaluated().get(i).getEvaluation()));
+        // }
+        //
         return entity;
     }
 
