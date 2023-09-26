@@ -24,9 +24,6 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _CharacteristicDto_QNAME = new QName("http://controller.una.ac.cr/", "CharacteristicDto");
-    private final static QName _PositionDto_QNAME = new QName("http://controller.una.ac.cr/", "PositionDto");
-    private final static QName _UserDto_QNAME = new QName("http://controller.una.ac.cr/", "UserDto");
     private final static QName _CreateFinalCalification_QNAME = new QName("http://controller.una.ac.cr/", "createFinalCalification");
     private final static QName _CreateFinalCalificationResponse_QNAME = new QName("http://controller.una.ac.cr/", "createFinalCalificationResponse");
     private final static QName _DeleteFinalCalificationById_QNAME = new QName("http://controller.una.ac.cr/", "deleteFinalCalificationById");
@@ -48,30 +45,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link CharacteristicDto }
-     * 
-     */
-    public CharacteristicDto createCharacteristicDto() {
-        return new CharacteristicDto();
-    }
-
-    /**
-     * Create an instance of {@link PositionDto }
-     * 
-     */
-    public PositionDto createPositionDto() {
-        return new PositionDto();
-    }
-
-    /**
-     * Create an instance of {@link UserDto }
-     * 
-     */
-    public UserDto createUserDto() {
-        return new UserDto();
     }
 
     /**
@@ -211,19 +184,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SkillDto }
+     * Create an instance of {@link UserDto }
      * 
      */
-    public SkillDto createSkillDto() {
-        return new SkillDto();
-    }
-
-    /**
-     * Create an instance of {@link CalificationDto }
-     * 
-     */
-    public CalificationDto createCalificationDto() {
-        return new CalificationDto();
+    public UserDto createUserDto() {
+        return new UserDto();
     }
 
     /**
@@ -315,6 +280,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link PositionDto }
+     * 
+     */
+    public PositionDto createPositionDto() {
+        return new PositionDto();
+    }
+
+    /**
+     * Create an instance of {@link SkillDto }
+     * 
+     */
+    public SkillDto createSkillDto() {
+        return new SkillDto();
+    }
+
+    /**
+     * Create an instance of {@link CalificationDto }
+     * 
+     */
+    public CalificationDto createCalificationDto() {
+        return new CalificationDto();
+    }
+
+    /**
+     * Create an instance of {@link CharacteristicDto }
+     * 
+     */
+    public CharacteristicDto createCharacteristicDto() {
+        return new CharacteristicDto();
+    }
+
+    /**
      * Create an instance of {@link EvaluationDto }
      * 
      */
@@ -328,45 +325,6 @@ public class ObjectFactory {
      */
     public ResponseWrapper createResponseWrapper() {
         return new ResponseWrapper();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CharacteristicDto }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CharacteristicDto }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "CharacteristicDto")
-    public JAXBElement<CharacteristicDto> createCharacteristicDto(CharacteristicDto value) {
-        return new JAXBElement<CharacteristicDto>(_CharacteristicDto_QNAME, CharacteristicDto.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PositionDto }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link PositionDto }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "PositionDto")
-    public JAXBElement<PositionDto> createPositionDto(PositionDto value) {
-        return new JAXBElement<PositionDto>(_PositionDto_QNAME, PositionDto.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UserDto }{@code >}
-     * 
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UserDto }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://controller.una.ac.cr/", name = "UserDto")
-    public JAXBElement<UserDto> createUserDto(UserDto value) {
-        return new JAXBElement<UserDto>(_UserDto_QNAME, UserDto.class, null, value);
     }
 
     /**

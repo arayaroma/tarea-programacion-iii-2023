@@ -18,8 +18,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="skill" type="{http://controller.una.ac.cr/}skillDto" minOccurs="0"/&gt;
+ *         &lt;element name="version" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,15 +32,15 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "characteristicDto", propOrder = {
     "id",
     "name",
-    "version",
-    "skill"
+    "skill",
+    "version"
 })
 public class CharacteristicDto {
 
     protected Long id;
     protected String name;
-    protected Long version;
     protected SkillDto skill;
+    protected Long version;
 
     /**
      * Gets the value of the id property.
@@ -91,30 +91,6 @@ public class CharacteristicDto {
     }
 
     /**
-     * Gets the value of the version property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the value of the version property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
-     */
-    public void setVersion(Long value) {
-        this.version = value;
-    }
-
-    /**
      * Gets the value of the skill property.
      * 
      * @return
@@ -136,6 +112,30 @@ public class CharacteristicDto {
      */
     public void setSkill(SkillDto value) {
         this.skill = value;
+    }
+
+    /**
+     * Gets the value of the version property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the value of the version property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setVersion(Long value) {
+        this.version = value;
     }
 
 }
