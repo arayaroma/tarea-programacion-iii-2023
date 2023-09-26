@@ -1,5 +1,6 @@
 package cr.ac.una.evacomuna.services;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import cr.ac.una.controller.CalificationController;
@@ -19,11 +20,28 @@ public class CalificationService {
     /**
      * Default instance of the service
      */
+=======
+import cr.ac.una.controller.CalificationController_Service;
+import cr.ac.una.controller.CalificationController;
+import cr.ac.una.controller.CalificationDto;
+import cr.ac.una.controller.ResponseWrapper;
+
+/**
+ *
+ * @author estebannajera
+ */
+public class CalificationService {
+
+    private CalificationController_Service service;
+    private CalificationController port;
+
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
     public CalificationService() {
         service = new CalificationController_Service();
         port = service.getCalificationControllerPort();
     }
 
+<<<<<<< HEAD
     /**
      * Create a new calification
      * 
@@ -185,3 +203,22 @@ public class CalificationService {
     }
 
 }
+=======
+    public ResponseWrapper createCalification(CalificationDto calificationDto) {
+        return port.createCalification(calificationDto);
+    }
+
+    public ResponseWrapper updateCalification(CalificationDto calificationDto) {
+        return port.updateCalification(calificationDto);
+    }
+
+    public ResponseWrapper deleteByIdCalification(Long id) {
+        return port.deleteCalificationById(id);
+    }
+
+    public ResponseWrapper getCalifications() {
+        return port.getAllCalification();
+    }
+
+}
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)

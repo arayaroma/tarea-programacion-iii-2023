@@ -39,7 +39,7 @@ public class EvaluationServiceImpl implements EvaluationService {
             }
             em.persist(evaluation);
             em.flush();
-            em.refresh(evaluation);
+           // em.refresh(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

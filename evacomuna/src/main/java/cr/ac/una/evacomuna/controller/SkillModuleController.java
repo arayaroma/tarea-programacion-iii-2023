@@ -195,11 +195,15 @@ public class SkillModuleController implements Initializable {
                         : skillService.createSkill(skillDto);
                 if (response.getCode() == ResponseCode.OK) {
                     skillDto = (SkillDto) response.getData();
+<<<<<<< HEAD
                     SkillDto newSkillDto = new SkillDto(
                             skillDto.getName(),
                             skillDto.getState(),
                             skillDto.getID());
 
+=======
+                    SkillWrapper newSkillWrapper = new SkillWrapper(skillDto);
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
                     for (CharacteristicDto i : listCharacteristicsRegisterSkillView.getItems()) {
                         if (i.getId() == null) {
                             i.setSkill(newSkillDto);

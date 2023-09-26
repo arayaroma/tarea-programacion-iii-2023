@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="calification" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="calification" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="evaluator" type="{http://controller.una.ac.cr/}evaluator" minOccurs="0"/&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="skill" type="{http://controller.una.ac.cr/}skill" minOccurs="0"/&gt;
@@ -39,7 +39,7 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 public class Calification {
 
-    protected String calification;
+    protected Long calification;
     protected Evaluator evaluator;
     protected Long id;
     protected Skill skill;
@@ -50,10 +50,10 @@ public class Calification {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Long }
      *     
      */
-    public String getCalification() {
+    public Long getCalification() {
         return calification;
     }
 
@@ -62,10 +62,10 @@ public class Calification {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Long }
      *     
      */
-    public void setCalification(String value) {
+    public void setCalification(Long value) {
         this.calification = value;
     }
 

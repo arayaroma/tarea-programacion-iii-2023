@@ -32,6 +32,54 @@ public class EvaluationService {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get all evaluations
+     *
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getAllEvaluation() {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getAllEvaluation();
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluations found successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "Evaluations not found",
+                    null);
+        }
+    }
+
+    /**
+     * Get evaluation by name
+     *
+     * @param name of the evaluation
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getEvaluationByName(String name) {
+        try {
+            cr.ac.una.controller.ResponseWrapper response = port.getEvaluationByName(name);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluation found successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "Evaluation not found",
+                    null);
+        }
+    }
+
+    /**
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
      * Creates a new evaluation
      *
      * @param evaluationDto object to create
@@ -172,10 +220,17 @@ public class EvaluationService {
     public ResponseWrapper deleteEvaluationById(Long id) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.deleteEvaluationById(id);
+            if (response.getCode() == cr.ac.una.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluation deleted successfully",
+                        response.getData());
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Evaluation deleted successfully",
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error removing evaluation:" + response.getMessage(),
                     response.getData());
         } catch (Exception e) {
             return new ResponseWrapper(

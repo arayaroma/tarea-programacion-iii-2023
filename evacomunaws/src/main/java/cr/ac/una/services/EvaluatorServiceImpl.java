@@ -51,11 +51,22 @@ public class EvaluatorServiceImpl implements EvaluatorService {
         try {
             Evaluator evaluator = em.find(Evaluator.class, evaluatorDto.getId());
             if (evaluator == null) {
+<<<<<<< HEAD
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
                         ResponseCode.NOT_FOUND,
                         "The evaluator to be updated does not exist",
                         null);
+=======
+                return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(), ResponseCode.NOT_FOUND, "The evaluator to be updated does not exist", null);
+            }
+
+            evaluator = evaluatorDto.convertFromDTOToEntity(evaluatorDto, evaluator);
+            evaluator.updateEvaluator(evaluatorDto);
+            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator, Evaluator.class);
+            if (CONSTRAINT_VIOLATION != null) {
+                return CONSTRAINT_VIOLATION;
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
             }
             evaluator.updateEvaluator(evaluatorDto);
             evaluator = evaluatorDto.convertFromDTOToEntity(evaluatorDto, evaluator);
@@ -67,11 +78,15 @@ public class EvaluatorServiceImpl implements EvaluatorService {
                     "Evaluator successfully updated",
                     new EvaluatorDto(evaluator));
         } catch (Exception e) {
+<<<<<<< HEAD
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error updating evaluator",
                     e.getMessage());
+=======
+            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR, "Error updating evaluator:" + e.getMessage(), null);
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
         }
     }
 
@@ -123,8 +138,12 @@ public class EvaluatorServiceImpl implements EvaluatorService {
                 evaluatorDtos.add(new EvaluatorDto(e).convertFromEntityToDTO(e, new EvaluatorDto(e)));
             }
 
+<<<<<<< HEAD
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluators successfully retrieved",
                     new ListWrapper<>(evaluatorDtos));
+=======
+            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluators successfully retrieved", new ListWrapper<>(evaluatorDtos));
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error retrieving evaluators", e.getMessage());

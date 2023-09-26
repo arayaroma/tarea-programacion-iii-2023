@@ -89,10 +89,9 @@ public class RegisterWorkerController implements Initializable {
     }
 
     /**
-     * Modularizing the app.
-     * Changed the method to use the ImageLoader class
+     * Modularizing the app. Changed the method to use the ImageLoader class
      * instead of the Utilities class.
-     * 
+     *
      * @param event when the user clicks on the image
      */
     @FXML
@@ -106,7 +105,7 @@ public class RegisterWorkerController implements Initializable {
 
     /**
      * Must be a enum with the fxml files names
-     * 
+     *
      * @param event when the user clicks on the back button
      * @throws IOException can't load the fxml file
      */
@@ -121,11 +120,10 @@ public class RegisterWorkerController implements Initializable {
     }
 
     /**
-     * Not validating if the bufferFileImage is null,
-     * because the user can register without a profile photo
-     * and the default photo will be setted, then the user can
-     * change the photo later.
-     * 
+     * Not validating if the bufferFileImage is null, because the user can
+     * register without a profile photo and the default photo will be setted,
+     * then the user can change the photo later.
+     *
      * @return
      */
     private Boolean areFieldsEmpty() {
@@ -137,20 +135,25 @@ public class RegisterWorkerController implements Initializable {
     }
 
     /**
-     * Changed the method to use the ImageLoader class
-     * instead of the Utilities class.
-     * 
+     * Changed the method to use the ImageLoader class instead of the Utilities
+     * class.
+     *
      * @param event when the user clicks on the register button
      */
     @FXML
     private void registerUser(ActionEvent event) {
         try {
             ResponseWrapper response;
-            String userName = txfUserRegister.getText(), password = txfPasswordRegister.getText(),
-                    ced = txfCedRegister.getText(), name = txfNameRegister.getText(),
-                    lastName = txfLastNameRegister.getText(), secondLastName = txfSecondLastNameRegister.getText(),
-                    phoneNumber = txfPhoneNumberRegister.getText(), email = txfEmailRegister.getText(),
-                    role = cbRoleRegister.getValue(), landLineNumber = txfLandLineNumberRegister.getText();
+            String userName = txfUserRegister.getText(),
+                    password = txfPasswordRegister.getText(),
+                    ced = txfCedRegister.getText(),
+                    name = txfNameRegister.getText(),
+                    lastName = txfLastNameRegister.getText(),
+                    secondLastName = txfSecondLastNameRegister.getText(),
+                    phoneNumber = txfPhoneNumberRegister.getText(),
+                    email = txfEmailRegister.getText(),
+                    role = cbRoleRegister.getValue(),
+                    landLineNumber = txfLandLineNumberRegister.getText();
             if (areFieldsEmpty()) {
                 Message.showNotification("UPS", MessageType.ERROR, "You must to fill all the fields");
                 return;
@@ -191,9 +194,9 @@ public class RegisterWorkerController implements Initializable {
 
     /**
      * Added the profile photo to the userDto
-     * 
+     *
      * @param profilePhoto the profile photo of the user
-     * @param args         the user data
+     * @param args the user data
      * @return the new object UserDto with the loaded data
      */
     private UserDto createUser(byte[] profilePhoto, String... args) {
@@ -220,9 +223,9 @@ public class RegisterWorkerController implements Initializable {
     }
 
     /**
-     * 
+     *
      * @param isFromLogin if the user is from the login view
-     * @param user        the user to show in the view
+     * @param user the user to show in the view
      */
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;

@@ -3,6 +3,7 @@ package cr.ac.una.evacomuna.dto;
 import cr.ac.una.controller.CalificationDto;
 import cr.ac.una.controller.EvaluatorDto;
 import cr.ac.una.controller.SkillDto;
+import cr.ac.una.evacomuna.util.CalificationCode;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
@@ -31,20 +32,52 @@ public class CalificationWrapper extends Pane {
         this.evaluatorDto = calificationDto.getEvaluator();
         this.skillDto = calificationDto.getSkill();
         this.version = calificationDto.getVersion();
-        this.calification = calificationDto.getCalification();
+        this.calification = getCalificationString(calificationDto.getCalification());
 
     }
 
     public CalificationDto getDto() {
         CalificationDto calificationDto = new CalificationDto();
-        calificationDto.setCalification(calification);
+        calificationDto.setCalification(getCalificationCode(calification));
         calificationDto.setEvaluator(evaluatorDto);
         calificationDto.setId(id);
         calificationDto.setSkill(skillDto);
         calificationDto.setVersion(version);
+//        calificationDto.setCalification(calification);
         return calificationDto;
     }
 
+    public Long getCalificationCode(String calification) {
+        if (calification.toUpperCase().equals("EXCEPTIONAL")) {
+            return CalificationCode.EXCEPTIONAL.getCode();
+        }
+        if (calification.toUpperCase().equals("ABOVE EXPECTATIONS")) {
+            return CalificationCode.ABOVE_EXPECTATIONS.getCode();
+        }
+        if (calification.toUpperCase().equals("EXPECTATIONS")) {
+            return CalificationCode.EXPECTATIONS.getCode();
+        }
+        if (calification.toUpperCase().equals("UNDER EXPECTATIONS")) {
+            return CalificationCode.UNDER_EXPECTATIONS.getCode();
+        }
+        return Long.valueOf(-1);
+    }
+
+    public String getCalificationString(Long code) {
+        if (code == CalificationCode.EXCEPTIONAL.getCode()) {
+            return "Exceptional";
+        }
+        if (code == CalificationCode.UNDER_EXPECTATIONS.getCode()) {
+            return "Under Expectations";
+        }
+        if (code == CalificationCode.ABOVE_EXPECTATIONS.getCode()) {
+            return "Above Expectations";
+        }
+        if (code == CalificationCode.EXPECTATIONS.getCode()) {
+            return "Expectations";
+        }
+        return "";
+    }
 
     public SkillDto getSkillDto() {
         return skillDto;

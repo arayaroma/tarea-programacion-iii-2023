@@ -118,7 +118,7 @@ public class EvaluationModuleController implements Initializable {
     private void btnDeleteEvaluator(ActionEvent event) {
         if (finalEvaluatorBuffer != null) {
             if (evaluationBuffer != null) {
-                ResponseWrapper responseWrapper = evaluatorService.deleteEvaluatorById(finalEvaluatorBuffer.getId());
+                ResponseWrapper responseWrapper = evaluatorService.deleteEvaluatorById(finalEvaluatorBuffer);
                 System.out.println(responseWrapper.getMessage());
             }
             finalEvaluatedBuffer.getEvaluators().remove(finalEvaluatorBuffer);
@@ -131,8 +131,6 @@ public class EvaluationModuleController implements Initializable {
     private void btnAddEvaluated(ActionEvent event) {
         if (evaluatedBuffer != null && !listEvaluatedFix.getItems().stream()
                 .anyMatch(t -> t.getId() != null && t.getEvaluated().getId() == evaluatedBuffer.getId())) {
-
-            // if(listEvaluatedFix.getItems().stream().anyMatch(t->t.getId() ==))
             listEvaluatedFix.getItems().remove(evaluatedBuffer);
             listEvaluatedFix.getItems().add(evaluatedBuffer);
         }
@@ -426,7 +424,7 @@ public class EvaluationModuleController implements Initializable {
         boolean evaluatorsDeleted = true;
         boolean evaluatedDeleted = true;
         for (EvaluatorDto evaluatorDto : evaluated.getEvaluators()) {
-            response = evaluatorService.deleteEvaluatorById(evaluatorDto.getId());
+            response = evaluatorService.deleteEvaluatorById(evaluatorDto);
             evaluatorsDeleted = response.getCode() == ResponseCode.OK;
         }
         if (evaluatorsDeleted) {

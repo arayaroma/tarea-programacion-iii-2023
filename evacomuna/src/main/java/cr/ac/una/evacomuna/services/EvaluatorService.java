@@ -1,8 +1,13 @@
 package cr.ac.una.evacomuna.services;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+=======
+import cr.ac.una.controller.CalificationDto;
+import cr.ac.una.controller.EvaluationDto;
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
 import cr.ac.una.controller.EvaluatorController;
 import cr.ac.una.controller.EvaluatorController_Service;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
@@ -18,6 +23,7 @@ public class EvaluatorService {
 
     private EvaluatorController port;
     private EvaluatorController_Service service;
+    private CalificationService calificationService;
 
     /**
      * Default instance of the service
@@ -25,11 +31,12 @@ public class EvaluatorService {
     public EvaluatorService() {
         service = new EvaluatorController_Service();
         port = service.getEvaluatorControllerPort();
+        calificationService = new CalificationService();
     }
 
     /**
      * Creates a new evaluator
-     * 
+     *
      * @param evaluatorDto object to create
      * @return EvaluatorDto with the created evaluator if found, null otherwise
      */
@@ -137,7 +144,7 @@ public class EvaluatorService {
 
     /**
      * Updates the evaluator with the given id
-     * 
+     *
      * @param evaluatorDto object to update
      * @return EvaluatorDto with the updated evaluator if found, null otherwise
      */
@@ -154,20 +161,23 @@ public class EvaluatorService {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error updating evaluator",
+                    "Error updating evaluator: " + e.toString(),
                     null);
         }
     }
 
     /**
      * Gets the evaluator with the given id
-     * 
+     *
      * @param id of the evaluator to get
      * @return EvaluatorDto with the found evaluator if found, null otherwise
      */
-    public ResponseWrapper deleteEvaluatorById(Long id) {
+    public ResponseWrapper deleteEvaluatorById(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deleteEvaluatorById(id);
+            for (CalificationDto i : evaluatorDto.getCalifications()) {
+                calificationService.deleteByIdCalification(i.getId());
+            }
+            cr.ac.una.controller.ResponseWrapper response = port.deleteEvaluatorById(evaluatorDto.getId());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

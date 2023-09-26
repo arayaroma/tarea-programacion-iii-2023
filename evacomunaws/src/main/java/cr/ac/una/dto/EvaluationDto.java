@@ -51,8 +51,18 @@ public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
                         .fromEntityList(entity.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class).getList());
                 if (dto.getEvaluated().get(i).getEvaluators() != null) {
                     for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
+<<<<<<< HEAD
                         dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(
                                 new UserDto(entity.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
+=======
+                        dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(new UserDto(entity.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
+                        dto.getEvaluated().get(i).getEvaluators().get(j).setCalifications(EntityUtil.fromDtoList(entity.getEvaluated().get(i).getEvaluators().get(j).getCalifications(), CalificationDto.class).getList());
+                        if (dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications() != null) {
+                            for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().size(); k++) {
+                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k).setSkill(new SkillDto(entity.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k).getSkill()));
+                            }
+                        }
+>>>>>>> f2b8918 ([update] load califications in pending evaluations controller)
                     }
                 }
                 dto.getEvaluated().get(i).getEvaluated()

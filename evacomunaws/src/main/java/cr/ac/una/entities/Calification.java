@@ -42,7 +42,7 @@ public class Calification implements Serializable {
     @NotNull
     @Basic(optional = false)
     @Column(name = "CALIFICATION")
-    private String calification;
+    private Long calification;
 
     @ManyToOne
     @JoinColumn(name = "SKILLID")
