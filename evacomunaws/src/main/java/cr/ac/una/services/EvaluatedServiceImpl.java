@@ -42,7 +42,7 @@ public class EvaluatedServiceImpl implements EvaluatedService {
 
             em.persist(evaluated);
             em.flush();
-
+            em.refresh(evaluated);
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated created successfully.",
@@ -72,6 +72,7 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
             em.merge(evaluated);
             em.flush();
+            em.refresh(evaluated);
             EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -118,14 +119,6 @@ public class EvaluatedServiceImpl implements EvaluatedService {
     }
 
     @Override
-    public ResponseWrapper getEvaluatedByName(String name) {
-        // fixme: names aren't unique and don't belong to this entity, this might
-        // produce repeated or unwanted results.
-        // Talk with the team.
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public ResponseWrapper getFinalNote(Long id) {
         try {
             Evaluated evaluated = em.find(Evaluated.class, id);
@@ -165,7 +158,6 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             for (Evaluated i : evaluated) {
                 evaluatedDtos.add(new EvaluatedDto(i).convertFromEntityToDTO(i, new EvaluatedDto(i)));
             }
-
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated list retrieved successfully.",

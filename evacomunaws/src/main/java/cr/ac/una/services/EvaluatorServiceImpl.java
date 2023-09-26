@@ -11,7 +11,6 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-
 import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +37,7 @@ public class EvaluatorServiceImpl implements EvaluatorService {
             }
             em.persist(evaluator);
             em.flush();
+            em.remove(evaluator);
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully created",
                     evaluatorDto.convertFromEntityToDTO(evaluator, new EvaluatorDto(evaluator)));
         } catch (Exception e) {
@@ -51,23 +51,27 @@ public class EvaluatorServiceImpl implements EvaluatorService {
         try {
             Evaluator evaluator = em.find(Evaluator.class, evaluatorDto.getId());
             if (evaluator == null) {
-                return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(), ResponseCode.NOT_FOUND,
-                        "The evaluator to be updated does not exist", null);
+                return new ResponseWrapper(
+                        ResponseCode.NOT_FOUND.getCode(),
+                        ResponseCode.NOT_FOUND,
+                        "The evaluator to be updated does not exist",
+                        null);
             }
-            evaluator.setEvaluator(em.find(cr.ac.una.entities.User.class, evaluatorDto.getId()));
-            evaluator.setEvaluated(em.find(cr.ac.una.entities.Evaluated.class, evaluatorDto.getId()));
-            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator, Evaluator.class);
-            if (CONSTRAINT_VIOLATION != null) {
-                return CONSTRAINT_VIOLATION;
-            }
+            evaluator.updateEvaluator(evaluatorDto);
+            evaluator = evaluatorDto.convertFromDTOToEntity(evaluatorDto, evaluator);
             em.merge(evaluator);
             em.flush();
-            EvaluatorDto newEvaluatorDto = new EvaluatorDto(evaluator);
-            return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully updated",
-                    newEvaluatorDto);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "Evaluator successfully updated",
+                    new EvaluatorDto(evaluator));
         } catch (Exception e) {
-            return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error updating evaluator", e.getMessage());
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error updating evaluator",
+                    e.getMessage());
         }
     }
 
@@ -113,8 +117,6 @@ public class EvaluatorServiceImpl implements EvaluatorService {
     @Override
     public ResponseWrapper getAllEvaluator() {
         try {
-            // ListWrapper<EvaluatorDto> evaluators = EntityUtil.fromEntityList(,
-            // EvaluatorDto.class);
             List<Evaluator> evaluators = em.createNamedQuery("Evaluator.findAll", Evaluator.class).getResultList();
             List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
             for (Evaluator e : evaluators) {

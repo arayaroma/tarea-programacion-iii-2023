@@ -73,6 +73,7 @@ public class EvaluationServiceImpl implements EvaluationService {
             }
             em.merge(evaluation);
             em.flush();
+            em.refresh(evaluation);
             EvaluationDto updatedDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -83,7 +84,7 @@ public class EvaluationServiceImpl implements EvaluationService {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error updating evaluation:" + e.getMessage(),
+                    "Error updating evaluation: " + e.getMessage(),
                     null);
         }
     }
@@ -141,7 +142,6 @@ public class EvaluationServiceImpl implements EvaluationService {
     @SuppressWarnings("unchecked")
     public ResponseWrapper getAllEvaluation() {
         try {
-            // em.clear();
             Query query = em.createNamedQuery("Evaluation.findAll", Evaluation.class);
             List<Evaluation> evaluationList = (List<Evaluation>) query.getResultList();
             List<EvaluationDto> evaluationDtos = new ArrayList<>();

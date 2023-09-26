@@ -1,6 +1,5 @@
 package cr.ac.una.dto;
 
-import cr.ac.una.entities.Calification;
 import cr.ac.una.entities.Evaluated;
 import cr.ac.una.entities.Evaluator;
 import cr.ac.una.entities.User;
@@ -11,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * FIXME: Change List<Calification> -> List<CalificationDto>
+ * 
  * @author arayaroma
  */
 @Data
@@ -25,7 +24,7 @@ public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
     private String feedback;
     private EvaluatedDto evaluated;
     private Long version;
-    private List<Calification> califications;
+    private List<CalificationDto> califications;
 
     /**
      * @param entity update the entity with the dto
@@ -47,10 +46,7 @@ public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
     @Override
     public Evaluator convertFromDTOToEntity(EvaluatorDto dto, Evaluator entity) {
         entity.setEvaluated(new Evaluated(dto.getEvaluated()));
-        //entity.getEvaluated().setEvaluated(new User(dto.getEvaluated().getEvaluated()));
         entity.setEvaluator(new User(dto.getEvaluator()));
-//        entity.setEvaluator(new User(dto.getEvaluator()));
-        //  entity.setCalifications(EntityUtil.fromDtoList(dto.getCalifications(), Calification.class).getList());
         return entity;
     }
 }

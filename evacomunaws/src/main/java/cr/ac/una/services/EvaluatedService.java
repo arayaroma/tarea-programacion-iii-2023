@@ -16,8 +16,6 @@ public interface EvaluatedService {
 
     ResponseWrapper getEvaluatedById(Long id);
 
-    ResponseWrapper getEvaluatedByName(String name);
-
     ResponseWrapper getFinalNote(Long id);
 
     ResponseWrapper getAllEvaluated();

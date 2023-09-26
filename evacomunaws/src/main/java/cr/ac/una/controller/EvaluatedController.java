@@ -32,11 +32,6 @@ public class EvaluatedController {
         return evaluatedService.getEvaluatedById(id);
     }
 
-    @WebMethod(operationName = "getEvaluatedByName")
-    public ResponseWrapper getEvaluatedByName(String name) {
-        return evaluatedService.getEvaluatedByName(name);
-    }
-
     @WebMethod(operationName = "getFinalNote")
     public ResponseWrapper getFinalNote(Long id) {
         return evaluatedService.getFinalNote(id);
