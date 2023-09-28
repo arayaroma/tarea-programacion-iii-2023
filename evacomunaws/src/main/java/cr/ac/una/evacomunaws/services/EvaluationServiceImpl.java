@@ -3,19 +3,30 @@ package cr.ac.una.evacomunaws.services;
 import cr.ac.una.evacomunaws.dto.EvaluationDto;
 import cr.ac.una.evacomunaws.entities.Evaluation;
 import cr.ac.una.evacomunaws.util.EntityUtil;
+<<<<<<< HEAD
 import cr.ac.una.evacomunaws.util.ListWrapper;
+=======
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import cr.ac.una.evacomunaws.util.ResponseCode;
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+<<<<<<< HEAD
 import jakarta.persistence.Query;
 
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
+=======
+import cr.ac.una.evacomunaws.util.ListWrapper;
+import jakarta.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 
 /**
  *

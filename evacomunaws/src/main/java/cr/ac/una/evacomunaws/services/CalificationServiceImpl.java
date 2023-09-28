@@ -1,8 +1,11 @@
 package cr.ac.una.evacomunaws.services;
 
+<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
 
+=======
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import cr.ac.una.evacomunaws.dto.CalificationDto;
 import cr.ac.una.evacomunaws.entities.Calification;
 import cr.ac.una.evacomunaws.entities.Evaluator;
@@ -15,6 +18,11 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+<<<<<<< HEAD
+=======
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 
 /**
  *

@@ -2,7 +2,10 @@ package cr.ac.una.evacomunaws.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.entities.Evaluation;
 import cr.ac.una.evacomunaws.entities.User;

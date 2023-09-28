@@ -1,4 +1,5 @@
 package cr.ac.una.evacomunaws.entities;
+<<<<<<< HEAD
 
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_USER;
@@ -6,6 +7,11 @@ import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_USER;
 import java.io.Serializable;
 import java.util.List;
 
+=======
+
+import java.io.Serializable;
+import java.util.List;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import cr.ac.una.evacomunaws.dto.UserDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -28,6 +34,11 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.QueryHint;
+<<<<<<< HEAD
+=======
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_USER;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import jakarta.persistence.FetchType;
 
 /**

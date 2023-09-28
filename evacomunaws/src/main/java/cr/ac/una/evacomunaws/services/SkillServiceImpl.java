@@ -1,4 +1,5 @@
 package cr.ac.una.evacomunaws.services;
+<<<<<<< HEAD
 
 import cr.ac.una.evacomunaws.dto.CalificationDto;
 import cr.ac.una.evacomunaws.dto.CharacteristicDto;
@@ -15,6 +16,21 @@ import cr.ac.una.evacomunaws.util.ResponseWrapper;
 
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 
+=======
+
+import cr.ac.una.evacomunaws.dto.SkillDto;
+import cr.ac.una.evacomunaws.entities.Skill;
+import cr.ac.una.evacomunaws.dto.CalificationDto;
+import cr.ac.una.evacomunaws.dto.CharacteristicDto;
+import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
+import cr.ac.una.evacomunaws.dto.PositionDto;
+import cr.ac.una.evacomunaws.entities.Characteristic;
+import cr.ac.una.evacomunaws.util.DtoMapper;
+import cr.ac.una.evacomunaws.util.EntityUtil;
+import cr.ac.una.evacomunaws.util.ListWrapper;
+import cr.ac.una.evacomunaws.util.ResponseCode;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.ejb.LocalBean;
@@ -22,6 +38,10 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+<<<<<<< HEAD
+=======
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 
 /**
  *

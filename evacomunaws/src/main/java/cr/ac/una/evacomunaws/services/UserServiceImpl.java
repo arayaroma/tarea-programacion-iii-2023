@@ -1,6 +1,7 @@
 package cr.ac.una.evacomunaws.services;
 
 import cr.ac.una.evacomunaws.dto.UserDto;
+<<<<<<< HEAD
 import cr.ac.una.evacomunaws.entities.Position;
 import cr.ac.una.evacomunaws.entities.User;
 import cr.ac.una.evacomunaws.util.DtoMapper;
@@ -8,6 +9,12 @@ import cr.ac.una.evacomunaws.util.HashGenerator;
 import cr.ac.una.evacomunaws.util.ListWrapper;
 import cr.ac.una.evacomunaws.util.ResponseCode;
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
+=======
+import cr.ac.una.evacomunaws.entities.User;
+import cr.ac.una.evacomunaws.entities.Position;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.util.ResponseCode;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -17,10 +24,18 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
+<<<<<<< HEAD
 
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
 
+=======
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
+import cr.ac.una.evacomunaws.util.DtoMapper;
+import cr.ac.una.evacomunaws.util.HashGenerator;
+import cr.ac.una.evacomunaws.util.ListWrapper;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

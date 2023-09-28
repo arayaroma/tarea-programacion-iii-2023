@@ -1,4 +1,11 @@
 package cr.ac.una.evacomunaws.controller;
+<<<<<<< HEAD
+=======
+
+import cr.ac.una.evacomunaws.dto.CharacteristicDto;
+import cr.ac.una.evacomunaws.services.CharacteristicService;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 
 import cr.ac.una.evacomunaws.dto.CharacteristicDto;
 import cr.ac.una.evacomunaws.services.CharacteristicService;

@@ -2,7 +2,10 @@ package cr.ac.una.evacomunaws.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import cr.ac.una.evacomunaws.entities.Skill;
 import cr.ac.una.evacomunaws.util.DtoMapper;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,15 @@
 package cr.ac.una.evacomunaws.dto;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
 import cr.ac.una.evacomunaws.entities.Evaluated;
+=======
+import cr.ac.una.evacomunaws.entities.Evaluated;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import cr.ac.una.evacomunaws.entities.Evaluation;
 import cr.ac.una.evacomunaws.util.DtoMapper;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,13 @@
 package cr.ac.una.evacomunaws.entities;
+<<<<<<< HEAD
 
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_GENERAL_INFORMATION;
 
+=======
+
+import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 import java.io.Serializable;
 
 import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
@@ -23,6 +28,11 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+<<<<<<< HEAD
+=======
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_GENERAL_INFORMATION;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
 
 /**
  *
