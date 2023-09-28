@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -29,6 +31,15 @@ import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "FinalCalification.findAll", query = "SELECT c FROM FinalCalification c", hints = @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "FinalCalification.findById", query = "SELECT c FROM FinalCalification c WHERE c.id = :id", hints = {
+                @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "FinalCalification.findByFinalNote", query = "SELECT c FROM FinalCalification c WHERE c.finalNote = :finalNote", hints = {
+                @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "FinalCalification.findByAverage", query = "SELECT c FROM FinalCalification c WHERE c.average = :average", hints = {
+                @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true") })
+})
 public class FinalCalification implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
