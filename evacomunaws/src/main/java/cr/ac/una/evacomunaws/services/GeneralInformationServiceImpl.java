@@ -1,8 +1,21 @@
 package cr.ac.una.evacomunaws.services;
 
+<<<<<<< HEAD
 import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
 import cr.ac.una.evacomunaws.entities.GeneralInformation;
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+=======
+<<<<<<< HEAD
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+
+import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
+import cr.ac.una.evacomunaws.entities.GeneralInformation;
+=======
+import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
+import cr.ac.una.evacomunaws.entities.GeneralInformation;
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
+>>>>>>> master
 import cr.ac.una.evacomunaws.util.ResponseCode;
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;

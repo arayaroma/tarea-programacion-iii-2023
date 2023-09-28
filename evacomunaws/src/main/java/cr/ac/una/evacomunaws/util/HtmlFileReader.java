@@ -1,4 +1,8 @@
 package cr.ac.una.evacomunaws.util;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
 
 import static cr.ac.una.evacomunaws.util.PlaceHolders.BODY;
 import static cr.ac.una.evacomunaws.util.PlaceHolders.FOOTER;
@@ -6,6 +10,19 @@ import static cr.ac.una.evacomunaws.util.PlaceHolders.HEADER;
 import static cr.ac.una.evacomunaws.util.PlaceHolders.TEAM;
 import static cr.ac.una.evacomunaws.util.PlaceHolders.TITLE;
 import static cr.ac.una.evacomunaws.util.PlaceHolders.USER_NAME;
+<<<<<<< HEAD
+=======
+
+=======
+
+import static cr.ac.una.evacomunaws.util.PlaceHolders.BODY;
+import static cr.ac.una.evacomunaws.util.PlaceHolders.FOOTER;
+import static cr.ac.una.evacomunaws.util.PlaceHolders.HEADER;
+import static cr.ac.una.evacomunaws.util.PlaceHolders.TEAM;
+import static cr.ac.una.evacomunaws.util.PlaceHolders.TITLE;
+import static cr.ac.una.evacomunaws.util.PlaceHolders.USER_NAME;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
+>>>>>>> master
 import java.io.IOException;
 import java.io.InputStream;
 

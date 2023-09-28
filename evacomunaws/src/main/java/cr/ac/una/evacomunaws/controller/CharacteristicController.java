@@ -1,9 +1,21 @@
 package cr.ac.una.evacomunaws.controller;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
 
 import cr.ac.una.evacomunaws.dto.CharacteristicDto;
 import cr.ac.una.evacomunaws.services.CharacteristicService;
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
+<<<<<<< HEAD
+=======
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
+>>>>>>> master
 
+import cr.ac.una.evacomunaws.dto.CharacteristicDto;
+import cr.ac.una.evacomunaws.services.CharacteristicService;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.EJB;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

@@ -16,9 +16,24 @@ import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
+=======
+<<<<<<< HEAD
+
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
+
+import java.io.Serializable;
+
+=======
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
+import java.io.Serializable;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
+>>>>>>> master
 import cr.ac.una.evacomunaws.dto.CharacteristicDto;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;

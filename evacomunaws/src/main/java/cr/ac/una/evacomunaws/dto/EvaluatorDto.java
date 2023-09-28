@@ -1,9 +1,24 @@
 package cr.ac.una.evacomunaws.dto;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
 
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.entities.Evaluator;
 import cr.ac.una.evacomunaws.entities.User;
 import cr.ac.una.evacomunaws.util.DtoMapper;
+<<<<<<< HEAD
+=======
+
+=======
+
+import cr.ac.una.evacomunaws.entities.Evaluated;
+import cr.ac.una.evacomunaws.entities.Evaluator;
+import cr.ac.una.evacomunaws.entities.User;
+import cr.ac.una.evacomunaws.util.DtoMapper;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
+>>>>>>> master
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;

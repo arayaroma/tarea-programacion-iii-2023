@@ -11,7 +11,17 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+=======
+<<<<<<< HEAD
+
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+
+=======
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+>>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
+>>>>>>> master
 import java.util.ArrayList;
 import java.util.List;
 
