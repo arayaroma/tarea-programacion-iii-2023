@@ -21,27 +21,10 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_SKILL;
 import java.io.Serializable;
 import java.util.List;
-=======
-<<<<<<< HEAD
-
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_SKILL;
-
-import java.io.Serializable;
-import java.util.List;
-
-=======
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_SKILL;
-import java.io.Serializable;
-import java.util.List;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.dto.SkillDto;
 import jakarta.persistence.QueryHint;
 
@@ -55,16 +38,16 @@ import jakarta.persistence.QueryHint;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
-    @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
-    @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
-    @NamedQuery(name = "Skill.findByLikeName", query = "SELECT s FROM Skill s WHERE s.name like :name"),
-    @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
-    @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c WHERE c.skill.id = :id"),
-    @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
-    @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"),})
+        @NamedQuery(name = "Skill.findAll", query = "SELECT s FROM Skill s", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
+        @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Skill.findByLikeName", query = "SELECT s FROM Skill s WHERE s.name like :name"),
+        @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
+        @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c WHERE c.skill.id = :id"),
+        @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id"),
+        @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id"), })
 @NamedNativeQueries({
-    @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT * FROM TBL_SKILL", resultClass = Skill.class)
+        @NamedNativeQuery(name = "Skill.getSkillAndCharacteristics", query = "SELECT * FROM TBL_SKILL", resultClass = Skill.class)
 })
 public class Skill implements Serializable {
 

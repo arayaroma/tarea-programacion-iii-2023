@@ -6,27 +6,11 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATOR;
 import java.io.Serializable;
 import java.util.List;
-=======
-<<<<<<< HEAD
 
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATOR;
-
-import java.io.Serializable;
-import java.util.List;
-
-=======
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATOR;
-import java.io.Serializable;
-import java.util.List;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.dto.EvaluatorDto;
 
 /**
@@ -35,14 +19,14 @@ import cr.ac.una.evacomunaws.dto.EvaluatorDto;
  */
 @Entity
 @Table(name = "TBL_EVALUATOR", schema = SCHEMA)
-//@SecondaryTable(name = "TBL_USER", schema = SCHEMA)
+// @SecondaryTable(name = "TBL_USER", schema = SCHEMA)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
-    @NamedQuery(name = "Evaluator.findById", query = "SELECT e FROM Evaluator e WHERE e.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
-    @NamedQuery(name = "Evaluator.findByEvaluatedId", query = "SELECT e FROM Evaluator e WHERE e.evaluated.id = :evaluatedId", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Evaluator.findAll", query = "SELECT e FROM Evaluator e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Evaluator.findById", query = "SELECT e FROM Evaluator e WHERE e.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Evaluator.findByEvaluatedId", query = "SELECT e FROM Evaluator e WHERE e.evaluated.id = :evaluatedId", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
 })
 public class Evaluator implements Serializable {
 

@@ -1,37 +1,17 @@
 package cr.ac.una.evacomunaws.entities;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATION;
-=======
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATION;
-import java.util.List;
-=======
-<<<<<<< HEAD
-
-import java.util.List;
-
-=======
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATION;
-import java.util.List;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.dto.EvaluationDto;
 
 /**
@@ -44,9 +24,9 @@ import cr.ac.una.evacomunaws.dto.EvaluationDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
-    @NamedQuery(name = "Evaluation.findByName", query = "SELECT e FROM Evaluation e WHERE e.name = :name", hints = {
-        @QueryHint(name = "eclipselink.refresh", value = "true")})
+        @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Evaluation.findByName", query = "SELECT e FROM Evaluation e WHERE e.name = :name", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") })
 })
 
 public class Evaluation implements Serializable {

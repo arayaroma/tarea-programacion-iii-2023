@@ -1,23 +1,9 @@
 package cr.ac.una.evacomunaws.entities;
-<<<<<<< HEAD
 
 import java.io.Serializable;
 import java.util.List;
-=======
-<<<<<<< HEAD
-
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_POSITION;
-
-import java.io.Serializable;
-import java.util.List;
-
-=======
-
-import java.io.Serializable;
-import java.util.List;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.dto.PositionDto;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -40,16 +26,6 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_POSITION;
-=======
-<<<<<<< HEAD
-=======
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_POSITION;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 
 /**
  *

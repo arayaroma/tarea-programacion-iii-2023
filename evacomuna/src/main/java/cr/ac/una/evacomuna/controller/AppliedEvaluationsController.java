@@ -11,10 +11,12 @@ import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.components.PaneContainer;
 import cr.ac.una.evacomuna.dto.SkillDto;
+import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.services.EvaluatedService;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.EvaluatorService;
 import cr.ac.una.evacomuna.services.SkillService;
+import cr.ac.una.evacomuna.services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -57,12 +59,14 @@ public class AppliedEvaluationsController implements Initializable {
     private ComboBox<String> cbEvaluated;
 
     private SkillService skillService;
+    private UserService userService;
     private EvaluatedService evaluatedService;
     private EvaluationService evaluationService;
     private EvaluatorService evaluatorService;
 
     private List<SkillDto> skills;
 
+    private UserDto userDto;
     private EvaluatedDto evaluatedDto;
     private EvaluationDto evaluationDto;
     private EvaluatorDto evaluatorDto;
@@ -78,7 +82,7 @@ public class AppliedEvaluationsController implements Initializable {
         skills = new ArrayList<>();
         loadGridPaneSkills();
         addScrollPane(gp_table);
-        // loadChoiceBox();
+        loadChoiceBox();
         cleanLabels();
         // loadLabels();
     }
@@ -162,12 +166,11 @@ public class AppliedEvaluationsController implements Initializable {
 
     private void loadChoiceBox() {
         cbEvaluated.setPromptText("tremendo");
-        cbEvaluated.getItems().addAll(
-                getEvaluation(getEvaluated()).getName());
+        getEvaluator();
+
     }
 
     private void loadLabels() {
-        evaluatorDto = getEvaluator(getEvaluated());
         // evaluationDto = getEvaluation(evaluatedDto);
         String evaluatorName = evaluatorDto.getEvaluator().getName();
         System.out.println(evaluatorName);
@@ -178,25 +181,11 @@ public class AppliedEvaluationsController implements Initializable {
         // lb_evaluationApplicationDate.setText(evaluationDto.getApplicationDate());
     }
 
-    private EvaluatedDto getEvaluated() {
-        evaluatedDto = (EvaluatedDto) evaluatedService
-                .getEvaluatedById(Data.getUserLogged().getId()).getData();
-        System.out.println(evaluatedDto.toString());
+    private EvaluatedDto getEvaluator() {
+        ResponseWrapper response = userS
+        System.out.println(response.getMessage());
         return evaluatedDto;
     }
 
-    private EvaluationDto getEvaluation(EvaluatedDto evaluatedDto) {
-        evaluationDto = (EvaluationDto) evaluationService
-                .getEvaluationById(evaluatedDto.getEvaluation().getId()).getData();
-        System.out.println(evaluationDto.toString());
-        return evaluationDto;
-    }
-
-    private EvaluatorDto getEvaluator(EvaluatedDto evaluatedDto) {
-        evaluatorDto = (EvaluatorDto) evaluatorService
-                .getEvaluatorByEvaluatedId(evaluatedDto.getId()).getData();
-        System.out.println(evaluatorDto.toString());
-        return evaluatorDto;
-    }
 
 }

@@ -1,11 +1,7 @@
 package cr.ac.una.evacomunaws.services;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
-
 import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.entities.FinalCalification;
@@ -13,35 +9,11 @@ import cr.ac.una.evacomunaws.entities.Skill;
 import cr.ac.una.evacomunaws.util.DtoMapper;
 import cr.ac.una.evacomunaws.util.ListWrapper;
 import cr.ac.una.evacomunaws.util.ResponseCode;
-=======
->>>>>>> master
-import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
-import cr.ac.una.evacomunaws.entities.Evaluated;
-import cr.ac.una.evacomunaws.entities.Skill;
-import cr.ac.una.evacomunaws.util.DtoMapper;
-import cr.ac.una.evacomunaws.util.ListWrapper;
-<<<<<<< HEAD
-=======
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> master
-import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
-import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
-import cr.ac.una.evacomunaws.entities.FinalCalification;
-import cr.ac.una.evacomunaws.util.ResponseCode;
-<<<<<<< HEAD
-=======
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 
 /**
  * 

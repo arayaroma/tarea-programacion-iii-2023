@@ -1,48 +1,22 @@
 package cr.ac.una.evacomunaws.services;
 
-<<<<<<< HEAD
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.util.ResponseCode;
-=======
-<<<<<<< HEAD
 import cr.ac.una.evacomunaws.dto.EvaluatedDto;
-import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.util.DtoMapper;
 import cr.ac.una.evacomunaws.util.EntityUtil;
 import cr.ac.una.evacomunaws.util.ListWrapper;
-import cr.ac.una.evacomunaws.util.ResponseCode;
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
-=======
-import cr.ac.una.evacomunaws.entities.Evaluated;
-import cr.ac.una.evacomunaws.util.ResponseCode;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
-
-=======
->>>>>>> master
-import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
-import cr.ac.una.evacomunaws.dto.EvaluatedDto;
 import cr.ac.una.evacomunaws.dto.EvaluationDto;
 import cr.ac.una.evacomunaws.dto.EvaluatorDto;
 import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
 import cr.ac.una.evacomunaws.dto.UserDto;
-import cr.ac.una.evacomunaws.util.ResponseWrapper;
-import cr.ac.una.evacomunaws.util.ListWrapper;
-import cr.ac.una.evacomunaws.util.DtoMapper;
-import cr.ac.una.evacomunaws.util.EntityUtil;
-<<<<<<< HEAD
-=======
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,30 +105,12 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
             EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
             newEvaluatedDto.setEvaluators(
-<<<<<<< HEAD
                     DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
             newEvaluatedDto.setEvaluation(new EvaluationDto(evaluated.getEvaluation()));
             newEvaluatedDto.setFinalCalifications(DtoMapper
                     .fromEntityList(evaluated.getFinalCalifications(), FinalCalificationDto.class)
                     .getList());
             newEvaluatedDto.setEvaluated(new UserDto(evaluated.getEvaluated()));
-=======
-<<<<<<< HEAD
-                    DtoMapper.fromEntityList(evaluated.getEvaluators(), cr.ac.una.evacomunaws.dto.EvaluatorDto.class).getList());
-            newEvaluatedDto.setEvaluation(new cr.ac.una.evacomunaws.dto.EvaluationDto(evaluated.getEvaluation()));
-            newEvaluatedDto.setFinalCalifications(DtoMapper
-                    .fromEntityList(evaluated.getFinalCalifications(), cr.ac.una.evacomunaws.dto.FinalCalificationDto.class)
-                    .getList());
-            newEvaluatedDto.setEvaluated(new cr.ac.una.evacomunaws.dto.UserDto(evaluated.getEvaluated()));
-=======
-                    DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
-            newEvaluatedDto.setEvaluation(new EvaluationDto(evaluated.getEvaluation()));
-            newEvaluatedDto.setFinalCalifications(DtoMapper
-                    .fromEntityList(evaluated.getFinalCalifications(), FinalCalificationDto.class)
-                    .getList());
-            newEvaluatedDto.setEvaluated(new UserDto(evaluated.getEvaluated()));
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated retrieved successfully.",

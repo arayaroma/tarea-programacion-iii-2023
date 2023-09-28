@@ -15,24 +15,9 @@ import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_FINAL_CALIFICATION;
 import java.io.Serializable;
-=======
-<<<<<<< HEAD
-
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_FINAL_CALIFICATION;
-
-import java.io.Serializable;
-
-=======
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_FINAL_CALIFICATION;
-import java.io.Serializable;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
 
 /**
@@ -78,6 +63,7 @@ public class FinalCalification implements Serializable {
 
     /**
      * Constructor from a dto to entity
+     * 
      * @param finalCalificationDto dto to copy from
      */
     public FinalCalification(FinalCalificationDto finalCalificationDto) {

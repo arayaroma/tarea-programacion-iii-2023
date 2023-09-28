@@ -16,24 +16,9 @@ import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
 import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
-=======
-<<<<<<< HEAD
-
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
-
-import java.io.Serializable;
-
-=======
-import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
-import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
-import java.io.Serializable;
->>>>>>> 29c7236 ([FIXING] cr.ac.una.evacomunaws import to ALL CLASSES)
->>>>>>> master
 import cr.ac.una.evacomunaws.dto.CharacteristicDto;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -48,9 +33,9 @@ import jakarta.persistence.NamedQuery;
 @Data
 @Table(name = "TBL_CHARACTERISTIC", schema = SCHEMA)
 @NamedQueries({
-    @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),
-    @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name"),
-    @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c"),})
+        @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),
+        @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name"),
+        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c"), })
 public class Characteristic implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,8 +56,7 @@ public class Characteristic implements Serializable {
     @Version
     @Column(name = "VERSION")
     private Long version;
-    
-    
+
     @ManyToOne
     @JoinColumn(name = "SKILLID", referencedColumnName = "ID")
     Skill skill;
