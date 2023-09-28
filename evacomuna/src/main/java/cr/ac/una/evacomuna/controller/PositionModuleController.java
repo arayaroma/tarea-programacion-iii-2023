@@ -120,7 +120,7 @@ public class PositionModuleController implements Initializable {
         if (name != null) {
             SkillDto skillDto = (SkillDto) skillService.getSkillByName(name).getData();
             if (skillDto != null) {
-                listSkillsRegister.getItems().removeIf(t -> t.getId().equals(skillDto.getId()));
+                listSkillsRegister.getItems().removeIf(t -> t.getID().equals(skillDto.getID()));
                 listSkillsRegister.getItems().add(skillDto);
             }
         }
@@ -169,10 +169,13 @@ public class PositionModuleController implements Initializable {
                 }
                 role.setName(name);
                 role.setState(state);
-                role.getSkills().clear();
-                for (SkillDto i : listSkillsRegister.getItems()) {
-                    role.getSkills().add(i);
+                if (role.getSkills() != null) {
+                    role.getSkills().clear();
+                    for (SkillDto i : listSkillsRegister.getItems()) {
+                        role.getSkills().add(i);
+                    }
                 }
+
                 ResponseWrapper response = isEditingRole ? positionService.updatePosition(role)
                         : positionService.createPosition(role);
                 if (response.getCode() == ResponseCode.OK) {
