@@ -152,7 +152,9 @@ public class PositionService {
     public ResponseWrapper updatePosition(PositionDto position) {
         try {
             cr.ac.una.evacomunaws.controller.PositionDto positionDto = position.getDto();
+            
             positionDto = position.convertFromDTOToGenerated(position, positionDto);//ERROR AQUI. NO CONVIERTE LAS LISTAS
+            
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePosition(positionDto);
             positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(

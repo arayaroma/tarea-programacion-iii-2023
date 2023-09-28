@@ -4,6 +4,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class ListWrapper<D> {
     private List<D> list;
 
     public ListWrapper() {
+        list = new ArrayList<>();
     }
 
     public List<D> getList() {

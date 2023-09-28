@@ -1,11 +1,12 @@
 package cr.ac.una.evacomuna.dto;
 
+import cr.ac.una.evacomuna.util.CalificationCode;
 import cr.ac.una.evacomuna.util.DtoMapper;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
- * 
+ *
  * @author estebannajera
  * @author arayaroma
  */
@@ -13,7 +14,7 @@ public class CalificationDto extends Pane
         implements DtoMapper<cr.ac.una.evacomunaws.controller.CalificationDto, CalificationDto> {
 
     private Long id;
-    private Long calification;
+    private String calification;
     private SkillDto skill;
     private EvaluatorDto evaluator;
     private Long version;
@@ -54,8 +55,8 @@ public class CalificationDto extends Pane
 
     public CalificationDto(cr.ac.una.evacomunaws.controller.CalificationDto calificationDto) {
         this.id = calificationDto.getId();
-        this.calification = calificationDto.getCalification();
-        this.skill = new SkillDto();
+        this.calification = CalificationCode.parseCodeToString(calificationDto.getCalification());
+        this.skill = new SkillDto(calificationDto.getSkill());
         this.evaluator = new EvaluatorDto();
         this.version = calificationDto.getVersion();
     }
@@ -63,7 +64,7 @@ public class CalificationDto extends Pane
     public cr.ac.una.evacomunaws.controller.CalificationDto getDto() {
         cr.ac.una.evacomunaws.controller.CalificationDto dto = new cr.ac.una.evacomunaws.controller.CalificationDto();
         dto.setId(this.id);
-        dto.setCalification(this.calification);
+        dto.setCalification(CalificationCode.parseStringToCode(this.calification));
         dto.setSkill(this.skill.getDto());
         dto.setEvaluator(this.evaluator.getDto());
         dto.setVersion(this.version);
@@ -78,11 +79,11 @@ public class CalificationDto extends Pane
         this.id = id;
     }
 
-    public Long getCalification() {
-        return this.calification;
+    public String getCalification() {
+        return calification;
     }
 
-    public void setCalification(Long calification) {
+    public void setCalification(String calification) {
         this.calification = calification;
     }
 
@@ -136,16 +137,16 @@ public class CalificationDto extends Pane
 
     @Override
     public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", calification='" + getCalification() + "'" +
-                ", skill='" + getSkill() + "'" +
-                ", evaluator='" + getEvaluator() + "'" +
-                ", version='" + getVersion() + "'" +
-                ", x='" + getX() + "'" +
-                ", y='" + getY() + "'" +
-                ", data='" + getData() + "'" +
-                "}";
+        return "{"
+                + " id='" + getId() + "'"
+                + ", calification='" + getCalification() + "'"
+                + ", skill='" + getSkill() + "'"
+                + ", evaluator='" + getEvaluator() + "'"
+                + ", version='" + getVersion() + "'"
+                + ", x='" + getX() + "'"
+                + ", y='" + getY() + "'"
+                + ", data='" + getData() + "'"
+                + "}";
     }
 
 }

@@ -19,4 +19,36 @@ public enum CalificationCode {
         return code;
     }
 
+    public static Long parseStringToCode(String code) {
+        if (code == "Exceptional") {
+            return CalificationCode.EXCEPTIONAL.getCode();
+        }
+        if (code == "Expectations") {
+            return CalificationCode.EXPECTATIONS.getCode();
+        }
+        if (code == "Under Expectations") {
+            return CalificationCode.UNDER_EXPECTATIONS.getCode();
+        }
+        if (code == "Above Expectations") {
+            return CalificationCode.ABOVE_EXPECTATIONS.getCode();
+        }
+        return Long.valueOf(-1);
+    }
+
+    public static String parseCodeToString(Long code) {
+        if (code == CalificationCode.ABOVE_EXPECTATIONS.getCode()) {
+            return "Above Expectations";
+        }
+        if (code == CalificationCode.UNDER_EXPECTATIONS.getCode()) {
+            return "Under Expectations";
+        }
+        if (code == CalificationCode.EXPECTATIONS.getCode()) {
+            return "Expectations";
+        }
+        if (code == CalificationCode.EXCEPTIONAL.getCode()) {
+            return "Exceptional";
+        }
+        return "";
+    }
+
 }

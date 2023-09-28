@@ -67,7 +67,7 @@ public interface DtoMapper<G, D> {
 
     public static <T, D> T convertToGenerated(D dto, Class<T> generatedClass) {
         try {
-            Constructor<T> constructor = generatedClass.getConstructor(dto.getClass());
+            Constructor<T> constructor = generatedClass.getConstructor(dto.getClass());//No existe este constructor en las clases mapeadas
             T gen = constructor.newInstance(dto);
             return gen;
         } catch (Exception e) {
