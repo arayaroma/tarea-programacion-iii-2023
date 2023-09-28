@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     public ResponseWrapper activateUser(String hash) {
         try {
             User user;
-            Query query = em.createNamedQuery("user.findByActivationCode", User.class)
+            Query query = em.createNamedQuery("User.findByActivationCode", User.class)
                     .setParameter("activationCode", hash);
             user = (User) query.getSingleResult();
             System.out.println(user.getActivationCode());
@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
 
         try {
             User user;
-            user = em.createNamedQuery("user.findByEmail", User.class)
+            user = em.createNamedQuery("User.findByEmail", User.class)
                     .setParameter("email", email)
                     .getSingleResult();
             if (isUserNull(user)) {
@@ -220,7 +220,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            user = em.createNamedQuery("user.findById", User.class)
+            user = em.createNamedQuery("User.findById", User.class)
                     .setParameter("id", id)
                     .getSingleResult();
             if (isUserNull(user)) {
@@ -398,7 +398,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            Query query = em.createNamedQuery("user.findByIdentification", User.class);
+            Query query = em.createNamedQuery("User.findByIdentification", User.class);
             query.setParameter("identification", identification);
             List<User> results = query.getResultList();
             if (results.isEmpty()) {
@@ -447,7 +447,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            Query query = em.createNamedQuery("user.findByIdentification", User.class);
+            Query query = em.createNamedQuery("User.findByIdentification", User.class);
             query.setParameter("identification", identification);
             List<User> results = query.getResultList();
             if (results.isEmpty()) {
@@ -498,7 +498,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            Query query = em.createNamedQuery("user.findByUsername", User.class);
+            Query query = em.createNamedQuery("User.findByUsername", User.class);
             query.setParameter("username", username);
             List<User> results = query.getResultList();
             if (results.isEmpty()) {
@@ -554,7 +554,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            Query query = em.createNamedQuery("user.findByUsernameAndPassword", User.class);
+            Query query = em.createNamedQuery("User.findByUsernameAndPassword", User.class);
             query.setParameter("username", username);
             query.setParameter("password", password);
             List<User> results = query.getResultList();
@@ -603,7 +603,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             User user;
-            user = em.createNamedQuery("user.findById", User.class)
+            user = em.createNamedQuery("User.findById", User.class)
                     .setParameter("id", userDto.getId())
                     .getSingleResult();
             if (user == null) {
@@ -671,7 +671,7 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK,
                     "User retrieved successfully.",
                     DtoMapper.fromEntityList(
-                            em.createNamedQuery("user.findByName", User.class)
+                            em.createNamedQuery("User.findByName", User.class)
                                     .setParameter("name", "%" + name + "%")
                                     .getResultList(),
                             UserDto.class));
@@ -705,7 +705,7 @@ public class UserServiceImpl implements UserService {
                     ResponseCode.OK,
                     "Users retrieved successfully.",
                     DtoMapper.fromEntityList(
-                            em.createNamedQuery("user.findByPosition", User.class)
+                            em.createNamedQuery("User.findByPosition", User.class)
                                     .setParameter("position", "%" + position + "%")
                                     .getResultList(),
                             UserDto.class));
@@ -726,7 +726,7 @@ public class UserServiceImpl implements UserService {
     @SuppressWarnings("unchecked")
     public ResponseWrapper getUsers() {
         try {
-            Query query = em.createNamedQuery("user.findAll", User.class);
+            Query query = em.createNamedQuery("User.findAll", User.class);
             List<User> users = (List<User>) query.getResultList();
             List<UserDto> usersDto = new ArrayList<>();
 
