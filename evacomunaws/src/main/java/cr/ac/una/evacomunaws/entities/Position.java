@@ -37,12 +37,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
-        @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
-        @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
-        @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
-        @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
-        @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
+    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
+    @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
+    @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
+    @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
+    @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
+    @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
 })
 public class Position implements Serializable {
 
@@ -71,7 +71,7 @@ public class Position implements Serializable {
     private List<User> users;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITIONID"), inverseJoinColumns = @JoinColumn(name = "SKILLID"))
+    @JoinTable(name = "TBL_POSITION_SKILL", joinColumns = @JoinColumn(name = "POSITIONID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "SKILLID", referencedColumnName = "ID"))
     private List<Skill> skills;
 
     @Version

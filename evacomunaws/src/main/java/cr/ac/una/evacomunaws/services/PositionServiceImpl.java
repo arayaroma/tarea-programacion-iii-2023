@@ -25,19 +25,19 @@ import java.util.List;
 @Stateless
 @LocalBean
 public class PositionServiceImpl implements PositionService {
-
+    
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
 
     /**
-     * @param dto    EntityDto to copy to
+     * @param dto EntityDto to copy to
      * @param entity Entity to copy from
      * @return dto with the values from the entity
      */
     private PositionDto convertFromEntityToDTO(PositionDto dto, Position entity) {
         dto.setUsers(DtoMapper.fromEntityList(entity.getUsers(),
                 UserDto.class).getList());
-
+        
         dto.setSkills(
                 DtoMapper.fromEntityList(entity.getSkills(),
                         SkillDto.class).getList());
@@ -46,18 +46,18 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * @param entity Entity to copy to
-     * @param dto    EntityDto to copy from
+     * @param dto EntityDto to copy from
      * @return entity with the values from the dto
      */
     private Position convertFromDTOToEntity(Position entity, PositionDto dto) {
         entity.setUsers(DtoMapper.fromDtoList(dto.getUsers(),
                 User.class).getList());
-
+        
         entity.setSkills(DtoMapper.fromDtoList(dto.getSkills(),
                 Skill.class).getList());
         return entity;
     }
-
+    
     @Override
     public ResponseWrapper createPosition(PositionDto positionDto) {
         try {
@@ -114,7 +114,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     *         getUsersByPositionId
+     * getUsersByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -147,7 +147,7 @@ public class PositionServiceImpl implements PositionService {
     /**
      * @param id position id to be retrieved
      * @return ResponseWrapper with the response of the service call
-     *         getSkillsByPositionId
+     * getSkillsByPositionId
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -245,7 +245,7 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * @return ResponseWrapper with the response of the service call
-     *         deleteAllPositions
+     * deleteAllPositions
      */
     @Override
     public ResponseWrapper deleteAllPositions() {
@@ -265,7 +265,7 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper getPositions() {
@@ -287,7 +287,7 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper getPositionByName(String name) {
         try {
@@ -313,12 +313,12 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper updatePosition(PositionDto positionDto) {
         try {
             Position position = em.find(Position.class, positionDto.getId());
-
+            
             if (position == null) {
                 return new ResponseWrapper(
                         ResponseCode.NOT_FOUND.getCode(),
@@ -332,13 +332,15 @@ public class PositionServiceImpl implements PositionService {
             }
             position.updatePosition(positionDto);
             position = convertFromDTOToEntity(position, positionDto);
+            System.out.println("DtoSize: "+positionDto.getSkills().size());
+            System.out.println("Size: "+position.getSkills().size());
             em.merge(position);
             em.flush();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position updated successfully.",
-                    positionDto);
+                    positionDto.convertFromEntityToDTO(position, positionDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -347,5 +349,5 @@ public class PositionServiceImpl implements PositionService {
                     null);
         }
     }
-
+    
 }

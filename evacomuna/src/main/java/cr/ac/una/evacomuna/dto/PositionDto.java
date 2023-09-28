@@ -6,7 +6,7 @@ import java.util.List;
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
- * 
+ *
  * @author estebannajera
  * @author arayaroma
  */
@@ -23,6 +23,12 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated, PositionDto dto) {
         dto.setUsers(DtoMapper.fromGeneratedList(generated.getUsers(), UserDto.class).getList());
         dto.setSkills(DtoMapper.fromGeneratedList(generated.getSkills(), SkillDto.class).getList());
+        if (dto.getSkills() == null) {
+            dto.setSkills(new ArrayList<SkillDto>());
+        }
+        if (dto.getUsers() == null) {
+            dto.setUsers(new ArrayList<UserDto>());
+        }
         return dto;
     }
 
@@ -55,12 +61,20 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     }
 
     public cr.ac.una.evacomunaws.controller.PositionDto getDto() {
-        cr.ac.una.evacomunaws.controller.PositionDto dto = new cr.ac.una.evacomunaws.controller.PositionDto();
-        dto.setName(this.name);
-        dto.setState(this.state);
-        dto.setId(this.id);
-        dto.setVersion(this.version);
-        return dto;
+        try {
+            cr.ac.una.evacomunaws.controller.PositionDto dto = new cr.ac.una.evacomunaws.controller.PositionDto();
+            dto.setName(this.name);
+            dto.setState(this.state);
+            dto.setId(this.id);
+            dto.setVersion(this.version);
+            //dto.getSkills();
+            //skills.forEach(t->dto.getSkills().add(DtoMapper.convertToGenerated(t, cr.ac.una.evacomunaws.controller.SkillDto.class)));
+            //dto.getSkills().addAll(DtoMapper.fromDtoList(this.skills, SkillDto.class).getList());
+            return dto;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
     public Long getId() {
@@ -113,14 +127,14 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
 
     @Override
     public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", state='" + getState() + "'" +
-                ", version='" + getVersion() + "'" +
-                ", users='" + getUsers() + "'" +
-                ", skills='" + getSkills() + "'" +
-                "}";
+        return "{"
+                + " id='" + getId() + "'"
+                + ", name='" + getName() + "'"
+                + ", state='" + getState() + "'"
+                + ", version='" + getVersion() + "'"
+                + ", users='" + getUsers() + "'"
+                + ", skills='" + getSkills() + "'"
+                + "}";
     }
 
 }

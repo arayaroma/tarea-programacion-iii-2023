@@ -5,10 +5,11 @@ import java.util.List;
 import cr.ac.una.evacomunaws.entities.Position;
 import cr.ac.una.evacomunaws.entities.Skill;
 import cr.ac.una.evacomunaws.entities.User;
-import cr.ac.una.evacomunaws.util.DtoMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import cr.ac.una.evacomunaws.util.DtoMapper;
 
 /**
  * 
@@ -68,4 +69,7 @@ public class PositionDto implements DtoMapper<Position, PositionDto> {
         this.users = new ArrayList<>();
         this.skills = new ArrayList<>();
     }
+//    public void setSkills(List<Skill> skills){
+//        this.skills = DtoMapper.fromEntityList(skills, SkillDto.class).getList();
+//    }
 }

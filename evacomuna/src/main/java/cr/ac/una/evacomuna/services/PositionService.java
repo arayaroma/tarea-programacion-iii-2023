@@ -30,7 +30,7 @@ public class PositionService {
 
     /**
      * Creates a new position
-     * 
+     *
      * @param position to create
      * @return ResponseWrapper with the response of the request
      */
@@ -54,7 +54,7 @@ public class PositionService {
 
     /**
      * Get all positions
-     * 
+     *
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper getPositions() {
@@ -90,7 +90,7 @@ public class PositionService {
 
     /**
      * Get position by name
-     * 
+     *
      * @param name of the position
      * @return ResponseWrapper with the response of the request
      */
@@ -114,19 +114,26 @@ public class PositionService {
 
     /**
      * Get position by id
-     * 
+     *
      * @param id of the position
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper updatePositionById(Long id) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePositionById(id);
-            cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Position found successfully",
+                        new PositionDto(position));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Position found successfully",
-                    new PositionDto(position));
+                    "Error updating position: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -138,19 +145,21 @@ public class PositionService {
 
     /**
      * Update a position
-     * 
+     *
      * @param position to update
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper updatePosition(PositionDto position) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePosition(position.getDto());
-            cr.ac.una.evacomunaws.controller.PositionDto positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.PositionDto positionDto = position.getDto();
+            positionDto = position.convertFromDTOToGenerated(position, positionDto);//ERROR AQUI. NO CONVIERTE LAS LISTAS
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePosition(positionDto);
+            positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position updated successfully",
-                    new PositionDto(positionDto));
+                    position.convertFromGeneratedToDTO(positionDto, position));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -162,7 +171,7 @@ public class PositionService {
 
     /**
      * Delete a position by id
-     * 
+     *
      * @param id of the position
      * @return ResponseWrapper with the response of the request
      */
