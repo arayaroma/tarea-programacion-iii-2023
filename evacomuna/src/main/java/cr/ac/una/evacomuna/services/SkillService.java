@@ -31,31 +31,38 @@ public class SkillService {
 
     /**
      * Create a skill
-     * 
+     *
      * @param skillDto skill to create
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper createSkill(SkillDto skillDto) {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
-            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            if (response.getCode() == cr.ac.una.controller.ResponseCode.OK) {
+                cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Skill created successfully",
+                        new SkillDto(skill));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Skill created successfully",
-                    new SkillDto(skill));
+                    "Error creating skill: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error creating skill",
+                    "Error creating skill: " + e.getMessage(),
                     null);
         }
     }
 
     /**
      * Get a skill by name
-     * 
+     *
      * @param name of the skill
      * @return ResponseWrapper with the response of the request
      */
@@ -79,7 +86,7 @@ public class SkillService {
 
     /**
      * Get a skill by like name
-     * 
+     *
      * @param name of the skill
      * @return ResponseWrapper with the response of the request
      */
@@ -103,7 +110,7 @@ public class SkillService {
 
     /**
      * Get all skills
-     * 
+     *
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper getSkills() {
@@ -137,7 +144,7 @@ public class SkillService {
 
     /**
      * Update a skill
-     * 
+     *
      * @param skillDto skill to update
      * @return ResponseWrapper with the response of the request
      */
@@ -161,7 +168,7 @@ public class SkillService {
 
     /**
      * Delete a skill by id
-     * 
+     *
      * @param Id of the skill
      * @return ResponseWrapper with the response of the request
      */

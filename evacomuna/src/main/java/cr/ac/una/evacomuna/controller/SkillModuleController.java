@@ -114,8 +114,10 @@ public class SkillModuleController implements Initializable {
             skillBufferMainView = (SkillDto) skillService.getSkillByName(nameSkill).getData();
             if (skillBufferMainView != null) {
                 listCharacteristicsMainSkillView.getItems().clear();
-                skillBufferMainView.getCharacteristics()
-                        .forEach(t -> listCharacteristicsMainSkillView.getItems().add(t));
+                if (skillBufferMainView.getCharacteristics() != null) {
+                    skillBufferMainView.getCharacteristics()
+                            .forEach(t -> listCharacteristicsMainSkillView.getItems().add(t));
+                }
             }
         }
     }
@@ -220,12 +222,13 @@ public class SkillModuleController implements Initializable {
 
     private void initializeSkillsRegisterView() {
         cbStateSkillRegisterView.getItems().addAll("ACTIVE", "INACTIVE");
-        if (skillBufferMainView != null && skillBufferMainView.getCharacteristics() != null) {
+        if (skillBufferMainView != null) {
             txfSkillNameRegister.setText(skillBufferMainView.getName());
             cbStateSkillRegisterView.setValue(skillBufferMainView.getState());
-            skillBufferMainView.getCharacteristics()
-                    .forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
-
+            if (skillBufferMainView.getCharacteristics() != null) {
+                skillBufferMainView.getCharacteristics()
+                        .forEach(t -> listCharacteristicsRegisterSkillView.getItems().add(t));
+            }
         }
     }
 

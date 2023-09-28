@@ -60,7 +60,8 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.Ski
         this.positions = new ArrayList<>();
         this.califications = new ArrayList<>();
         this.finalCalifications = new ArrayList<>();
-        this.characteristics = new ArrayList<>();
+        //this.characteristics = new ArrayList<>();
+        this.characteristics = DtoMapper.fromGeneratedList(skillDto.getCharacteristics(), CharacteristicDto.class).getList();
     }
 
     public cr.ac.una.controller.SkillDto getDto() {
