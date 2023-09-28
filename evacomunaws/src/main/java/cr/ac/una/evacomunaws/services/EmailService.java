@@ -1,11 +1,11 @@
-package cr.ac.una.services;
+package cr.ac.una.evacomunaws.services;
 
 import java.io.IOException;
 
-import cr.ac.una.dto.UserDto;
-import cr.ac.una.util.Constants;
-import cr.ac.una.util.HtmlFileReader;
-import cr.ac.una.util.LinkGenerator;
+import cr.ac.una.evacomunaws.dto.UserDto;
+import cr.ac.una.evacomunaws.util.Constants;
+import cr.ac.una.evacomunaws.util.HtmlFileReader;
+import cr.ac.una.evacomunaws.util.LinkGenerator;
 import jakarta.annotation.Resource;
 import jakarta.ejb.Stateless;
 import jakarta.mail.Message;

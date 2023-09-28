@@ -1,7 +1,7 @@
-package cr.ac.una.dto;
+package cr.ac.una.evacomunaws.dto;
 
-import cr.ac.una.entities.Characteristic;
-import cr.ac.una.util.DtoMapper;
+import cr.ac.una.evacomunaws.entities.Characteristic;
+import cr.ac.una.evacomunaws.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

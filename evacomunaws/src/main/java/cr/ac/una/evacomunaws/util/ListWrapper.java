@@ -1,5 +1,5 @@
 
-package cr.ac.una.util;
+package cr.ac.una.evacomunaws.util;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

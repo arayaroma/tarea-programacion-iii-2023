@@ -1,21 +1,19 @@
-package cr.ac.una.services;
+package cr.ac.una.evacomunaws.services;
 
-import cr.ac.una.dto.EvaluationDto;
-import cr.ac.una.entities.Evaluation;
-import cr.ac.una.util.EntityUtil;
-import cr.ac.una.util.ResponseCode;
-import cr.ac.una.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.dto.EvaluationDto;
+import cr.ac.una.evacomunaws.entities.Evaluation;
+import cr.ac.una.evacomunaws.util.EntityUtil;
+import cr.ac.una.evacomunaws.util.ResponseCode;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import cr.ac.una.util.ListWrapper;
+import cr.ac.una.evacomunaws.util.ListWrapper;
 import jakarta.persistence.Query;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 
 /**
  *

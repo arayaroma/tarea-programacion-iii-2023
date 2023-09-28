@@ -1,7 +1,7 @@
-package cr.ac.una.services;
+package cr.ac.una.evacomunaws.services;
 
-import cr.ac.una.dto.GeneralInformationDto;
-import cr.ac.una.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.Local;
 
 /**

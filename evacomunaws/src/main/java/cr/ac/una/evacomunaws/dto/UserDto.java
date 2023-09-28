@@ -1,11 +1,11 @@
-package cr.ac.una.dto;
+package cr.ac.una.evacomunaws.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import cr.ac.una.entities.Position;
-import cr.ac.una.entities.Skill;
-import cr.ac.una.entities.User;
-import cr.ac.una.util.DtoMapper;
+import cr.ac.una.evacomunaws.entities.Position;
+import cr.ac.una.evacomunaws.entities.Skill;
+import cr.ac.una.evacomunaws.entities.User;
+import cr.ac.una.evacomunaws.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

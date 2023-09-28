@@ -1,4 +1,4 @@
-package cr.ac.una.entities;
+package cr.ac.una.evacomunaws.entities;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,10 +16,10 @@ import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static cr.ac.una.util.Constants.SCHEMA;
-import static cr.ac.una.util.DatabaseSequences.SEQ_CHARACTERISTIC;
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CHARACTERISTIC;
 import java.io.Serializable;
-import cr.ac.una.dto.CharacteristicDto;
+import cr.ac.una.evacomunaws.dto.CharacteristicDto;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 

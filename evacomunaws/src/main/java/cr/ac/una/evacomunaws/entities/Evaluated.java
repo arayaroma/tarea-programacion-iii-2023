@@ -1,15 +1,15 @@
-package cr.ac.una.entities;
+package cr.ac.una.evacomunaws.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static cr.ac.una.util.Constants.SCHEMA;
-import static cr.ac.una.util.DatabaseSequences.SEQ_EVALUATED;
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_EVALUATED;
 import java.io.Serializable;
 import java.util.List;
-import cr.ac.una.dto.EvaluatedDto;
+import cr.ac.una.evacomunaws.dto.EvaluatedDto;
 
 /**
  *

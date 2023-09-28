@@ -1,6 +1,6 @@
-package cr.ac.una.entities;
+package cr.ac.una.evacomunaws.entities;
 
-import cr.ac.una.dto.GeneralInformationDto;
+import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
 import java.io.Serializable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -19,8 +19,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static cr.ac.una.util.Constants.SCHEMA;
-import static cr.ac.una.util.DatabaseSequences.SEQ_GENERAL_INFORMATION;
+import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
+import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_GENERAL_INFORMATION;
 
 /**
  *

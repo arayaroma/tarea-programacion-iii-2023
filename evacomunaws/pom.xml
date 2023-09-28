@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cr.ac.una</groupId>
-    <artifactId>evacomuna</artifactId>
+    <artifactId>evacomunaws</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
     <name>evacomunaws</name>
@@ -92,7 +92,7 @@
                 <version>3.1.2</version>
                 <configuration>
                     <includes>
-                        <include>cr/ac/una/controller/UserControllerTest.java</include>
+                        <include>cr/ac/una/evacomunaws/controller/UserControllerTest.java</include>
                     </includes>
                 </configuration>
             </plugin>

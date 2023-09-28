@@ -1,9 +1,9 @@
-package cr.ac.una.dto;
+package cr.ac.una.evacomunaws.dto;
 
-import cr.ac.una.entities.Evaluated;
-import cr.ac.una.entities.FinalCalification;
-import cr.ac.una.entities.Skill;
-import cr.ac.una.util.DtoMapper;
+import cr.ac.una.evacomunaws.entities.Evaluated;
+import cr.ac.una.evacomunaws.entities.FinalCalification;
+import cr.ac.una.evacomunaws.entities.Skill;
+import cr.ac.una.evacomunaws.util.DtoMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

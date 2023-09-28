@@ -1,17 +1,21 @@
-package cr.ac.una.services;
+package cr.ac.una.evacomunaws.services;
 
-import cr.ac.una.entities.Evaluated;
-import cr.ac.una.util.ResponseCode;
+import cr.ac.una.evacomunaws.entities.Evaluated;
+import cr.ac.una.evacomunaws.util.ResponseCode;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
-import cr.ac.una.dto.EvaluatedDto;
-import cr.ac.una.util.ResponseWrapper;
-import cr.ac.una.util.ListWrapper;
-import cr.ac.una.util.DtoMapper;
-import cr.ac.una.util.EntityUtil;
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+import cr.ac.una.evacomunaws.dto.EvaluatedDto;
+import cr.ac.una.evacomunaws.dto.EvaluationDto;
+import cr.ac.una.evacomunaws.dto.EvaluatorDto;
+import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
+import cr.ac.una.evacomunaws.dto.UserDto;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.util.ListWrapper;
+import cr.ac.una.evacomunaws.util.DtoMapper;
+import cr.ac.una.evacomunaws.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,12 +104,12 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
             EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
             newEvaluatedDto.setEvaluators(
-                    DtoMapper.fromEntityList(evaluated.getEvaluators(), cr.ac.una.dto.EvaluatorDto.class).getList());
-            newEvaluatedDto.setEvaluation(new cr.ac.una.dto.EvaluationDto(evaluated.getEvaluation()));
+                    DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
+            newEvaluatedDto.setEvaluation(new EvaluationDto(evaluated.getEvaluation()));
             newEvaluatedDto.setFinalCalifications(DtoMapper
-                    .fromEntityList(evaluated.getFinalCalifications(), cr.ac.una.dto.FinalCalificationDto.class)
+                    .fromEntityList(evaluated.getFinalCalifications(), FinalCalificationDto.class)
                     .getList());
-            newEvaluatedDto.setEvaluated(new cr.ac.una.dto.UserDto(evaluated.getEvaluated()));
+            newEvaluatedDto.setEvaluated(new UserDto(evaluated.getEvaluated()));
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated retrieved successfully.",

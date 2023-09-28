@@ -1,8 +1,8 @@
-package cr.ac.una.controller;
+package cr.ac.una.evacomunaws.controller;
 
-import cr.ac.una.dto.EvaluationDto;
-import cr.ac.una.services.EvaluationService;
-import cr.ac.una.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.dto.EvaluationDto;
+import cr.ac.una.evacomunaws.services.EvaluationService;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.EJB;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

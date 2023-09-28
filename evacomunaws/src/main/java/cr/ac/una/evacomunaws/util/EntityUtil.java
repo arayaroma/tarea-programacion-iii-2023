@@ -1,4 +1,4 @@
-package cr.ac.una.util;
+package cr.ac.una.evacomunaws.util;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

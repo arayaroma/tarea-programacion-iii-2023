@@ -1,4 +1,4 @@
-package cr.ac.una.util;
+package cr.ac.una.evacomunaws.util;
 
 import java.io.Serializable;
 import jakarta.xml.bind.annotation.XmlSeeAlso;

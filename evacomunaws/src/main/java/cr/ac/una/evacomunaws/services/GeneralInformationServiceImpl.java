@@ -1,10 +1,10 @@
-package cr.ac.una.services;
+package cr.ac.una.evacomunaws.services;
 
-import cr.ac.una.dto.GeneralInformationDto;
-import cr.ac.una.entities.GeneralInformation;
-import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
-import cr.ac.una.util.ResponseCode;
-import cr.ac.una.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.dto.GeneralInformationDto;
+import cr.ac.una.evacomunaws.entities.GeneralInformation;
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+import cr.ac.una.evacomunaws.util.ResponseCode;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;

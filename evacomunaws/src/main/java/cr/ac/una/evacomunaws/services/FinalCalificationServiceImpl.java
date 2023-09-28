@@ -1,19 +1,19 @@
-package cr.ac.una.services;
+package cr.ac.una.evacomunaws.services;
 
-import cr.ac.una.dto.FinalCalificationDto;
-import cr.ac.una.entities.Evaluated;
-import cr.ac.una.entities.Skill;
-import cr.ac.una.util.DtoMapper;
-import cr.ac.una.util.ListWrapper;
-import cr.ac.una.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
+import cr.ac.una.evacomunaws.entities.Evaluated;
+import cr.ac.una.evacomunaws.entities.Skill;
+import cr.ac.una.evacomunaws.util.DtoMapper;
+import cr.ac.una.evacomunaws.util.ListWrapper;
+import cr.ac.una.evacomunaws.util.ResponseWrapper;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import static cr.ac.una.util.Constants.PERSISTENCE_UNIT_NAME;
-import static cr.ac.una.util.EntityUtil.verifyEntity;
-import cr.ac.una.entities.FinalCalification;
-import cr.ac.una.util.ResponseCode;
+import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
+import static cr.ac.una.evacomunaws.util.EntityUtil.verifyEntity;
+import cr.ac.una.evacomunaws.entities.FinalCalification;
+import cr.ac.una.evacomunaws.util.ResponseCode;
 
 /**
  * 
