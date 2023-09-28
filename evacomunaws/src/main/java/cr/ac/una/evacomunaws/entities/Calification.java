@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -31,6 +32,11 @@ import cr.ac.una.evacomunaws.dto.CalificationDto;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
+        @NamedQuery(name = "Calification.findAll", query = "SELECT c FROM Calification c", hints = @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Calification.findById", query = "SELECT c FROM Calification c WHERE c.id = :id", hints = {
+                @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Calification.findByCalification", query = "SELECT c FROM Calification c WHERE c.calification = :calification", hints = {
+                @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true") })
 })
 public class Calification implements Serializable {
     private static final long serialVersionUID = 1L;
