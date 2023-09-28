@@ -10,7 +10,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author estebannajera
  * @author arayaroma
  */
-public class EvaluatorDto implements DtoMapper<cr.ac.una.controller.EvaluatorDto, EvaluatorDto> {
+public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.EvaluatorDto, EvaluatorDto> {
 
     private Long id;
     private UserDto evaluator;
@@ -21,15 +21,15 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.controller.EvaluatorDto
     private List<CalificationDto> califications;
 
     @Override
-    public EvaluatorDto convertFromGeneratedToDTO(cr.ac.una.controller.EvaluatorDto generated, EvaluatorDto dto) {
+    public EvaluatorDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatorDto generated, EvaluatorDto dto) {
         dto.setEvaluator(new UserDto(generated.getEvaluator()));
         dto.setEvaluated(new EvaluatedDto(generated.getEvaluated()));
         return dto;
     }
 
     @Override
-    public cr.ac.una.controller.EvaluatorDto convertFromDTOToGenerated(EvaluatorDto dto,
-            cr.ac.una.controller.EvaluatorDto generated) {
+    public cr.ac.una.evacomunaws.controller.EvaluatorDto convertFromDTOToGenerated(EvaluatorDto dto,
+            cr.ac.una.evacomunaws.controller.EvaluatorDto generated) {
         generated.setEvaluator(dto.getEvaluator().getDto());
         generated.setEvaluated(dto.getEvaluated().getDto());
         return generated;
@@ -42,7 +42,7 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.controller.EvaluatorDto
         this.evaluator = evaluator;
     }
 
-    public EvaluatorDto(cr.ac.una.controller.EvaluatorDto evaluatorDto) {
+    public EvaluatorDto(cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto) {
         this.id = evaluatorDto.getId();
         this.evaluator = new UserDto();
         this.role = evaluatorDto.getRole();
@@ -52,16 +52,16 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.controller.EvaluatorDto
         this.califications = new ArrayList<>();
     }
 
-    public EvaluatorDto(cr.ac.una.controller.UserDto t) {
+    public EvaluatorDto(cr.ac.una.evacomunaws.controller.UserDto t) {
     }
 
-    public cr.ac.una.controller.EvaluatorDto getDto() {
-        cr.ac.una.controller.EvaluatorDto evaluatorDto = new cr.ac.una.controller.EvaluatorDto();
+    public cr.ac.una.evacomunaws.controller.EvaluatorDto getDto() {
+        cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto = new cr.ac.una.evacomunaws.controller.EvaluatorDto();
         evaluatorDto.setId(id);
-        evaluatorDto.setEvaluator(new cr.ac.una.controller.UserDto());
+        evaluatorDto.setEvaluator(new cr.ac.una.evacomunaws.controller.UserDto());
         evaluatorDto.setRole(role);
         evaluatorDto.setFeedback(feedback);
-        evaluatorDto.setEvaluated(new cr.ac.una.controller.EvaluatedDto());
+        evaluatorDto.setEvaluated(new cr.ac.una.evacomunaws.controller.EvaluatedDto());
         evaluatorDto.setVersion(version);
         return evaluatorDto;
     }

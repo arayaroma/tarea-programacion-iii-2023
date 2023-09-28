@@ -3,8 +3,8 @@ package cr.ac.una.evacomuna.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import cr.ac.una.controller.EvaluatorController;
-import cr.ac.una.controller.EvaluatorController_Service;
+import cr.ac.una.evacomunaws.controller.EvaluatorController;
+import cr.ac.una.evacomunaws.controller.EvaluatorController_Service;
 import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
@@ -38,8 +38,8 @@ public class EvaluatorService {
      */
     public ResponseWrapper createEvaluator(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createEvaluator(evaluatorDto.getDto());
-            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluator(evaluatorDto.getDto());
+            cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -62,8 +62,8 @@ public class EvaluatorService {
      */
     public ResponseWrapper getEvaluatorById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getEvaluatorById(id);
-            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getEvaluatorById(id);
+            cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -86,8 +86,8 @@ public class EvaluatorService {
      */
     public ResponseWrapper getEvaluatorByEvaluatedId(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getEvaluatorByEvaluatedId(id);
-            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getEvaluatorByEvaluatedId(id);
+            cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -110,15 +110,15 @@ public class EvaluatorService {
      */
     public ResponseWrapper getAllEvaluator() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getAllEvaluator();
-            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
-            List<cr.ac.una.controller.EvaluatorDto> listGenerated = new ArrayList<>();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getAllEvaluator();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            List<cr.ac.una.evacomunaws.controller.EvaluatorDto> listGenerated = new ArrayList<>();
             List<EvaluatorDto> listDto = listWrapper
                     .getElement()
                     .stream()
-                    .filter(i -> i instanceof cr.ac.una.controller.EvaluatorDto)
+                    .filter(i -> i instanceof cr.ac.una.evacomunaws.controller.EvaluatorDto)
                     .map(i -> {
-                        cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) i;
+                        cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) i;
                         listGenerated.add(evaluator);
                         EvaluatorDto evaluatorDto = new EvaluatorDto(evaluator);
                         return evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto);
@@ -146,8 +146,8 @@ public class EvaluatorService {
      */
     public ResponseWrapper updateEvaluator(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateEvaluator(evaluatorDto.getDto());
-            cr.ac.una.controller.EvaluatorDto evaluator = (cr.ac.una.controller.EvaluatorDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluator(evaluatorDto.getDto());
+            cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -173,7 +173,7 @@ public class EvaluatorService {
             for (CalificationDto i : evaluatorDto.getCalifications()) {
                 calificationService.deleteCalificationById(i.getID());
             }
-            cr.ac.una.controller.ResponseWrapper response = port.deleteEvaluatorById(evaluatorDto.getId());
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteEvaluatorById(evaluatorDto.getId());
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

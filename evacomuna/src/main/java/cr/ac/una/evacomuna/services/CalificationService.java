@@ -2,8 +2,8 @@ package cr.ac.una.evacomuna.services;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import cr.ac.una.controller.CalificationController;
-import cr.ac.una.controller.CalificationController_Service;
+import cr.ac.una.evacomunaws.controller.CalificationController;
+import cr.ac.una.evacomunaws.controller.CalificationController_Service;
 import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
@@ -32,8 +32,8 @@ public class CalificationService {
      */
     public ResponseWrapper createCalification(CalificationDto calificationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createCalification(calificationDto.getDto());
-            cr.ac.una.controller.CalificationDto calification = (cr.ac.una.controller.CalificationDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createCalification(calificationDto.getDto());
+            cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
@@ -57,8 +57,8 @@ public class CalificationService {
      */
     public ResponseWrapper getCalificationById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getCalificationById(id);
-            cr.ac.una.controller.CalificationDto calification = (cr.ac.una.controller.CalificationDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCalificationById(id);
+            cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
@@ -82,8 +82,8 @@ public class CalificationService {
      */
     public ResponseWrapper getCalificationNoteById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getCalificationNote(id);
-            cr.ac.una.controller.CalificationDto calification = (cr.ac.una.controller.CalificationDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCalificationNote(id);
+            cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
@@ -106,15 +106,15 @@ public class CalificationService {
      */
     public ResponseWrapper getAllCalification() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getAllCalification();
-            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
-            java.util.List<cr.ac.una.controller.CalificationDto> listGenerated = new ArrayList<>();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getAllCalification();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            java.util.List<cr.ac.una.evacomunaws.controller.CalificationDto> listGenerated = new ArrayList<>();
             java.util.List<CalificationDto> listDto = listWrapper
                     .getElement()
                     .stream()
-                    .filter(i -> i instanceof cr.ac.una.controller.CalificationDto)
+                    .filter(i -> i instanceof cr.ac.una.evacomunaws.controller.CalificationDto)
                     .map(i -> {
-                        cr.ac.una.controller.CalificationDto calificationDto = (cr.ac.una.controller.CalificationDto) i;
+                        cr.ac.una.evacomunaws.controller.CalificationDto calificationDto = (cr.ac.una.evacomunaws.controller.CalificationDto) i;
                         listGenerated.add(calificationDto);
                         CalificationDto calificationDtoClient = new CalificationDto(calificationDto);
                         return calificationDtoClient.convertFromGeneratedToDTO(calificationDto, calificationDtoClient);
@@ -143,8 +143,8 @@ public class CalificationService {
      */
     public ResponseWrapper updateCalification(CalificationDto calificationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateCalification(calificationDto.getDto());
-            cr.ac.una.controller.CalificationDto calification = (cr.ac.una.controller.CalificationDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateCalification(calificationDto.getDto());
+            cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
             calificationDto = new CalificationDto(calification);
             return new ResponseWrapper(
@@ -169,7 +169,7 @@ public class CalificationService {
      */
     public ResponseWrapper deleteCalificationById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deleteCalificationById(id);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteCalificationById(id);
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
                     cr.ac.una.evacomuna.util.ResponseCode.OK,

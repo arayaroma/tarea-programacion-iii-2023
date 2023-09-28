@@ -2,7 +2,6 @@ package cr.ac.una.evacomuna.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.evacomuna.util.DtoMapper;
 import javafx.scene.layout.Pane;
 
@@ -11,7 +10,7 @@ import javafx.scene.layout.Pane;
  * @author estebannajera
  * @author arayaroma
  */
-public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.SkillDto, SkillDto> {
+public class SkillDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.controller.SkillDto, SkillDto> {
 
     private Long id;
     private String name;
@@ -23,7 +22,7 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.Ski
     private List<CharacteristicDto> characteristics;
 
     @Override
-    public SkillDto convertFromGeneratedToDTO(cr.ac.una.controller.SkillDto generated, SkillDto dto) {
+    public SkillDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.SkillDto generated, SkillDto dto) {
         /**
          * TODO: Califications and FinalCalifications lists
          */
@@ -31,8 +30,8 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.Ski
     }
 
     @Override
-    public cr.ac.una.controller.SkillDto convertFromDTOToGenerated(SkillDto dto,
-            cr.ac.una.controller.SkillDto generated) {
+    public cr.ac.una.evacomunaws.controller.SkillDto convertFromDTOToGenerated(SkillDto dto,
+            cr.ac.una.evacomunaws.controller.SkillDto generated) {
         /**
          * TODO: Califications and FinalCalifications lists
          */
@@ -52,7 +51,7 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.Ski
         this.name = name;
     }
 
-    public SkillDto(cr.ac.una.controller.SkillDto skillDto) {
+    public SkillDto(cr.ac.una.evacomunaws.controller.SkillDto skillDto) {
         this.id = skillDto.getId();
         this.name = skillDto.getName();
         this.state = skillDto.getState();
@@ -64,8 +63,8 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.controller.Ski
         this.characteristics = DtoMapper.fromGeneratedList(skillDto.getCharacteristics(), CharacteristicDto.class).getList();
     }
 
-    public cr.ac.una.controller.SkillDto getDto() {
-        cr.ac.una.controller.SkillDto dto = new cr.ac.una.controller.SkillDto();
+    public cr.ac.una.evacomunaws.controller.SkillDto getDto() {
+        cr.ac.una.evacomunaws.controller.SkillDto dto = new cr.ac.una.evacomunaws.controller.SkillDto();
         dto.setName(this.name);
         dto.setState(this.state);
         dto.setId(this.id);

@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
  * @author estebannajera
  * @author arayaroma
  */
-public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.controller.CalificationDto, CalificationDto> {
+public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.controller.CalificationDto, CalificationDto> {
 
     private Long id;
     private Long calification;
@@ -21,7 +21,7 @@ public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.control
     private Node data;
 
     @Override
-    public CalificationDto convertFromGeneratedToDTO(cr.ac.una.controller.CalificationDto generated,
+    public CalificationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.CalificationDto generated,
             CalificationDto dto) {
         dto.setEvaluator(new EvaluatorDto(generated.getEvaluator()));
         dto.setSkill(new SkillDto(generated.getSkill()));
@@ -30,8 +30,8 @@ public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.control
     }
 
     @Override
-    public cr.ac.una.controller.CalificationDto convertFromDTOToGenerated(CalificationDto dto,
-            cr.ac.una.controller.CalificationDto generated) {
+    public cr.ac.una.evacomunaws.controller.CalificationDto convertFromDTOToGenerated(CalificationDto dto,
+            cr.ac.una.evacomunaws.controller.CalificationDto generated) {
         generated.setEvaluator(dto.getEvaluator().getDto());
         generated.setSkill(dto.getSkill().getDto());
         return generated;
@@ -51,7 +51,7 @@ public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.control
         this.data = data;
     }
 
-    public CalificationDto(cr.ac.una.controller.CalificationDto calificationDto) {
+    public CalificationDto(cr.ac.una.evacomunaws.controller.CalificationDto calificationDto) {
         this.id = calificationDto.getId();
         this.calification = calificationDto.getCalification();
         this.skill = new SkillDto();
@@ -59,8 +59,8 @@ public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.control
         this.version = calificationDto.getVersion();
     }
 
-    public cr.ac.una.controller.CalificationDto getDto() {
-        cr.ac.una.controller.CalificationDto dto = new cr.ac.una.controller.CalificationDto();
+    public cr.ac.una.evacomunaws.controller.CalificationDto getDto() {
+        cr.ac.una.evacomunaws.controller.CalificationDto dto = new cr.ac.una.evacomunaws.controller.CalificationDto();
         dto.setId(this.id);
         dto.setCalification(this.calification);
         dto.setSkill(this.skill.getDto());

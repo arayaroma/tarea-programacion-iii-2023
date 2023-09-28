@@ -3,8 +3,8 @@ package cr.ac.una.evacomuna.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import cr.ac.una.controller.CharacteristicController;
-import cr.ac.una.controller.CharacteristicController_Service;
+import cr.ac.una.evacomunaws.controller.CharacteristicController;
+import cr.ac.una.evacomunaws.controller.CharacteristicController_Service;
 import cr.ac.una.evacomuna.dto.CharacteristicDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.util.ResponseCode;
@@ -35,8 +35,9 @@ public class CharacteristicService {
      */
     public ResponseWrapper createCharacteristic(CharacteristicDto characteristicDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createCharacteristic(characteristicDto.getDto());
-            cr.ac.una.controller.CharacteristicDto characteristic = (cr.ac.una.controller.CharacteristicDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port
+                    .createCharacteristic(characteristicDto.getDto());
+            cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -60,8 +61,8 @@ public class CharacteristicService {
      */
     public ResponseWrapper getCharacteristicByName(String name) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getCharacteristicByName(name);
-            cr.ac.una.controller.CharacteristicDto characteristic = (cr.ac.una.controller.CharacteristicDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCharacteristicByName(name);
+            cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -84,15 +85,16 @@ public class CharacteristicService {
      */
     public ResponseWrapper getCharacteristics() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getCharacteristics();
-            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
-            List<cr.ac.una.controller.CharacteristicDto> listGenerated = new ArrayList<>();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCharacteristics();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response
+                    .getData();
+            List<cr.ac.una.evacomunaws.controller.CharacteristicDto> listGenerated = new ArrayList<>();
             List<CharacteristicDto> listDto = listWrapper
                     .getElement()
                     .stream()
-                    .filter(i -> i instanceof cr.ac.una.controller.CharacteristicDto)
+                    .filter(i -> i instanceof cr.ac.una.evacomunaws.controller.CharacteristicDto)
                     .map(i -> {
-                        cr.ac.una.controller.CharacteristicDto characteristic = (cr.ac.una.controller.CharacteristicDto) i;
+                        cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) i;
                         listGenerated.add(characteristic);
                         CharacteristicDto characteristicDto = new CharacteristicDto(characteristic);
                         return characteristicDto.convertFromGeneratedToDTO(characteristic, characteristicDto);
@@ -120,8 +122,9 @@ public class CharacteristicService {
      */
     public ResponseWrapper updateCharacteristic(CharacteristicDto characteristicDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateCharacteristic(characteristicDto.getDto());
-            cr.ac.una.controller.CharacteristicDto characteristic = (cr.ac.una.controller.CharacteristicDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port
+                    .updateCharacteristic(characteristicDto.getDto());
+            cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -145,7 +148,7 @@ public class CharacteristicService {
      */
     public ResponseWrapper deleteCharacteristicById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deleteCharacteristicById(id);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteCharacteristicById(id);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

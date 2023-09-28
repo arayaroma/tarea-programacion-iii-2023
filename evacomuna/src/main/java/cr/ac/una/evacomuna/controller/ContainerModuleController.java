@@ -1,7 +1,7 @@
 package cr.ac.una.evacomuna.controller;
 
-import cr.ac.una.controller.CharacteristicDto;
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.dto.CharacteristicDto;
 import cr.ac.una.evacomuna.services.CharacteristicService;
 import cr.ac.una.evacomuna.services.SkillService;
 import java.io.IOException;

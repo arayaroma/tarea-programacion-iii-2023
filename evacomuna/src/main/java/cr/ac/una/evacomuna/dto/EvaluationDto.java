@@ -11,7 +11,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author estebannajera
  * @author arayaroma
  */
-public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationDto, EvaluationDto> {
+public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller.EvaluationDto, EvaluationDto> {
 
     private Long id;
     private String name;
@@ -23,7 +23,7 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationD
     private Long version;
 
     @Override
-    public EvaluationDto convertFromGeneratedToDTO(cr.ac.una.controller.EvaluationDto generated, EvaluationDto dto) {
+    public EvaluationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluationDto generated, EvaluationDto dto) {
         dto.setEvaluated(DtoMapper.fromGeneratedList(generated.getEvaluated(), EvaluatedDto.class).getList());
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
@@ -60,10 +60,10 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationD
     }
 
     @Override
-    public cr.ac.una.controller.EvaluationDto convertFromDTOToGenerated(EvaluationDto dto,
-            cr.ac.una.controller.EvaluationDto generated) {
+    public cr.ac.una.evacomunaws.controller.EvaluationDto convertFromDTOToGenerated(EvaluationDto dto,
+            cr.ac.una.evacomunaws.controller.EvaluationDto generated) {
         generated.getEvaluated()
-                .addAll(DtoMapper.fromDtoList(dto.getEvaluated(), cr.ac.una.controller.EvaluatedDto.class).getList());
+                .addAll(DtoMapper.fromDtoList(dto.getEvaluated(), cr.ac.una.evacomunaws.controller.EvaluatedDto.class).getList());
         return generated;
     }
 
@@ -81,7 +81,7 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationD
         this.evaluated = new ArrayList<>();
     }
 
-    public EvaluationDto(cr.ac.una.controller.EvaluationDto evaluationDto) {
+    public EvaluationDto(cr.ac.una.evacomunaws.controller.EvaluationDto evaluationDto) {
         this.id = evaluationDto.getId();
         this.name = evaluationDto.getName();
         this.applicationDate = LocalDate.parse(evaluationDto.getApplicationDate());
@@ -91,8 +91,8 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.controller.EvaluationD
         this.evaluated = new ArrayList<>();
     }
 
-    public cr.ac.una.controller.EvaluationDto getDto() {
-        cr.ac.una.controller.EvaluationDto evaluationDto = new cr.ac.una.controller.EvaluationDto();
+    public cr.ac.una.evacomunaws.controller.EvaluationDto getDto() {
+        cr.ac.una.evacomunaws.controller.EvaluationDto evaluationDto = new cr.ac.una.evacomunaws.controller.EvaluationDto();
         evaluationDto.setApplicationDate(this.applicationDate.toString());
         evaluationDto.setFinalPeriod(this.finalPeriod.toString());
         evaluationDto.setInitialPeriod(this.initialPeriod.toString());

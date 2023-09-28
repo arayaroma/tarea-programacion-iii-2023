@@ -1,11 +1,11 @@
 package cr.ac.una.evacomuna.services;
 
-import cr.ac.una.controller.UserController_Service;
+import cr.ac.una.evacomunaws.controller.UserController_Service;
 import cr.ac.una.evacomuna.dto.UserDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import cr.ac.una.controller.UserController;
+import cr.ac.una.evacomunaws.controller.UserController;
 import cr.ac.una.evacomuna.util.Connection;
 import cr.ac.una.evacomuna.util.Constants;
 import cr.ac.una.evacomuna.util.ResponseCode;
@@ -42,8 +42,9 @@ public class UserService {
      */
     public ResponseWrapper createUser(UserDto userDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createUser(userDto.getDto());
-            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createUser(userDto.getDto());
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
             userDto = new UserDto(user);
             System.out.println("response: " + userDto.toString());
 
@@ -69,8 +70,9 @@ public class UserService {
      */
     public ResponseWrapper updateUser(UserDto userDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateUser(userDto.getDto());
-            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateUser(userDto.getDto());
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
             userDto = new UserDto(user);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -93,15 +95,16 @@ public class UserService {
      */
     public ResponseWrapper getUsers() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getUsers();
-            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
-            List<cr.ac.una.controller.UserDto> listGenerated = new ArrayList<>();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getUsers();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response
+                    .getData();
+            List<cr.ac.una.evacomunaws.controller.UserDto> listGenerated = new ArrayList<>();
             List<UserDto> listDto = listWrapper
                     .getElement()
                     .stream()
-                    .filter(i -> i instanceof cr.ac.una.controller.UserDto)
+                    .filter(i -> i instanceof cr.ac.una.evacomunaws.controller.UserDto)
                     .map(i -> {
-                        cr.ac.una.controller.UserDto userDto = (cr.ac.una.controller.UserDto) i;
+                        cr.ac.una.evacomunaws.controller.UserDto userDto = (cr.ac.una.evacomunaws.controller.UserDto) i;
                         listGenerated.add(userDto);
                         UserDto userDtoClient = new UserDto(userDto);
                         return userDtoClient.convertFromGeneratedToDTO(userDto, userDtoClient);
@@ -130,7 +133,7 @@ public class UserService {
      */
     public ResponseWrapper deleteUserById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deleteUserById(id);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteUserById(id);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -154,8 +157,10 @@ public class UserService {
      */
     public ResponseWrapper getByUserAndPassword(String username, String password) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getUserByUserAndPassword(username, password);
-            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getUserByUserAndPassword(username,
+                    password);
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -178,8 +183,9 @@ public class UserService {
      */
     public ResponseWrapper recoverPassword(String email) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.recoverPassword(email);
-            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.recoverPassword(email);
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -204,8 +210,10 @@ public class UserService {
      */
     public ResponseWrapper changePassword(Long id, String oldPassword, String newPassword) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.changePassword(id, oldPassword, newPassword);
-            cr.ac.una.controller.UserDto user = (cr.ac.una.controller.UserDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.changePassword(id, oldPassword,
+                    newPassword);
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
