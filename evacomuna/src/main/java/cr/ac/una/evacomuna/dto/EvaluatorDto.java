@@ -6,7 +6,7 @@ import java.util.List;
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
- * 
+ *
  * @author estebannajera
  * @author arayaroma
  */
@@ -28,8 +28,7 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.EvaluatorDto convertFromDTOToGenerated(EvaluatorDto dto,
-            cr.ac.una.evacomunaws.controller.EvaluatorDto generated) {
+    public cr.ac.una.evacomunaws.controller.EvaluatorDto convertFromDTOToGenerated(EvaluatorDto dto, cr.ac.una.evacomunaws.controller.EvaluatorDto generated) {
         generated.setEvaluator(dto.getEvaluator().getDto());
         generated.setEvaluated(dto.getEvaluated().getDto());
         return generated;
@@ -43,13 +42,15 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     }
 
     public EvaluatorDto(cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto) {
+        //    if (evaluatorDto != null) {
         this.id = evaluatorDto.getId();
-        this.evaluator = new UserDto();
+//        this.evaluator = new UserDto();
         this.role = evaluatorDto.getRole();
         this.feedback = evaluatorDto.getFeedback();
-        this.evaluated = new EvaluatedDto();
+//        this.evaluated = new EvaluatedDto();
         this.version = evaluatorDto.getVersion();
         this.califications = new ArrayList<>();
+        //}
     }
 
     public EvaluatorDto(cr.ac.una.evacomunaws.controller.UserDto t) {
@@ -57,12 +58,12 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
 
     public cr.ac.una.evacomunaws.controller.EvaluatorDto getDto() {
         cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto = new cr.ac.una.evacomunaws.controller.EvaluatorDto();
-        evaluatorDto.setId(id);
-        evaluatorDto.setEvaluator(new cr.ac.una.evacomunaws.controller.UserDto());
-        evaluatorDto.setRole(role);
-        evaluatorDto.setFeedback(feedback);
-        evaluatorDto.setEvaluated(new cr.ac.una.evacomunaws.controller.EvaluatedDto());
-        evaluatorDto.setVersion(version);
+        evaluatorDto.setId(this.id);
+        //evaluatorDto.setEvaluator(this.evaluator.getDto());
+        evaluatorDto.setRole(this.role);
+        evaluatorDto.setFeedback(this.feedback);
+        //evaluatorDto.setEvaluated(this.evaluated.getDto());
+        evaluatorDto.setVersion(this.version);
         return evaluatorDto;
     }
 
@@ -124,15 +125,15 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
 
     @Override
     public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", evaluator='" + getEvaluator() + "'" +
-                ", role='" + getRole() + "'" +
-                ", feedback='" + getFeedback() + "'" +
-                ", evaluated='" + getEvaluated() + "'" +
-                ", version='" + getVersion() + "'" +
-                ", califications='" + getCalifications() + "'" +
-                "}";
+        return "{"
+                + " id='" + getId() + "'"
+                + ", evaluator='" + getEvaluator() + "'"
+                + ", role='" + getRole() + "'"
+                + ", feedback='" + getFeedback() + "'"
+                + ", evaluated='" + getEvaluated() + "'"
+                + ", version='" + getVersion() + "'"
+                + ", califications='" + getCalifications() + "'"
+                + "}";
     }
 
 }

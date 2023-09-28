@@ -63,6 +63,9 @@ public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
                                 dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
                                         .setSkill(new SkillDto(entity.getEvaluated().get(i).getEvaluators().get(j)
                                                 .getCalifications().get(k).getSkill()));
+                                      dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
+                                              .setEvaluator(new EvaluatorDto(entity.getEvaluated().get(i).getEvaluators().get(j)
+                                                .getCalifications().get(k).getEvaluator()));
                             }
                         }
                     }

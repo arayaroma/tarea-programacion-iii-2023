@@ -7,7 +7,7 @@ import java.util.List;
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
- * 
+ *
  * @author estebannajera
  * @author arayaroma
  */
@@ -22,12 +22,22 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
     private List<EvaluatedDto> evaluated;
     private Long version;
 
+//    public EvaluatedDto createEvaluated(EvaluatedDto evaluatedDto){
+//        EvaluatedDto evaluated = new EvaluatedDto();
+//        //evaluated.setEvaluated(evaluatedDto.getEvaluated());
+//        evaluated.setId(evaluatedDto.getId());
+//        evaluated.setFinalNote(evaluatedDto.getFinalNote());
+//        evaluated.setVersion(evaluated.getVersion());
+//        return evaluated;
+//    }
     @Override
     public EvaluationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluationDto generated, EvaluationDto dto) {
         dto.setEvaluated(DtoMapper.fromGeneratedList(generated.getEvaluated(), EvaluatedDto.class).getList());
+        // generated.getEvaluated().forEach(t->dto.getEvaluated().add(new EvaluatedDto(t)));
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
                 dto.getEvaluated().get(i).setEvaluated(new UserDto(generated.getEvaluated().get(i).getEvaluated()));
+                //generated.getEvaluated().get(i).getEvaluators().forEach(e->dto.getEvaluated().get(i).getEvaluators().add(new EvaluatorDto(e)));
                 dto.getEvaluated().get(i).setEvaluators(
                         DtoMapper.fromGeneratedList(generated.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class)
                                 .getList());
@@ -48,6 +58,9 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
                                 dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
                                         .setSkill(new SkillDto(generated.getEvaluated().get(i).getEvaluators().get(j)
                                                 .getCalifications().get(k).getSkill()));
+                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
+                                        .setEvaluator(new EvaluatorDto(generated.getEvaluated().get(i).getEvaluators().get(j)
+                                                .getCalifications().get(k).getEvaluator()));
                             }
                         }
                     }
@@ -170,16 +183,16 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
 
     @Override
     public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", applicationDate='" + getApplicationDate() + "'" +
-                ", initialPeriod='" + getInitialPeriod() + "'" +
-                ", finalPeriod='" + getFinalPeriod() + "'" +
-                ", state='" + getState() + "'" +
-                ", evaluated='" + getEvaluated() + "'" +
-                ", version='" + getVersion() + "'" +
-                "}";
+        return "{"
+                + " id='" + getId() + "'"
+                + ", name='" + getName() + "'"
+                + ", applicationDate='" + getApplicationDate() + "'"
+                + ", initialPeriod='" + getInitialPeriod() + "'"
+                + ", finalPeriod='" + getFinalPeriod() + "'"
+                + ", state='" + getState() + "'"
+                + ", evaluated='" + getEvaluated() + "'"
+                + ", version='" + getVersion() + "'"
+                + "}";
     }
 
 }

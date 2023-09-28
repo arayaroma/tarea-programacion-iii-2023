@@ -38,7 +38,9 @@ public class EvaluatorService {
      */
     public ResponseWrapper createEvaluator(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluator(evaluatorDto.getDto());
+            cr.ac.una.evacomunaws.controller.EvaluatorDto entity = evaluatorDto.getDto();
+            entity = evaluatorDto.convertFromDTOToGenerated(evaluatorDto, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluator(entity);
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -56,7 +58,7 @@ public class EvaluatorService {
 
     /**
      * Gets the evaluator with the given id
-     * 
+     *
      * @param id of the evaluator to get
      * @return EvaluatorDto with the found evaluator if found, null otherwise
      */
@@ -80,7 +82,7 @@ public class EvaluatorService {
 
     /**
      * Gets the evaluator with the given id of the evaluated
-     * 
+     *
      * @param id of the evaluted to get
      * @return EvaluatorDto with the found evaluator if found, null otherwise
      */
@@ -104,9 +106,9 @@ public class EvaluatorService {
 
     /**
      * Gets all the evaluators
-     * 
+     *
      * @return List of EvaluatorDto with the found evaluators if found, null
-     *         otherwise
+     * otherwise
      */
     public ResponseWrapper getAllEvaluator() {
         try {
@@ -146,7 +148,9 @@ public class EvaluatorService {
      */
     public ResponseWrapper updateEvaluator(EvaluatorDto evaluatorDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluator(evaluatorDto.getDto());
+            cr.ac.una.evacomunaws.controller.EvaluatorDto entity = evaluatorDto.getDto();
+            entity = evaluatorDto.convertFromDTOToGenerated(evaluatorDto, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluator(entity);
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),

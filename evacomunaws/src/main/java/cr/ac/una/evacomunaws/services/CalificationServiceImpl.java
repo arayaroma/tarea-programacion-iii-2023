@@ -54,9 +54,8 @@ public class CalificationServiceImpl implements CalificationService {
                 return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(), ResponseCode.NOT_FOUND,
                         "The calification to be updated does not exist", null);
             }
-            calification.setCalification(calificationDto.getCalification());
-            calification.setSkill(em.find(Skill.class, calificationDto.getSkill().getId()));
-            calification.setEvaluator(em.find(Evaluator.class, calificationDto.getEvaluator().getId()));
+            calification = calificationDto.convertFromDTOToEntity(calificationDto, calification);
+            calification.updateCalification(calificationDto);
             ResponseWrapper CONSTRAINT_VIOLATION = verifyEntity(calification, Calification.class);
             if (CONSTRAINT_VIOLATION != null) {
                 return CONSTRAINT_VIOLATION;
@@ -65,7 +64,7 @@ public class CalificationServiceImpl implements CalificationService {
             em.flush();
             CalificationDto newCalificationDto = new CalificationDto(calification);
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Calification successfully updated",
-                    newCalificationDto);
+                    newCalificationDto.convertFromEntityToDTO(calification, calificationDto));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error updating calification: " + e.getMessage(), null);

@@ -97,11 +97,7 @@ public class PendingEvaluationsController implements Initializable {
         evaluationDtos = ObservableListParser.loadEvaluations();
         calificationService = new CalificationService();
         evaluatorService = new EvaluatorService();
-        evaluationDtos = FXCollections.observableArrayList(filterEvaluations(evaluationDtos));
-        cbPendingEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
-        // imageViewCheck = createImageCheck();
-        // loadEvaluator();
-        initializeGrid();
+        initializeView();
         initializeList();
     }
 
@@ -144,6 +140,10 @@ public class PendingEvaluationsController implements Initializable {
         }
 
         cr.ac.una.evacomuna.util.ResponseWrapper response = isEditing ? evaluatorService.updateEvaluator(evaluatorBuffer) : evaluatorService.updateEvaluator(evaluatorBuffer);
+        if (response.getCode() == ResponseCode.OK) {
+            initializeView();
+        }
+        Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
         System.out.println(response.getMessage());
     }
 
@@ -213,7 +213,12 @@ public class PendingEvaluationsController implements Initializable {
                             calificationWrapper.setCalification(((Label) note).getText());
                             calificationWrapper.setSkill(skills.get(skills.indexOf(skill)));
                             calificationWrapper.setEvaluator(evaluatorBuffer);
-
+                            for (CalificationDto calificationDto : calificationWrappers) {
+                                if (calificationDto.getSkill().getID() == calificationWrapper.getSkill().getID()) {
+                                    calificationWrapper.setVersion(calificationDto.getVersion());
+                                    calificationWrapper.setId(calificationDto.getID());
+                                }
+                            }
                             System.out.println(calificationWrappers.removeIf(calification -> calification.getSkill().getID()
                                     .equals(calificationWrapper.getSkill().getID()))
                             );
@@ -294,22 +299,6 @@ public class PendingEvaluationsController implements Initializable {
 
                     if (isEditing) {
                         completed = " (COMPLETED)";
-                        calificationWrappers.clear();
-                    }
-                    if (evaluatedBuffer != null) {
-                        loadEvaluator();
-                        evaluatedBuffer.getEvaluators().stream()
-                                .filter(evaluator -> evaluator.getId() == evaluatorBuffer.getId())
-                                .findFirst()
-                                .ifPresent(ev -> ev.getCalifications().forEach(
-                                calification -> calificationWrappers
-                                        .add(new CalificationDto(calification.getDto()))));
-                        cleanGrid();
-                        skills = loadSkills();
-                        loadSkillsInGrid();
-                        //  initializeGrid();
-                        loadCalificationsInGrid();
-                        txaFeedBack.setText(evaluatorBuffer.getFeedback());
                     }
                 }
 
@@ -323,6 +312,7 @@ public class PendingEvaluationsController implements Initializable {
                 .addListener((observable, oldValue, newValue) -> {
                     evaluatedBuffer = newValue;
                     if (evaluatedBuffer != null) {
+                        //Load skills by position evaluated
                         positionBuffer = (PositionDto) positionService
                                 .getPositionByName(evaluatedBuffer.getEvaluated().getPosition().getName()).getData();
                         if (positionBuffer != null) {
@@ -332,6 +322,14 @@ public class PendingEvaluationsController implements Initializable {
                             cleanGrid();
                             skills.addAll(loadSkills());
                             loadSkillsInGrid();
+                        }
+                        //Load califications
+                        loadEvaluator();
+                        if (evaluatorBuffer != null) {
+                            calificationWrappers.clear();
+                            evaluatorBuffer.getCalifications().forEach(c -> calificationWrappers.add(c));
+                            loadCalificationsInGrid();
+                            txaFeedBack.setText(evaluatorBuffer.getFeedback());
                         }
                     }
                 });
@@ -409,4 +407,14 @@ public class PendingEvaluationsController implements Initializable {
         initializeGrid();
         skills.clear();
     }
+
+    private void initializeView() {
+        cleanGrid();
+        txaFeedBack.setText("");
+        evaluationDtos = FXCollections.observableArrayList(filterEvaluations(evaluationDtos));
+        cbPendingEvaluations.getItems().clear();
+        listEvaluated.getItems().clear();
+        cbPendingEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
+    }
+
 }

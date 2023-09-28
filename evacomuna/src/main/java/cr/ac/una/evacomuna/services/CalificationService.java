@@ -8,7 +8,7 @@ import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 public class CalificationService {
@@ -26,13 +26,15 @@ public class CalificationService {
 
     /**
      * Create a new calification
-     * 
+     *
      * @param calificationDto calification to create
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper createCalification(CalificationDto calificationDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createCalification(calificationDto.getDto());
+            cr.ac.una.evacomunaws.controller.CalificationDto entity = calificationDto.getDto();
+            entity = calificationDto.convertFromDTOToGenerated(calificationDto, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createCalification(entity);
             cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
             return new ResponseWrapper(
@@ -51,7 +53,7 @@ public class CalificationService {
 
     /**
      * Get a calification by id
-     * 
+     *
      * @param id of the calification
      * @return ResponseWrapper with the response of the request
      */
@@ -76,7 +78,7 @@ public class CalificationService {
 
     /**
      * Get calification note
-     * 
+     *
      * @param id of the calification
      * @return ResponseWrapper with the response of the request
      */
@@ -101,7 +103,7 @@ public class CalificationService {
 
     /**
      * Get all califications
-     * 
+     *
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper getAllCalification() {
@@ -137,13 +139,15 @@ public class CalificationService {
 
     /**
      * Update a calification
-     * 
+     *
      * @param calificationDto calification to update
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper updateCalification(CalificationDto calificationDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateCalification(calificationDto.getDto());
+            cr.ac.una.evacomunaws.controller.CalificationDto entity = calificationDto.getDto();
+            entity = calificationDto.convertFromDTOToGenerated(calificationDto, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateCalification(entity);
             cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
             calificationDto = new CalificationDto(calification);
@@ -163,7 +167,7 @@ public class CalificationService {
 
     /**
      * Delete a calification
-     * 
+     *
      * @param id of the calification
      * @return ResponseWrapper with the response of the request
      */

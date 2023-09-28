@@ -39,8 +39,8 @@ public class FinalCalificationDto
         this.id = finalCalificationDto.getId();
         this.finalNote = finalCalificationDto.getFinalNote();
         this.average = finalCalificationDto.getAverage();
-        this.evaluated = new EvaluatedDto();
-        this.skill = new SkillDto();
+//        this.evaluated = new EvaluatedDto();
+//        this.skill = new SkillDto();
         this.version = finalCalificationDto.getVersion();
     }
 

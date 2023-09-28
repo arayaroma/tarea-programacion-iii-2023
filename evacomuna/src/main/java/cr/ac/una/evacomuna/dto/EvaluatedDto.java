@@ -54,9 +54,9 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
 
     public EvaluatedDto(cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated) {
         this.id = evaluated.getId();
-        this.evaluated = new UserDto();
+//        this.evaluated = new UserDto();
         this.finalNote = evaluated.getFinalNote();
-        this.evaluation = new EvaluationDto();
+//        this.evaluation = new EvaluationDto();
         this.evaluators = new ArrayList<>();
         this.finalCalifications = new ArrayList<>();
         this.version = evaluated.getVersion();
@@ -68,9 +68,9 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     public cr.ac.una.evacomunaws.controller.EvaluatedDto getDto() {
         cr.ac.una.evacomunaws.controller.EvaluatedDto evaluatedDto = new cr.ac.una.evacomunaws.controller.EvaluatedDto();
         evaluatedDto.setId(id);
-        evaluatedDto.setEvaluated(evaluated.getDto());
+//        evaluatedDto.setEvaluated(evaluated.getDto());
         evaluatedDto.setFinalNote(finalNote);
-        evaluatedDto.setEvaluation(evaluation.getDto());
+//        evaluatedDto.setEvaluation(evaluation.getDto());
         evaluatedDto.setVersion(version);
         return evaluatedDto;
     }
