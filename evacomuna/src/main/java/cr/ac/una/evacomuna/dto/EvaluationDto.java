@@ -22,51 +22,69 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
     private List<EvaluatedDto> evaluated;
     private Long version;
 
-//    public EvaluatedDto createEvaluated(EvaluatedDto evaluatedDto){
-//        EvaluatedDto evaluated = new EvaluatedDto();
-//        //evaluated.setEvaluated(evaluatedDto.getEvaluated());
-//        evaluated.setId(evaluatedDto.getId());
-//        evaluated.setFinalNote(evaluatedDto.getFinalNote());
-//        evaluated.setVersion(evaluated.getVersion());
-//        return evaluated;
-//    }
     @Override
-    public EvaluationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluationDto generated, EvaluationDto dto) {
+    public EvaluationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluationDto generated,
+            EvaluationDto dto) {
         dto.setEvaluated(DtoMapper.fromGeneratedList(generated.getEvaluated(), EvaluatedDto.class).getList());
-        // generated.getEvaluated().forEach(t->dto.getEvaluated().add(new EvaluatedDto(t)));
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
-                dto.getEvaluated().get(i).setEvaluated(new UserDto(generated.getEvaluated().get(i).getEvaluated()));
-                //generated.getEvaluated().get(i).getEvaluators().forEach(e->dto.getEvaluated().get(i).getEvaluators().add(new EvaluatorDto(e)));
-                dto.getEvaluated().get(i).setEvaluators(
-                        DtoMapper.fromGeneratedList(generated.getEvaluated().get(i).getEvaluators(), EvaluatorDto.class)
+                dto.getEvaluated()
+                        .get(i).setEvaluated(new UserDto(generated
+                                .getEvaluated()
+                                .get(i).getEvaluated()));
+                dto.getEvaluated()
+                        .get(i).setEvaluators(DtoMapper
+                                .fromGeneratedList(generated
+                                        .getEvaluated()
+                                        .get(i).getEvaluators(),
+                                        EvaluatorDto.class)
                                 .getList());
 
                 if (dto.getEvaluated().get(i).getEvaluators() != null) {
                     for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
-                        dto.getEvaluated().get(i).getEvaluators().get(j).setEvaluator(
-                                new UserDto(generated.getEvaluated().get(i).getEvaluators().get(j).getEvaluator()));
-                        dto.getEvaluated().get(i).getEvaluators().get(j)
-                                .setCalifications(
-                                        DtoMapper.fromDtoList(
-                                                generated.getEvaluated().get(i).getEvaluators().get(j)
-                                                        .getCalifications(),
-                                                CalificationDto.class).getList());
+                        dto.getEvaluated()
+                                .get(i).getEvaluators()
+                                .get(j).setEvaluator(new UserDto(generated
+                                        .getEvaluated()
+                                        .get(i).getEvaluators()
+                                        .get(j).getEvaluator()));
+
+                        dto.getEvaluated()
+                                .get(i).getEvaluators()
+                                .get(j).setCalifications(DtoMapper.fromDtoList(generated
+                                        .getEvaluated()
+                                        .get(i).getEvaluators()
+                                        .get(j).getCalifications(),
+                                        CalificationDto.class).getList());
+
                         if (dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications() != null) {
                             for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications()
                                     .size(); k++) {
-                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
-                                        .setSkill(new SkillDto(generated.getEvaluated().get(i).getEvaluators().get(j)
-                                                .getCalifications().get(k).getSkill()));
-                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
-                                        .setEvaluator(new EvaluatorDto(generated.getEvaluated().get(i).getEvaluators().get(j)
-                                                .getCalifications().get(k).getEvaluator()));
+                                dto.getEvaluated()
+                                        .get(i).getEvaluators()
+                                        .get(j).getCalifications()
+                                        .get(k).setSkill(new SkillDto(generated
+                                                .getEvaluated()
+                                                .get(i).getEvaluators()
+                                                .get(j).getCalifications()
+                                                .get(k).getSkill()));
+                                dto.getEvaluated()
+                                        .get(i).getEvaluators()
+                                        .get(j).getCalifications()
+                                        .get(k).setEvaluator(new EvaluatorDto(generated
+                                                .getEvaluated()
+                                                .get(i).getEvaluators()
+                                                .get(j).getCalifications()
+                                                .get(k).getEvaluator()));
                             }
                         }
                     }
                 }
-                dto.getEvaluated().get(i).getEvaluated()
-                        .setPosition(new PositionDto(generated.getEvaluated().get(i).getEvaluated().getPosition()));
+                dto.getEvaluated()
+                        .get(i).getEvaluated()
+                        .setPosition(new PositionDto(generated.getEvaluated()
+                                .get(i).getEvaluated()
+                                .getPosition()));
             }
         }
         return dto;
@@ -76,7 +94,8 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
     public cr.ac.una.evacomunaws.controller.EvaluationDto convertFromDTOToGenerated(EvaluationDto dto,
             cr.ac.una.evacomunaws.controller.EvaluationDto generated) {
         generated.getEvaluated()
-                .addAll(DtoMapper.fromDtoList(dto.getEvaluated(), cr.ac.una.evacomunaws.controller.EvaluatedDto.class).getList());
+                .addAll(DtoMapper.fromDtoList(dto.getEvaluated(), cr.ac.una.evacomunaws.controller.EvaluatedDto.class)
+                        .getList());
         return generated;
     }
 
