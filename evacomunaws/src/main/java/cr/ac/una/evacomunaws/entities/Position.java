@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.QueryHint;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -37,12 +38,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
-    @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id"),
-    @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name"),
-    @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state"),
-    @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p"),
-    @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id")
+        @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Position.findById", query = "SELECT p FROM Position p WHERE p.id = :id", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Position.findByName", query = "SELECT p FROM Position p WHERE p.name = :name", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Position.findByState", query = "SELECT p FROM Position p WHERE p.state = :state", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Position.deleteAll", query = "DELETE FROM Position p", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Position.getUsersByPositionId", query = "SELECT u FROM User u WHERE u.position.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
 })
 public class Position implements Serializable {
 
