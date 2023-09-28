@@ -30,7 +30,7 @@ public class EvaluationService {
 
     /**
      * Creates a new evaluation
-     * 
+     *
      * @param evaluationDto object to create
      * @return ResponseWrapper with the response of the request
      */
@@ -54,7 +54,7 @@ public class EvaluationService {
 
     /**
      * Get all evaluations
-     * 
+     *
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper getAllEvaluation() {
@@ -108,7 +108,7 @@ public class EvaluationService {
 
     /**
      * Get evaluation by name
-     * 
+     *
      * @param name of the evaluation
      * @return ResponseWrapper with the response of the request
      */
@@ -116,11 +116,12 @@ public class EvaluationService {
         try {
             cr.ac.una.controller.ResponseWrapper response = port.getEvaluationByName(name);
             cr.ac.una.controller.EvaluationDto evaluation = (cr.ac.una.controller.EvaluationDto) response.getData();
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation found successfully",
-                    new EvaluationDto(evaluation));
+                    new EvaluationDto(evaluation).convertFromGeneratedToDTO(evaluation, new EvaluationDto(evaluation)));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -132,7 +133,7 @@ public class EvaluationService {
 
     /**
      * Updates a evaluation
-     * 
+     *
      * @param evaluationDto object to update
      * @return ResponseWrapper with the response of the request
      */
@@ -156,7 +157,7 @@ public class EvaluationService {
 
     /**
      * Deletes the evaluation with the given id
-     * 
+     *
      * @param id of the evaluation to delete
      * @return ResponseWrapper with the response of the request
      */
