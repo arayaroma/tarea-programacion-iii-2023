@@ -6,8 +6,8 @@ import cr.ac.una.evacomuna.util.ResponseWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import cr.ac.una.controller.SkillController;
-import cr.ac.una.controller.SkillController_Service;
+import cr.ac.una.evacomunaws.controller.SkillController;
+import cr.ac.una.evacomunaws.controller.SkillController_Service;
 import cr.ac.una.evacomuna.dto.SkillDto;
 
 /**
@@ -37,9 +37,9 @@ public class SkillService {
      */
     public ResponseWrapper createSkill(SkillDto skillDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
-            if (response.getCode() == cr.ac.una.controller.ResponseCode.OK) {
-                cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
@@ -68,8 +68,8 @@ public class SkillService {
      */
     public ResponseWrapper getSkillByName(String name) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getSkillByName(name);
-            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkillByName(name);
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -92,8 +92,8 @@ public class SkillService {
      */
     public ResponseWrapper getSkillByLikeName(String name) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getSkillByLikeName(name);
-            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkillByLikeName(name);
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -115,16 +115,16 @@ public class SkillService {
      */
     public ResponseWrapper getSkills() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getSkills();
-            cr.ac.una.controller.ListWrapper skills = (cr.ac.una.controller.ListWrapper) response.getData();
-            List<cr.ac.una.controller.SkillDto> skillsDto = new ArrayList<>();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkills();
+            cr.ac.una.evacomunaws.controller.ListWrapper skills = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            List<cr.ac.una.evacomunaws.controller.SkillDto> skillsDto = new ArrayList<>();
             List<SkillDto> skillsDtoClient = new ArrayList<>();
             for (Object i : skills.getElement()) {
-                if (i instanceof cr.ac.una.controller.SkillDto) {
-                    skillsDto.add((cr.ac.una.controller.SkillDto) i);
+                if (i instanceof cr.ac.una.evacomunaws.controller.SkillDto) {
+                    skillsDto.add((cr.ac.una.evacomunaws.controller.SkillDto) i);
                 }
             }
-            for (cr.ac.una.controller.SkillDto i : skillsDto) {
+            for (cr.ac.una.evacomunaws.controller.SkillDto i : skillsDto) {
                 SkillDto userDto = new SkillDto(i);
                 skillsDtoClient.add(userDto.convertFromGeneratedToDTO(i, userDto));
             }
@@ -150,8 +150,8 @@ public class SkillService {
      */
     public ResponseWrapper updateSkills(SkillDto skillDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updateSkill(skillDto.getDto());
-            cr.ac.una.controller.SkillDto skill = (cr.ac.una.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateSkill(skillDto.getDto());
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -174,7 +174,7 @@ public class SkillService {
      */
     public ResponseWrapper deleteSkillsById(Long Id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deleteSkillById(Id);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteSkillById(Id);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

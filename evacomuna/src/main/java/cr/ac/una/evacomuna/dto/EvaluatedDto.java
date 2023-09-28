@@ -10,7 +10,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author estebannajera
  * @author arayaroma
  */
-public class EvaluatedDto implements DtoMapper<cr.ac.una.controller.EvaluatedDto, EvaluatedDto> {
+public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.EvaluatedDto, EvaluatedDto> {
 
     private Long id;
     private UserDto evaluated;
@@ -21,15 +21,15 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.controller.EvaluatedDto
     private Long version;
 
     @Override
-    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.controller.EvaluatedDto generated, EvaluatedDto dto) {
+    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatedDto generated, EvaluatedDto dto) {
         dto.setEvaluated(new UserDto(generated.getEvaluated()));
         dto.setEvaluation(new EvaluationDto(generated.getEvaluation()));
         return dto;
     }
 
     @Override
-    public cr.ac.una.controller.EvaluatedDto convertFromDTOToGenerated(EvaluatedDto dto,
-            cr.ac.una.controller.EvaluatedDto generated) {
+    public cr.ac.una.evacomunaws.controller.EvaluatedDto convertFromDTOToGenerated(EvaluatedDto dto,
+            cr.ac.una.evacomunaws.controller.EvaluatedDto generated) {
         generated.setEvaluated(dto.getEvaluated().getDto());
         generated.setEvaluation(dto.getEvaluation().getDto());
         return generated;
@@ -42,7 +42,7 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.controller.EvaluatedDto
         this.evaluated = evaluated;
     }
 
-    public EvaluatedDto(cr.ac.una.controller.EvaluatedDto evaluated) {
+    public EvaluatedDto(cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated) {
         this.id = evaluated.getId();
         this.evaluated = new UserDto();
         this.finalNote = evaluated.getFinalNote();
@@ -52,11 +52,11 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.controller.EvaluatedDto
         this.version = evaluated.getVersion();
     }
 
-    public EvaluatedDto(cr.ac.una.controller.UserDto t) {
+    public EvaluatedDto(cr.ac.una.evacomunaws.controller.UserDto t) {
     }
 
-    public cr.ac.una.controller.EvaluatedDto getDto() {
-        cr.ac.una.controller.EvaluatedDto evaluatedDto = new cr.ac.una.controller.EvaluatedDto();
+    public cr.ac.una.evacomunaws.controller.EvaluatedDto getDto() {
+        cr.ac.una.evacomunaws.controller.EvaluatedDto evaluatedDto = new cr.ac.una.evacomunaws.controller.EvaluatedDto();
         evaluatedDto.setId(id);
         // evaluatedDto.setEvaluated(evaluated);
         evaluatedDto.setFinalNote(finalNote);

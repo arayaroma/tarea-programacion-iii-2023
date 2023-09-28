@@ -10,7 +10,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author estebannajera
  * @author arayaroma
  */
-public class UserDto implements DtoMapper<cr.ac.una.controller.UserDto, UserDto> {
+public class UserDto implements DtoMapper<cr.ac.una.evacomunaws.controller.UserDto, UserDto> {
 
     private Long id;
     private String username;
@@ -33,7 +33,7 @@ public class UserDto implements DtoMapper<cr.ac.una.controller.UserDto, UserDto>
     private Long version;
 
     @Override
-    public UserDto convertFromGeneratedToDTO(cr.ac.una.controller.UserDto generated, UserDto dto) {
+    public UserDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.UserDto generated, UserDto dto) {
         dto.setPosition(new PositionDto(generated.getPosition()));
         dto.getPosition().setUsers(
                 DtoMapper.fromGeneratedList(generated.getPosition().getUsers(), UserDto.class).getList());
@@ -45,13 +45,13 @@ public class UserDto implements DtoMapper<cr.ac.una.controller.UserDto, UserDto>
     }
 
     @Override
-    public cr.ac.una.controller.UserDto convertFromDTOToGenerated(UserDto dto, cr.ac.una.controller.UserDto generated) {
+    public cr.ac.una.evacomunaws.controller.UserDto convertFromDTOToGenerated(UserDto dto, cr.ac.una.evacomunaws.controller.UserDto generated) {
         generated.setPosition(dto.getPosition().getDto());
         generated.getPosition().getUsers().addAll(
-                DtoMapper.fromDtoList(dto.getPosition().getUsers(), cr.ac.una.controller.UserDto.class).getList());
+                DtoMapper.fromDtoList(dto.getPosition().getUsers(), cr.ac.una.evacomunaws.controller.UserDto.class).getList());
 
         generated.getPosition().getSkills().addAll(
-                DtoMapper.fromDtoList(dto.getPosition().getSkills(), cr.ac.una.controller.SkillDto.class).getList());
+                DtoMapper.fromDtoList(dto.getPosition().getSkills(), cr.ac.una.evacomunaws.controller.SkillDto.class).getList());
 
         return generated;
     }
@@ -59,7 +59,7 @@ public class UserDto implements DtoMapper<cr.ac.una.controller.UserDto, UserDto>
     public UserDto() {
     }
 
-    public UserDto(cr.ac.una.controller.UserDto userDto) {
+    public UserDto(cr.ac.una.evacomunaws.controller.UserDto userDto) {
         this.id = userDto.getId();
         this.username = userDto.getUsername();
         this.password = userDto.getPassword();
@@ -81,8 +81,8 @@ public class UserDto implements DtoMapper<cr.ac.una.controller.UserDto, UserDto>
         this.evaluators = new ArrayList<>();
     }
 
-    public cr.ac.una.controller.UserDto getDto() {
-        cr.ac.una.controller.UserDto userDto = new cr.ac.una.controller.UserDto();
+    public cr.ac.una.evacomunaws.controller.UserDto getDto() {
+        cr.ac.una.evacomunaws.controller.UserDto userDto = new cr.ac.una.evacomunaws.controller.UserDto();
         userDto.setId(id);
         userDto.setUsername(username);
         userDto.setPassword(password);

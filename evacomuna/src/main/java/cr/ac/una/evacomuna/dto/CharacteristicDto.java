@@ -7,7 +7,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author estebannajera
  * @author arayaroma
  */
-public class CharacteristicDto implements DtoMapper<cr.ac.una.controller.CharacteristicDto, CharacteristicDto> {
+public class CharacteristicDto implements DtoMapper<cr.ac.una.evacomunaws.controller.CharacteristicDto, CharacteristicDto> {
 
     private Long id;
     private String name;
@@ -15,15 +15,15 @@ public class CharacteristicDto implements DtoMapper<cr.ac.una.controller.Charact
     private SkillDto skill;
 
     @Override
-    public CharacteristicDto convertFromGeneratedToDTO(cr.ac.una.controller.CharacteristicDto generated,
+    public CharacteristicDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.CharacteristicDto generated,
             CharacteristicDto dto) {
 
         return dto;
     }
 
     @Override
-    public cr.ac.una.controller.CharacteristicDto convertFromDTOToGenerated(CharacteristicDto dto,
-            cr.ac.una.controller.CharacteristicDto generated) {
+    public cr.ac.una.evacomunaws.controller.CharacteristicDto convertFromDTOToGenerated(CharacteristicDto dto,
+            cr.ac.una.evacomunaws.controller.CharacteristicDto generated) {
 
         return generated;
     }
@@ -37,15 +37,15 @@ public class CharacteristicDto implements DtoMapper<cr.ac.una.controller.Charact
         this.skill = skillDto;
     }
 
-    public CharacteristicDto(cr.ac.una.controller.CharacteristicDto characteristicDto) {
+    public CharacteristicDto(cr.ac.una.evacomunaws.controller.CharacteristicDto characteristicDto) {
         this.id = characteristicDto.getId();
         this.name = characteristicDto.getName();
         this.version = characteristicDto.getVersion();
         this.skill = new SkillDto();
     }
 
-    public cr.ac.una.controller.CharacteristicDto getDto() {
-        cr.ac.una.controller.CharacteristicDto characteristicDto = new cr.ac.una.controller.CharacteristicDto();
+    public cr.ac.una.evacomunaws.controller.CharacteristicDto getDto() {
+        cr.ac.una.evacomunaws.controller.CharacteristicDto characteristicDto = new cr.ac.una.evacomunaws.controller.CharacteristicDto();
         characteristicDto.setId(this.id);
         characteristicDto.setName(this.name);
         characteristicDto.setSkill(this.skill.getDto());

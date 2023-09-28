@@ -1,7 +1,7 @@
 package cr.ac.una.evacomuna.services;
 
-import cr.ac.una.controller.GeneralInformationController_Service;
-import cr.ac.una.controller.GeneralInformationController;
+import cr.ac.una.evacomunaws.controller.GeneralInformationController_Service;
+import cr.ac.una.evacomunaws.controller.GeneralInformationController;
 import cr.ac.una.evacomuna.dto.GeneralInformationDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
@@ -33,9 +33,9 @@ public class GeneralInformationService {
      */
     public ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port
                     .createGeneralInformation(generalInformationDto.getDto());
-            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+            cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -60,9 +60,9 @@ public class GeneralInformationService {
      */
     public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port
                     .updateGeneralInformation(generalInformationDto.getDto());
-            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+            cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -85,8 +85,8 @@ public class GeneralInformationService {
      */
     public ResponseWrapper getGeneralInformation() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getGeneralInformation();
-            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getGeneralInformation();
+            cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -110,8 +110,8 @@ public class GeneralInformationService {
      */
     public ResponseWrapper getGeneralInformationById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getGeneralInformationById(id);
-            cr.ac.una.controller.GeneralInformationDto generalInformation = (cr.ac.una.controller.GeneralInformationDto) response
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getGeneralInformationById(id);
+            cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -135,7 +135,7 @@ public class GeneralInformationService {
      */
     public ResponseWrapper deleteGeneralInformationById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deleteGeneralInformationById(id);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteGeneralInformationById(id);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

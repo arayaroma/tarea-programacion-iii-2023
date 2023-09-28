@@ -1,4 +1,4 @@
-module Evacomuna {
+@SuppressWarnings("module") module Evacomuna {
     requires java.base;
     requires java.logging;
     requires javafx.controls;
@@ -15,9 +15,9 @@ module Evacomuna {
     opens cr.ac.una.evacomuna.util to javafx.fxml;
     opens cr.ac.una.evacomuna.controller to javafx.fxml;
     opens cr.ac.una.evacomuna.dto;
-    opens cr.ac.una.controller;
+    opens cr.ac.una.evacomunaws.controller;
 
     exports cr.ac.una.evacomuna;
     exports cr.ac.una.evacomuna.controller;
-    exports cr.ac.una.controller;
+    exports cr.ac.una.evacomunaws.controller;
 }

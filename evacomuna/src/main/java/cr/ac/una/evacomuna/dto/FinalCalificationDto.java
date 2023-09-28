@@ -7,7 +7,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author arayaroma
  */
 public class FinalCalificationDto
-        implements DtoMapper<cr.ac.una.controller.FinalCalificationDto, FinalCalificationDto> {
+        implements DtoMapper<cr.ac.una.evacomunaws.controller.FinalCalificationDto, FinalCalificationDto> {
 
     private Long id;
     private Long finalNote;
@@ -17,7 +17,7 @@ public class FinalCalificationDto
     private Long version;
 
     @Override
-    public FinalCalificationDto convertFromGeneratedToDTO(cr.ac.una.controller.FinalCalificationDto generated,
+    public FinalCalificationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.FinalCalificationDto generated,
             FinalCalificationDto dto) {
         dto.setEvaluated(new EvaluatedDto(generated.getEvaluated()));
         dto.setSkill(new SkillDto(generated.getSkill()));
@@ -25,8 +25,8 @@ public class FinalCalificationDto
     }
 
     @Override
-    public cr.ac.una.controller.FinalCalificationDto convertFromDTOToGenerated(FinalCalificationDto dto,
-            cr.ac.una.controller.FinalCalificationDto generated) {
+    public cr.ac.una.evacomunaws.controller.FinalCalificationDto convertFromDTOToGenerated(FinalCalificationDto dto,
+            cr.ac.una.evacomunaws.controller.FinalCalificationDto generated) {
         generated.setEvaluated(dto.getEvaluated().getDto());
         generated.setSkill(dto.getSkill().getDto());
         return generated;
@@ -35,7 +35,7 @@ public class FinalCalificationDto
     public FinalCalificationDto() {
     }
 
-    public FinalCalificationDto(cr.ac.una.controller.FinalCalificationDto finalCalificationDto) {
+    public FinalCalificationDto(cr.ac.una.evacomunaws.controller.FinalCalificationDto finalCalificationDto) {
         this.id = finalCalificationDto.getId();
         this.finalNote = finalCalificationDto.getFinalNote();
         this.average = finalCalificationDto.getAverage();
@@ -44,8 +44,8 @@ public class FinalCalificationDto
         this.version = finalCalificationDto.getVersion();
     }
 
-    public cr.ac.una.controller.FinalCalificationDto getDto() {
-        cr.ac.una.controller.FinalCalificationDto dto = new cr.ac.una.controller.FinalCalificationDto();
+    public cr.ac.una.evacomunaws.controller.FinalCalificationDto getDto() {
+        cr.ac.una.evacomunaws.controller.FinalCalificationDto dto = new cr.ac.una.evacomunaws.controller.FinalCalificationDto();
         dto.setId(this.id);
         dto.setFinalNote(this.finalNote);
         dto.setAverage(this.average);

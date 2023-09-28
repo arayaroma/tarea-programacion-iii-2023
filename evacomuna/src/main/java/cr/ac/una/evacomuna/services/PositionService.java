@@ -3,8 +3,8 @@ package cr.ac.una.evacomuna.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import cr.ac.una.controller.PositionController;
-import cr.ac.una.controller.PositionController_Service;
+import cr.ac.una.evacomunaws.controller.PositionController;
+import cr.ac.una.evacomunaws.controller.PositionController_Service;
 import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
@@ -36,8 +36,8 @@ public class PositionService {
      */
     public ResponseWrapper createPosition(PositionDto position) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.createPosition(position.getDto());
-            cr.ac.una.controller.PositionDto positionDto = (cr.ac.una.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createPosition(position.getDto());
+            cr.ac.una.evacomunaws.controller.PositionDto positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -59,15 +59,15 @@ public class PositionService {
      */
     public ResponseWrapper getPositions() {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getPositions();
-            cr.ac.una.controller.ListWrapper listWrapper = (cr.ac.una.controller.ListWrapper) response.getData();
-            List<cr.ac.una.controller.PositionDto> listGenerated = new ArrayList<>();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getPositions();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            List<cr.ac.una.evacomunaws.controller.PositionDto> listGenerated = new ArrayList<>();
             List<PositionDto> listDto = listWrapper
                     .getElement()
                     .stream()
-                    .filter(i -> i instanceof cr.ac.una.controller.PositionDto)
+                    .filter(i -> i instanceof cr.ac.una.evacomunaws.controller.PositionDto)
                     .map(i -> {
-                        cr.ac.una.controller.PositionDto position = (cr.ac.una.controller.PositionDto) i;
+                        cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) i;
                         listGenerated.add(position);
                         PositionDto positionDto = new PositionDto(position);
                         return positionDto.convertFromGeneratedToDTO(position, positionDto);
@@ -96,8 +96,8 @@ public class PositionService {
      */
     public ResponseWrapper getPositionByName(String name) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.getPositionByName(name);
-            cr.ac.una.controller.PositionDto position = (cr.ac.una.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getPositionByName(name);
+            cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -120,8 +120,8 @@ public class PositionService {
      */
     public ResponseWrapper updatePositionById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updatePositionById(id);
-            cr.ac.una.controller.PositionDto position = (cr.ac.una.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePositionById(id);
+            cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -144,8 +144,8 @@ public class PositionService {
      */
     public ResponseWrapper updatePosition(PositionDto position) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.updatePosition(position.getDto());
-            cr.ac.una.controller.PositionDto positionDto = (cr.ac.una.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePosition(position.getDto());
+            cr.ac.una.evacomunaws.controller.PositionDto positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -168,7 +168,7 @@ public class PositionService {
      */
     public ResponseWrapper deletePositionById(Long id) {
         try {
-            cr.ac.una.controller.ResponseWrapper response = port.deletePositionById(id);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deletePositionById(id);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

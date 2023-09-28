@@ -7,7 +7,7 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author arayaroma
  */
 public class GeneralInformationDto
-        implements DtoMapper<cr.ac.una.controller.GeneralInformationDto, GeneralInformationDto> {
+        implements DtoMapper<cr.ac.una.evacomunaws.controller.GeneralInformationDto, GeneralInformationDto> {
 
     private Long id;
     private String name;
@@ -17,21 +17,21 @@ public class GeneralInformationDto
     private Long version;
 
     @Override
-    public GeneralInformationDto convertFromGeneratedToDTO(cr.ac.una.controller.GeneralInformationDto generated,
+    public GeneralInformationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.GeneralInformationDto generated,
             GeneralInformationDto dto) {
         return new GeneralInformationDto(generated);
     }
 
     @Override
-    public cr.ac.una.controller.GeneralInformationDto convertFromDTOToGenerated(GeneralInformationDto dto,
-            cr.ac.una.controller.GeneralInformationDto generated) {
+    public cr.ac.una.evacomunaws.controller.GeneralInformationDto convertFromDTOToGenerated(GeneralInformationDto dto,
+            cr.ac.una.evacomunaws.controller.GeneralInformationDto generated) {
         return dto.getDto();
     }
 
     public GeneralInformationDto() {
     }
 
-    public GeneralInformationDto(cr.ac.una.controller.GeneralInformationDto generalInformationDto) {
+    public GeneralInformationDto(cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformationDto) {
         this.id = generalInformationDto.getId();
         this.name = generalInformationDto.getName();
         this.email = generalInformationDto.getEmail();
@@ -40,8 +40,8 @@ public class GeneralInformationDto
         this.version = generalInformationDto.getVersion();
     }
 
-    public cr.ac.una.controller.GeneralInformationDto getDto() {
-        cr.ac.una.controller.GeneralInformationDto dto = new cr.ac.una.controller.GeneralInformationDto();
+    public cr.ac.una.evacomunaws.controller.GeneralInformationDto getDto() {
+        cr.ac.una.evacomunaws.controller.GeneralInformationDto dto = new cr.ac.una.evacomunaws.controller.GeneralInformationDto();
         dto.setName(this.name);
         dto.setEmail(this.email);
         dto.setPhoto(this.photo);
