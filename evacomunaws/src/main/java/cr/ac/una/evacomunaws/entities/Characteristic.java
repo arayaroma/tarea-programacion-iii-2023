@@ -22,6 +22,7 @@ import java.io.Serializable;
 import cr.ac.una.evacomunaws.dto.CharacteristicDto;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.QueryHint;
 
 /**
  *
@@ -33,9 +34,13 @@ import jakarta.persistence.NamedQuery;
 @Data
 @Table(name = "TBL_CHARACTERISTIC", schema = SCHEMA)
 @NamedQueries({
-        @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c"),
-        @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name"),
-        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c"), })
+        @NamedQuery(name = "Characteristic.findAll", query = "SELECT c FROM Characteristic c", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+})
 public class Characteristic implements Serializable {
 
     private static final long serialVersionUID = 1L;
