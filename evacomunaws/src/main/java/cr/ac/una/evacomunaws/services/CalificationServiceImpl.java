@@ -2,8 +2,6 @@ package cr.ac.una.evacomunaws.services;
 
 import cr.ac.una.evacomunaws.dto.CalificationDto;
 import cr.ac.una.evacomunaws.entities.Calification;
-import cr.ac.una.evacomunaws.entities.Evaluator;
-import cr.ac.una.evacomunaws.entities.Skill;
 import cr.ac.una.evacomunaws.util.DtoMapper;
 import cr.ac.una.evacomunaws.util.ListWrapper;
 import cr.ac.una.evacomunaws.util.ResponseCode;

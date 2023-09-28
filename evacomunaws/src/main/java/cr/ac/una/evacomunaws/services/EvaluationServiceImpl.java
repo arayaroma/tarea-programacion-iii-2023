@@ -29,15 +29,10 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Override
     public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
         try {
-            Evaluation evaluation = new Evaluation(evaluationDto);
-
-            ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluation, Evaluation.class);
-            if (CONSTRAINT_VIOLATION != null) {
-                return CONSTRAINT_VIOLATION;
-            }
+            Evaluation evaluation;
+            evaluation = evaluationDto.convertFromDTOToEntity(evaluationDto, new Evaluation(evaluationDto));
             em.persist(evaluation);
             em.flush();
-           // em.refresh(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -143,8 +138,11 @@ public class EvaluationServiceImpl implements EvaluationService {
             Query query = em.createNamedQuery("Evaluation.findAll", Evaluation.class);
             List<Evaluation> evaluationList = (List<Evaluation>) query.getResultList();
             List<EvaluationDto> evaluationDtos = new ArrayList<>();
-            evaluationList.forEach(
-                    t -> evaluationDtos.add(new EvaluationDto(t).convertFromEntityToDTO(t, new EvaluationDto(t))));
+
+            evaluationList.forEach((evaluation) -> {
+                evaluationDtos.add(new EvaluationDto(evaluation));
+            });
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

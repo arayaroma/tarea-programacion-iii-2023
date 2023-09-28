@@ -25,6 +25,8 @@ import cr.ac.una.evacomunaws.dto.EvaluationDto;
 @AllArgsConstructor
 @NamedQueries({
         @NamedQuery(name = "Evaluation.findAll", query = "SELECT e FROM Evaluation e", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Evaluation.findById", query = "SELECT e FROM Evaluation e WHERE e.id = :id", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
         @NamedQuery(name = "Evaluation.findByName", query = "SELECT e FROM Evaluation e WHERE e.name = :name", hints = {
                 @QueryHint(name = "eclipselink.refresh", value = "true") })
 })
@@ -83,7 +85,6 @@ public class Evaluation implements Serializable {
      */
     public void updateEvaluation(EvaluationDto evaluationDto) {
         this.name = evaluationDto.getName();
-
         this.applicationDate = LocalDate.parse(evaluationDto.getApplicationDate());
         this.InitialPeriod = LocalDate.parse(evaluationDto.getInitialPeriod());
         this.finalPeriod = LocalDate.parse(evaluationDto.getFinalPeriod());

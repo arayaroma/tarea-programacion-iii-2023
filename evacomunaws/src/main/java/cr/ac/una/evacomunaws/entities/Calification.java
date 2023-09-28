@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -29,6 +30,8 @@ import cr.ac.una.evacomunaws.dto.CalificationDto;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+})
 public class Calification implements Serializable {
     private static final long serialVersionUID = 1L;
 

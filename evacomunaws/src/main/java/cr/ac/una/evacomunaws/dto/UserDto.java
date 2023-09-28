@@ -53,9 +53,9 @@ public class UserDto implements DtoMapper<User, UserDto> {
                 dto.getPosition().setSkills(
                                 DtoMapper.fromEntityList(entity.getPosition().getSkills(), SkillDto.class)
                                                 .getList());
-                // dto.setEvaluators(EntityUtil.fromEntityList(entity.getEvaluators(),
+                // dto.setEvaluators(DtoMapper.fromEntityList(entity.getEvaluators(),
                 // EvaluatorDto.class).getList());
-                // dto.setEvaluated(EntityUtil.fromEntityList(entity.getEvaluated(),
+                // dto.setEvaluated(DtoMapper.fromEntityList(entity.getEvaluated(),
                 // EvaluatedDto.class).getList());
                 return dto;
         }
