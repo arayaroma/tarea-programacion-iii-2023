@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.QueryHint;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -32,7 +33,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "GeneralInformation.findAll", query = "SELECT g FROM GeneralInformation g"),
+        @NamedQuery(name = "GeneralInformation.findAll", query = "SELECT g FROM GeneralInformation g", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "GeneralInformation.findById", query = "SELECT g FROM GeneralInformation g WHERE g.id = :id", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "GeneralInformation.findByName", query = "SELECT g FROM GeneralInformation g WHERE g.name = :name", hints = {
+                @QueryHint(name = "eclipselink.refresh", value = "true") }),
 })
 public class GeneralInformation implements Serializable {
     private static final long serialVersionUID = 1L;
