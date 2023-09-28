@@ -59,6 +59,7 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
         dto.setName(this.name);
         dto.setState(this.state);
         dto.setId(this.id);
+        dto.setVersion(this.version);
         return dto;
     }
 

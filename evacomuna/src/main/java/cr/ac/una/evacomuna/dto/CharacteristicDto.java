@@ -49,6 +49,7 @@ public class CharacteristicDto implements DtoMapper<cr.ac.una.evacomunaws.contro
         characteristicDto.setId(this.id);
         characteristicDto.setName(this.name);
         characteristicDto.setSkill(this.skill.getDto());
+        characteristicDto.setVersion(this.version);
         return characteristicDto;
     }
 

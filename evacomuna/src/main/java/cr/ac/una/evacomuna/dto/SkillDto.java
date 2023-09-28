@@ -73,6 +73,7 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.co
         dto.setName(this.name);
         dto.setState(this.state);
         dto.setId(this.id);
+        dto.setVersion(this.version);
         return dto;
     }
 

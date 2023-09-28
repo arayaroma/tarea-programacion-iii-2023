@@ -32,7 +32,7 @@ import javafx.scene.layout.VBox;
 import java.util.stream.Collectors;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 public class AppliedEvaluationsController implements Initializable {
@@ -187,7 +187,12 @@ public class AppliedEvaluationsController implements Initializable {
                     createHeader(feedbackComment));
             gp_feedback.addColumn(0, rowContainer);
         }
+    }
 
+    private EvaluatedDto getEvaluator() {
+        //  ResponseWrapper response = userS
+//        System.out.println(response.getMessage());
+        return evaluatedDto;
     }
 
     private EvaluatedDto getEvaluated() {

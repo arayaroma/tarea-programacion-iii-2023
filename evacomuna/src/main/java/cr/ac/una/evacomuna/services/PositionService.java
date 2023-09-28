@@ -102,7 +102,7 @@ public class PositionService {
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Position found successfully",
-                    new PositionDto(position));
+                    new PositionDto(position).convertFromGeneratedToDTO(position, new PositionDto(position)));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),

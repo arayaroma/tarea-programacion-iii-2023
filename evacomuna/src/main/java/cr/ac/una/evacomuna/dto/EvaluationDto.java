@@ -89,6 +89,7 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
         this.finalPeriod = LocalDate.parse(evaluationDto.getFinalPeriod());
         this.state = evaluationDto.getState();
         this.evaluated = new ArrayList<>();
+        this.version = evaluationDto.getVersion();
     }
 
     public cr.ac.una.evacomunaws.controller.EvaluationDto getDto() {
@@ -99,6 +100,7 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
         evaluationDto.setName(this.name);
         evaluationDto.setState(this.state);
         evaluationDto.setId(this.id);
+        evaluationDto.setVersion(this.version);
         return evaluationDto;
     }
 

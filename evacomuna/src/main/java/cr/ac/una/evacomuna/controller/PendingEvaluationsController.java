@@ -114,8 +114,8 @@ public class PendingEvaluationsController implements Initializable {
                 listEvaluated.getItems().clear();
                 listEvaluated.getItems().addAll(evaluationDto.getEvaluated().stream()
                         .filter(evaluated -> evaluated.getEvaluators().stream()
-                                .anyMatch(
-                                        evaluator -> evaluator.getEvaluator().getId() == Data.getUserLogged().getId()))
+                        .anyMatch(
+                                evaluator -> evaluator.getEvaluator().getId()== Data.getUserLogged().getId()))
                         .collect(Collectors.toList()));
             }
         }
@@ -171,7 +171,7 @@ public class PendingEvaluationsController implements Initializable {
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
         Predicate<EvaluationDto> hasEvaluator = evaluationDto -> evaluationDto.getEvaluated().stream()
                 .anyMatch(evaluatedDto -> evaluatedDto.getEvaluators().stream()
-                        .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId()));
+                .anyMatch(t -> t.getEvaluator().getId() == Data.getUserLogged().getId()));
         List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
                 .filter(hasEvaluator.and(evaluation -> evaluation.getState().equals("IN APPLICATION")))
                 .collect(Collectors.toList());
@@ -278,8 +278,8 @@ public class PendingEvaluationsController implements Initializable {
 
                     isEditing = ((EvaluatedDto) item).getEvaluators().stream()
                             .anyMatch(evaluator -> evaluator.getFeedback() != null
-                                    && !evaluator.getFeedback().isEmpty()
-                                    && evaluator.getEvaluator().getId() == Data.getUserLogged().getId()) ? true : false;
+                            && !evaluator.getFeedback().isEmpty()
+                            && evaluator.getEvaluator().getId() == Data.getUserLogged().getId()) ? true : false;
 
                     if (isEditing) {
                         completed = " (COMPLETED)";
@@ -291,8 +291,8 @@ public class PendingEvaluationsController implements Initializable {
                                 .filter(evaluator -> evaluator.getId() == evaluatorBuffer.getId())
                                 .findFirst()
                                 .ifPresent(ev -> ev.getCalifications().forEach(
-                                        calification -> calificationWrappers
-                                                .add(new CalificationDto(calification.getDto()))));
+                                calification -> calificationWrappers
+                                        .add(new CalificationDto(calification.getDto()))));
                         loadCalificationsInGrid();
                         txaFeedBack.setText(evaluatorBuffer.getFeedback());
                     }
@@ -300,7 +300,7 @@ public class PendingEvaluationsController implements Initializable {
 
                 setText(empty || item == null ? null
                         : ((EvaluatedDto) item).getEvaluated().getName() + " "
-                                + ((EvaluatedDto) item).getEvaluated().getSecondLastname() + completed);
+                        + ((EvaluatedDto) item).getEvaluated().getSecondLastname() + completed);
             }
         });
         // LISTENERS
@@ -338,9 +338,11 @@ public class PendingEvaluationsController implements Initializable {
                     }
                 }
             }
-            calificationWrapper.setX(col);
-            calificationWrapper.setY(row);
-            gridEvaluation.add(calificationWrapper.getData(), calificationWrapper.getX(), calificationWrapper.getY());
+            if (col != null && row != null) {
+                calificationWrapper.setX(col);
+                calificationWrapper.setY(row);
+                gridEvaluation.add(calificationWrapper.getData(), calificationWrapper.getX(), calificationWrapper.getY());
+            }
         }
 
     }
