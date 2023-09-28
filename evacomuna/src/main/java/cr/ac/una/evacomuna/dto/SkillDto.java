@@ -23,18 +23,22 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.co
 
     @Override
     public SkillDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.SkillDto generated, SkillDto dto) {
-        /**
-         * TODO: Califications and FinalCalifications lists
-         */
+        dto.setCalifications(
+                DtoMapper.fromGeneratedList(generated.getCalifications(), CalificationDto.class).getList());
+        dto.setFinalCalifications(
+                DtoMapper.fromGeneratedList(generated.getFinalCalifications(), FinalCalificationDto.class).getList());
         return dto;
     }
 
     @Override
     public cr.ac.una.evacomunaws.controller.SkillDto convertFromDTOToGenerated(SkillDto dto,
             cr.ac.una.evacomunaws.controller.SkillDto generated) {
-        /**
-         * TODO: Califications and FinalCalifications lists
-         */
+        generated.getCalifications().addAll(
+                DtoMapper.fromDtoList(dto.getCalifications(), cr.ac.una.evacomunaws.controller.CalificationDto.class)
+                        .getList());
+        generated.getFinalCalifications().addAll(
+                DtoMapper.fromDtoList(dto.getFinalCalifications(),
+                        cr.ac.una.evacomunaws.controller.FinalCalificationDto.class).getList());
         return generated;
     }
 
@@ -59,8 +63,9 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.co
         this.positions = new ArrayList<>();
         this.califications = new ArrayList<>();
         this.finalCalifications = new ArrayList<>();
-        //this.characteristics = new ArrayList<>();
-        this.characteristics = DtoMapper.fromGeneratedList(skillDto.getCharacteristics(), CharacteristicDto.class).getList();
+        this.characteristics = new ArrayList<>();
+        this.characteristics = DtoMapper.fromGeneratedList(skillDto.getCharacteristics(), CharacteristicDto.class)
+                .getList();
     }
 
     public cr.ac.una.evacomunaws.controller.SkillDto getDto() {

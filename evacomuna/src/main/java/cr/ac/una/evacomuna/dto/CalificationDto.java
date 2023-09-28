@@ -9,7 +9,8 @@ import javafx.scene.layout.Pane;
  * @author estebannajera
  * @author arayaroma
  */
-public class CalificationDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.controller.CalificationDto, CalificationDto> {
+public class CalificationDto extends Pane
+        implements DtoMapper<cr.ac.una.evacomunaws.controller.CalificationDto, CalificationDto> {
 
     private Long id;
     private Long calification;

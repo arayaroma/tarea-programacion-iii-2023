@@ -21,9 +21,14 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     private Long version;
 
     @Override
-    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatedDto generated, EvaluatedDto dto) {
+    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatedDto generated,
+            EvaluatedDto dto) {
         dto.setEvaluated(new UserDto(generated.getEvaluated()));
         dto.setEvaluation(new EvaluationDto(generated.getEvaluation()));
+
+        dto.setFinalCalifications(
+                DtoMapper.fromGeneratedList(generated.getFinalCalifications(), FinalCalificationDto.class).getList());
+
         return dto;
     }
 
@@ -32,6 +37,11 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
             cr.ac.una.evacomunaws.controller.EvaluatedDto generated) {
         generated.setEvaluated(dto.getEvaluated().getDto());
         generated.setEvaluation(dto.getEvaluation().getDto());
+        generated.getFinalCalifications()
+                .addAll(DtoMapper
+                        .fromDtoList(dto.getFinalCalifications(),
+                                cr.ac.una.evacomunaws.controller.FinalCalificationDto.class)
+                        .getList());
         return generated;
     }
 
@@ -58,11 +68,9 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     public cr.ac.una.evacomunaws.controller.EvaluatedDto getDto() {
         cr.ac.una.evacomunaws.controller.EvaluatedDto evaluatedDto = new cr.ac.una.evacomunaws.controller.EvaluatedDto();
         evaluatedDto.setId(id);
-        // evaluatedDto.setEvaluated(evaluated);
+        evaluatedDto.setEvaluated(evaluated.getDto());
         evaluatedDto.setFinalNote(finalNote);
-        // evaluatedDto.setEvaluation(evaluation);
-        // evaluatedDto.getEvaluators().addAll(evaluators);
-        // evaluatedDto.getFinalCalifications().addAll(finalCalifications);
+        evaluatedDto.setEvaluation(evaluation.getDto());
         evaluatedDto.setVersion(version);
         return evaluatedDto;
     }

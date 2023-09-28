@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,7 +15,6 @@
       <VBox prefHeight="584.0" prefWidth="976.0">
          <children>
             <Label prefHeight="40.0" prefWidth="983.0" styleClass="title" text="General Skills Evaluation" />
-            <ComboBox fx:id="cbEvaluated" prefWidth="150.0" styleClass="evaluated-box" />
             <HBox prefHeight="49.0" prefWidth="540.0" styleClass="card-container">
                <children>
                   <VBox styleClass="subcard-container">
@@ -154,7 +152,7 @@
             </HBox>
             <HBox prefHeight="451.0" prefWidth="976.0" styleClass="table-container">
                <children>
-                  <VBox fx:id="gpContainer" prefHeight="431.0" prefWidth="984.0">
+                  <VBox fx:id="gpContainer" prefHeight="429.0" prefWidth="723.0">
                      <children>
                         <GridPane fx:id="gp_table" gridLinesVisible="true" prefHeight="428.0" styleClass="grid-pane">
                           <columnConstraints>
@@ -176,6 +174,15 @@
                         </GridPane>
                      </children>
                   </VBox>
+                  <GridPane fx:id="gp_feedback" prefHeight="429.0" prefWidth="300.0" styleClass="grid-pane">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="379.0" minHeight="10.0" prefHeight="340.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
                </children>
             </HBox>
          </children>

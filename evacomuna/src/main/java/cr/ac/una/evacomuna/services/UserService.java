@@ -89,6 +89,62 @@ public class UserService {
     }
 
     /**
+     * Get a user by id
+     * 
+     * @param id of the user
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getUserById(Long id) {
+        try {
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getUserById(id);
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
+            UserDto userDto = new UserDto(user);
+            userDto.convertFromGeneratedToDTO(user, userDto);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User found",
+                    userDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "User not found",
+                    null);
+        }
+    }
+
+    /**
+     * Get a user by username and password
+     * 
+     * @param username of the user
+     * @param password of the user
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper getByUserAndPassword(String username, String password) {
+        try {
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getUserByUserAndPassword(username,
+                    password);
+            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
+                    .getData();
+            UserDto userDto = new UserDto(user);
+            userDto.convertFromGeneratedToDTO(user, userDto);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User found",
+                    userDto);
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.NOT_FOUND.getCode(),
+                    ResponseCode.NOT_FOUND,
+                    "User not found",
+                    null);
+        }
+    }
+
+    /**
      * Get all users
      * 
      * @return ResponseWrapper with the response of the request
@@ -121,56 +177,6 @@ public class UserService {
                     ResponseCode.NOT_FOUND.getCode(),
                     ResponseCode.NOT_FOUND,
                     "Users not found",
-                    null);
-        }
-    }
-
-    /**
-     * Delete a user by id
-     * 
-     * @param id of the user
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper deleteUserById(Long id) {
-        try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteUserById(id);
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "User deleted successfully",
-                    response.getData());
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
-                    ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error deleting user",
-                    null);
-        }
-    }
-
-    /**
-     * Get a user by username and password
-     * 
-     * @param username of the user
-     * @param password of the user
-     * @return ResponseWrapper with the response of the request
-     */
-    public ResponseWrapper getByUserAndPassword(String username, String password) {
-        try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getUserByUserAndPassword(username,
-                    password);
-            cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
-                    .getData();
-            return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "User found",
-                    new UserDto(user));
-        } catch (Exception e) {
-            return new ResponseWrapper(
-                    ResponseCode.NOT_FOUND.getCode(),
-                    ResponseCode.NOT_FOUND,
-                    "User not found",
                     null);
         }
     }
@@ -224,6 +230,29 @@ public class UserService {
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error changing password",
+                    null);
+        }
+    }
+
+    /**
+     * Delete a user by id
+     * 
+     * @param id of the user
+     * @return ResponseWrapper with the response of the request
+     */
+    public ResponseWrapper deleteUserById(Long id) {
+        try {
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteUserById(id);
+            return new ResponseWrapper(
+                    ResponseCode.OK.getCode(),
+                    ResponseCode.OK,
+                    "User deleted successfully",
+                    response.getData());
+        } catch (Exception e) {
+            return new ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error deleting user",
                     null);
         }
     }
