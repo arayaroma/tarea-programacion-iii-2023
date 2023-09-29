@@ -20,10 +20,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -53,6 +55,13 @@ public class MainController implements Initializable {
     @FXML
     private StackPane parent;
 
+    @FXML
+    private Button btnWorkersModule;
+    @FXML
+    private Button btnGeneralInformationModule;
+    @FXML
+    private Button btnRoleModule;
+
     private UserDto userLogged;
     private UserService userService;
 
@@ -81,6 +90,7 @@ public class MainController implements Initializable {
             }
             changePasswordView.setVisible(false);
             menuPane.setDisable(false);
+            loadPrivileges();
         } catch (Exception e) {
             System.out.println("Error while loading MainController: " + e.toString());
         }
@@ -132,7 +142,6 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
     private void btnPendingsEvaluation(ActionEvent event) {
         try {
             mainScreen.getChildren().clear();
@@ -195,6 +204,14 @@ public class MainController implements Initializable {
         }
     }
 
+    @FXML
+    private void editMyUserAction(MouseEvent event) {
+        if (userLogged != null) {
+            Data.setUserModified(userLogged);
+            App.getMainController().editWorker();
+        }
+    }
+
     public void editWorker() {
         try {
             FXMLLoader loader = App.getFXMLLoader("RegisterWorker");
@@ -206,6 +223,14 @@ public class MainController implements Initializable {
 
     public void removeMainView(Node node) {
         parent.getChildren().remove(node);
+    }
+
+    private void loadPrivileges() {
+        if (!userLogged.getIsAdmin().equals( "Y")) {
+            btnRoleModule.setVisible(false);
+            btnGeneralInformationModule.setVisible(false);
+            btnWorkersModule.setVisible(false);
+        }
     }
 
 }

@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +36,7 @@ import javafx.scene.shape.Circle;
  * @author arayaroma
  */
 public class RegisterWorkerController implements Initializable {
-
+    
     @FXML
     private ImageView imgPhoto;
     @FXML
@@ -58,16 +59,17 @@ public class RegisterWorkerController implements Initializable {
     private TextField txfLandLineNumberRegister;
     @FXML
     private ComboBox<String> cbRoleRegister;
-
+    
     @FXML
     private HBox parent;
-
+    @FXML
+    private RadioButton rbIsAdmin;
     private File bufferFileImage;
     private UserService userService;
     private PositionService roleService;
-
+    
     private boolean isFromLogin;
-
+    
     private UserDto userModified;
 
     /**
@@ -174,7 +176,6 @@ public class RegisterWorkerController implements Initializable {
                 response = userService.createUser(userDto);
             } else {
                 userDto.setId(userModified.getId());
-                userDto.setIsAdmin(userModified.getIsAdmin());
                 userDto.setVersion(userModified.getVersion());
                 userDto.setIsActive(userModified.getIsActive());
                 userDto.setPasswordChanged(userModified.getPasswordChanged());
@@ -222,7 +223,11 @@ public class RegisterWorkerController implements Initializable {
         user.setPhoneNumber(args[7]);
         user.setLandlineNumber(args[8]);
         user.setIsActive("N");
-        user.setIsAdmin("N");
+        if (rbIsAdmin.isSelected()) {
+            user.setIsAdmin("Y");
+        } else {
+            user.setIsAdmin("N");
+        }
         user.setPasswordChanged("N");
         user.setPosition((PositionDto) roleService.getPositionByName(args[9]).getData());
         return user;
@@ -236,12 +241,13 @@ public class RegisterWorkerController implements Initializable {
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
         cbRoleRegister.setItems(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
-
+        
         if (user != null) {
             userModified = user;
             if (userModified.getProfilePhoto() != null) {
                 imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
             }
+            rbIsAdmin.setSelected(userModified.getIsAdmin().equals("Y"));
             txfUserRegister.setText(user.getUsername());
             txfPasswordRegister.setText(user.getPassword());
             txfCedRegister.setText(user.getIdentification());
@@ -254,5 +260,5 @@ public class RegisterWorkerController implements Initializable {
             cbRoleRegister.setValue(user.getPosition().getName());
         }
     }
-
+    
 }

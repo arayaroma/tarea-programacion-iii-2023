@@ -574,11 +574,13 @@ public class UserServiceImpl implements UserService {
                         "Retrieved user is null.",
                         null);
             }
+            UserDto userDto = new UserDto(user);
+            userDto = userDto.convertFromEntityToDTO(user, userDto);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User retrieved successfully.",
-                    new UserDto(user));
+                    userDto);
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

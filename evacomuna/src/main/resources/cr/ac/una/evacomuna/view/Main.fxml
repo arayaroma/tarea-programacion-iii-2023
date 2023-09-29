@@ -29,17 +29,17 @@
                               <Insets />
                            </VBox.margin>
                            <children>
-                              <ImageView fx:id="imgProfilePhoto" fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
+                              <ImageView fx:id="imgProfilePhoto" fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false" styleClass="photoProfile">
                                  <image>
                                     <Image url="@../img/usuario.png" />
                                  </image>
                               </ImageView>
-                              <Circle fill="#1f93ff00" radius="40.0" stroke="#3f56dc" strokeType="INSIDE" />
+                              <Circle fill="#1f93ff00" onMouseClicked="#editMyUserAction" radius="40.0" stroke="#3f56dc" strokeType="INSIDE" styleClass="photoProfile" />
                            </children>
                         </StackPane>
                         <VBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#btnWorkersModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
+                              <Button fx:id="btnWorkersModule" mnemonicParsing="false" onAction="#btnWorkersModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
                                  <graphic>
                                     <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
                                        <image>
@@ -63,7 +63,7 @@
                                     <Tooltip text="Evaluation Module" />
                                  </tooltip>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#btnGeneralInformationModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
+                              <Button fx:id="btnGeneralInformationModule" mnemonicParsing="false" onAction="#btnGeneralInformationModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
                                  <graphic>
                                     <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
                                        <image>
@@ -75,7 +75,7 @@
                                     <Tooltip text="General Information Module" />
                                  </tooltip>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#btnRoleModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
+                              <Button fx:id="btnRoleModule" mnemonicParsing="false" onAction="#btnRoleModule" scaleX="0.7" scaleY="0.7" styleClass="icon">
                                  <graphic>
                                     <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
                                        <image>
@@ -85,18 +85,6 @@
                                  </graphic>
                                  <tooltip>
                                     <Tooltip text="Role Module" />
-                                 </tooltip>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#btnPendingsEvaluation" scaleX="0.7" scaleY="0.7" styleClass="icon">
-                                 <graphic>
-                                    <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" smooth="false">
-                                       <image>
-                                          <Image url="@../img/lista-de-verificacion.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip text="Pending Evaluations" />
                                  </tooltip>
                               </Button>
                            </children>

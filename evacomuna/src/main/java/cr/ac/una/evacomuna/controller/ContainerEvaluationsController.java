@@ -1,6 +1,7 @@
 package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.evacomuna.App;
+import cr.ac.una.evacomuna.util.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +34,7 @@ public class ContainerEvaluationsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        loadPrivileges();
     }
 
     @FXML
@@ -62,6 +64,12 @@ public class ContainerEvaluationsController implements Initializable {
             pendingEvaluations.setContent(loader.load());
         } catch (IOException e) {
             System.out.println(e.toString());
+        }
+    }
+
+    private void loadPrivileges() {
+        if (!Data.getUserLogged().getIsAdmin().equals("Y")) {
+            maintenanceView.setDisable(true);
         }
     }
 

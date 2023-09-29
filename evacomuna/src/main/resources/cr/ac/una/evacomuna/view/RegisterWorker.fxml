@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -71,6 +72,7 @@
                               </HBox>
                            </children>
                         </HBox>
+                        <RadioButton fx:id="rbIsAdmin" mnemonicParsing="false" text="Admin" />
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <Button mnemonicParsing="false" onAction="#selectPhotoProfile" styleClass="form-select" text="Select Your Profile Photo" />
@@ -168,5 +170,6 @@
    <stylesheets>
       <URL value="@../style/index.css" />
       <URL value="@../style/login.css" />
+      <URL value="@../style/registerWorkerController.css" />
    </stylesheets>
 </HBox>
