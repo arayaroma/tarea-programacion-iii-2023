@@ -84,7 +84,6 @@ public class PendingEvaluationsController implements Initializable {
     private ObservableList<EvaluationDto> evaluationDtos = FXCollections.observableArrayList();
     boolean isEditing = false;
     private PositionDto positionBuffer;
-    // private ImageView imageViewCheck;
 
     /**
      * Initializes the controller class.
@@ -107,7 +106,6 @@ public class PendingEvaluationsController implements Initializable {
         String name = cbPendingEvaluations.getValue();
         if (name != null) {
             EvaluationDto evaluationDto = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
-
             if (evaluationDto != null) {
                 listEvaluated.getItems().clear();
                 listEvaluated.getItems().addAll(evaluationDto.getEvaluated().stream()
@@ -137,8 +135,6 @@ public class PendingEvaluationsController implements Initializable {
                 Message.showNotification("Error", MessageType.ERROR, response.getMessage());
                 return;
             }
-            // evaluatorBuffer.getCalifications().add(new
-            // CalificationWrapper((CalificationDto) response.getData()).getDto());
         }
 
         cr.ac.una.evacomuna.util.ResponseWrapper response = isEditing
@@ -152,9 +148,7 @@ public class PendingEvaluationsController implements Initializable {
     }
 
     private void loadEvaluator() {
-        // for (EvaluationDto evaluationDto : evaluationDtos) {
         if (evaluatedBuffer != null) {
-            // for (EvaluatedDto evaluatedDto : evaluationDto.getEvaluated()) {
             for (EvaluatorDto evaluatorDto : evaluatedBuffer.getEvaluators()) {
                 if (Objects.equals(evaluatorDto.getEvaluator().getId(), Data.getUserLogged().getId())) {
                     evaluatorBuffer = evaluatorDto;
@@ -162,15 +156,6 @@ public class PendingEvaluationsController implements Initializable {
                 }
             }
         }
-        // }
-        // }
-        // Optional<EvaluatorDto> evaluatorOptional = evaluationDtos.stream()
-        // .flatMap(evaluation -> evaluation.getEvaluated().stream())
-        // .flatMap(evaluated -> evaluated.getEvaluators().stream())
-        // .filter(evaluator ->
-        // evaluator.getEvaluator().getId().equals(Data.getUserLogged().getId()))
-        // .findFirst();
-        // evaluatorOptional.ifPresent(evaluator -> evaluatorBuffer = evaluator);
     }
 
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
@@ -278,6 +263,13 @@ public class PendingEvaluationsController implements Initializable {
         return new ArrayList<>();
     }
 
+    private boolean isEditingEvaluated(EvaluatedDto evaluatedDto) {
+        return evaluatedDto.getEvaluators().stream()
+                .anyMatch(evaluator -> evaluator.getFeedback() != null
+                && !evaluator.getFeedback().isEmpty()
+                && evaluator.getEvaluator().getId() == Data.getUserLogged().getId()) ? true : false;
+    }
+
     private void initializeList() {
         listEvaluated.setCellFactory((param) -> new ListCell() {
             @Override
@@ -286,10 +278,7 @@ public class PendingEvaluationsController implements Initializable {
                 String completed = "";
                 if (item != null) {
 
-                    isEditing = ((EvaluatedDto) item).getEvaluators().stream()
-                            .anyMatch(evaluator -> evaluator.getFeedback() != null
-                                    && !evaluator.getFeedback().isEmpty()
-                                    && evaluator.getEvaluator().getId() == Data.getUserLogged().getId()) ? true : false;
+                    isEditing = isEditingEvaluated((EvaluatedDto) item);
 
                     if (isEditing) {
                         completed = " (COMPLETED)";
@@ -306,7 +295,8 @@ public class PendingEvaluationsController implements Initializable {
                 .addListener((observable, oldValue, newValue) -> {
                     evaluatedBuffer = newValue;
                     if (evaluatedBuffer != null) {
-                        // Load skills by position evaluated
+
+                        //Load skills by position evaluated
                         positionBuffer = (PositionDto) positionService
                                 .getPositionByName(evaluatedBuffer.getEvaluated().getPosition().getName()).getData();
                         if (positionBuffer != null) {
@@ -319,6 +309,7 @@ public class PendingEvaluationsController implements Initializable {
                         }
                         // Load califications
                         loadEvaluator();
+                        isEditing = isEditingEvaluated(evaluatedBuffer);
                         if (evaluatorBuffer != null) {
                             calificationWrappers.clear();
                             evaluatorBuffer.getCalifications().forEach(c -> calificationWrappers.add(c));

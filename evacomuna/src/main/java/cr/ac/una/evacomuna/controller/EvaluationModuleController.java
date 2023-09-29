@@ -82,6 +82,7 @@ public class EvaluationModuleController implements Initializable {
     private EvaluatedService evaluatedService = new EvaluatedService();
     private EvaluatorService evaluatorService = new EvaluatorService();
     private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
+    private List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -220,6 +221,7 @@ public class EvaluationModuleController implements Initializable {
             initializeView();
             return;
         }
+        Message.showNotification("ERROR", MessageType.INFO, "Error creating evaluation");
     }
 
     @FXML
@@ -301,8 +303,8 @@ public class EvaluationModuleController implements Initializable {
         cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
         if (users != null) {
             evaluatorDtos = users.stream().map(t -> new EvaluatorDto(t)).collect(Collectors.toList());
-            listEvaluated.getItems()
-                    .addAll(users.stream().map(t -> new EvaluatedDto(t)).collect(Collectors.toList()));
+            evaluatedDtos = users.stream().map(t -> new EvaluatedDto(t)).collect(Collectors.toList());
+            listEvaluated.getItems().addAll(evaluatedDtos);
             listEvaluators.getItems().addAll(evaluatorDtos);
         }
     }
@@ -410,7 +412,9 @@ public class EvaluationModuleController implements Initializable {
                     finalEvaluatedBuffer = newValue;
                     if (finalEvaluatedBuffer != null) {
                         listEvaluatorsFix.getItems().clear();
-                        newValue.getEvaluators().forEach(t -> listEvaluatorsFix.getItems().add(t));
+                        if (newValue.getEvaluators() != null) {
+                            newValue.getEvaluators().forEach(t -> listEvaluatorsFix.getItems().add(t));
+                        }
                     }
                 });
         listEvaluatorsFix.getSelectionModel().selectedItemProperty()
@@ -437,8 +441,7 @@ public class EvaluationModuleController implements Initializable {
         return evaluatorsDeleted;
     }
 
-    public boolean createEvaluated(EvaluatedDto evaluated,
-            EvaluationDto evaluationDto) {
+    public boolean createEvaluated(EvaluatedDto evaluated, EvaluationDto evaluationDto) {
         ResponseWrapper response = null;
         boolean allIsSaved = false;
         evaluated.setEvaluation(evaluationDto);
@@ -450,7 +453,7 @@ public class EvaluationModuleController implements Initializable {
             EvaluatedDto evaluatedDtoSaved = response == null ? evaluated : (EvaluatedDto) response.getData();
             for (EvaluatorDto evaluator : evaluated.getEvaluators()) {
                 evaluator.setEvaluated(evaluatedDtoSaved);
-                evaluator.setRole("PEER");
+                setRole(evaluator);
                 if (evaluator.getId() == null) {
                     response = evaluatorService.createEvaluator(evaluator);
                     if (response.getCode() == ResponseCode.OK) {

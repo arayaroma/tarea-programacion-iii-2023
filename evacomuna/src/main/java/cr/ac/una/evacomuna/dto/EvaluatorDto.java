@@ -37,13 +37,16 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     }
 
     public EvaluatorDto() {
+        califications = new ArrayList<>();
     }
 
     public EvaluatorDto(UserDto evaluator) {
+        this();
         this.evaluator = evaluator;
     }
 
     public EvaluatorDto(cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto) {
+        this();
         this.id = evaluatorDto.getId();
         this.role = evaluatorDto.getRole();
         this.feedback = evaluatorDto.getFeedback();

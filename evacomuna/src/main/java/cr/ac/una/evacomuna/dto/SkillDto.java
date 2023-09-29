@@ -55,6 +55,18 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.co
         this.name = name;
     }
 
+    public SkillDto(SkillDto skillDto) {
+        this.id = skillDto.getID();
+        this.name = skillDto.getName();
+        this.state = skillDto.getState();
+        this.version = skillDto.getVersion();
+        this.positions = new ArrayList<>();
+        this.califications = new ArrayList<>();
+        this.finalCalifications = new ArrayList<>();
+        this.characteristics = new ArrayList<>();
+        this.characteristics = skillDto.getCharacteristics();
+    }
+
     public SkillDto(cr.ac.una.evacomunaws.controller.SkillDto skillDto) {
         this.id = skillDto.getId();
         this.name = skillDto.getName();
@@ -143,16 +155,16 @@ public class SkillDto extends Pane implements DtoMapper<cr.ac.una.evacomunaws.co
 
     @Override
     public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", name='" + getName() + "'" +
-                ", state='" + getState() + "'" +
-                ", version='" + getVersion() + "'" +
-                ", positions='" + getPositions() + "'" +
-                ", califications='" + getCalifications() + "'" +
-                ", finalCalifications='" + getFinalCalifications() + "'" +
-                ", characteristics='" + getCharacteristics() + "'" +
-                "}";
+        return "{"
+                + " id='" + getId() + "'"
+                + ", name='" + getName() + "'"
+                + ", state='" + getState() + "'"
+                + ", version='" + getVersion() + "'"
+                + ", positions='" + getPositions() + "'"
+                + ", califications='" + getCalifications() + "'"
+                + ", finalCalifications='" + getFinalCalifications() + "'"
+                + ", characteristics='" + getCharacteristics() + "'"
+                + "}";
     }
 
 }

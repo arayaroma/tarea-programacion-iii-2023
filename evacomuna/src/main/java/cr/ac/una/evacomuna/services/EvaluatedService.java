@@ -31,13 +31,15 @@ public class EvaluatedService {
 
     /**
      * Creates a new evaluated
-     * 
+     *
      * @param evaluatedDto object to create
      * @return EvaluatedDto with the created evaluated if found, null otherwise
      */
     public ResponseWrapper createEvaluated(EvaluatedDto evaluatedDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluated(evaluatedDto.getDto());
+            cr.ac.una.evacomunaws.controller.EvaluatedDto entity = evaluatedDto.getDto();
+            entity = evaluatedDto.convertFromDTOToGenerated(evaluatedDto, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluated(entity);
             cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated = (cr.ac.una.evacomunaws.controller.EvaluatedDto) response
                     .getData();
             return new ResponseWrapper(
@@ -56,7 +58,7 @@ public class EvaluatedService {
 
     /**
      * Retrieves the evaluated object with the given id
-     * 
+     *
      * @param id id of the evaluated to fetch
      * @return EvaluatedDto with the evaluated if found, null otherwise
      */
@@ -113,7 +115,7 @@ public class EvaluatedService {
 
     /**
      * Retrieves all evaluated list
-     * 
+     *
      * @return List of evaluated if found, null otherwise
      */
     public ResponseWrapper getAllEvaluated() {
@@ -149,13 +151,15 @@ public class EvaluatedService {
 
     /**
      * Updates the evaluated with the given id
-     * 
+     *
      * @param evaluatedDto object to update
      * @return EvaluatedDto with the updated evaluated if found, null otherwise
      */
     public ResponseWrapper updateEvaluated(EvaluatedDto evaluatedDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluated(evaluatedDto.getDto());
+            cr.ac.una.evacomunaws.controller.EvaluatedDto entity = evaluatedDto.getDto();
+            entity = evaluatedDto.convertFromDTOToGenerated(evaluatedDto, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluated(entity);
             cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated = (cr.ac.una.evacomunaws.controller.EvaluatedDto) response
                     .getData();
             return new ResponseWrapper(
@@ -175,7 +179,7 @@ public class EvaluatedService {
 
     /**
      * Deletes the evaluated with the given id
-     * 
+     *
      * @param id of the evaluated to delete
      */
     public ResponseWrapper deleteEvaluatedById(Long id) {

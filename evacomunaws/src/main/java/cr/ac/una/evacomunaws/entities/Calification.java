@@ -21,9 +21,11 @@ import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CALIFICATION;
 import java.io.Serializable;
 import cr.ac.una.evacomunaws.dto.CalificationDto;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Entity
@@ -39,6 +41,7 @@ import cr.ac.una.evacomunaws.dto.CalificationDto;
                 @jakarta.persistence.QueryHint(name = "eclipselink.refresh", value = "true") })
 })
 public class Calification implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id

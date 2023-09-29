@@ -77,24 +77,13 @@ public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
                                         .getList());
 
                         if (dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications() != null) {
-                            for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications()
-                                    .size(); k++) {
-                                dto.getEvaluated()
-                                        .get(i).getEvaluators()
-                                        .get(j).getCalifications().get(k)
-                                        .setSkill(new SkillDto(entity.getEvaluated()
-                                                .get(i).getEvaluators()
-                                                .get(j).getCalifications()
-                                                .get(k).getSkill()));
-
-                                dto.getEvaluated()
-                                        .get(i).getEvaluators()
-                                        .get(j).getCalifications()
-                                        .get(k).setEvaluator(new EvaluatorDto(entity
-                                                .getEvaluated()
-                                                .get(i).getEvaluators()
-                                                .get(j).getCalifications()
-                                                .get(k).getEvaluator()));
+                            for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().size(); k++) {
+                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
+                                        .setSkill(new SkillDto(entity.getEvaluated().get(i).getEvaluators().get(j)
+                                                .getCalifications().get(k).getSkill()));
+                                dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().get(k)
+                                        .setEvaluator(new EvaluatorDto(entity.getEvaluated().get(i).getEvaluators().get(j)
+                                                .getCalifications().get(k).getEvaluator()));
                             }
                         }
                     }

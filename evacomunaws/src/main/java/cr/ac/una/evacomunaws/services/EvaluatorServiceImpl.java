@@ -37,7 +37,6 @@ public class EvaluatorServiceImpl implements EvaluatorService {
             }
             em.persist(evaluator);
             em.flush();
-            em.remove(evaluator);
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully created",
                     evaluatorDto.convertFromEntityToDTO(evaluator, new EvaluatorDto(evaluator)));
         } catch (Exception e) {

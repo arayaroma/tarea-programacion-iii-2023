@@ -38,11 +38,18 @@ public class EvaluationService {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluation(evaluationDto.getDto());
             cr.ac.una.evacomunaws.controller.EvaluationDto evaluation = (cr.ac.una.evacomunaws.controller.EvaluationDto) response.getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluation created successfully",
+                        new EvaluationDto(evaluation));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Evaluation created successfully",
-                    new EvaluationDto(evaluation));
+                    "Error creating evaluation: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -141,11 +148,19 @@ public class EvaluationService {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluation(evaluationDto.getDto());
             cr.ac.una.evacomunaws.controller.EvaluationDto evaluation = (cr.ac.una.evacomunaws.controller.EvaluationDto) response.getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluation updated successfully",
+                        new EvaluationDto(evaluation));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Evaluation updated successfully",
-                    new EvaluationDto(evaluation));
+                    "Error updating evaluation: " + response.getMessage(),
+                    null);
+
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

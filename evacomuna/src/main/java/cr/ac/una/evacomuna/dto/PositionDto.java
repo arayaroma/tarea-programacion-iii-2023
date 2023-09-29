@@ -20,39 +20,22 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     private List<SkillDto> skills;
 
     @Override
-    public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated,
-            PositionDto dto) {
-        dto.setUsers(DtoMapper.fromDtoList(generated.getUsers(), UserDto.class).getList());
-        dto.setSkills(DtoMapper.fromDtoList(generated.getSkills(), SkillDto.class).getList());
-        if (dto.getSkills() == null) {
-            dto.setSkills(new ArrayList<SkillDto>());
-        }
-        if (dto.getUsers() == null) {
-            dto.setUsers(new ArrayList<UserDto>());
-        }
+    public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated, PositionDto dto) {
+        dto.setUsers(DtoMapper.fromGeneratedList(generated.getUsers(), UserDto.class).getList());
+        dto.setSkills(DtoMapper.fromGeneratedList(generated.getSkills(), SkillDto.class).getList());
         return dto;
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.PositionDto convertFromDTOToGenerated(PositionDto dto,
-            cr.ac.una.evacomunaws.controller.PositionDto generated) {
+    public cr.ac.una.evacomunaws.controller.PositionDto convertFromDTOToGenerated(PositionDto dto, cr.ac.una.evacomunaws.controller.PositionDto generated) {
         dto.getSkills().forEach(t -> generated.getSkills().add(createDtoSkill(t)));
+        //generated.getUsers().addAll(DtoMapper.fromDtoList(dto.getUsers(), cr.ac.una.evacomunaws.controller.UserDto.class).getList());
+        //generated.getSkills().addAll(DtoMapper.fromDtoList(dto.getSkills(), cr.ac.una.evacomunaws.controller.SkillDto.class).getList());
         return generated;
     }
 
     public PositionDto() {
     }
-
-    // public cr.ac.una.evacomunaws.controller.UserDto createDtoUser(UserDto
-    // userDto) {
-    // cr.ac.una.evacomunaws.controller.UserDto user = new
-    // cr.ac.una.evacomunaws.controller.UserDto();
-    // user.setActivationCode(userDto.getActivationCode());
-    // user.setEmail(userDto.getEmail());
-    // user.setId(userDto.getId());
-    // user.setVersion(userDto.getVersion());
-    // return user;
-    // }
 
     public cr.ac.una.evacomunaws.controller.SkillDto createDtoSkill(SkillDto skillDto) {
         cr.ac.una.evacomunaws.controller.SkillDto skill = new cr.ac.una.evacomunaws.controller.SkillDto();

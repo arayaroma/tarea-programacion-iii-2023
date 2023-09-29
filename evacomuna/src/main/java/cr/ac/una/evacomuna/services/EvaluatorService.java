@@ -42,11 +42,19 @@ public class EvaluatorService {
             entity = evaluatorDto.convertFromDTOToGenerated(evaluatorDto, entity);
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluator(entity);
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluator created successfully",
+                        new EvaluatorDto(evaluator));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Evaluator created successfully",
-                    new EvaluatorDto(evaluator));
+                    "Error creating evaluator",
+                    null);
+
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -152,11 +160,18 @@ public class EvaluatorService {
             entity = evaluatorDto.convertFromDTOToGenerated(evaluatorDto, entity);
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluator(entity);
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response.getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluator updated successfully",
+                        new EvaluatorDto(evaluator));
+            }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
-                    "Evaluator updated successfully",
-                    new EvaluatorDto(evaluator));
+                    "Error updating evaluator",
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
