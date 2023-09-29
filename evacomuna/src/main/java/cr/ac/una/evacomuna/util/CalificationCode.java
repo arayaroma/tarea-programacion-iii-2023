@@ -3,11 +3,12 @@ package cr.ac.una.evacomuna.util;
 /**
  *
  * @author estebannajera
+ * @author arayaroma
  */
 public enum CalificationCode {
     EXCEPTIONAL(Long.valueOf(4)),
     ABOVE_EXPECTATIONS(Long.valueOf(3)),
-    EXPECTATIONS(Long.valueOf(2)),
+    MEETS_EXPECTATIONS(Long.valueOf(2)),
     UNDER_EXPECTATIONS(Long.valueOf(1));
     private Long code;
 
@@ -23,8 +24,8 @@ public enum CalificationCode {
         if (code == "Exceptional") {
             return CalificationCode.EXCEPTIONAL.getCode();
         }
-        if (code == "Expectations") {
-            return CalificationCode.EXPECTATIONS.getCode();
+        if (code == "Meets Expectations") {
+            return CalificationCode.MEETS_EXPECTATIONS.getCode();
         }
         if (code == "Under Expectations") {
             return CalificationCode.UNDER_EXPECTATIONS.getCode();
@@ -42,8 +43,8 @@ public enum CalificationCode {
         if (code == CalificationCode.UNDER_EXPECTATIONS.getCode()) {
             return "Under Expectations";
         }
-        if (code == CalificationCode.EXPECTATIONS.getCode()) {
-            return "Expectations";
+        if (code == CalificationCode.MEETS_EXPECTATIONS.getCode()) {
+            return "Meets Expectations";
         }
         if (code == CalificationCode.EXCEPTIONAL.getCode()) {
             return "Exceptional";
