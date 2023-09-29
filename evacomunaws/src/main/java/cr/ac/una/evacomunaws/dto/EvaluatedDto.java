@@ -42,7 +42,18 @@ public class EvaluatedDto implements DtoMapper<Evaluated, EvaluatedDto> {
     public EvaluatedDto convertFromEntityToDTO(Evaluated entity, EvaluatedDto dto) {
         dto.setEvaluated(new UserDto(entity.getEvaluated()));
         dto.setEvaluation(new EvaluationDto(entity.getEvaluation()));
-        //dto.setEvaluators(EntityUtil.fromEntityList(entity.getEvaluators(), EvaluatorDto.class).getList());
+
+        dto.setFinalCalifications(
+                DtoMapper.fromEntityList(entity.getFinalCalifications(), FinalCalificationDto.class).getList());
+        if (dto.getFinalCalifications() != null) {
+            for (int i = 0; i < dto.getFinalCalifications().size(); i++) {
+                dto.getFinalCalifications()
+                        .get(i)
+                        .setSkill(new SkillDto(entity
+                                .getFinalCalifications()
+                                .get(i).getSkill()));
+            }
+        }
         return dto;
     }
 
@@ -50,7 +61,6 @@ public class EvaluatedDto implements DtoMapper<Evaluated, EvaluatedDto> {
     public Evaluated convertFromDTOToEntity(EvaluatedDto dto, Evaluated entity) {
         entity.setEvaluated(new User(dto.getEvaluated()));
         entity.setEvaluation(new Evaluation(dto.getEvaluation()));
-        //entity.setEvaluators(EntityUtil.fromDtoList(dto.getEvaluators(), Evaluator.class).getList());
         return entity;
 
     }
