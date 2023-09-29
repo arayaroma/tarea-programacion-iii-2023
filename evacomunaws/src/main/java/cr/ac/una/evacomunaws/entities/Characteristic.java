@@ -38,8 +38,7 @@ import jakarta.persistence.QueryHint;
                 @QueryHint(name = "eclipselink.refresh", value = "true") }),
         @NamedQuery(name = "Characteristic.findByName", query = "SELECT c FROM Characteristic c WHERE c.name = :name", hints = {
                 @QueryHint(name = "eclipselink.refresh", value = "true") }),
-        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c", hints = {
-                @QueryHint(name = "eclipselink.refresh", value = "true") }),
+        @NamedQuery(name = "Characteristic.deleteAll", query = "DELETE FROM Characteristic c"),
 })
 public class Characteristic implements Serializable {
 

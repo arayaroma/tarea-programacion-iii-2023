@@ -45,7 +45,7 @@ import jakarta.persistence.QueryHint;
         @NamedQuery(name = "Skill.findById", query = "SELECT s FROM Skill s WHERE s.id = :id"),
         @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
         @NamedQuery(name = "Skill.findByLikeName", query = "SELECT s FROM Skill s WHERE s.name like :name", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
-        @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
+        @NamedQuery(name = "Skill.deleteAll", query = "DELETE FROM Skill s"),
         @NamedQuery(name = "Skill.getCharacteristicsBySkillId", query = "SELECT c FROM Characteristic c WHERE c.skill.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
         @NamedQuery(name = "Skill.getCalificationsBySkillId", query = "SELECT c FROM Calification c WHERE c.skill.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
         @NamedQuery(name = "Skill.getFinalCalificationsBySkillId", query = "SELECT f FROM FinalCalification f WHERE f.skill.id = :id", hints = @QueryHint(name = "eclipselink.refresh", value = "true")),
