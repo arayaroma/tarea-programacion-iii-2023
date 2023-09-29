@@ -80,7 +80,7 @@ public class AppliedEvaluationsController implements Initializable {
     private EvaluationService evaluationService;
 
     private List<SkillDto> skills;
-
+    private double calificationCalculated = 0;
     private UserDto userDto;
     private EvaluatedDto evaluatedDto;
     private EvaluationDto evaluationBuffer;
@@ -109,6 +109,11 @@ public class AppliedEvaluationsController implements Initializable {
         loadFeedbackComments();
         loadCalifications();
         loadChecks();
+
+    }
+
+    private void calculateCalification() {
+
     }
 
     @FXML
@@ -296,6 +301,7 @@ public class AppliedEvaluationsController implements Initializable {
                 }
             }
             if (col != null && row != null) {
+                //calificationCalculated += finalCalificationDto.getAverage();
                 gp_table.add(finalCalificationDto.getContainer(), col, row);
             }
         }
