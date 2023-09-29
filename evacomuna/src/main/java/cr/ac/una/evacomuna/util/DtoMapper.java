@@ -24,9 +24,6 @@ public interface DtoMapper<G, D> {
                     .map(gen -> convertToDto(gen, dtoClass))
                     .collect(Collectors.toList());
             listWrapper.setList(dtos);
-            if (listWrapper == null) {
-                return new ListWrapper<>();
-            }
             return listWrapper;
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -44,9 +41,6 @@ public interface DtoMapper<G, D> {
                     .map(dto -> convertToGenerated(dto, generatedClass))
                     .collect(Collectors.toList());
             listWrapper.setList(generated);
-            if (listWrapper == null) {
-                return new ListWrapper<>();
-            }
             return listWrapper;
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -67,7 +61,8 @@ public interface DtoMapper<G, D> {
 
     public static <T, D> T convertToGenerated(D dto, Class<T> generatedClass) {
         try {
-            Constructor<T> constructor = generatedClass.getConstructor(dto.getClass());//No existe este constructor en las clases mapeadas
+            Constructor<T> constructor = generatedClass.getConstructor(dto.getClass());// No existe este constructor en
+                                                                                       // las clases mapeadas
             T gen = constructor.newInstance(dto);
             return gen;
         } catch (Exception e) {
