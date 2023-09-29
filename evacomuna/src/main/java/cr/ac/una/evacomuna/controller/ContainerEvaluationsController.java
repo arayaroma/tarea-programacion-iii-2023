@@ -51,7 +51,7 @@ public class ContainerEvaluationsController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("AppliedEvaluations");
             appliedView.setContent(loader.load());
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 

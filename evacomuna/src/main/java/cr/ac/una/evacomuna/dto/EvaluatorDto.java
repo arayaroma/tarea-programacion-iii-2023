@@ -21,14 +21,16 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     private List<CalificationDto> califications;
 
     @Override
-    public EvaluatorDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatorDto generated, EvaluatorDto dto) {
+    public EvaluatorDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatorDto generated,
+            EvaluatorDto dto) {
         dto.setEvaluator(new UserDto(generated.getEvaluator()));
         dto.setEvaluated(new EvaluatedDto(generated.getEvaluated()));
         return dto;
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.EvaluatorDto convertFromDTOToGenerated(EvaluatorDto dto, cr.ac.una.evacomunaws.controller.EvaluatorDto generated) {
+    public cr.ac.una.evacomunaws.controller.EvaluatorDto convertFromDTOToGenerated(EvaluatorDto dto,
+            cr.ac.una.evacomunaws.controller.EvaluatorDto generated) {
         generated.setEvaluator(dto.getEvaluator().getDto());
         generated.setEvaluated(dto.getEvaluated().getDto());
         return generated;
@@ -42,15 +44,11 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     }
 
     public EvaluatorDto(cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto) {
-        //    if (evaluatorDto != null) {
         this.id = evaluatorDto.getId();
-//        this.evaluator = new UserDto();
         this.role = evaluatorDto.getRole();
         this.feedback = evaluatorDto.getFeedback();
-//        this.evaluated = new EvaluatedDto();
         this.version = evaluatorDto.getVersion();
         this.califications = new ArrayList<>();
-        //}
     }
 
     public EvaluatorDto(cr.ac.una.evacomunaws.controller.UserDto t) {
@@ -59,10 +57,10 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     public cr.ac.una.evacomunaws.controller.EvaluatorDto getDto() {
         cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto = new cr.ac.una.evacomunaws.controller.EvaluatorDto();
         evaluatorDto.setId(this.id);
-        //evaluatorDto.setEvaluator(this.evaluator.getDto());
+        // evaluatorDto.setEvaluator(this.evaluator.getDto());
         evaluatorDto.setRole(this.role);
         evaluatorDto.setFeedback(this.feedback);
-        //evaluatorDto.setEvaluated(this.evaluated.getDto());
+        // evaluatorDto.setEvaluated(this.evaluated.getDto());
         evaluatorDto.setVersion(this.version);
         return evaluatorDto;
     }

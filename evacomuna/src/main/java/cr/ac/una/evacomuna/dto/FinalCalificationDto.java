@@ -1,12 +1,14 @@
 package cr.ac.una.evacomuna.dto;
 
 import cr.ac.una.evacomuna.util.DtoMapper;
+import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 
 /**
  * 
  * @author arayaroma
  */
-public class FinalCalificationDto
+public class FinalCalificationDto extends HBox
         implements DtoMapper<cr.ac.una.evacomunaws.controller.FinalCalificationDto, FinalCalificationDto> {
 
     private Long id;
@@ -15,9 +17,12 @@ public class FinalCalificationDto
     private EvaluatedDto evaluated;
     private SkillDto skill;
     private Long version;
+    private Node data;
+    private HBox container;
 
     @Override
-    public FinalCalificationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.FinalCalificationDto generated,
+    public FinalCalificationDto convertFromGeneratedToDTO(
+            cr.ac.una.evacomunaws.controller.FinalCalificationDto generated,
             FinalCalificationDto dto) {
         dto.setEvaluated(new EvaluatedDto(generated.getEvaluated()));
         dto.setSkill(new SkillDto(generated.getSkill()));
@@ -39,8 +44,6 @@ public class FinalCalificationDto
         this.id = finalCalificationDto.getId();
         this.finalNote = finalCalificationDto.getFinalNote();
         this.average = finalCalificationDto.getAverage();
-//        this.evaluated = new EvaluatedDto();
-//        this.skill = new SkillDto();
         this.version = finalCalificationDto.getVersion();
     }
 
@@ -55,7 +58,7 @@ public class FinalCalificationDto
         return dto;
     }
 
-    public Long getId() {
+    public Long getID() {
         return this.id;
     }
 
@@ -101,6 +104,22 @@ public class FinalCalificationDto
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Node getData() {
+        return this.data;
+    }
+
+    public void setData(Node data) {
+        this.data = data;
+    }
+
+    public HBox getContainer() {
+        return this.container;
+    }
+
+    public void setContainer(HBox container) {
+        this.container = container;
     }
 
     @Override

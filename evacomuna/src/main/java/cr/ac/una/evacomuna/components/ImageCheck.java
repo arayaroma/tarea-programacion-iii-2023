@@ -3,6 +3,10 @@ package cr.ac.una.evacomuna.components;
 import cr.ac.una.evacomuna.App;
 import javafx.scene.image.ImageView;
 
+/**
+ * 
+ * @author arayaroma
+ */
 public class ImageCheck {
     public static ImageView createImageCheck() {
         ImageView check = new ImageView(App.class.getResource("/cr/ac/una/evacomuna/img/comprobar.png").toString());

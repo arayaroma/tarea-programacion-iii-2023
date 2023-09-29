@@ -100,12 +100,11 @@ public class UserService {
             cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
                     .getData();
             UserDto userDto = new UserDto(user);
-            userDto.convertFromGeneratedToDTO(user, userDto);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User found",
-                    userDto);
+                    userDto.convertFromGeneratedToDTO(user, userDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),

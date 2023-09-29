@@ -3,15 +3,12 @@ package cr.ac.una.evacomuna.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import cr.ac.una.evacomunaws.controller.EvaluatedController;
 import cr.ac.una.evacomunaws.controller.EvaluatedController_Service;
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.dto.FinalCalificationDto;
-import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
-import cr.ac.una.evacomuna.util.DtoMapper;
 import cr.ac.una.evacomuna.util.ResponseCode;
 
 /**
@@ -75,7 +72,7 @@ public class EvaluatedService {
                         "Evaluated not found",
                         null);
             }
-            EvaluatedDto evaluatedDto = new EvaluatedDto(evaluated.getEvaluated());
+            EvaluatedDto evaluatedDto = new EvaluatedDto(evaluated);
             evaluatedDto.convertFromGeneratedToDTO(evaluated, evaluatedDto);
             if (evaluated.getEvaluators() != null) {
                 evaluatedDto.setEvaluators(
@@ -94,7 +91,7 @@ public class EvaluatedService {
                                 .stream()
                                 .map(i -> {
                                     cr.ac.una.evacomunaws.controller.FinalCalificationDto finalCalificationDto = (cr.ac.una.evacomunaws.controller.FinalCalificationDto) i;
-                                    FinalCalificationDto dto = new FinalCalificationDto();
+                                    FinalCalificationDto dto = new FinalCalificationDto(finalCalificationDto);
                                     dto.convertFromGeneratedToDTO(finalCalificationDto, dto);
                                     return dto;
                                 })
