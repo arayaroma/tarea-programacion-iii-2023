@@ -20,7 +20,8 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     private List<SkillDto> skills;
 
     @Override
-    public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated, PositionDto dto) {
+    public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated,
+            PositionDto dto) {
         dto.setUsers(DtoMapper.fromDtoList(generated.getUsers(), UserDto.class).getList());
         dto.setSkills(DtoMapper.fromDtoList(generated.getSkills(), SkillDto.class).getList());
         if (dto.getSkills() == null) {
@@ -42,14 +43,17 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     public PositionDto() {
     }
 
-//    public cr.ac.una.evacomunaws.controller.UserDto createDtoUser(UserDto userDto) {
-//        cr.ac.una.evacomunaws.controller.UserDto user = new cr.ac.una.evacomunaws.controller.UserDto();
-//        user.setActivationCode(userDto.getActivationCode());
-//        user.setEmail(userDto.getEmail());
-//        user.setId(userDto.getId());
-//        user.setVersion(userDto.getVersion());
-//        return user;
-//    }
+    // public cr.ac.una.evacomunaws.controller.UserDto createDtoUser(UserDto
+    // userDto) {
+    // cr.ac.una.evacomunaws.controller.UserDto user = new
+    // cr.ac.una.evacomunaws.controller.UserDto();
+    // user.setActivationCode(userDto.getActivationCode());
+    // user.setEmail(userDto.getEmail());
+    // user.setId(userDto.getId());
+    // user.setVersion(userDto.getVersion());
+    // return user;
+    // }
+
     public cr.ac.una.evacomunaws.controller.SkillDto createDtoSkill(SkillDto skillDto) {
         cr.ac.una.evacomunaws.controller.SkillDto skill = new cr.ac.una.evacomunaws.controller.SkillDto();
         skill.setId(skillDto.getID());
@@ -80,9 +84,11 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
             dto.setState(this.state);
             dto.setId(this.id);
             dto.setVersion(this.version);
-            //dto.getSkills();
-            //skills.forEach(t->dto.getSkills().add(DtoMapper.convertToGenerated(t, cr.ac.una.evacomunaws.controller.SkillDto.class)));
-            //dto.getSkills().addAll(DtoMapper.fromDtoList(this.skills, SkillDto.class).getList());
+            // dto.getSkills();
+            // skills.forEach(t->dto.getSkills().add(DtoMapper.convertToGenerated(t,
+            // cr.ac.una.evacomunaws.controller.SkillDto.class)));
+            // dto.getSkills().addAll(DtoMapper.fromDtoList(this.skills,
+            // SkillDto.class).getList());
             return dto;
         } catch (Exception e) {
             System.out.println(e.toString());
