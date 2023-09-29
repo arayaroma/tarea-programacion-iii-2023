@@ -8,8 +8,10 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -84,6 +86,18 @@
                            </VBox.margin>
                         </HBox>
                         <ListView fx:id="listEvaluators" prefHeight="200.0" prefWidth="200.0" styleClass="list" VBox.vgrow="ALWAYS" />
+                        <HBox alignment="TOP_CENTER" spacing="20.0">
+                           <children>
+                              <RadioButton fx:id="rbSelf" mnemonicParsing="false" text="SELF">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="role" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="PEER" toggleGroup="$role" />
+                              <RadioButton mnemonicParsing="false" text="SUPERVISOR" toggleGroup="$role" />
+                              <RadioButton mnemonicParsing="false" text="CLIENT" toggleGroup="$role" />
+                           </children>
+                        </HBox>
                         <Button mnemonicParsing="false" onAction="#btnAddEvaluator" text="Add" VBox.vgrow="ALWAYS">
                            <styleClass>
                               <String fx:value="btn" />

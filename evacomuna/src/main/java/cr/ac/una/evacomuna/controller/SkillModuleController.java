@@ -4,6 +4,7 @@ import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.dto.CharacteristicDto;
 import cr.ac.una.evacomuna.dto.SkillDto;
+import cr.ac.una.evacomuna.services.CalificationService;
 import cr.ac.una.evacomuna.services.CharacteristicService;
 import cr.ac.una.evacomuna.services.SkillService;
 import cr.ac.una.evacomuna.util.Message;
@@ -52,6 +53,7 @@ public class SkillModuleController implements Initializable {
     // SERVICES
     SkillService skillService;
     CharacteristicService characteristicService;
+    CalificationService calificationService;
     // BUFFERS
     SkillDto skillBufferMainView;
     CharacteristicDto characteristicViewBuffer;
@@ -70,6 +72,7 @@ public class SkillModuleController implements Initializable {
         try {
             skillService = new SkillService();
             characteristicService = new CharacteristicService();
+            calificationService = new CalificationService();
             initializeLists();
             initializeSkillMainView();
             cbSkillsView.setOnKeyReleased(t -> searchSkillInput(t));
@@ -141,6 +144,9 @@ public class SkillModuleController implements Initializable {
             if (skillBufferMainView.getCharacteristics() != null) {
                 skillBufferMainView.getCharacteristics()
                         .forEach(t -> characteristicService.deleteCharacteristicById(t.getId()));
+            }
+            if (skillBufferMainView.getCalifications() != null) {
+                skillBufferMainView.getCalifications().forEach(t -> calificationService.deleteCalificationById(t.getID()));
             }
             ResponseWrapper response = skillService.deleteSkillsById(skillBufferMainView.getID());
             Message.showNotification(response.getCode().name(),

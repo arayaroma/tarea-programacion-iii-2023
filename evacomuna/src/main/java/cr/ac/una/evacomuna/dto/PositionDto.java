@@ -35,6 +35,8 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     }
 
     public PositionDto() {
+        this.users = new ArrayList<>();
+        this.skills = new ArrayList<>();
     }
 
     public cr.ac.una.evacomunaws.controller.SkillDto createDtoSkill(SkillDto skillDto) {
@@ -46,18 +48,19 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     }
 
     public PositionDto(String name, String state, Long id) {
+        this();
         this.name = name;
         this.state = state;
         this.id = id;
     }
 
     public PositionDto(cr.ac.una.evacomunaws.controller.PositionDto positionDto) {
+        this();
         this.id = positionDto.getId();
         this.name = positionDto.getName();
         this.state = positionDto.getState();
         this.version = positionDto.getVersion();
-        this.users = new ArrayList<>();
-        this.skills = new ArrayList<>();
+
     }
 
     public cr.ac.una.evacomunaws.controller.PositionDto getDto() {

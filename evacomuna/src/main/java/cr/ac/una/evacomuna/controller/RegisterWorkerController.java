@@ -36,7 +36,7 @@ import javafx.scene.shape.Circle;
  * @author arayaroma
  */
 public class RegisterWorkerController implements Initializable {
-    
+
     @FXML
     private ImageView imgPhoto;
     @FXML
@@ -59,7 +59,7 @@ public class RegisterWorkerController implements Initializable {
     private TextField txfLandLineNumberRegister;
     @FXML
     private ComboBox<String> cbRoleRegister;
-    
+
     @FXML
     private HBox parent;
     @FXML
@@ -67,9 +67,9 @@ public class RegisterWorkerController implements Initializable {
     private File bufferFileImage;
     private UserService userService;
     private PositionService roleService;
-    
+
     private boolean isFromLogin;
-    
+
     private UserDto userModified;
 
     /**
@@ -118,7 +118,9 @@ public class RegisterWorkerController implements Initializable {
             return;
         }
         App.getMainController().removeMainView(parent);
-        App.getWorkersModuleController().loadWorkers(ObservableListParser.loadUsers());
+        if (App.getWorkersModuleController() != null) {
+            App.getWorkersModuleController().loadWorkers(ObservableListParser.loadUsers());
+        }
     }
 
     /**
@@ -241,7 +243,7 @@ public class RegisterWorkerController implements Initializable {
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
         cbRoleRegister.setItems(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
-        
+
         if (user != null) {
             userModified = user;
             if (userModified.getProfilePhoto() != null) {
@@ -260,5 +262,5 @@ public class RegisterWorkerController implements Initializable {
             cbRoleRegister.setValue(user.getPosition().getName());
         }
     }
-    
+
 }

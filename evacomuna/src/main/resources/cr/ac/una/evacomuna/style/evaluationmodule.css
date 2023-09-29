@@ -9,6 +9,7 @@
     -fx-red:#AA2323;
     -fx-dark-red:#881c1c;
     -fx-dark-green:#1c8822;
+    -fx-darkest-grey-color: #323232;
 }
 .tab-header-background {
     -fx-background-color: -fx-white-white-blue;
@@ -43,4 +44,19 @@
 }
 .date-picker .cell:hover {
     -fx-background-color: -fx-white-blue;
+}
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: -fx-darkest-grey-color;
+    -fx-background-color: white;
+    -fx-border-radius: 15px;
+    -fx-padding: 3px;
+}
+.radio-button:hover{
+    -fx-cursor: hand;
+}
+.radio-button .dot {
+    -fx-background-radius: 15px;
+    -fx-padding: 8px;
 }

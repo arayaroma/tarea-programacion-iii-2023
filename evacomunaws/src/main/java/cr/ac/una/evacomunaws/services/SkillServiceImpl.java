@@ -151,11 +151,12 @@ public class SkillServiceImpl implements SkillService {
                         "Skill not found.",
                         null);
             }
+            SkillDto dto = new SkillDto(skill);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Successful retrieval of skill.",
-                    new SkillDto(skill));
+                    dto.convertFromEntityToDTO(skill, dto));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

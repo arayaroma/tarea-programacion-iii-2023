@@ -46,8 +46,8 @@ public class EvaluationService {
                         new EvaluationDto(evaluation));
             }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
                     "Error creating evaluation: " + response.getMessage(),
                     null);
         } catch (Exception e) {

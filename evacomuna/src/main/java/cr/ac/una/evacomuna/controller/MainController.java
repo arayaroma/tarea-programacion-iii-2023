@@ -228,7 +228,7 @@ public class MainController implements Initializable {
     private void loadPrivileges() {
         if (!userLogged.getIsAdmin().equals( "Y")) {
             btnRoleModule.setVisible(false);
-            btnGeneralInformationModule.setVisible(false);
+            //btnGeneralInformationModule.setVisible(false);
             btnWorkersModule.setVisible(false);
         }
     }

@@ -245,7 +245,7 @@ public class PendingEvaluationsController implements Initializable {
         ImageView check = ImageCheck.createImageCheck();
         intializeDragAndDrop(check);
         gridEvaluation.addRow(0, check, createHeader("Exceptional"), createHeader("Above Expectations"),
-                createHeader("Expectations"), createHeader("Under expectations"));
+                createHeader("Meets Expectations"), createHeader("Under Expectations"));
         gridEvaluation.setAlignment(Pos.CENTER);
         gridEvaluation.setVgap(10);
         gridEvaluation.setHgap(10);

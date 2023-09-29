@@ -3,6 +3,7 @@ package cr.ac.una.evacomuna.controller;
 import cr.ac.una.evacomuna.App;
 import cr.ac.una.evacomuna.dto.GeneralInformationDto;
 import cr.ac.una.evacomuna.services.GeneralInformationService;
+import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.FileLoader;
 import cr.ac.una.evacomuna.util.ImageLoader;
 import cr.ac.una.evacomuna.util.Message;
@@ -30,7 +31,7 @@ import javafx.scene.shape.Circle;
  * @author arayaroma
  */
 public class CompanyModuleController implements Initializable {
-
+    
     @FXML
     private HBox parent;
     @FXML
@@ -60,8 +61,9 @@ public class CompanyModuleController implements Initializable {
             isEditing = true;
         }
         initializeView();
+        loadPrivileges();
     }
-
+    
     @FXML
     private void selectPhotoProfile(ActionEvent event) {
         File selectedFile = ImageLoader.selectFile("Image files", "*.jpg", "*.png", "*.jpeg");
@@ -70,7 +72,7 @@ public class CompanyModuleController implements Initializable {
             imgBuffer = selectedFile;
         }
     }
-
+    
     @FXML
     private void saveChanges(ActionEvent event) throws URISyntaxException {
         String email = txfEmail.getText(), name = txfCompanyName.getText();
@@ -98,7 +100,7 @@ public class CompanyModuleController implements Initializable {
         }
         Message.showNotification("Error", MessageType.ERROR, response.getMessage());
     }
-
+    
     @FXML
     private void chooseHTMLTemplateAction(ActionEvent event) {
         File selectedFile = FileLoader.selectFile("HTML File", "*.html");
@@ -107,7 +109,7 @@ public class CompanyModuleController implements Initializable {
             htmlBuffer = FileLoader.fileToString(selectedFile);
         }
     }
-
+    
     private void initializeView() {
         if (companyBuffer != null) {
             txfCompanyName.setText(companyBuffer.getName());
@@ -118,4 +120,11 @@ public class CompanyModuleController implements Initializable {
         }
     }
 
+    private void loadPrivileges() {
+        if (!Data.getUserLogged().getIsAdmin().equals("Y")) {
+            lblURLTemplate.setVisible(false);
+            parent.setDisable(true);
+        }
+    }
+    
 }

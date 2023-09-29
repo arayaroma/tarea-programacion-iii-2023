@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import cr.ac.una.evacomunaws.entities.Skill;
 import cr.ac.una.evacomunaws.util.DtoMapper;
+import cr.ac.una.evacomunaws.util.EntityUtil;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class SkillDto implements DtoMapper<Skill, SkillDto> {
 
     /**
      * @param entity Entity to be converted
-     * @param dto    DTO to be updated
+     * @param dto DTO to be updated
      * @return DTO with the updated information
      */
     @Override
@@ -36,11 +37,13 @@ public class SkillDto implements DtoMapper<Skill, SkillDto> {
         /**
          * TODO: Califications and FinalCalifications lists
          */
+        dto.setCalifications(DtoMapper.fromEntityList(entity.getCalifications(), CalificationDto.class).getList());
+        dto.setFinalCalifications(DtoMapper.fromEntityList(entity.getFinalCalifications(), FinalCalificationDto.class).getList());
         return dto;
     }
 
     /**
-     * @param dto    DTO to be converted
+     * @param dto DTO to be converted
      * @param entity Entity to be updated
      * @return Entity with the updated information
      */
@@ -49,6 +52,7 @@ public class SkillDto implements DtoMapper<Skill, SkillDto> {
         /**
          * TODO: Califications and FinalCalifications lists
          */
+        //entity.setCalifications(califications);
         return entity;
     }
 

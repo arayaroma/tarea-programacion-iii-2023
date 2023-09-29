@@ -36,7 +36,9 @@ public class PositionService {
      */
     public ResponseWrapper createPosition(PositionDto position) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createPosition(position.getDto());
+            cr.ac.una.evacomunaws.controller.PositionDto entity = position.getDto();
+            entity = position.convertFromDTOToGenerated(position, entity);
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createPosition(entity);
             cr.ac.una.evacomunaws.controller.PositionDto positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),

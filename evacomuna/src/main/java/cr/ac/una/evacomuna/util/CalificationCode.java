@@ -36,6 +36,22 @@ public enum CalificationCode {
         return Long.valueOf(-1);
     }
 
+    public static Double getValueCalification(String code) {
+        if (code == "Exceptional") {
+            return 1.0;
+        }
+        if (code == "Meets Expectations") {
+            return 0.50;
+        }
+        if (code == "Under Expectations") {
+            return 0.25;
+        }
+        if (code == "Above Expectations") {
+            return 0.75;
+        }
+        return 0.0;
+    }
+
     public static String parseCodeToString(Long code) {
         if (code == CalificationCode.ABOVE_EXPECTATIONS.getCode()) {
             return "Above Expectations";

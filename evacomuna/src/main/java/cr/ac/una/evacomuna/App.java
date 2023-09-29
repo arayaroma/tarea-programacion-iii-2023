@@ -30,8 +30,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
-        ExcelGenerator generator = new ExcelGenerator(null);
-        generator.generateExcelReport();
+//        ExcelGenerator generator = new ExcelGenerator(null);
+//        generator.generateExcelReport();
     }
 
     public static void setRoot(String fxml) throws IOException {

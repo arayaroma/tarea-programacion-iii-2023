@@ -22,15 +22,16 @@ import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
 @Stateless
 @LocalBean
 public class EvaluationServiceImpl implements EvaluationService {
-
+    
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager em;
-
+    
     @Override
     public ResponseWrapper createEvaluation(EvaluationDto evaluationDto) {
         try {
             Evaluation evaluation;
             evaluation = evaluationDto.convertFromDTOToEntity(evaluationDto, new Evaluation(evaluationDto));
+            System.out.println(evaluation.toString());
             em.persist(evaluation);
             em.flush();
             return new ResponseWrapper(
@@ -45,9 +46,9 @@ public class EvaluationServiceImpl implements EvaluationService {
                     "Error creating evaluation:" + e.getMessage(),
                     null);
         }
-
+        
     }
-
+    
     @Override
     public ResponseWrapper updateEvaluation(EvaluationDto evaluationDto) {
         try {
@@ -81,7 +82,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper getEvaluationById(Long id) {
         try {
@@ -107,15 +108,13 @@ public class EvaluationServiceImpl implements EvaluationService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper getEvaluationByName(String name) {
         try {
             Evaluation evaluation = em.createNamedQuery("Evaluation.findByName", Evaluation.class)
                     .setParameter("name", name)
                     .getSingleResult();
-            System.out.println("Size evaluated: " + evaluation.getEvaluated().size());
-            evaluation.getEvaluated().forEach((t -> System.out.print("Size ebvalators: " + t.getEvaluators().size())));
             EvaluationDto evaluationDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -130,7 +129,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     null);
         }
     }
-
+    
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper getAllEvaluation() {
@@ -138,11 +137,12 @@ public class EvaluationServiceImpl implements EvaluationService {
             Query query = em.createNamedQuery("Evaluation.findAll", Evaluation.class);
             List<Evaluation> evaluationList = (List<Evaluation>) query.getResultList();
             List<EvaluationDto> evaluationDtos = new ArrayList<>();
-
+            
             evaluationList.forEach((evaluation) -> {
-                evaluationDtos.add(new EvaluationDto(evaluation));
+                EvaluationDto evaluationDto = new EvaluationDto(evaluation);
+                evaluationDtos.add(evaluationDto.convertFromEntityToDTO(evaluation, evaluationDto));
             });
-
+            
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -156,7 +156,7 @@ public class EvaluationServiceImpl implements EvaluationService {
                     null);
         }
     }
-
+    
     @Override
     public ResponseWrapper deleteEvaluationById(Long id) {
         try {
@@ -183,5 +183,5 @@ public class EvaluationServiceImpl implements EvaluationService {
                     null);
         }
     }
-
+    
 }

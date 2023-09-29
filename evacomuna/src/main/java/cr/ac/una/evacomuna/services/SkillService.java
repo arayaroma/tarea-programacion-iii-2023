@@ -16,7 +16,7 @@ import cr.ac.una.evacomuna.dto.SkillDto;
  * @author arayaroma
  */
 public class SkillService {
-
+    
     private SkillController_Service service;
     private SkillController port;
 
@@ -26,7 +26,7 @@ public class SkillService {
     public SkillService() {
         service = new SkillController_Service();
         port = service.getSkillControllerPort();
-
+        
     }
 
     /**
@@ -70,11 +70,13 @@ public class SkillService {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkillByName(name);
             cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
+            SkillDto skillDto = new SkillDto(skill);
+            
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Skill found successfully",
-                    new SkillDto(skill));
+                    skillDto.convertFromGeneratedToDTO(skill, skillDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -188,5 +190,5 @@ public class SkillService {
                     null);
         }
     }
-
+    
 }

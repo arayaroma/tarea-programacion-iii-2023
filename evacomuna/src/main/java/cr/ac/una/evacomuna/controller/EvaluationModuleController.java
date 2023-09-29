@@ -1,5 +1,6 @@
 package cr.ac.una.evacomuna.controller;
 
+import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.dto.UserDto;
@@ -7,6 +8,7 @@ import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.dto.PositionDto;
+import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.services.EvaluatedService;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.EvaluatorService;
@@ -17,7 +19,9 @@ import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
@@ -31,7 +35,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -69,7 +75,8 @@ public class EvaluationModuleController implements Initializable {
     private ListView<EvaluatedDto> listEvaluated;
     @FXML
     private ListView<EvaluatedDto> listEvaluatedFix;
-
+    @FXML
+    private ToggleGroup role;
     private EvaluationService evaluationService;
     private EvaluationDto evaluationBuffer;
     private EvaluatedDto evaluatedBuffer;
@@ -83,6 +90,9 @@ public class EvaluationModuleController implements Initializable {
     private EvaluatorService evaluatorService = new EvaluatorService();
     private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
     private List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
+    private String roleBuffer;
+    @FXML
+    private RadioButton rbSelf;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,10 +113,15 @@ public class EvaluationModuleController implements Initializable {
 
     @FXML
     private void btnAddEvaluator(ActionEvent event) {
+        if (roleBuffer == null) {
+            Message.showNotification("Wait", MessageType.INFO, "You must to set a role");
+            return;
+        }
         if (finalEvaluatedBuffer != null) {
             if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream()
                     .anyMatch(t -> t.getId() != null && t.getEvaluator().getId() == evaluatorBuffer.getId())) {
                 listEvaluatorsFix.getItems().remove(evaluatedBuffer);
+                setRole(evaluatorBuffer);
                 listEvaluatorsFix.getItems().add(evaluatorBuffer);
                 finalEvaluatedBuffer.getEvaluators().add(evaluatorBuffer);
             }
@@ -392,7 +407,7 @@ public class EvaluationModuleController implements Initializable {
                 if (evaluatorDto != null) {
                     UserDto user = evaluatorDto.getEvaluator();
                     setText(empty || item == null ? null
-                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " (" + evaluatorDto.getRole() + ")");
                 } else {
                     setText(null);
                 }
@@ -406,6 +421,24 @@ public class EvaluationModuleController implements Initializable {
         listEvaluators.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     evaluatorBuffer = newValue;
+                    if (isTheSameUserEvaluator(evaluatorBuffer)) {
+                        rbSelf.setSelected(true);
+                        role.getToggles().forEach(t -> {
+                            if (t instanceof RadioButton) {
+                                ((RadioButton) t).setDisable(true);
+                            }
+                        });
+                    } else {
+                        rbSelf.setSelected(false);
+                        role.getToggles().forEach(t -> {
+                            if (t instanceof RadioButton) {
+                                ((RadioButton) t).setDisable(false);
+                                if (((RadioButton) t).getText().equals("SELF")) {
+                                    ((RadioButton) t).setDisable(true);
+                                }
+                            }
+                        });
+                    }
                 });
         listEvaluatedFix.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
@@ -421,6 +454,12 @@ public class EvaluationModuleController implements Initializable {
                 .addListener((observable, oldValue, newValue) -> {
                     finalEvaluatorBuffer = newValue;
                 });
+        role.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue instanceof RadioButton) {
+                RadioButton selectedRadioButton = (RadioButton) newValue;
+                roleBuffer = selectedRadioButton.getText();
+            }
+        });
     }
 
     public boolean deleteEvaluated(EvaluatedDto evaluated) {
@@ -453,7 +492,6 @@ public class EvaluationModuleController implements Initializable {
             EvaluatedDto evaluatedDtoSaved = response == null ? evaluated : (EvaluatedDto) response.getData();
             for (EvaluatorDto evaluator : evaluated.getEvaluators()) {
                 evaluator.setEvaluated(evaluatedDtoSaved);
-                setRole(evaluator);
                 if (evaluator.getId() == null) {
                     response = evaluatorService.createEvaluator(evaluator);
                     if (response.getCode() == ResponseCode.OK) {
@@ -466,13 +504,41 @@ public class EvaluationModuleController implements Initializable {
     }
 
     private void setRole(EvaluatorDto evaluatorDto) {
-        if (evaluatorDto.getEvaluator().getId() == evaluatorDto.getId()) {
-            evaluatorDto.setRole("SELF");
-        } else if (evaluatorDto.getEvaluator().getIsAdmin() == "Y") {
-            evaluatorDto.setRole("SUPERVISOR");
-        } else {
-            evaluatorDto.setRole("PEER");
+        if (!isTheSameUserEvaluator(evaluatorDto)) {
+            evaluatorDto.setRole(roleBuffer);
+            return;
         }
+        evaluatorDto.setRole("SELF");
+    }
+
+    private boolean isTheSameUserEvaluator(EvaluatorDto evaluator) {
+        if (finalEvaluatedBuffer != null && evaluator != null) {
+            return finalEvaluatedBuffer.getEvaluated().getId().equals(evaluator.getEvaluator().getId());
+        }
+        return false;
+    }
+
+    private void generateFinalCalifications(EvaluationDto evaluation) {
+        Map<SkillDto, Double> calificationBySkill = new HashMap<>();
+        if (evaluation != null && evaluation.getState().equals("UNDER REVIEW")) {
+            for (EvaluatedDto evaluatedDto : evaluation.getEvaluated()) {
+                for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {
+                    for (CalificationDto calificationDto : evaluatorDto.getCalifications()) {
+                    }
+                }
+            }
+        }
+    }
+
+    private void fillCalificationBySkill(Map<SkillDto, Double> map, SkillDto skill, CalificationDto calificationDto) {
+        if (map.get(skill) == null) {
+            map.put(skill, Double.valueOf(1));
+        }
+    }
+    private Double calculateCalification(String calification){
+        Double calificationNumber = 0.0;
+        
+        return calificationNumber;
     }
 
 }

@@ -6,6 +6,7 @@ import cr.ac.una.evacomunaws.controller.CalificationController;
 import cr.ac.una.evacomunaws.controller.CalificationController_Service;
 import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
+import cr.ac.una.evacomunaws.controller.ResponseCode;
 
 /**
  *
@@ -174,16 +175,23 @@ public class CalificationService {
     public ResponseWrapper deleteCalificationById(Long id) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteCalificationById(id);
+            if (response.getCode() == ResponseCode.OK) {
+                return new ResponseWrapper(
+                        cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
+                        cr.ac.una.evacomuna.util.ResponseCode.OK,
+                        "Calification deleted successfully",
+                        response.getData());
+            }
             return new ResponseWrapper(
-                    cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
-                    cr.ac.una.evacomuna.util.ResponseCode.OK,
-                    "Calification deleted successfully",
-                    response.getData());
+                    cr.ac.una.evacomuna.util.ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    cr.ac.una.evacomuna.util.ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error removing calification: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     cr.ac.una.evacomuna.util.ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error deleting calification",
+                    "Error removing calification",
                     null);
         }
     }
