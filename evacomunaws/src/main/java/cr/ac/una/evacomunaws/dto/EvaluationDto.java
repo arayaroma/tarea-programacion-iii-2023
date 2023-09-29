@@ -48,7 +48,15 @@ public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
                 dto.getEvaluated()
                         .get(i).setEvaluated(new UserDto(entity.getEvaluated().get(i).getEvaluated()));
-
+                dto.getEvaluated()
+                        .get(i).setFinalCalifications(DtoMapper.fromEntityList(entity.getEvaluated()
+                        .get(i).getFinalCalifications(), FinalCalificationDto.class).getList());
+                if (dto.getEvaluated().get(i).getFinalCalifications() != null) {
+                    for (int j = 0; j < dto.getEvaluated().get(i).getFinalCalifications().size(); j++) {
+                        dto.getEvaluated().get(i).getFinalCalifications().get(j).setSkill(new SkillDto(entity.getEvaluated().get(i).getFinalCalifications().get(j).getSkill()));
+                        //dto.getEvaluated().get(i).getFinalCalifications().get(j).set(new SkillDto(entity.getEvaluated().get(i).getFinalCalifications().get(j).getSkill()));
+                    }
+                }
                 dto.getEvaluated()
                         .get(i)
                         .setEvaluators(DtoMapper
@@ -61,20 +69,20 @@ public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
                         dto.getEvaluated()
                                 .get(i).getEvaluators()
                                 .get(j).setEvaluator(
-                                        new UserDto(
-                                                entity.getEvaluated()
-                                                        .get(i).getEvaluators()
-                                                        .get(j).getEvaluator()));
+                                new UserDto(
+                                        entity.getEvaluated()
+                                                .get(i).getEvaluators()
+                                                .get(j).getEvaluator()));
 
                         dto.getEvaluated()
                                 .get(i).getEvaluators()
                                 .get(j).setCalifications(DtoMapper
-                                        .fromDtoList(
-                                                entity.getEvaluated()
-                                                        .get(i).getEvaluators()
-                                                        .get(j).getCalifications(),
-                                                CalificationDto.class)
-                                        .getList());
+                                .fromDtoList(
+                                        entity.getEvaluated()
+                                                .get(i).getEvaluators()
+                                                .get(j).getCalifications(),
+                                        CalificationDto.class)
+                                .getList());
 
                         if (dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications() != null) {
                             for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications().size(); k++) {
@@ -88,6 +96,7 @@ public class EvaluationDto implements DtoMapper<Evaluation, EvaluationDto> {
                         }
                     }
                 }
+
                 dto.getEvaluated()
                         .get(i).getEvaluated()
                         .setPosition(new PositionDto(entity.getEvaluated()

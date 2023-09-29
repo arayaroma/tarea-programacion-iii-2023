@@ -29,33 +29,42 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
         if (dto.getEvaluated() != null) {
             for (int i = 0; i < dto.getEvaluated().size(); i++) {
                 dto.getEvaluated()
+                        .get(i).setFinalCalifications(DtoMapper.fromGeneratedList(generated.getEvaluated()
+                        .get(i).getFinalCalifications(), FinalCalificationDto.class).getList());
+                if (dto.getEvaluated().get(i).getFinalCalifications() != null) {
+                    for (int j = 0; j < dto.getEvaluated().get(i).getFinalCalifications().size(); j++) {
+                        dto.getEvaluated().get(i).getFinalCalifications().get(j).setSkill(new SkillDto(generated.getEvaluated().get(i).getFinalCalifications().get(j).getSkill()));
+                        //dto.getEvaluated().get(i).getFinalCalifications().get(j).set(new SkillDto(entity.getEvaluated().get(i).getFinalCalifications().get(j).getSkill()));
+                    }
+                }
+                dto.getEvaluated()
                         .get(i).setEvaluated(new UserDto(generated
-                                .getEvaluated()
-                                .get(i).getEvaluated()));
+                        .getEvaluated()
+                        .get(i).getEvaluated()));
                 dto.getEvaluated()
                         .get(i).setEvaluators(DtoMapper
-                                .fromGeneratedList(generated
-                                        .getEvaluated()
-                                        .get(i).getEvaluators(),
-                                        EvaluatorDto.class)
-                                .getList());
+                        .fromGeneratedList(generated
+                                .getEvaluated()
+                                .get(i).getEvaluators(),
+                                EvaluatorDto.class)
+                        .getList());
 
                 if (dto.getEvaluated().get(i).getEvaluators() != null) {
                     for (int j = 0; j < dto.getEvaluated().get(i).getEvaluators().size(); j++) {
                         dto.getEvaluated()
                                 .get(i).getEvaluators()
                                 .get(j).setEvaluator(new UserDto(generated
-                                        .getEvaluated()
-                                        .get(i).getEvaluators()
-                                        .get(j).getEvaluator()));
+                                .getEvaluated()
+                                .get(i).getEvaluators()
+                                .get(j).getEvaluator()));
 
                         dto.getEvaluated()
                                 .get(i).getEvaluators()
                                 .get(j).setCalifications(DtoMapper.fromDtoList(generated
-                                        .getEvaluated()
-                                        .get(i).getEvaluators()
-                                        .get(j).getCalifications(),
-                                        CalificationDto.class).getList());
+                                .getEvaluated()
+                                .get(i).getEvaluators()
+                                .get(j).getCalifications(),
+                                CalificationDto.class).getList());
 
                         if (dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications() != null) {
                             for (int k = 0; k < dto.getEvaluated().get(i).getEvaluators().get(j).getCalifications()
@@ -64,18 +73,18 @@ public class EvaluationDto implements DtoMapper<cr.ac.una.evacomunaws.controller
                                         .get(i).getEvaluators()
                                         .get(j).getCalifications()
                                         .get(k).setSkill(new SkillDto(generated
-                                                .getEvaluated()
-                                                .get(i).getEvaluators()
-                                                .get(j).getCalifications()
-                                                .get(k).getSkill()));
+                                        .getEvaluated()
+                                        .get(i).getEvaluators()
+                                        .get(j).getCalifications()
+                                        .get(k).getSkill()));
                                 dto.getEvaluated()
                                         .get(i).getEvaluators()
                                         .get(j).getCalifications()
                                         .get(k).setEvaluator(new EvaluatorDto(generated
-                                                .getEvaluated()
-                                                .get(i).getEvaluators()
-                                                .get(j).getCalifications()
-                                                .get(k).getEvaluator()));
+                                        .getEvaluated()
+                                        .get(i).getEvaluators()
+                                        .get(j).getCalifications()
+                                        .get(k).getEvaluator()));
                             }
                         }
                     }

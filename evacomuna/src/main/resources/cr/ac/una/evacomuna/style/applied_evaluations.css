@@ -188,3 +188,8 @@
   -fx-background-color: -fx-light-gray;
   background-color: -fx-light-gray;
 }
+.containerComments > * {
+    -fx-border-color: gray gray gray gray;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0 0 5 0; /* Opcional: añade un espacio inferior para separar los elementos */
+}

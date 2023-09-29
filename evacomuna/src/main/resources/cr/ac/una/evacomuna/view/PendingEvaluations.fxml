@@ -20,10 +20,38 @@
          <children>
             <VBox fillWidth="false" spacing="10.0" VBox.vgrow="NEVER">
                <children>
-                  <ComboBox fx:id="cbPendingEvaluations" onAction="#selectEvaluation" promptText="Pending Evaluations" />
+                  <HBox alignment="CENTER_LEFT" spacing="200.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Pending Evaluations" />
+                              <ComboBox fx:id="cbPendingEvaluations" onAction="#selectEvaluation" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label text="Finalized Evaluations" />
+                              <ComboBox fx:id="cbEvaluationsFinalized" onAction="#cbEvaluationsFinalizedSelect" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                   <ListView fx:id="listEvaluated" prefHeight="200.0" />
-                  <Label fx:id="lblNameEvaluated" styleClass="h2" text="Name: " />
-                  <Label fx:id="lblRoleEvaluated" styleClass="h2" text="Role:" />
+                  <HBox spacing="100.0">
+                     <children>
+                        <VBox spacing="10.0">
+                           <children>
+                              <Label fx:id="lblNameEvaluated" styleClass="h2" text="Name: " />
+                              <Label fx:id="lblRoleEvaluated" styleClass="h2" text="Role:" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                           <children>
+                              <Label fx:id="lblApplicationDate" styleClass="h2" text="Application Date:" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <HBox fx:id="gridContainer" VBox.vgrow="ALWAYS">

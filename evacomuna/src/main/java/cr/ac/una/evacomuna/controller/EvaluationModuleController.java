@@ -7,12 +7,16 @@ import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
+import cr.ac.una.evacomuna.dto.FinalCalificationDto;
 import cr.ac.una.evacomuna.dto.PositionDto;
 import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.services.EvaluatedService;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.EvaluatorService;
+import cr.ac.una.evacomuna.services.FinalCalificationService;
 import cr.ac.una.evacomuna.services.PositionService;
+import cr.ac.una.evacomuna.services.SkillService;
+import cr.ac.una.evacomuna.util.CalificationCode;
 import cr.ac.una.evacomuna.util.Message;
 import cr.ac.una.evacomuna.util.MessageType;
 import cr.ac.una.evacomuna.util.ObservableListParser;
@@ -88,8 +92,11 @@ public class EvaluationModuleController implements Initializable {
     private PositionService roleService = new PositionService();
     private EvaluatedService evaluatedService = new EvaluatedService();
     private EvaluatorService evaluatorService = new EvaluatorService();
+    private SkillService skillService = new SkillService();
+    private FinalCalificationService finalCalificationService = new FinalCalificationService();
     private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
     private List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
+
     private String roleBuffer;
     @FXML
     private RadioButton rbSelf;
@@ -255,7 +262,7 @@ public class EvaluationModuleController implements Initializable {
         evaluationBuffer.setInitialPeriod(initialDate);
         evaluationBuffer.setName(name);
         evaluationBuffer.setState(state);
-
+        generateFinalCalifications(evaluationBuffer);
         ResponseWrapper response = evaluationService.updateEvaluation(evaluationBuffer);
         if (response.getCode() == ResponseCode.OK) {
             evaluationDto = (EvaluationDto) response.getData();
@@ -519,26 +526,42 @@ public class EvaluationModuleController implements Initializable {
     }
 
     private void generateFinalCalifications(EvaluationDto evaluation) {
-        Map<SkillDto, Double> calificationBySkill = new HashMap<>();
+        Map<Long, Long> calificationBySkill = new HashMap<>();
         if (evaluation != null && evaluation.getState().equals("UNDER REVIEW")) {
             for (EvaluatedDto evaluatedDto : evaluation.getEvaluated()) {
-                for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {
-                    for (CalificationDto calificationDto : evaluatorDto.getCalifications()) {
+                if (evaluatedDto.getFinalCalifications() != null && evaluatedDto.getFinalCalifications().isEmpty()) {
+                    for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {
+                        for (CalificationDto calificationDto : evaluatorDto.getCalifications()) {
+                            fillCalificationBySkill(calificationBySkill, calificationDto.getSkill(), calificationDto);
+                        }
                     }
+                    calificationBySkill.forEach((key, value) -> {
+                        FinalCalificationDto finalCalificationDto = new FinalCalificationDto();
+                        finalCalificationDto.setAverage(value);
+                        finalCalificationDto.setFinalNote(value);
+                        finalCalificationDto.setSkill((SkillDto) skillService.getSkillById(key).getData());
+                        finalCalificationDto.setEvaluated(evaluatedDto);
+                        ResponseWrapper responseWrapper = finalCalificationService.createFinalCalification(finalCalificationDto);
+                        if (responseWrapper.getCode() != ResponseCode.OK) {
+                            Message.showNotification("ERROR", MessageType.ERROR, responseWrapper.getMessage());
+                            return;
+                        }
+                    });
+                    calificationBySkill.clear();
                 }
             }
         }
     }
 
-    private void fillCalificationBySkill(Map<SkillDto, Double> map, SkillDto skill, CalificationDto calificationDto) {
-        if (map.get(skill) == null) {
-            map.put(skill, Double.valueOf(1));
+    private void fillCalificationBySkill(Map<Long, Long> map, SkillDto skill, CalificationDto calificationDto) {
+        Long valueCalification = CalificationCode.getValueCalification(calificationDto.getCalification());
+        if (!map.containsKey(skill.getID())) {
+            map.put(skill.getID(), valueCalification);
+            return;
         }
-    }
-    private Double calculateCalification(String calification){
-        Double calificationNumber = 0.0;
-        
-        return calificationNumber;
+
+        Long newValue = map.get(skill.getID());
+        map.replace(skill.getID(), newValue + valueCalification);
     }
 
 }

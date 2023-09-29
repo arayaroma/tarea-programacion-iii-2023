@@ -36,33 +36,45 @@ public enum CalificationCode {
         return Long.valueOf(-1);
     }
 
-    public static Double getValueCalification(String code) {
+    public static Long getValueCalification(String code) {
         if (code == "Exceptional") {
-            return 1.0;
+            return Long.valueOf(100);
         }
         if (code == "Meets Expectations") {
-            return 0.50;
+            return Long.valueOf(50);
         }
         if (code == "Under Expectations") {
-            return 0.25;
+            return Long.valueOf(25);
         }
         if (code == "Above Expectations") {
-            return 0.75;
+            return Long.valueOf(75);
         }
-        return 0.0;
+        return Long.valueOf(0);
     }
 
     public static String parseCodeToString(Long code) {
         if (code == CalificationCode.ABOVE_EXPECTATIONS.getCode()) {
             return "Above Expectations";
-        }
-        if (code == CalificationCode.UNDER_EXPECTATIONS.getCode()) {
+        } else if (code == CalificationCode.UNDER_EXPECTATIONS.getCode()) {
             return "Under Expectations";
-        }
-        if (code == CalificationCode.MEETS_EXPECTATIONS.getCode()) {
+        } else if (code == CalificationCode.MEETS_EXPECTATIONS.getCode()) {
             return "Meets Expectations";
         }
         if (code == CalificationCode.EXCEPTIONAL.getCode()) {
+            return "Exceptional";
+        }
+        return "";
+    }
+
+    public static String parseCodeToString(Long code, boolean isAverage) {
+        if (isAverage && code >= 75) {
+            return "Above Expectations";
+        } else if ((isAverage && code <= 25)) {
+            return "Under Expectations";
+        } else if ((isAverage && code >= 50 && code < 75)) {
+            return "Meets Expectations";
+        }
+        if ((isAverage && code >= 100)) {
             return "Exceptional";
         }
         return "";

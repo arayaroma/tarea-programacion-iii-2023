@@ -2,9 +2,7 @@ package cr.ac.una.evacomuna.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
@@ -29,12 +27,14 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -71,6 +71,10 @@ public class AppliedEvaluationsController implements Initializable {
     private VBox gpContainer;
     @FXML
     private ComboBox<String> cbEvaluations;
+    @FXML
+    private TextField txfFinalCalification;
+    @FXML
+    private Button btnSaveChanges;
     private UserService userService;
     private EvaluatedService evaluatedService;
     private EvaluationService evaluationService;
@@ -79,6 +83,7 @@ public class AppliedEvaluationsController implements Initializable {
 
     private UserDto userDto;
     private EvaluatedDto evaluatedDto;
+    private EvaluationDto evaluationBuffer;
     //private EvaluationDto evaluationDto;
 
     Integer totalSupervisors = 0, totalPeers = 0, totalSelf = 0, totalClients = 0;
@@ -92,11 +97,8 @@ public class AppliedEvaluationsController implements Initializable {
         evaluationService = new EvaluationService();
         skills = new ArrayList<>();
         userDto = Data.getUserLogged();
-        //evaluatedDto = getEvaluated();
         cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(
                 FXCollections.observableArrayList(filterEvaluations(ObservableListParser.loadEvaluations()))));
-       // evaluatedDto = loadEvaluatedByEvaluation(evaluationDto);
-        //initializeView();
     }
 
     private void initializeView() {
@@ -113,9 +115,16 @@ public class AppliedEvaluationsController implements Initializable {
     private void selectEvaluation(ActionEvent event) {
         String name = cbEvaluations.getValue();
         if (name != null) {
-            evaluatedDto = loadEvaluatedByEvaluation((EvaluationDto) evaluationService.getEvaluationByName(name).getData());
-            initializeView();
+            evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
+            if (evaluationBuffer != null) {
+                evaluatedDto = loadEvaluatedByEvaluation(evaluationBuffer);
+                initializeView();
+            }
         }
+    }
+
+    @FXML
+    private void btnSaveChangesAction(ActionEvent event) {
     }
 
     private EvaluatedDto loadEvaluatedByEvaluation(EvaluationDto evaluationDto) {
@@ -139,7 +148,7 @@ public class AppliedEvaluationsController implements Initializable {
     private void loadGridPaneSkills() {
         addDiagonalRow();
         addSkills();
-        addResult();
+        //addResult();
         addFeedback();
     }
 
@@ -156,6 +165,7 @@ public class AppliedEvaluationsController implements Initializable {
         List<SkillDto> list = new ArrayList<>();
         if (evaluatedDto != null) {
             for (FinalCalificationDto finalCalificationDto : evaluatedDto.getFinalCalifications()) {
+                list.removeIf(t -> Objects.equals(t.getID(), finalCalificationDto.getSkill().getID()));
                 list.add(finalCalificationDto.getSkill());
             }
         }
@@ -168,17 +178,9 @@ public class AppliedEvaluationsController implements Initializable {
             SkillDto skill = skills.get(i);
             skill.getChildren().add(createHeader(skill.getName()));
             skill.getStyleClass().add("gp-header");
-            gp_table.addRow(0, skill);
+            gp_table.add(skill, i + 1, 0);
             gp_table.getColumnConstraints().add(columnConstraints);
         }
-    }
-
-    private void addResult() {
-        PaneContainer rowContainer = new PaneContainer();
-        rowContainer.getChildren().add(
-                createHeader("Result"));
-        rowContainer.getStyleClass().add("gp-header");
-        gp_table.addRow(0, rowContainer);
     }
 
     private void addFeedback() {
@@ -203,10 +205,10 @@ public class AppliedEvaluationsController implements Initializable {
     private void loadLabels() {
         lb_evaluatorName.setText(userDto.getName() + " " + userDto.getLastname() + " " + userDto.getSecondLastname());
         lb_evaluatorPosition.setText(userDto.getPosition().getName());
-        EvaluationDto evaluationDto = getEvaluation();
-        if (evaluationDto != null) {
-            lb_evaluationPeriod.setText(getEvaluation().getInitialPeriod() + " - " + getEvaluation().getFinalPeriod());
-            lb_evaluationApplicationDate.setText(getEvaluation().getApplicationDate().toString());
+
+        if (evaluationBuffer != null) {
+            lb_evaluationPeriod.setText(evaluationBuffer.getInitialPeriod() + " - " + evaluationBuffer.getFinalPeriod());
+            lb_evaluationApplicationDate.setText(evaluationBuffer.getApplicationDate().toString());
         }
     }
 
@@ -264,14 +266,16 @@ public class AppliedEvaluationsController implements Initializable {
             totalSelf = countTotalEvaluatorsByRoleAndSkill(Roles.SELF, finalCalificationDto.getSkill());
             totalClients = countTotalEvaluatorsByRoleAndSkill(Roles.CLIENT, finalCalificationDto.getSkill());
             finalCalificationDto.setData(ImageCheck.createImageCheck());
-            finalCalificationDto.setContainer(
-                    new HBox(finalCalificationDto.getData(),
-                            new VBox(
-                                    new Label("SUPER: " + totalSupervisors.toString()),
-                                    new Label("PEER: " + totalPeers.toString()),
-                                    new Label("SELF: " + totalSelf.toString()),
-                                    new Label("CLIENT: " + totalClients.toString()))));
-            String calification = CalificationCode.parseCodeToString(finalCalificationDto.getFinalNote());
+            VBox vBox = new VBox(new Label("SUPER: " + totalSupervisors.toString()),
+                    new Label("PEER: " + totalPeers.toString()),
+                    new Label("SELF: " + totalSelf.toString()),
+                    new Label("CLIENT: " + totalClients.toString()));
+            vBox.setAlignment(Pos.CENTER);
+            HBox hBox = new HBox(finalCalificationDto.getData(), vBox);
+            hBox.setSpacing(10);
+            hBox.setAlignment(Pos.CENTER);
+            finalCalificationDto.setContainer(hBox);
+            String calification = CalificationCode.parseCodeToString(finalCalificationDto.getFinalNote(), true);
             String skill = finalCalificationDto.getSkill().getName();
             Integer row = null, col = null;
 
@@ -307,34 +311,33 @@ public class AppliedEvaluationsController implements Initializable {
             });
         }
 
+        VBox vBox = new VBox();
+        vBox.setSpacing(20);
+        vBox.getStyleClass().add("containerComments");
+
         for (int i = 0; i < feedbackCommentsList.size(); i++) {
             String feedbackComment = feedbackCommentsList.get(i);
-            PaneContainer rowContainer = new PaneContainer();
-            rowContainer.getChildren().add(
-                    createHeader(feedbackComment));
-            gp_feedback.addColumn(0, rowContainer);
+            vBox.getChildren().add(createHeader(feedbackComment));
         }
+        gp_feedback.add(vBox, 0, 1);
     }
 
-    private EvaluatedDto getEvaluated() {
-        ResponseWrapper evaluatedResponse = evaluatedService.getEvaluatedById(Data.getUserLogged().getId());
-        return (EvaluatedDto) evaluatedResponse.getData();
-    }
-
-    private EvaluationDto getEvaluation() {
-        evaluatedDto = getEvaluated();
-        if (evaluatedDto != null) {
-            ResponseWrapper evaluationResponse = evaluationService.getEvaluationById(evaluatedDto.getEvaluation().getId());
-            return (EvaluationDto) evaluationResponse.getData();
-        }
-        return null;
-    }
-
+//    private EvaluatedDto getEvaluated() {
+//        ResponseWrapper evaluatedResponse = evaluatedService.getEvaluatedById(Data.getUserLogged().getId());
+//        return (EvaluatedDto) evaluatedResponse.getData();
+//    }
+//    private EvaluationDto getEvaluation() {
+//        if (evaluatedDto != null) {
+//            ResponseWrapper evaluationResponse = evaluationService.getEvaluationById(evaluatedDto.getEvaluation().getId());
+//            return (EvaluationDto) evaluationResponse.getData();
+//        }
+//        return null;
+//    }
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
         Predicate<EvaluationDto> hasEvaluated = evaluationDto -> evaluationDto.getEvaluated().stream()
                 .anyMatch(evaluatedDto -> evaluatedDto.getEvaluated().getId() == userDto.getId());
         List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
-                .filter(hasEvaluated.and(evaluation -> evaluation.getState().equals("COMPLETED")))
+                .filter(hasEvaluated.and(evaluation -> evaluation.getState().equals("COMPLETED") || evaluation.getState().equals("UNDER REVIEW")))
                 .collect(Collectors.toList());
         return evaluationDtosFiltered;
     }

@@ -52,14 +52,10 @@ public class CalificationDto extends Pane
     }
 
     public CalificationDto(cr.ac.una.evacomunaws.controller.CalificationDto calificationDto) {
+        
         this.id = calificationDto.getId();
         this.calification = CalificationCode.parseCodeToString(calificationDto.getCalification());
-//        if (calificationDto.getSkill() != null) {
-//            this.skill = new SkillDto(calificationDto.getSkill());
-//        }
-//        if (calificationDto.getEvaluator() != null) {
-//            this.evaluator = new EvaluatorDto(calificationDto.getEvaluator());
-//        }
+
         this.version = calificationDto.getVersion();
     }
 
