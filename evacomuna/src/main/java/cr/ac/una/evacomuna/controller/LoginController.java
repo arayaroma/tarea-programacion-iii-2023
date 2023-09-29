@@ -53,6 +53,7 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        userService = new UserService();
         App.setLoginController(this);
         txfPassword.setOnKeyPressed((event) -> keyLoginHandler(event));
         txfUser.setOnKeyPressed((event) -> keyLoginHandler(event));
@@ -65,13 +66,12 @@ public class LoginController implements Initializable {
 
     /**
      * FIXME: Check connection with server
-     * 
+     *
      * @param event
      */
     @FXML
     private void logIn(ActionEvent event) {
         try {
-            UserService userService = new UserService();
             String user = txfUser.getText(), password = txfPassword.getText();
             if (user.isBlank() || password.isBlank()) {
                 Message.showNotification("Ups", MessageType.INFO, "All the fields are required");

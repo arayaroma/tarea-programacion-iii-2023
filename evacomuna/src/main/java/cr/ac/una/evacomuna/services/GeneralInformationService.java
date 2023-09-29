@@ -26,10 +26,10 @@ public class GeneralInformationService {
 
     /**
      * Creates a new generalInformation
-     * 
+     *
      * @param generalInformationDto object to create
-     * @return GeneralInformationDto with the created generalInformation if found,
-     *         null otherwise
+     * @return GeneralInformationDto with the created generalInformation if
+     * found, null otherwise
      */
     public ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
@@ -37,11 +37,18 @@ public class GeneralInformationService {
                     .createGeneralInformation(generalInformationDto.getDto());
             cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "GeneralInformation created successfully",
+                        new GeneralInformationDto(generalInformation));
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "GeneralInformation created successfully",
-                    new GeneralInformationDto(generalInformation));
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating general information",
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -53,10 +60,10 @@ public class GeneralInformationService {
 
     /**
      * Updates the generalInformation
-     * 
+     *
      * @param generalInformationDto object to update
-     * @return GeneralInformationDto with the updated generalInformation if found,
-     *         null otherwise
+     * @return GeneralInformationDto with the updated generalInformation if
+     * found, null otherwise
      */
     public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
@@ -64,11 +71,18 @@ public class GeneralInformationService {
                     .updateGeneralInformation(generalInformationDto.getDto());
             cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "GeneralInformation updated successfully",
+                        new GeneralInformationDto(generalInformation));
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "GeneralInformation updated successfully",
-                    new GeneralInformationDto(generalInformation));
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error updating general information",
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -80,7 +94,7 @@ public class GeneralInformationService {
 
     /**
      * Get all generalInformations
-     * 
+     *
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper getGeneralInformation() {
@@ -104,7 +118,7 @@ public class GeneralInformationService {
 
     /**
      * Get a generalInformation by id
-     * 
+     *
      * @param id of the generalInformation
      * @return ResponseWrapper with the response of the request
      */
@@ -129,7 +143,7 @@ public class GeneralInformationService {
 
     /**
      * Deletes a generalInformation by id
-     * 
+     *
      * @param id of the generalInformation
      * @return ResponseWrapper with the response of the request
      */

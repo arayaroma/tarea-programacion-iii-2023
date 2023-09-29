@@ -176,9 +176,13 @@ public class RegisterWorkerController implements Initializable {
                 userDto.setId(userModified.getId());
                 userDto.setIsAdmin(userModified.getIsAdmin());
                 userDto.setVersion(userModified.getVersion());
+                userDto.setIsActive(userModified.getIsActive());
+                userDto.setPasswordChanged(userModified.getPasswordChanged());
+                userDto.setActivationCode(userModified.getActivationCode());
+                if (userDto.getProfilePhoto() == null) {
+                    userDto.setProfilePhoto(userModified.getProfilePhoto());
+                }
                 response = userService.updateUser(userDto);
-                UserDto user = (UserDto) response.getData();
-                imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
             }
             if (response.getCode() == ResponseCode.OK) {
                 Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
@@ -201,11 +205,13 @@ public class RegisterWorkerController implements Initializable {
      */
     private UserDto createUser(byte[] profilePhoto, String... args) {
         UserDto user = new UserDto();
-        if (profilePhoto == null) {
+        if (userModified == null && bufferFileImage == null) {
             profilePhoto = ImageLoader
                     .imageToByteArray(new File("src/main/resources/cr/ac/una/evacomuna/img/default_profile_photo.png"));
+            user.setProfilePhoto(profilePhoto);
+        } else if (bufferFileImage != null) {
+            user.setProfilePhoto(profilePhoto);
         }
-        user.setProfilePhoto(profilePhoto);
         user.setUsername(args[0]);
         user.setPassword(args[1]);
         user.setName(args[2]);
@@ -230,9 +236,12 @@ public class RegisterWorkerController implements Initializable {
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;
         cbRoleRegister.setItems(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
-        imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
+
         if (user != null) {
             userModified = user;
+            if (userModified.getProfilePhoto() != null) {
+                imgPhoto.setImage(ImageLoader.setImage(user.getProfilePhoto()));
+            }
             txfUserRegister.setText(user.getUsername());
             txfPasswordRegister.setText(user.getPassword());
             txfCedRegister.setText(user.getIdentification());
