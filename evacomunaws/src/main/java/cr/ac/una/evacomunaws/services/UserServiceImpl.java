@@ -327,11 +327,12 @@ public class UserServiceImpl implements UserService {
                         "User not found, id: " + id.toString() + ")",
                         null);
             }
+            UserDto userDto = new UserDto(user);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "User retrieved successfully.",
-                    new UserDto(user));
+                    userDto.convertFromEntityToDTO(user, userDto));
         } catch (Exception ex) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
