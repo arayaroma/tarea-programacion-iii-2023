@@ -12,11 +12,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
-import cr.ac.una.evacomunaws.dto.EvaluationDto;
 import cr.ac.una.evacomunaws.dto.EvaluatorDto;
-import cr.ac.una.evacomunaws.dto.FinalCalificationDto;
-import cr.ac.una.evacomunaws.dto.UserDto;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,18 +99,15 @@ public class EvaluatedServiceImpl implements EvaluatedService {
                         "Evaluated not found.",
                         null);
             }
-            EvaluatedDto newEvaluatedDto = new EvaluatedDto(evaluated);
-            newEvaluatedDto.setEvaluators(
+
+            EvaluatedDto evaluatedDto = new EvaluatedDto(evaluated);
+            evaluatedDto.setEvaluators(
                     DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
-            newEvaluatedDto.setEvaluation(new EvaluationDto(evaluated.getEvaluation()));
-            newEvaluatedDto.setFinalCalifications(DtoMapper
-                    .fromEntityList(evaluated.getFinalCalifications(), FinalCalificationDto.class)
-                    .getList());
-            newEvaluatedDto.setEvaluated(new UserDto(evaluated.getEvaluated()));
+
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated retrieved successfully.",
-                    newEvaluatedDto);
+                    evaluatedDto.convertFromEntityToDTO(evaluated, evaluatedDto));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
