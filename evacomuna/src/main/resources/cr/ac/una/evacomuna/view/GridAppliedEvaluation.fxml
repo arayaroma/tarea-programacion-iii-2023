@@ -192,12 +192,17 @@
                   <TextField fx:id="txfFinalCalification" styleClass="rows-titles" />
                </children>
             </HBox>
-            <Button fx:id="btnSaveChanges" mnemonicParsing="false" onAction="#btnSaveChangesAction" text="Save Changes">
-               <styleClass>
-                  <String fx:value="btn" />
-                  <String fx:value="confirm-color" />
-               </styleClass>
-            </Button>
+            <HBox spacing="200.0">
+               <children>
+                  <Button fx:id="btnSaveChanges" mnemonicParsing="false" onAction="#btnSaveChangesAction" text="Save Changes">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="confirm-color" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#btnGenerateExcelAction" styleClass="btn" text="Generate Excel" />
+               </children>
+            </HBox>
          </children>
       </HBox>
    </children>

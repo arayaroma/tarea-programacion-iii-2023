@@ -17,6 +17,13 @@
             <artifactId>javafx-controls</artifactId>
             <version>20.0.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/clojure-interop/java.awt -->
+<!--        <dependency>
+            <groupId>clojure-interop</groupId>
+            <artifactId>java.awt</artifactId>
+            <version>1.0.2</version>
+        </dependency>-->
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>

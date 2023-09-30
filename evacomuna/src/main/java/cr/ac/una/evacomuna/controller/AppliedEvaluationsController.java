@@ -16,6 +16,7 @@ import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.services.EvaluatedService;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.UserService;
+import cr.ac.una.evacomuna.util.ExcelGenerator;
 import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.io.IOException;
 import java.util.Objects;
@@ -119,6 +120,7 @@ public class AppliedEvaluationsController implements Initializable {
 
     }
 
+    
     @FXML
     private void selectEvaluation(ActionEvent event) {
         String name = cbEvaluations.getValue();

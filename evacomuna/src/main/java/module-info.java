@@ -11,6 +11,7 @@
     requires org.controlsfx.controls;
     requires AnimateFX;
     requires org.apache.poi.poi;
+    requires java.desktop;
 //    requires or
 
     opens cr.ac.una.evacomuna to javafx.fxml;

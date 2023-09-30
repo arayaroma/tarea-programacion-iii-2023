@@ -10,6 +10,7 @@ import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.util.CalificationCode;
 import cr.ac.una.evacomuna.util.Data;
+import cr.ac.una.evacomuna.util.ExcelGenerator;
 import cr.ac.una.evacomuna.util.Roles;
 import java.net.URL;
 import java.util.ArrayList;
@@ -80,6 +81,18 @@ public class GridAppliedEvaluationController implements Initializable {
 
     @FXML
     private void btnSaveChangesAction(ActionEvent event) {
+      //  generateExcel();
+    }
+
+    @FXML
+    private void btnGenerateExcelAction(ActionEvent event) {
+        generateExcel();
+        
+    }
+    
+    private void generateExcel() {
+        ExcelGenerator excelGenerator = new ExcelGenerator(evaluatedBuffer, evaluationBuffer);
+        excelGenerator.generateExcelReport();
     }
 
     private void loadGridPaneSkills() {
@@ -298,4 +311,6 @@ public class GridAppliedEvaluationController implements Initializable {
         }
         return null;
     }
+
+    
 }
