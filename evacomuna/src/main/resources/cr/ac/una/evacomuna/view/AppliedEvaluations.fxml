@@ -7,6 +7,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -20,7 +22,20 @@
       <VBox prefHeight="584.0" prefWidth="976.0">
          <children>
             <Label prefHeight="40.0" prefWidth="983.0" styleClass="title" text="General Skills Evaluation" />
-            <ComboBox fx:id="cbEvaluations" onAction="#selectEvaluation" prefWidth="400.0" promptText="My Evaluations" />
+            <HBox spacing="400.0">
+               <children>
+                  <ComboBox fx:id="cbEvaluations" onAction="#selectEvaluation" prefWidth="200.0" promptText="My Evaluations" />
+                  <ComboBox fx:id="cbAllEvaluations" onAction="#selectAllEvaluation" prefWidth="200.0" promptText="All Evaluations" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <ListView fx:id="listEvaluated" prefHeight="300.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </ListView>
             <HBox prefHeight="49.0" prefWidth="540.0" styleClass="card-container">
                <children>
                   <VBox styleClass="subcard-container">
@@ -156,20 +171,20 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox prefHeight="451.0" prefWidth="976.0" styleClass="table-container">
-               <children>
-                  <VBox fx:id="gpContainer" prefHeight="429.0" prefWidth="723.0">
+            <ScrollPane fitToHeight="true">
+               <content>
+                  <HBox fx:id="gp_container" styleClass="table-container">
                      <children>
-                        <GridPane fx:id="gp_table" gridLinesVisible="true" prefHeight="428.0" styleClass="grid-pane">
+                        <GridPane fx:id="gp_table" gridLinesVisible="true" prefHeight="500.0" styleClass="grid-pane">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="172.0" />
                           </columnConstraints>
                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Label prefHeight="19.0" prefWidth="488.0" styleClass="rows-titles" text="Exceptional" GridPane.rowIndex="1" />
@@ -178,19 +193,16 @@
                               <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Under Expectations" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
+                        <GridPane fx:id="gp_feedback" prefWidth="300.0" styleClass="grid-pane">
+                          <rowConstraints>
+                            <RowConstraints maxHeight="50.0" minHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                      </children>
-                  </VBox>
-                  <GridPane fx:id="gp_feedback" prefHeight="429.0" prefWidth="300.0" styleClass="grid-pane">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="379.0" minHeight="10.0" prefHeight="340.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
-               </children>
-            </HBox>
+                  </HBox>
+               </content>
+            </ScrollPane>
          </children>
          <VBox.margin>
             <Insets />

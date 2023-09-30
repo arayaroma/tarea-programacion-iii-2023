@@ -33,12 +33,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 /**
@@ -68,13 +72,18 @@ public class AppliedEvaluationsController implements Initializable {
     @FXML
     private GridPane gp_feedback;
     @FXML
-    private VBox gpContainer;
+    private HBox gp_container;
     @FXML
     private ComboBox<String> cbEvaluations;
     @FXML
     private TextField txfFinalCalification;
     @FXML
     private Button btnSaveChanges;
+    @FXML
+    private ComboBox<String> cbAllEvaluations;
+    @FXML
+    private ListView<EvaluatedDto> listEvaluated;
+
     private UserService userService;
     private EvaluatedService evaluatedService;
     private EvaluationService evaluationService;
@@ -99,17 +108,42 @@ public class AppliedEvaluationsController implements Initializable {
         userDto = Data.getUserLogged();
         cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(
                 FXCollections.observableArrayList(filterEvaluations(ObservableListParser.loadEvaluations()))));
+        cbAllEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(
+                FXCollections.observableArrayList(ObservableListParser.loadEvaluations())));
+        initializeList();
+        loadPrivileges();
+
+    }
+
+    private void initializeList() {
+        listEvaluated.setCellFactory((param) -> new ListCell() {
+            @Override
+            protected void updateItem(Object item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item != null) {
+                    setText(empty || item == null ? null
+                            : ((EvaluatedDto) item).getEvaluated().getName() + " "
+                            + ((EvaluatedDto) item).getEvaluated().getSecondLastname());
+                }
+            }
+        });
+        // LISTENERS
+        listEvaluated.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    evaluatedDto = newValue;
+                    // clearView();
+                    initializeView();
+                });
     }
 
     private void initializeView() {
         loadGridPaneSkills();
-        addScrollPane(gp_table);
         cleanLabels();
         loadLabels();
         loadFeedbackComments();
         loadCalifications();
         loadChecks();
-
     }
 
     private void calculateCalification() {
@@ -123,9 +157,24 @@ public class AppliedEvaluationsController implements Initializable {
             evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
             if (evaluationBuffer != null) {
                 evaluatedDto = loadEvaluatedByEvaluation(evaluationBuffer);
+                // clearView();
                 initializeView();
             }
         }
+    }
+
+    @FXML
+    private void selectAllEvaluation(ActionEvent event) {//Arreglar para que se carguen las calificaciones finales desde el usuario admin
+        String name = cbAllEvaluations.getValue();
+        if (name != null) {
+            evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
+            if (evaluationBuffer != null) {
+                listEvaluated.getItems().clear();
+                listEvaluated.getItems().addAll(evaluationBuffer.getEvaluated());
+                initializeView();
+            }
+        }
+
     }
 
     @FXML
@@ -151,9 +200,10 @@ public class AppliedEvaluationsController implements Initializable {
     }
 
     private void loadGridPaneSkills() {
+
         addDiagonalRow();
         addSkills();
-        //addResult();
+        addResult();
         addFeedback();
     }
 
@@ -162,8 +212,8 @@ public class AppliedEvaluationsController implements Initializable {
         rowContainer.getChildren().add(
                 createHeader("Supervisor, Peer,\nClient, Self"));
         rowContainer.getStyleClass().add("gp-header");
-        gp_table.addRow(0, rowContainer);
-        gp_table.getColumnConstraints().add(columnConstraints);
+        gp_table.add(rowContainer, 0, 0);
+        //gp_table.getColumnConstraints().add(columnConstraints);
     }
 
     private List<SkillDto> getSkills() {
@@ -175,6 +225,14 @@ public class AppliedEvaluationsController implements Initializable {
             }
         }
         return list;
+    }
+
+    private void addResult() {
+        PaneContainer rowContainer = new PaneContainer();
+        rowContainer.getChildren().add(
+                createHeader("Result"));
+        rowContainer.getStyleClass().add("gp-header");
+        gp_table.addRow(0, rowContainer);
     }
 
     private void addSkills() {
@@ -193,14 +251,7 @@ public class AppliedEvaluationsController implements Initializable {
         rowContainer.getChildren().add(
                 createHeader("Feedback"));
         rowContainer.getStyleClass().add("gp-header");
-        gp_feedback.addRow(0, rowContainer);
-    }
-
-    private void addScrollPane(GridPane gp) {
-        ScrollPane scrollPane = new ScrollPane(gp);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setPrefWidth(gp.getWidth());
-        gpContainer.getChildren().add(scrollPane);
+        gp_feedback.add(rowContainer, 0, 0);
     }
 
     private Node createHeader(String name) {
@@ -301,10 +352,42 @@ public class AppliedEvaluationsController implements Initializable {
                 }
             }
             if (col != null && row != null) {
-                //calificationCalculated += finalCalificationDto.getAverage();
                 gp_table.add(finalCalificationDto.getContainer(), col, row);
+                //Load Results here
+                TextField textField = new TextField(String.valueOf(finalCalificationDto.getFinalNote()));
+                textField.getStyleClass().add("rows-titles");
+                Node node = getNodeInGrid(row, skills.size() + 1);
+                if (node != null && node instanceof TextField) {
+                    if(userDto.getIsAdmin().equals("N")){
+                        textField.setDisable(true);
+                    }
+                    textField.setText(String.valueOf(Long.valueOf(((TextField) node).getText()) + finalCalificationDto.getFinalNote()));
+                    gp_table.getChildren().remove(node);
+                }
+                gp_table.add(textField, skills.size() + 1, row);
             }
         }
+    }
+
+    private RowConstraints getRowConstraints() {
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setPrefHeight(USE_COMPUTED_SIZE);
+        rowConstraints.setMinHeight(10);
+        rowConstraints.setMaxHeight(USE_COMPUTED_SIZE);
+        return rowConstraints;
+    }
+
+//    private void clearView() {
+//        clearFeedbackComments();
+//        gp_table.getChildren().clear();
+//        gp_container.getChildren().remove(gp_table);
+//        gp_table = new GridPane();
+//        createGrid();
+//
+//    }
+    private void clearFeedbackComments() {
+        gp_feedback.getChildren().clear();
+        addFeedback();
     }
 
     private void loadFeedbackComments() {
@@ -328,17 +411,6 @@ public class AppliedEvaluationsController implements Initializable {
         gp_feedback.add(vBox, 0, 1);
     }
 
-//    private EvaluatedDto getEvaluated() {
-//        ResponseWrapper evaluatedResponse = evaluatedService.getEvaluatedById(Data.getUserLogged().getId());
-//        return (EvaluatedDto) evaluatedResponse.getData();
-//    }
-//    private EvaluationDto getEvaluation() {
-//        if (evaluatedDto != null) {
-//            ResponseWrapper evaluationResponse = evaluationService.getEvaluationById(evaluatedDto.getEvaluation().getId());
-//            return (EvaluationDto) evaluationResponse.getData();
-//        }
-//        return null;
-//    }
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
         Predicate<EvaluationDto> hasEvaluated = evaluationDto -> evaluationDto.getEvaluated().stream()
                 .anyMatch(evaluatedDto -> evaluatedDto.getEvaluated().getId() == userDto.getId());
@@ -348,4 +420,23 @@ public class AppliedEvaluationsController implements Initializable {
         return evaluationDtosFiltered;
     }
 
+    private Node getNodeInGrid(Integer row, Integer col) {
+        for (Node node : gp_table.getChildren()) {
+            System.out.println("COLUNM: " + GridPane.getColumnIndex(node));
+            System.out.println("ROW: " + GridPane.getRowIndex(node));
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    private void loadPrivileges() {
+        if (userDto.getIsAdmin().equals("N")) {
+            listEvaluated.setVisible(false);
+            cbAllEvaluations.setVisible(false);
+            btnSaveChanges.setVisible(false);
+            txfFinalCalification.setDisable(true);
+        }
+    }
 }
