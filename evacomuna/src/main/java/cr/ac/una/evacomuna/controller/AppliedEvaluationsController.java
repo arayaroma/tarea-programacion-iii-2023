@@ -76,7 +76,7 @@ public class AppliedEvaluationsController implements Initializable {
             container.getChildren().clear();
             container.getChildren().add(loader.load());
             GridAppliedEvaluationController controller = loader.getController();
-            controller.initializeView(evaluatedBuffer, evaluationBuffer);
+            controller.initializeView(evaluatedBuffer, evaluationBuffer, userDto.getIsAdmin().equals("Y"));
         } catch (IOException e) {
             System.out.println(e.toString());
         }

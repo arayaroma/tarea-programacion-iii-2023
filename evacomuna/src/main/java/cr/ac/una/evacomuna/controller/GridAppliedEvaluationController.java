@@ -27,9 +27,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -72,6 +76,7 @@ public class GridAppliedEvaluationController implements Initializable {
     private List<SkillDto> skills;
     private EvaluatedDto evaluatedBuffer;
     private EvaluationDto evaluationBuffer;
+    private boolean hasPrivileges = false;
 
     /**
      * Initializes the controller class.
@@ -103,8 +108,9 @@ public class GridAppliedEvaluationController implements Initializable {
         addFeedback();
     }
 
-    public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto) {
+    public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto, boolean hasPrivileges) {
         userDto = evaluatedDto.getEvaluated();
+        this.hasPrivileges = hasPrivileges;
         evaluationBuffer = evaluationDto;
         evaluatedBuffer = evaluatedDto;
         loadGridPaneSkills();
@@ -113,11 +119,12 @@ public class GridAppliedEvaluationController implements Initializable {
         loadFeedbackComments();
         loadCalifications();
         loadChecks();
+        loadPanes();
         loadPrivileges();
     }
 
     private void loadPrivileges() {
-        if (userDto.getIsAdmin().equals("N")) {
+        if (!hasPrivileges) {
             btnSaveChanges.setVisible(false);
         }
     }
@@ -272,7 +279,56 @@ public class GridAppliedEvaluationController implements Initializable {
         return count;
     }
 
-    // private booleanIs
+    private void intializeDragAndDrop(Node node) {
+        node.setOnDragDetected((event) -> {
+            Dragboard dragboard = node.startDragAndDrop(TransferMode.MOVE);
+            dragboard.setDragView(node.snapshot(null, null));
+            ClipboardContent content = new ClipboardContent();
+            content.putString("check");
+            dragboard.setContent(content);
+        });
+        gp_table.setOnDragOver(event -> {
+            if (event.getGestureSource() != gp_table && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+        gp_table.setOnDragDropped(event -> {
+            Dragboard dragboard = event.getDragboard();
+            boolean success = false;
+            System.out.println(event);
+            if (dragboard.hasString()) {
+//                if (node instanceof ImageView) {
+//                    ImageView newCheck = new ImageView(((ImageView) node).getImage());
+//                    newCheck.setFitWidth(30);
+//                    newCheck.setFitHeight(30);
+                System.out.println(event.getTarget());
+                Integer row = GridPane.getRowIndex((Node) event.getTarget());
+                Integer col = GridPane.getColumnIndex((Node) event.getTarget());
+                System.out.println(row);
+                System.out.println(col);
+                if (event.getTarget() != null && row != null && col != null && col != 0) {
+            
+                }
+            }
+            // }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
+
+    private void loadPanes() {
+        for (int i = 0; i < gp_table.getColumnCount(); i++) {
+            for (int j = 0; j < gp_table.getRowCount(); j++) {
+
+                if (getNodeInGrid(j, i) == null) {
+                    gp_table.add(new Pane(), i, j);
+                }
+            }
+        }
+    }
+
+    //private booleanIs
     private void loadCalifications() {
         List<FinalCalificationDto> finalCalifications = new ArrayList<>();
         if (evaluatedBuffer != null) {
@@ -317,14 +373,16 @@ public class GridAppliedEvaluationController implements Initializable {
             }
             vBoxCheck.setAlignment(Pos.CENTER);
             HBox hBox = new HBox();
-            if (userDto.getIsAdmin().equals("Y")) {
+            if (hasPrivileges) {
                 hBox.getChildren().addAll(vBoxCheck, vBox);
+                intializeDragAndDrop(hBox);
             } else {
                 hBox.getChildren().addAll(vBoxCheck);
             }
             hBox.setSpacing(10);
             hBox.setAlignment(Pos.CENTER);
             finalCalificationDto.setContainer(hBox);
+
             String calification = CalificationCode.parseCodeToString(finalCalificationDto.getFinalNote());
             String skill = finalCalificationDto.getSkill().getName();
             Integer row = null, col = null;
