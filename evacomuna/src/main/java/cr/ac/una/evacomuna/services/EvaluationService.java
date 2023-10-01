@@ -39,11 +39,12 @@ public class EvaluationService {
             cr.ac.una.evacomunaws.controller.EvaluationDto evaluation = (cr.ac.una.evacomunaws.controller.EvaluationDto) response
                     .getData();
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                evaluationDto = new EvaluationDto(evaluation);
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
                         "Evaluation created successfully",
-                        new EvaluationDto(evaluation));
+                        evaluationDto.convertFromGeneratedToDTO(evaluation, evaluationDto));
             }
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -101,11 +102,12 @@ public class EvaluationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getEvaluationById(id);
             cr.ac.una.evacomunaws.controller.EvaluationDto evaluation = (cr.ac.una.evacomunaws.controller.EvaluationDto) response
                     .getData();
+            EvaluationDto evaluationDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation found successfully",
-                    new EvaluationDto(evaluation));
+                    evaluationDto.convertFromGeneratedToDTO(evaluation, evaluationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -127,11 +129,12 @@ public class EvaluationService {
             cr.ac.una.evacomunaws.controller.EvaluationDto evaluation = (cr.ac.una.evacomunaws.controller.EvaluationDto) response
                     .getData();
 
+            EvaluationDto evaluationDto = new EvaluationDto(evaluation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluation found successfully",
-                    new EvaluationDto(evaluation).convertFromGeneratedToDTO(evaluation, new EvaluationDto(evaluation)));
+                    evaluationDto.convertFromGeneratedToDTO(evaluation, evaluationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -153,18 +156,18 @@ public class EvaluationService {
             cr.ac.una.evacomunaws.controller.EvaluationDto evaluation = (cr.ac.una.evacomunaws.controller.EvaluationDto) response
                     .getData();
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                evaluationDto = new EvaluationDto(evaluation);
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
                         "Evaluation updated successfully",
-                        new EvaluationDto(evaluation));
+                        evaluationDto.convertFromGeneratedToDTO(evaluation, evaluationDto));
             }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Error updating evaluation: " + response.getMessage(),
                     null);
-
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
