@@ -1,5 +1,6 @@
 package cr.ac.una.evacomunaws.dto;
 
+import cr.ac.una.evacomunaws.entities.Calification;
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.entities.Evaluator;
 import cr.ac.una.evacomunaws.entities.User;
@@ -10,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 
+ *
  * @author arayaroma
  */
 @Data
@@ -40,7 +41,11 @@ public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
     public EvaluatorDto convertFromEntityToDTO(Evaluator entity, EvaluatorDto dto) {
         dto.setEvaluator(new UserDto(entity.getEvaluator()));
         dto.setCalifications(DtoMapper.fromEntityList(entity.getCalifications(), CalificationDto.class).getList());
-        
+        if (dto.getCalifications() != null) {
+            for (int i = 0; i < dto.getCalifications().size(); i++) {
+                dto.getCalifications().get(i).setSkill(new SkillDto(entity.getCalifications().get(i).getSkill()));
+            }
+        }
         dto.setEvaluated(new EvaluatedDto(entity.getEvaluated()));
         return dto;
     }
@@ -49,6 +54,7 @@ public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
     public Evaluator convertFromDTOToEntity(EvaluatorDto dto, Evaluator entity) {
         entity.setEvaluated(new Evaluated(dto.getEvaluated()));
         entity.setEvaluator(new User(dto.getEvaluator()));
+        entity.setCalifications(DtoMapper.fromDtoList(dto.getCalifications(), Calification.class).getList());
         return entity;
     }
 }

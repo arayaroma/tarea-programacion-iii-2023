@@ -358,7 +358,9 @@ public class EvaluationModuleController implements Initializable {
         cbState.setValue(evaluationDto.getState());
         btnSave.setDisable(false);
         listEvaluatedFix.getItems().clear();
-        listEvaluatedFix.getItems().addAll(evaluationDto.getEvaluated());
+        if (evaluationDto.getEvaluated() != null && !evaluationDto.getEvaluated().isEmpty()) {
+            listEvaluatedFix.getItems().addAll(evaluationDto.getEvaluated());
+        }
         btnCreate.setText("+New Evaluation");
     }
 
@@ -470,7 +472,7 @@ public class EvaluationModuleController implements Initializable {
             evaluatorsDeleted = response.getCode() == ResponseCode.OK;
         }
         if (evaluatorsDeleted) {
-           
+
             response = evaluatedService.deleteEvaluatedById(evaluated);
             evaluatedDeleted = response.getCode() == ResponseCode.OK;
             return evaluatorsDeleted;
@@ -526,7 +528,6 @@ public class EvaluationModuleController implements Initializable {
     // calification.getSkill().getID() == skill.getID())).count();
     // return nCalifications;
     // }
-
     private void generateFinalCalifications(EvaluationDto evaluation) {
         Map<Long, Long> calificationBySkill = new HashMap<>();
         // Map<Long, Long> calificationBySkill = new HashMap<>();
@@ -540,10 +541,15 @@ public class EvaluationModuleController implements Initializable {
                     }
                     for (Map.Entry<Long, Long> entry : calificationBySkill.entrySet()) {
                         FinalCalificationDto finalCalificationDto = new FinalCalificationDto();
-                        Long average = entry.getValue() / evaluatedDto.getEvaluators().size();
+
+                        Double average = (double) entry.getValue() / (double) evaluatedDto.getEvaluators().size();
+                        Long result = Math.round(average);
+                        if (result < 1) {
+                            result = 1L;
+                        }
                         // nCalification = calculateNCalifications(evaluated, evaluatorDtos)
-                        finalCalificationDto.setAverage(average);
-                        finalCalificationDto.setFinalNote(average);
+                        finalCalificationDto.setAverage(result);
+                        finalCalificationDto.setFinalNote(result);
                         finalCalificationDto.setSkill((SkillDto) skillService.getSkillById(entry.getKey()).getData());
                         finalCalificationDto.setEvaluated(evaluatedDto);
                         ResponseWrapper responseWrapper = finalCalificationService

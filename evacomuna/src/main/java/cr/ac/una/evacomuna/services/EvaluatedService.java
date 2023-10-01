@@ -204,7 +204,7 @@ public class EvaluatedService {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error removing Evaluated",
+                    "Error removing Evaluated: " + response.getMessage(),
                     null);
         } catch (Exception e) {
             return new ResponseWrapper(

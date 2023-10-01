@@ -101,8 +101,9 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
 
             EvaluatedDto evaluatedDto = new EvaluatedDto(evaluated);
-            evaluatedDto.setEvaluators(
-                    DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
+            
+//            evaluatedDto.setEvaluators(
+//                    DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
 
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,

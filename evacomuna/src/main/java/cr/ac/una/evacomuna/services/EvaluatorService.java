@@ -87,7 +87,7 @@ public class EvaluatorService {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error retrieving the evaluator",
+                    "Error retrieving the evaluator: " + e.toString(),
                     null);
         }
     }
@@ -122,7 +122,7 @@ public class EvaluatorService {
      * Gets all the evaluators
      *
      * @return List of EvaluatorDto with the found evaluators if found, null
-     *         otherwise
+     * otherwise
      */
     public ResponseWrapper getAllEvaluator() {
         try {
@@ -202,16 +202,23 @@ public class EvaluatorService {
                 calificationService.deleteCalificationById(i.getID());
             }
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteEvaluatorById(evaluatorDto.getId());
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluator deleted successfully",
+                        response.getData());
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Evaluator deleted successfully",
-                    response.getData());
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error removing evaluator: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error deleting evaluator",
+                    "Error deleting evaluator: " + e.toString(),
                     null);
         }
     }

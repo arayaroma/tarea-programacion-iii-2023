@@ -24,6 +24,12 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
             EvaluatorDto dto) {
         dto.setEvaluator(new UserDto(generated.getEvaluator()));
         dto.setEvaluated(new EvaluatedDto(generated.getEvaluated()));
+        dto.setCalifications(DtoMapper.fromGeneratedList(generated.getCalifications(), CalificationDto.class).getList());
+        if (dto.getCalifications() != null) {
+            for (int i = 0; i < dto.getCalifications().size(); i++) {
+                dto.getCalifications().get(i).setSkill(new SkillDto(generated.getCalifications().get(i).getSkill()));
+            }
+        }
         return dto;
     }
 

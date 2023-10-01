@@ -54,44 +54,44 @@ public class EvaluatorServiceImpl implements EvaluatorService {
                         "The evaluator to be updated does not exist", null);
             }
 
-            evaluator = evaluatorDto.convertFromDTOToEntity(evaluatorDto, evaluator);
-            evaluator.updateEvaluator(evaluatorDto);
             ResponseWrapper CONSTRAINT_VIOLATION = EntityUtil.verifyEntity(evaluator, Evaluator.class);
             if (CONSTRAINT_VIOLATION != null) {
                 return CONSTRAINT_VIOLATION;
             }
-            evaluator.updateEvaluator(evaluatorDto);
             evaluator = evaluatorDto.convertFromDTOToEntity(evaluatorDto, evaluator);
+            evaluator.updateEvaluator(evaluatorDto);
             em.merge(evaluator);
             em.flush();
+
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator successfully updated",
-                    new EvaluatorDto(evaluator));
+                    evaluatorDto.convertFromEntityToDTO(evaluator, new EvaluatorDto(evaluator)));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error updating evaluator",
-                    e.getMessage());
+                    "Error updating evaluator: " + e.toString(), null);
         }
     }
 
     @Override
     public ResponseWrapper getEvaluatorById(Long id) {
         try {
-            Evaluator evaluator = em.find(Evaluator.class, id);
+            Evaluator evaluator = em.createNamedQuery("Evaluator.findById", Evaluator.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
             if (evaluator == null) {
                 return new ResponseWrapper(ResponseCode.NOT_FOUND.getCode(), ResponseCode.NOT_FOUND,
                         "The evaluator to be updated does not exist", null);
             }
             EvaluatorDto evaluatorDto = new EvaluatorDto(evaluator);
             return new ResponseWrapper(ResponseCode.OK.getCode(), ResponseCode.OK, "Evaluator successfully retrieved",
-                    evaluatorDto);
+                    evaluatorDto.convertFromEntityToDTO(evaluator, evaluatorDto));
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error retrieving evaluator", e.getMessage());
+                    "Error retrieving evaluator: " + e.toString(), null);
         }
     }
 
@@ -148,7 +148,7 @@ public class EvaluatorServiceImpl implements EvaluatorService {
                     null);
         } catch (Exception e) {
             return new ResponseWrapper(ResponseCode.INTERNAL_SERVER_ERROR.getCode(), ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error deleting evaluator", e.getMessage());
+                    "Error deleting evaluator: " + e.toString(), null);
         }
     }
 
