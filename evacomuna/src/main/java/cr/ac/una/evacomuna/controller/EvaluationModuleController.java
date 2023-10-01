@@ -470,7 +470,8 @@ public class EvaluationModuleController implements Initializable {
             evaluatorsDeleted = response.getCode() == ResponseCode.OK;
         }
         if (evaluatorsDeleted) {
-            response = evaluatedService.deleteEvaluatedById(evaluated.getId());
+           
+            response = evaluatedService.deleteEvaluatedById(evaluated);
             evaluatedDeleted = response.getCode() == ResponseCode.OK;
             return evaluatorsDeleted;
         } else {

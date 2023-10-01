@@ -20,6 +20,7 @@ public class EvaluatedService {
 
     private EvaluatedController port;
     private EvaluatedController_Service service;
+    private FinalCalificationService finalCalificationService;
 
     /**
      * Default instance of the service
@@ -27,6 +28,7 @@ public class EvaluatedService {
     public EvaluatedService() {
         service = new EvaluatedController_Service();
         port = service.getEvaluatedControllerPort();
+        finalCalificationService = new FinalCalificationService();
     }
 
     /**
@@ -158,6 +160,7 @@ public class EvaluatedService {
      */
     public ResponseWrapper updateEvaluated(EvaluatedDto evaluatedDto) {
         try {
+
             cr.ac.una.evacomunaws.controller.EvaluatedDto entity = evaluatedDto.getDto();
             entity = evaluatedDto.convertFromDTOToGenerated(evaluatedDto, entity);
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluated(entity);
@@ -184,14 +187,25 @@ public class EvaluatedService {
      *
      * @param id of the evaluated to delete
      */
-    public ResponseWrapper deleteEvaluatedById(Long id) {
+    public ResponseWrapper deleteEvaluatedById(EvaluatedDto evaluatedDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteEvaluatedById(id);
+
+            for (FinalCalificationDto i : evaluatedDto.getFinalCalifications()) {
+                finalCalificationService.deleteFinalCalificationById(i.getID());
+            }
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deleteEvaluatedById(evaluatedDto.getId());
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluated deleted successfully",
+                        response.getData());
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Evaluated deleted successfully",
-                    response.getData());
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error removing Evaluated",
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
