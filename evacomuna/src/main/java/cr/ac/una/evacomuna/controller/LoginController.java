@@ -130,11 +130,9 @@ public class LoginController implements Initializable {
         }
         // send request new password here
         Data.setPasswordChanged(true);
-
         ResponseWrapper response = userService.recoverPassword(email);
         Message.showNotification("Info", MessageType.INFO, "Request sent");
         loginView.toFront();
-
     }
 
     private void cleanFieldsForgotYourPasswordView() {

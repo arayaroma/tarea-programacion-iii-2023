@@ -2,21 +2,15 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.evacomuna.App;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
-import cr.ac.una.evacomuna.dto.EvaluatorDto;
-import cr.ac.una.evacomuna.dto.FinalCalificationDto;
 import cr.ac.una.evacomuna.util.Data;
-import cr.ac.una.evacomuna.util.Roles;
-import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.services.EvaluatedService;
 import cr.ac.una.evacomuna.services.EvaluationService;
 import cr.ac.una.evacomuna.services.UserService;
-import cr.ac.una.evacomuna.util.ExcelGenerator;
 import cr.ac.una.evacomuna.util.ObservableListParser;
 import java.io.IOException;
 import java.util.Objects;
@@ -65,7 +59,7 @@ public class AppliedEvaluationsController implements Initializable {
         userService = new UserService();
         evaluatedService = new EvaluatedService();
         evaluationService = new EvaluationService();
-        //skills = new ArrayList<>();
+        // skills = new ArrayList<>();
         userDto = Data.getUserLogged();
         cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(
                 FXCollections.observableArrayList(filterEvaluations(ObservableListParser.loadEvaluations()))));
@@ -96,12 +90,14 @@ public class AppliedEvaluationsController implements Initializable {
     }
 
     private void initializeList() {
-        listEvaluated.setCellFactory((param) -> new ListCell() {
+        listEvaluated.setCellFactory((param) -> new ListCell<EvaluatedDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(EvaluatedDto item, boolean empty) {
                 super.updateItem(item, empty);
 
-                setText(empty || item == null ? null : ((EvaluatedDto) item).getEvaluated().getName() + " " + ((EvaluatedDto) item).getEvaluated().getSecondLastname());
+                setText(empty || item == null ? null
+                        : item.getEvaluated().getName() + " "
+                                + item.getEvaluated().getSecondLastname());
 
             }
         });
@@ -110,7 +106,7 @@ public class AppliedEvaluationsController implements Initializable {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         evaluatedBuffer = newValue;
-                        //Load grid here
+                        // Load grid here
                         loadGrid();
                     }
                 });
@@ -120,7 +116,6 @@ public class AppliedEvaluationsController implements Initializable {
 
     }
 
-    
     @FXML
     private void selectEvaluation(ActionEvent event) {
         String name = cbEvaluations.getValue();
@@ -128,21 +123,22 @@ public class AppliedEvaluationsController implements Initializable {
             evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
             if (evaluationBuffer != null) {
                 evaluatedBuffer = loadEvaluatedByEvaluation(evaluationBuffer);
-                //Load grid here
+                // Load grid here
                 loadGrid();
             }
         }
     }
 
     @FXML
-    private void selectAllEvaluation(ActionEvent event) {//Arreglar para que se carguen las calificaciones finales desde el usuario admin
+    private void selectAllEvaluation(ActionEvent event) {// Arreglar para que se carguen las calificaciones finales
+                                                         // desde el usuario admin
         String name = cbAllEvaluations.getValue();
         if (name != null) {
             evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
             if (evaluationBuffer != null) {
                 listEvaluated.getItems().clear();
                 listEvaluated.getItems().addAll(evaluationBuffer.getEvaluated());
-                //Load grid here
+                // Load grid here
                 loadGrid();
             }
         }
@@ -161,10 +157,12 @@ public class AppliedEvaluationsController implements Initializable {
     }
 
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
-        Predicate<EvaluationDto> hasEvaluated = evaluationDto -> evaluationDto.getEvaluated().stream()
+        Predicate<EvaluationDto> hasEvaluated = evaluationDto -> evaluationDto.getEvaluated()
+                .stream()
                 .anyMatch(evaluatedDto -> evaluatedDto.getEvaluated().getId() == userDto.getId());
         List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
-                .filter(hasEvaluated.and(evaluation -> evaluation.getState().equals("COMPLETED") || evaluation.getState().equals("UNDER REVIEW")))
+                .filter(hasEvaluated.and(evaluation -> evaluation.getState().equals("COMPLETED")
+                        || evaluation.getState().equals("UNDER REVIEW")))
                 .collect(Collectors.toList());
         return evaluationDtosFiltered;
     }

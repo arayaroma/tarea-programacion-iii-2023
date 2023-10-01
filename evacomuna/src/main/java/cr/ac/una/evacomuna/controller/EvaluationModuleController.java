@@ -50,7 +50,7 @@ import javafx.scene.input.KeyEvent;
  * @author estebannajera
  */
 public class EvaluationModuleController implements Initializable {
-    
+
     @FXML
     private Button btnCreate;
     @FXML
@@ -96,11 +96,11 @@ public class EvaluationModuleController implements Initializable {
     private FinalCalificationService finalCalificationService = new FinalCalificationService();
     private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
     private List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
-    
+
     private String roleBuffer;
     @FXML
     private RadioButton rbSelf;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -111,13 +111,13 @@ public class EvaluationModuleController implements Initializable {
             // initializeView();
             initializeView();
         } catch (Exception e) {
-            
+
             System.out.println(e.toString());
         }
         initilizeLists();
-        
+
     }
-    
+
     @FXML
     private void btnAddEvaluator(ActionEvent event) {
         if (roleBuffer == null) {
@@ -136,7 +136,7 @@ public class EvaluationModuleController implements Initializable {
             Message.showNotification("Alert", MessageType.INFO, "You must to choose a Evaluated to set the evaluators");
         }
     }
-    
+
     @FXML
     private void btnDeleteEvaluator(ActionEvent event) {
         if (finalEvaluatorBuffer != null) {
@@ -146,10 +146,9 @@ public class EvaluationModuleController implements Initializable {
             }
             finalEvaluatedBuffer.getEvaluators().remove(finalEvaluatorBuffer);
             listEvaluatorsFix.getItems().remove(finalEvaluatorBuffer);
-            
         }
     }
-    
+
     @FXML
     private void btnAddEvaluated(ActionEvent event) {
         if (evaluatedBuffer != null && !listEvaluatedFix.getItems().stream()
@@ -158,7 +157,7 @@ public class EvaluationModuleController implements Initializable {
             listEvaluatedFix.getItems().add(evaluatedBuffer);
         }
     }
-    
+
     @FXML
     private void btnDeleteEvaluated(ActionEvent event) {
         if (finalEvaluatedBuffer != null) {
@@ -167,10 +166,9 @@ public class EvaluationModuleController implements Initializable {
             }
             listEvaluatedFix.getItems().remove(finalEvaluatedBuffer);
             listEvaluatorsFix.getItems().clear();
-            
         }
     }
-    
+
     @FXML
     private void searchByRoleAction(ActionEvent event) {
         String name = cbRoles.getValue();
@@ -183,7 +181,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void deleteEvaluationAction(ActionEvent event) {
         if (evaluationBuffer != null) {
@@ -207,7 +205,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void createEvaluationAction(ActionEvent event) {
         if (evaluationBuffer != null) {
@@ -245,7 +243,7 @@ public class EvaluationModuleController implements Initializable {
         }
         Message.showNotification("ERROR", MessageType.INFO, "Error creating evaluation");
     }
-    
+
     @FXML
     private void saveChangesAction(ActionEvent event) {
         String name = txfNameEvaluation.getText(), state = cbState.getValue();
@@ -274,21 +272,21 @@ public class EvaluationModuleController implements Initializable {
         }
         Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
     }
-    
+
     @FXML
     private void searchByIdentification(KeyEvent event) {
         String identificationToSearch = txfSearchEvaluators.getText();
         listEvaluators.getItems().clear();
         if (identificationToSearch.length() > 2) {
-            listEvaluators.getItems()
-                    .addAll(evaluatorDtos.stream()
-                            .filter(t -> t.getEvaluator().getIdentification().contains(identificationToSearch))
-                            .collect(Collectors.toList()));
+            listEvaluators.getItems().addAll(evaluatorDtos
+                    .stream()
+                    .filter(t -> t.getEvaluator().getIdentification().contains(identificationToSearch))
+                    .collect(Collectors.toList()));
             return;
         }
         listEvaluators.getItems().addAll(evaluatorDtos);
     }
-    
+
     @FXML
     private void selectEvaluation(ActionEvent event) {
         String name = cbEvaluations.getValue();
@@ -299,7 +297,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void searchEvaluationInput(KeyEvent event) {
         if (event.getCode().isLetterKey()) {
@@ -307,9 +305,11 @@ public class EvaluationModuleController implements Initializable {
             if (nameToSearch != null) {
                 cbEvaluations.getItems().clear();
                 if (nameToSearch.length() > 2) {
-                    cbEvaluations.getItems()
-                            .addAll(evaluationDtos.stream().filter(t -> t.getName().contains(nameToSearch))
-                                    .map(t -> t.getName()).collect(Collectors.toList()));
+                    cbEvaluations.getItems().addAll(evaluationDtos
+                            .stream()
+                            .filter(t -> t.getName().contains(nameToSearch))
+                            .map(t -> t.getName())
+                            .collect(Collectors.toList()));
                     return;
                 }
                 cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(evaluationDtos));
@@ -317,7 +317,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-    
+
     public void initializeView() {
         cbState.getItems().addAll("UNDER CONSTRUCTION", "IN APPLICATION", "UNDER REVIEW", "COMPLETED");
         cbRoles.getItems().addAll(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
@@ -330,7 +330,7 @@ public class EvaluationModuleController implements Initializable {
             listEvaluators.getItems().addAll(evaluatorDtos);
         }
     }
-    
+
     public void cleanView() {
         cbState.getItems().clear();
         cbRoles.getItems().clear();
@@ -349,7 +349,7 @@ public class EvaluationModuleController implements Initializable {
         btnSave.setDisable(true);
         btnCreate.setText("Create Evaluation");
     }
-    
+
     public void loadFields(EvaluationDto evaluationDto) {
         txfNameEvaluation.setText(evaluationDto.getName());
         dpAplicationDate.setValue(evaluationDto.getApplicationDate());
@@ -361,62 +361,54 @@ public class EvaluationModuleController implements Initializable {
         listEvaluatedFix.getItems().addAll(evaluationDto.getEvaluated());
         btnCreate.setText("+New Evaluation");
     }
-    
+
     public void initilizeLists() {
-        listEvaluated.setCellFactory((param) -> new ListCell() {
+        listEvaluated.setCellFactory((param) -> new ListCell<EvaluatedDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(EvaluatedDto item, boolean empty) {
                 super.updateItem(item, empty);
-                EvaluatedDto evaluatedDto = (EvaluatedDto) item;
-                if (evaluatedDto != null) {
-                    UserDto user = evaluatedDto.getEvaluated();
-                    setText(empty || item == null ? null
-                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
-                } else {
+                if (empty || item == null) {
                     setText(null);
+                } else {
+                    UserDto user = item.getEvaluated();
+                    setText(user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 }
             }
         });
-        listEvaluators.setCellFactory((param) -> new ListCell() {
+        listEvaluators.setCellFactory((param) -> new ListCell<EvaluatorDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(EvaluatorDto item, boolean empty) {
                 super.updateItem(item, empty);
-                EvaluatorDto evaluatorDto = (EvaluatorDto) item;
-                if (evaluatorDto != null) {
-                    UserDto user = evaluatorDto.getEvaluator();
-                    setText(empty || item == null ? null
-                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
-                } else {
+                if (empty || item == null) {
                     setText(null);
-                }
-                
-            }
-        });
-        listEvaluatedFix.setCellFactory((param) -> new ListCell() {
-            @Override
-            protected void updateItem(Object item, boolean empty) {
-                super.updateItem(item, empty);
-                EvaluatedDto evaluatedDto = (EvaluatedDto) item;
-                if (evaluatedDto != null) {
-                    UserDto user = evaluatedDto.getEvaluated();
-                    setText(empty || item == null ? null
-                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 } else {
-                    setText(null);
+                    UserDto user = item.getEvaluator();
+                    setText(user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
                 }
             }
         });
-        listEvaluatorsFix.setCellFactory((param) -> new ListCell() {
+        listEvaluatedFix.setCellFactory((param) -> new ListCell<EvaluatedDto>() {
             @Override
-            protected void updateItem(Object item, boolean empty) {
+            protected void updateItem(EvaluatedDto item, boolean empty) {
                 super.updateItem(item, empty);
-                EvaluatorDto evaluatorDto = (EvaluatorDto) item;
-                if (evaluatorDto != null) {
-                    UserDto user = evaluatorDto.getEvaluator();
-                    setText(empty || item == null ? null
-                            : user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " (" + evaluatorDto.getRole() + ")");
-                } else {
+                if (empty || item == null) {
                     setText(null);
+                } else {
+                    UserDto user = item.getEvaluated();
+                    setText(user.getIdentification() + ": " + user.getName() + " " + user.getLastname());
+                }
+            }
+        });
+        listEvaluatorsFix.setCellFactory((param) -> new ListCell<EvaluatorDto>() {
+            @Override
+            protected void updateItem(EvaluatorDto item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    UserDto user = item.getEvaluator();
+                    setText(user.getIdentification() + ": " + user.getName() + " " + user.getLastname() + " ("
+                            + item.getRole() + ")");
                 }
             }
         });
@@ -468,7 +460,7 @@ public class EvaluationModuleController implements Initializable {
             }
         });
     }
-    
+
     public boolean deleteEvaluated(EvaluatedDto evaluated) {
         ResponseWrapper response = null;
         boolean evaluatorsDeleted = true;
@@ -486,7 +478,7 @@ public class EvaluationModuleController implements Initializable {
         }
         return evaluatorsDeleted;
     }
-    
+
     public boolean createEvaluated(EvaluatedDto evaluated, EvaluationDto evaluationDto) {
         ResponseWrapper response = null;
         boolean allIsSaved = false;
@@ -509,7 +501,7 @@ public class EvaluationModuleController implements Initializable {
         }
         return allIsSaved;
     }
-    
+
     private void setRole(EvaluatorDto evaluatorDto) {
         if (!isTheSameUserEvaluator(evaluatorDto)) {
             evaluatorDto.setRole(roleBuffer);
@@ -517,23 +509,26 @@ public class EvaluationModuleController implements Initializable {
         }
         evaluatorDto.setRole("SELF");
     }
-    
+
     private boolean isTheSameUserEvaluator(EvaluatorDto evaluator) {
         if (finalEvaluatedBuffer != null && evaluator != null) {
             return finalEvaluatedBuffer.getEvaluated().getId().equals(evaluator.getEvaluator().getId());
         }
         return false;
     }
-    
-//    private Long calculateNCalifications(SkillDto skill, List<EvaluatorDto> evaluatorDtos) {
-//        Long nCalifications = Long.valueOf(0);
-//        nCalifications = evaluatorDtos.stream().map(evaluatorDto -> evaluatorDto.getCalifications().stream().filter(calification -> calification.getSkill().getID() == skill.getID())).count();
-//        return nCalifications;
-//    }
-    
+
+    // private Long calculateNCalifications(SkillDto skill, List<EvaluatorDto>
+    // evaluatorDtos) {
+    // Long nCalifications = Long.valueOf(0);
+    // nCalifications = evaluatorDtos.stream().map(evaluatorDto ->
+    // evaluatorDto.getCalifications().stream().filter(calification ->
+    // calification.getSkill().getID() == skill.getID())).count();
+    // return nCalifications;
+    // }
+
     private void generateFinalCalifications(EvaluationDto evaluation) {
         Map<Long, Long> calificationBySkill = new HashMap<>();
-          //Map<Long, Long> calificationBySkill = new HashMap<>();
+        // Map<Long, Long> calificationBySkill = new HashMap<>();
         if (evaluation != null && evaluation.getState().equals("UNDER REVIEW")) {
             for (EvaluatedDto evaluatedDto : evaluation.getEvaluated()) {
                 if (evaluatedDto.getFinalCalifications() != null && evaluatedDto.getFinalCalifications().isEmpty()) {
@@ -545,12 +540,13 @@ public class EvaluationModuleController implements Initializable {
                     for (Map.Entry<Long, Long> entry : calificationBySkill.entrySet()) {
                         FinalCalificationDto finalCalificationDto = new FinalCalificationDto();
                         Long average = entry.getValue() / evaluatedDto.getEvaluators().size();
-                        //nCalification = calculateNCalifications(evaluated, evaluatorDtos)
+                        // nCalification = calculateNCalifications(evaluated, evaluatorDtos)
                         finalCalificationDto.setAverage(average);
                         finalCalificationDto.setFinalNote(average);
                         finalCalificationDto.setSkill((SkillDto) skillService.getSkillById(entry.getKey()).getData());
                         finalCalificationDto.setEvaluated(evaluatedDto);
-                        ResponseWrapper responseWrapper = finalCalificationService.createFinalCalification(finalCalificationDto);
+                        ResponseWrapper responseWrapper = finalCalificationService
+                                .createFinalCalification(finalCalificationDto);
                         if (responseWrapper.getCode() != ResponseCode.OK) {
                             Message.showNotification("ERROR", MessageType.ERROR, responseWrapper.getMessage());
                             return;
@@ -561,18 +557,15 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-    
-    private void fillCalificationBySkill(Map<Long, Long> map, SkillDto skill, CalificationDto calificationDto) {
 
-        //
+    private void fillCalificationBySkill(Map<Long, Long> map, SkillDto skill, CalificationDto calificationDto) {
         Long valueCalification = CalificationCode.parseStringToCode(calificationDto.getCalification());
         if (!map.containsKey(skill.getID())) {
             map.put(skill.getID(), valueCalification);
             return;
         }
-        
         Long newValue = map.get(skill.getID());
         map.replace(skill.getID(), newValue + valueCalification);
     }
-    
+
 }

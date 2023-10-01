@@ -92,7 +92,7 @@ public class MainController implements Initializable {
             menuPane.setDisable(false);
             loadPrivileges();
         } catch (Exception e) {
-            System.out.println("Error while loading MainController: " + e.toString());
+            System.out.println("Error while loading MainController: " + e.getMessage());
         }
     }
 
@@ -103,9 +103,8 @@ public class MainController implements Initializable {
             mainScreen.getChildren().clear();
             mainScreen.getChildren().add(loader.load());
         } catch (IOException e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
-
     }
 
     @FXML
@@ -115,9 +114,8 @@ public class MainController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("ContainerEvaluations");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
-
     }
 
     @FXML
@@ -127,8 +125,8 @@ public class MainController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("CompanyModule");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
     }
 
     @FXML
@@ -138,7 +136,7 @@ public class MainController implements Initializable {
             FXMLLoader loader = App.getFXMLLoader("ContainerModule");
             mainScreen.getChildren().add(loader.load());
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -146,6 +144,7 @@ public class MainController implements Initializable {
         try {
             mainScreen.getChildren().clear();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -160,7 +159,6 @@ public class MainController implements Initializable {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).play();
-
     }
 
     @FXML
@@ -185,7 +183,6 @@ public class MainController implements Initializable {
             return;
         }
         Message.showNotification("Internal Error", MessageType.ERROR, response.getMessage());
-
     }
 
     @FXML
@@ -194,7 +191,6 @@ public class MainController implements Initializable {
             lblChangePasswordInfo.setText("The password and confirm is equals");
             lblChangePasswordInfo.getStyleClass().remove("error-color-label");
             lblChangePasswordInfo.getStyleClass().add("confirm-color-label");
-
         } else if (txfNewPassword.getText().isBlank() && txfPasswordConfirm.getText().isBlank()) {
             lblChangePasswordInfo.setText("");
         } else {
@@ -226,9 +222,9 @@ public class MainController implements Initializable {
     }
 
     private void loadPrivileges() {
-        if (!userLogged.getIsAdmin().equals( "Y")) {
+        if (!userLogged.getIsAdmin().equals("Y")) {
             btnRoleModule.setVisible(false);
-            //btnGeneralInformationModule.setVisible(false);
+            // btnGeneralInformationModule.setVisible(false);
             btnWorkersModule.setVisible(false);
         }
     }

@@ -4,7 +4,6 @@ import cr.ac.una.evacomuna.controller.LoginController;
 import cr.ac.una.evacomuna.controller.MainController;
 import cr.ac.una.evacomuna.controller.RegisterWorkerController;
 import cr.ac.una.evacomuna.controller.WorkersModuleController;
-import cr.ac.una.evacomuna.util.ExcelGenerator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,8 +29,8 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
-//        ExcelGenerator generator = new ExcelGenerator(null);
-//        generator.generateExcelReport();
+        // ExcelGenerator generator = new ExcelGenerator(null);
+        // generator.generateExcelReport();
     }
 
     public static void setRoot(String fxml) throws IOException {

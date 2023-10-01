@@ -100,8 +100,11 @@ public class SkillModuleController implements Initializable {
             if (nameToSearch != null) {
                 cbSkillsView.getItems().clear();
                 if (nameToSearch.length() > 2) {
-                    cbSkillsView.getItems().addAll(skillsDtos.stream().filter(t -> t.getName().contains(nameToSearch))
-                            .map(t -> t.getName()).collect(Collectors.toList()));
+                    cbSkillsView.getItems().addAll(skillsDtos
+                            .stream()
+                            .filter(t -> t.getName().contains(nameToSearch))
+                            .map(t -> t.getName())
+                            .collect(Collectors.toList()));
                     return;
                 }
                 cbSkillsView.getItems().addAll(ObservableListParser.mapListToObsevableString(skillsDtos));
@@ -146,7 +149,8 @@ public class SkillModuleController implements Initializable {
                         .forEach(t -> characteristicService.deleteCharacteristicById(t.getId()));
             }
             if (skillBufferMainView.getCalifications() != null) {
-                skillBufferMainView.getCalifications().forEach(t -> calificationService.deleteCalificationById(t.getID()));
+                skillBufferMainView.getCalifications()
+                        .forEach(t -> calificationService.deleteCalificationById(t.getID()));
             }
             ResponseWrapper response = skillService.deleteSkillsById(skillBufferMainView.getID());
             Message.showNotification(response.getCode().name(),
@@ -180,7 +184,6 @@ public class SkillModuleController implements Initializable {
                 characteristicService.deleteCharacteristicById(characteristicViewBuffer.getId());
             }
             listCharacteristicsRegisterSkillView.getItems().remove(characteristicViewBuffer);
-
         }
     }
 
@@ -243,7 +246,6 @@ public class SkillModuleController implements Initializable {
         cbSkillsView.setValue(null);
         cbSkillsView.setItems(ObservableListParser.mapListToObsevableString(skillsDtos));
         listCharacteristicsMainSkillView.getItems().clear();
-
     }
 
     private void cleanFieldsSkillRegisterView() {

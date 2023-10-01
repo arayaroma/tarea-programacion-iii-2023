@@ -232,7 +232,6 @@ public class PositionModuleController implements Initializable {
         cbStateRegister.setValue(null);
         cbRolesSkillsRegister.setValue(null);
         listSkillsRegister.getItems().clear();
-
     }
 
     private void initializeMainView() {

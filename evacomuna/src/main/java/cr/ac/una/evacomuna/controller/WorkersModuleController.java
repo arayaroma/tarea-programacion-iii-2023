@@ -78,7 +78,6 @@ public class WorkersModuleController implements Initializable {
                 searchWorker(null);
             }
         });
-
     }
 
     @FXML
@@ -154,21 +153,23 @@ public class WorkersModuleController implements Initializable {
                             .collect(Collectors.toList());
                     break;
                 case "Second Last Name":
-                    usersFiltered = users.stream()
+                    usersFiltered = users
+                            .stream()
                             .filter(user -> user.getSecondLastname().contains(key))
                             .collect(Collectors.toList());
                     break;
                 case "Identification":
-                    usersFiltered = users.stream()
+                    usersFiltered = users
+                            .stream()
                             .filter(user -> user.getIdentification().contains(key))
                             .collect(Collectors.toList());
                     break;
                 case "Role":
-                    usersFiltered = users.stream()
+                    usersFiltered = users
+                            .stream()
                             .filter(user -> user.getPosition().getName().contains(key))
                             .collect(Collectors.toList());
                     break;
-
             }
         }
         return usersFiltered;
