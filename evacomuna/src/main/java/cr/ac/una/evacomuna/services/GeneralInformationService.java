@@ -37,12 +37,13 @@ public class GeneralInformationService {
                     .createGeneralInformation(generalInformationDto.getDto());
             cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
+            generalInformationDto = new GeneralInformationDto(generalInformation);
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
                         "GeneralInformation created successfully",
-                        new GeneralInformationDto(generalInformation));
+                        generalInformationDto.convertFromGeneratedToDTO(generalInformation, generalInformationDto));
             }
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -72,11 +73,12 @@ public class GeneralInformationService {
             cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                generalInformationDto = new GeneralInformationDto(generalInformation);
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
                         "GeneralInformation updated successfully",
-                        new GeneralInformationDto(generalInformation));
+                        generalInformationDto.convertFromGeneratedToDTO(generalInformation, generalInformationDto));
             }
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -102,11 +104,12 @@ public class GeneralInformationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getGeneralInformation();
             cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
+            GeneralInformationDto generalInformationDto = new GeneralInformationDto(generalInformation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "GeneralInformation found successfully",
-                    new GeneralInformationDto(generalInformation));
+                    generalInformationDto.convertFromGeneratedToDTO(generalInformation, generalInformationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -127,11 +130,12 @@ public class GeneralInformationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getGeneralInformationById(id);
             cr.ac.una.evacomunaws.controller.GeneralInformationDto generalInformation = (cr.ac.una.evacomunaws.controller.GeneralInformationDto) response
                     .getData();
+            GeneralInformationDto generalInformationDto = new GeneralInformationDto(generalInformation);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "GeneralInformation found successfully",
-                    new GeneralInformationDto(generalInformation));
+                    generalInformationDto.convertFromGeneratedToDTO(generalInformation, generalInformationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
