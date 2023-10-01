@@ -46,9 +46,11 @@ public class EvaluatedDto implements DtoMapper<Evaluated, EvaluatedDto> {
 
         dto.setFinalCalifications(
                 DtoMapper.fromEntityList(entity.getFinalCalifications(), FinalCalificationDto.class).getList());
-        for (int i = 0; i < dto.getEvaluators().size(); i++) {
-            dto.getEvaluators().get(i).setCalifications(
-                    DtoMapper.fromEntityList(entity.getEvaluators().get(i).getCalifications(), CalificationDto.class).getList());
+        if (dto.getEvaluators() != null) {
+            for (int i = 0; i < dto.getEvaluators().size(); i++) {
+                dto.getEvaluators().get(i).setCalifications(
+                        DtoMapper.fromEntityList(entity.getEvaluators().get(i).getCalifications(), CalificationDto.class).getList());
+            }
         }
         if (dto.getFinalCalifications() != null) {
             for (int i = 0; i < dto.getFinalCalifications().size(); i++) {

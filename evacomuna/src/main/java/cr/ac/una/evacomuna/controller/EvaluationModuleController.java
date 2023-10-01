@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
@@ -125,9 +126,10 @@ public class EvaluationModuleController implements Initializable {
             return;
         }
         if (finalEvaluatedBuffer != null) {
+            System.out.println(evaluatorBuffer.getId());
             if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream()
-                    .anyMatch(t -> t.getId() != null && t.getEvaluator().getId() == evaluatorBuffer.getId())) {
-                listEvaluatorsFix.getItems().remove(evaluatedBuffer);
+                    .anyMatch(t -> t.getId() != null && Objects.equals(t.getEvaluator().getId(), evaluatorBuffer.getId()))) {
+                System.out.println(listEvaluatorsFix.getItems().remove(evaluatorBuffer));
                 setRole(evaluatorBuffer);
                 listEvaluatorsFix.getItems().add(evaluatorBuffer);
                 finalEvaluatedBuffer.getEvaluators().add(evaluatorBuffer);
@@ -430,6 +432,7 @@ public class EvaluationModuleController implements Initializable {
                             }
                         });
                     } else {
+                        roleBuffer = null;
                         rbSelf.setSelected(false);
                         role.getToggles().forEach(t -> {
                             if (t instanceof RadioButton) {
@@ -485,7 +488,7 @@ public class EvaluationModuleController implements Initializable {
     public boolean createEvaluated(EvaluatedDto evaluated, EvaluationDto evaluationDto) {
         ResponseWrapper response = null;
         boolean allIsSaved = false;
-        evaluated.setEvaluation(evaluationDto);
+        evaluated.setEvaluation(new EvaluationDto(evaluationDto.getDto()));
         if (evaluated.getId() == null) {
             response = evaluatedService.createEvaluated(evaluated);
         }
@@ -520,18 +523,10 @@ public class EvaluationModuleController implements Initializable {
         return false;
     }
 
-    // private Long calculateNCalifications(SkillDto skill, List<EvaluatorDto>
-    // evaluatorDtos) {
-    // Long nCalifications = Long.valueOf(0);
-    // nCalifications = evaluatorDtos.stream().map(evaluatorDto ->
-    // evaluatorDto.getCalifications().stream().filter(calification ->
-    // calification.getSkill().getID() == skill.getID())).count();
-    // return nCalifications;
-    // }
     private void generateFinalCalifications(EvaluationDto evaluation) {
         Map<Long, Long> calificationBySkill = new HashMap<>();
         // Map<Long, Long> calificationBySkill = new HashMap<>();
-        if (evaluation != null && evaluation.getState().equals("UNDER REVIEW")) {
+        if (evaluation != null && (evaluation.getState().equals("UNDER REVIEW") || evaluation.getState().equals("COMPLETED"))) {
             for (EvaluatedDto evaluatedDto : evaluation.getEvaluated()) {
                 if (evaluatedDto.getFinalCalifications() != null && evaluatedDto.getFinalCalifications().isEmpty()) {
                     for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {

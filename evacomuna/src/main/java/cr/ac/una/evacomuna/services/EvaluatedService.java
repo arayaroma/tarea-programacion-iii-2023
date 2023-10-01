@@ -54,7 +54,7 @@ public class EvaluatedService {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error creating evaluated",
+                    "Error creating evaluated: " + e.toString(),
                     null);
         }
     }

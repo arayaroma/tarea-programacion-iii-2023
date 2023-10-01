@@ -54,7 +54,7 @@ public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
     public Evaluator convertFromDTOToEntity(EvaluatorDto dto, Evaluator entity) {
         entity.setEvaluated(new Evaluated(dto.getEvaluated()));
         entity.setEvaluator(new User(dto.getEvaluator()));
-        entity.setCalifications(DtoMapper.fromDtoList(dto.getCalifications(), Calification.class).getList());
+        //entity.setCalifications(DtoMapper.fromDtoList(dto.getCalifications(), Calification.class).getList());
         return entity;
     }
 }
