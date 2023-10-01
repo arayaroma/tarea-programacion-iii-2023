@@ -33,7 +33,8 @@ public class FinalCalificationService {
      */
     public ResponseWrapper createFinalCalification(cr.ac.una.evacomuna.dto.FinalCalificationDto finalCalificationDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createFinalCalification(finalCalificationDto.getDto());
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port
+                    .createFinalCalification(finalCalificationDto.getDto());
             cr.ac.una.evacomunaws.controller.FinalCalificationDto finalCalification = (cr.ac.una.evacomunaws.controller.FinalCalificationDto) response
                     .getData();
             return new cr.ac.una.evacomuna.util.ResponseWrapper(
@@ -133,7 +134,8 @@ public class FinalCalificationService {
     public ResponseWrapper getAllFinalCalifications() {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getAllFinalCalification();
-            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response
+                    .getData();
             java.util.List<cr.ac.una.evacomunaws.controller.FinalCalificationDto> listGenerated = new ArrayList<>();
             java.util.List<FinalCalificationDto> listDto = listWrapper
                     .getElement()
@@ -171,7 +173,8 @@ public class FinalCalificationService {
      */
     public ResponseWrapper updateFinalCalification(cr.ac.una.evacomuna.dto.FinalCalificationDto finalCalificationDto) {
         try {
-            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateFinalCalification(finalCalificationDto.getDto());
+            cr.ac.una.evacomunaws.controller.ResponseWrapper response = port
+                    .updateFinalCalification(finalCalificationDto.getDto());
             cr.ac.una.evacomunaws.controller.FinalCalificationDto finalCalification = (cr.ac.una.evacomunaws.controller.FinalCalificationDto) response
                     .getData();
             return new ResponseWrapper(

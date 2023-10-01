@@ -2,7 +2,6 @@ package cr.ac.una.evacomuna.services;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.evacomunaws.controller.CharacteristicController;
 import cr.ac.una.evacomunaws.controller.CharacteristicController_Service;
 import cr.ac.una.evacomuna.dto.CharacteristicDto;

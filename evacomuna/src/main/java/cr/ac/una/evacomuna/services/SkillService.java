@@ -2,10 +2,8 @@ package cr.ac.una.evacomuna.services;
 
 import cr.ac.una.evacomuna.util.ResponseCode;
 import cr.ac.una.evacomuna.util.ResponseWrapper;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.evacomunaws.controller.SkillController;
 import cr.ac.una.evacomunaws.controller.SkillController_Service;
 import cr.ac.una.evacomuna.dto.SkillDto;
@@ -39,7 +37,8 @@ public class SkillService {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createSkill(skillDto.getDto());
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
-                cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
+                cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response
+                        .getData();
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
@@ -69,7 +68,8 @@ public class SkillService {
     public ResponseWrapper getSkillByName(String name) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkillByName(name);
-            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response
+                    .getData();
             SkillDto skillDto = new SkillDto(skill);
 
             return new ResponseWrapper(
@@ -89,7 +89,8 @@ public class SkillService {
     public ResponseWrapper getSkillById(Long id) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkillById(id);
-            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response
+                    .getData();
             SkillDto skillDto = new SkillDto(skill);
 
             return new ResponseWrapper(
@@ -115,7 +116,8 @@ public class SkillService {
     public ResponseWrapper getSkillByLikeName(String name) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkillByLikeName(name);
-            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -138,7 +140,8 @@ public class SkillService {
     public ResponseWrapper getSkills() {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getSkills();
-            cr.ac.una.evacomunaws.controller.ListWrapper skills = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            cr.ac.una.evacomunaws.controller.ListWrapper skills = (cr.ac.una.evacomunaws.controller.ListWrapper) response
+                    .getData();
             List<cr.ac.una.evacomunaws.controller.SkillDto> skillsDto = new ArrayList<>();
             List<SkillDto> skillsDtoClient = new ArrayList<>();
             for (Object i : skills.getElement()) {
@@ -173,7 +176,8 @@ public class SkillService {
     public ResponseWrapper updateSkills(SkillDto skillDto) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateSkill(skillDto.getDto());
-            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response.getData();
+            cr.ac.una.evacomunaws.controller.SkillDto skill = (cr.ac.una.evacomunaws.controller.SkillDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,

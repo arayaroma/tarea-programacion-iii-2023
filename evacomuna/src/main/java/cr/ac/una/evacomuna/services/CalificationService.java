@@ -110,7 +110,8 @@ public class CalificationService {
     public ResponseWrapper getAllCalification() {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getAllCalification();
-            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response
+                    .getData();
             java.util.List<cr.ac.una.evacomunaws.controller.CalificationDto> listGenerated = new ArrayList<>();
             java.util.List<CalificationDto> listDto = listWrapper
                     .getElement()

@@ -39,7 +39,8 @@ public class PositionService {
             cr.ac.una.evacomunaws.controller.PositionDto entity = position.getDto();
             entity = position.convertFromDTOToGenerated(position, entity);
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createPosition(entity);
-            cr.ac.una.evacomunaws.controller.PositionDto positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.PositionDto positionDto = (cr.ac.una.evacomunaws.controller.PositionDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -62,7 +63,8 @@ public class PositionService {
     public ResponseWrapper getPositions() {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getPositions();
-            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response.getData();
+            cr.ac.una.evacomunaws.controller.ListWrapper listWrapper = (cr.ac.una.evacomunaws.controller.ListWrapper) response
+                    .getData();
             List<cr.ac.una.evacomunaws.controller.PositionDto> listGenerated = new ArrayList<>();
             List<PositionDto> listDto = listWrapper
                     .getElement()
@@ -99,7 +101,8 @@ public class PositionService {
     public ResponseWrapper getPositionByName(String name) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getPositionByName(name);
-            cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
+            cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response
+                    .getData();
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
@@ -124,7 +127,8 @@ public class PositionService {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePositionById(id);
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
-                cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
+                cr.ac.una.evacomunaws.controller.PositionDto position = (cr.ac.una.evacomunaws.controller.PositionDto) response
+                        .getData();
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
@@ -156,7 +160,8 @@ public class PositionService {
             cr.ac.una.evacomunaws.controller.PositionDto entity = position.getDto();
             entity = position.convertFromDTOToGenerated(position, entity);
 
-//            positionDto = position.convertFromDTOToGenerated(position, positionDto);//ERROR AQUI. NO CONVIERTE LAS LISTAS
+            // positionDto = position.convertFromDTOToGenerated(position,
+            // positionDto);//ERROR AQUI. NO CONVIERTE LAS LISTAS
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updatePosition(entity);
             entity = (cr.ac.una.evacomunaws.controller.PositionDto) response.getData();
             return new ResponseWrapper(

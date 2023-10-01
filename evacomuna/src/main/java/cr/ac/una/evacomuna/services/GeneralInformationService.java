@@ -29,7 +29,7 @@ public class GeneralInformationService {
      *
      * @param generalInformationDto object to create
      * @return GeneralInformationDto with the created generalInformation if
-     * found, null otherwise
+     *         found, null otherwise
      */
     public ResponseWrapper createGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
@@ -63,7 +63,7 @@ public class GeneralInformationService {
      *
      * @param generalInformationDto object to update
      * @return GeneralInformationDto with the updated generalInformation if
-     * found, null otherwise
+     *         found, null otherwise
      */
     public ResponseWrapper updateGeneralInformation(GeneralInformationDto generalInformationDto) {
         try {
