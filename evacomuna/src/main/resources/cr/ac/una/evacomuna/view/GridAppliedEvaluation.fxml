@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -167,10 +166,10 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="19.0" prefWidth="488.0" styleClass="rows-titles" text="Exceptional" GridPane.rowIndex="1" />
-                        <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Above Expectations" GridPane.rowIndex="2" />
-                        <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Meets Expectations" GridPane.rowIndex="3" />
-                        <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Under Expectations" GridPane.rowIndex="4" />
+                        <Label prefHeight="19.0" prefWidth="488.0" styleClass="rows-titles" text="Exceptional" GridPane.rowIndex="4" />
+                        <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Above Expectations" GridPane.rowIndex="3" />
+                        <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Meets Expectations" GridPane.rowIndex="2" />
+                        <Label prefHeight="40.0" prefWidth="983.0" styleClass="rows-titles" text="Under Expectations" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane fx:id="gp_feedback" prefWidth="300.0" styleClass="grid-pane">
@@ -185,14 +184,12 @@
       </ScrollPane>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
-            <Label styleClass="title" text="Calculated Calification:" />
             <HBox alignment="CENTER">
                <children>
-                  <Label styleClass="title" text="Final Calification:" />
-                  <TextField fx:id="txfFinalCalification" styleClass="rows-titles" />
+                  <Label fx:id="lblFinalCalification" styleClass="title" text="Final Calification:" />
                </children>
             </HBox>
-            <HBox spacing="200.0">
+            <HBox alignment="CENTER" spacing="100.0">
                <children>
                   <Button fx:id="btnSaveChanges" mnemonicParsing="false" onAction="#btnSaveChangesAction" text="Save Changes">
                      <styleClass>

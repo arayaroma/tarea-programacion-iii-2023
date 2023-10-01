@@ -14,24 +14,24 @@ import javafx.stage.Stage;
  */
 public class FileLoader {
 
-    /**
-     * FIXME: Make it work on Linux, Mac and Windows
-     * open a file with the default program
-     * 
-     * @param path
-     */
-    public static void openPath(String path) {
-        try {
-            File file;
-            file = new File(path);
-            if (file.exists()) {
-                Process proces = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + path);
-                proces.waitFor();
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
+//    /**
+//     * FIXME: Make it work on Linux, Mac and Windows
+//     * open a file with the default program
+//     * 
+//     * @param path
+//     */
+//    public static void openPath(String path) {
+//        try {
+//            File file;
+//            file = new File(path);
+//            if (file.exists()) {
+//                Process proces = Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + path);
+//                proces.waitFor();
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
+//    }
 
     /**
      * convert a file to a string

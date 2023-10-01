@@ -2,6 +2,7 @@ package cr.ac.una.evacomuna.controller;
 
 import cr.ac.una.evacomuna.components.ImageCheck;
 import cr.ac.una.evacomuna.components.PaneContainer;
+import cr.ac.una.evacomuna.dto.CalificationDto;
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.dto.EvaluatorDto;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -63,10 +66,9 @@ public class GridAppliedEvaluationController implements Initializable {
     @FXML
     private GridPane gp_feedback;
     @FXML
-    private TextField txfFinalCalification;
-    @FXML
     private Button btnSaveChanges;
-
+    @FXML
+    private Label lblFinalCalification;
     private UserDto userDto;
     private List<SkillDto> skills;
     private EvaluatedDto evaluatedBuffer;
@@ -77,19 +79,19 @@ public class GridAppliedEvaluationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
     }
 
     @FXML
     private void btnSaveChangesAction(ActionEvent event) {
-      //  generateExcel();
     }
 
     @FXML
     private void btnGenerateExcelAction(ActionEvent event) {
         generateExcel();
-        
+
     }
-    
+
     private void generateExcel() {
         ExcelGenerator excelGenerator = new ExcelGenerator(evaluatedBuffer, evaluationBuffer);
         excelGenerator.generateExcelReport();
@@ -103,7 +105,7 @@ public class GridAppliedEvaluationController implements Initializable {
     }
 
     public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto) {
-        userDto = Data.getUserLogged();
+        userDto = evaluatedDto.getEvaluated();
         evaluationBuffer = evaluationDto;
         evaluatedBuffer = evaluatedDto;
         loadGridPaneSkills();
@@ -112,6 +114,13 @@ public class GridAppliedEvaluationController implements Initializable {
         loadFeedbackComments();
         loadCalifications();
         loadChecks();
+        loadPrivileges();
+    }
+
+    private void loadPrivileges() {
+        if (userDto.getIsAdmin().equals("N")) {
+            btnSaveChanges.setVisible(false);
+        }
     }
 
     private void cleanLabels() {
@@ -210,6 +219,31 @@ public class GridAppliedEvaluationController implements Initializable {
         }
     }
 
+    private List<CalificationDto> getCalificationsBySkill(List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+        return evaluatorDtos.stream()
+                .flatMap(evaluator -> evaluator.getCalifications().stream()
+                .filter(calification -> calification.getSkill().getID() == skillDto.getID())
+                .map(t -> t)).collect(Collectors.toList());
+    }
+
+    private Long countTotalCalifictionsOverActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+        List<CalificationDto> calificationDtos = getCalificationsBySkill(evaluatorDtos, skillDto);
+        Long upperTotal = calificationDtos.stream().filter(t -> CalificationCode.parseStringToCode(t.getCalification()) > actualPosition).count();
+        return upperTotal;
+    }
+
+    private Long countTotalCalifictionsLowerActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+        List<CalificationDto> calificationDtos = getCalificationsBySkill(evaluatorDtos, skillDto);
+        Long lowerTotal = calificationDtos.stream().filter(t -> CalificationCode.parseStringToCode(t.getCalification()) < actualPosition).count();
+        return lowerTotal;
+    }
+
+    private Long countTotalCalifictionsActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+        List<CalificationDto> calificationDtos = getCalificationsBySkill(evaluatorDtos, skillDto);
+        Long actualTotal = calificationDtos.stream().filter(t -> CalificationCode.parseStringToCode(t.getCalification()) == actualPosition).count();
+        return actualTotal;
+    }
+
     private Integer countTotalEvaluatorsByRoleAndSkill(Roles role, SkillDto skill) {
         Integer count = 0;
         for (FinalCalificationDto finalCalificationDto : evaluatedBuffer.getFinalCalifications()) {
@@ -223,30 +257,58 @@ public class GridAppliedEvaluationController implements Initializable {
         return count;
     }
 
+    //private booleanIs
     private void loadCalifications() {
         List<FinalCalificationDto> finalCalifications = new ArrayList<>();
         if (evaluatedBuffer != null) {
             finalCalifications.addAll(evaluatedBuffer.getFinalCalifications());
         }
+        int sumFinalCalifications = 0;
         for (FinalCalificationDto finalCalificationDto : finalCalifications) {
             Integer totalSupervisors = countTotalEvaluatorsByRoleAndSkill(Roles.SUPERVISOR, finalCalificationDto.getSkill());
             Integer totalPeers = countTotalEvaluatorsByRoleAndSkill(Roles.PEER, finalCalificationDto.getSkill());
             Integer totalSelf = countTotalEvaluatorsByRoleAndSkill(Roles.SELF, finalCalificationDto.getSkill());
             Integer totalClients = countTotalEvaluatorsByRoleAndSkill(Roles.CLIENT, finalCalificationDto.getSkill());
             finalCalificationDto.setData(ImageCheck.createImageCheck());
+
             VBox vBox = new VBox(new Label("SUPER: " + totalSupervisors.toString()),
                     new Label("PEER: " + totalPeers.toString()),
                     new Label("SELF: " + totalSelf.toString()),
                     new Label("CLIENT: " + totalClients.toString()));
+
+            Long upper = countTotalCalifictionsOverActualPositionBySkill(finalCalificationDto.getFinalNote(), evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
+            Long lower = countTotalCalifictionsLowerActualPositionBySkill(finalCalificationDto.getFinalNote(), evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
+            Long total = countTotalCalifictionsActualPositionBySkill(finalCalificationDto.getFinalNote(), evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
+            Label label = new Label();
+            label.getStyleClass().add("title");
+            if (upper > lower && upper > total) {
+                label.setText("+");
+            } else if (lower > upper && lower > total) {
+                label.setText("-");
+            } else if (lower > 0 && upper == 0) {
+                label.setText("-");
+            } else if (upper > 0 && lower == 0) {
+                label.setText("+");
+            }
             vBox.setAlignment(Pos.CENTER);
-            HBox hBox = new HBox(finalCalificationDto.getData(), vBox);
+
+            VBox vBoxCheck = new VBox(finalCalificationDto.getData(), label);
+            if (label.getText().isBlank()) {
+                vBoxCheck.getChildren().remove(label);
+            }
+            vBoxCheck.setAlignment(Pos.CENTER);
+            HBox hBox = new HBox();
+            if (userDto.getIsAdmin().equals("Y")) {
+                hBox.getChildren().addAll(vBoxCheck, vBox);
+            } else {
+                hBox.getChildren().addAll(vBoxCheck);
+            }
             hBox.setSpacing(10);
             hBox.setAlignment(Pos.CENTER);
             finalCalificationDto.setContainer(hBox);
-            String calification = CalificationCode.parseCodeToString(finalCalificationDto.getFinalNote(), true);
+            String calification = CalificationCode.parseCodeToString(finalCalificationDto.getFinalNote());
             String skill = finalCalificationDto.getSkill().getName();
             Integer row = null, col = null;
-
             for (Node node : gp_table.getChildren()) {
                 if (node instanceof Label) {
                     if (((Label) node).getText().equalsIgnoreCase(calification.trim())) {
@@ -265,20 +327,18 @@ public class GridAppliedEvaluationController implements Initializable {
             }
             if (col != null && row != null) {
                 gp_table.add(finalCalificationDto.getContainer(), col, row);
-                //Load Results here
-                TextField textField = new TextField(String.valueOf(finalCalificationDto.getFinalNote()));
-                textField.getStyleClass().add("rows-titles");
-                Node node = getNodeInGrid(row, skills.size() + 1);
-                if (node != null && node instanceof TextField) {
-                    if (userDto.getIsAdmin().equals("N")) {
-                        textField.setDisable(true);
-                    }
-                    textField.setText(String.valueOf(Long.valueOf(((TextField) node).getText()) + finalCalificationDto.getFinalNote()));
-                    gp_table.getChildren().remove(node);
-                }
-                gp_table.add(textField, skills.size() + 1, row);
+                sumFinalCalifications += finalCalificationDto.getFinalNote().intValue();
+//                //Load Results here
             }
+            //finalCalificationDto.get
         }
+
+        ImageView check = ImageCheck.createImageCheck();
+        VBox checkVbox = new VBox(check);
+        checkVbox.setAlignment(Pos.CENTER);
+        lblFinalCalification.setText("Final Calification: " + String.valueOf((sumFinalCalifications / skills.size())));
+        gp_table.add(checkVbox, skills.size() + 1, (sumFinalCalifications / skills.size()));
+
     }
 
     private void loadFeedbackComments() {
@@ -312,5 +372,4 @@ public class GridAppliedEvaluationController implements Initializable {
         return null;
     }
 
-    
 }

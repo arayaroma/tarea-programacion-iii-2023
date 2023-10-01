@@ -36,21 +36,21 @@ public enum CalificationCode {
         return Long.valueOf(-1);
     }
 
-    public static Long getValueCalification(String code) {
-        if (code == "Exceptional") {
-            return Long.valueOf(100);
-        }
-        if (code == "Meets Expectations") {
-            return Long.valueOf(50);
-        }
-        if (code == "Under Expectations") {
-            return Long.valueOf(25);
-        }
-        if (code == "Above Expectations") {
-            return Long.valueOf(75);
-        }
-        return Long.valueOf(0);
-    }
+//    public static Long getValueCalification(String code) {
+//        if (code == "Exceptional") {
+//            return Long.valueOf(100);
+//        }
+//        if (code == "Meets Expectations") {
+//            return Long.valueOf(50);
+//        }
+//        if (code == "Under Expectations") {
+//            return Long.valueOf(25);
+//        }
+//        if (code == "Above Expectations") {
+//            return Long.valueOf(75);
+//        }
+//        return Long.valueOf(0);
+//    }
 
     public static String parseCodeToString(Long code) {
         if (code == CalificationCode.ABOVE_EXPECTATIONS.getCode()) {
@@ -66,18 +66,18 @@ public enum CalificationCode {
         return "";
     }
 
-    public static String parseCodeToString(Long code, boolean isAverage) {
-        if (isAverage && code >= 75) {
-            return "Above Expectations";
-        } else if ((isAverage && code <= 25)) {
-            return "Under Expectations";
-        } else if ((isAverage && code >= 50 && code < 75)) {
-            return "Meets Expectations";
-        }
-        if ((isAverage && code >= 100)) {
-            return "Exceptional";
-        }
-        return "";
-    }
+//    public static String parseCodeToString(Long code, boolean isAverage) {
+//        if (isAverage && code >= 75) {
+//            return "Above Expectations";
+//        } else if ((isAverage && code <= 25)) {
+//            return "Under Expectations";
+//        } else if ((isAverage && code >= 50 && code < 75)) {
+//            return "Meets Expectations";
+//        }
+//        if ((isAverage && code >= 100)) {
+//            return "Exceptional";
+//        }
+//        return "";
+//    }
 
 }

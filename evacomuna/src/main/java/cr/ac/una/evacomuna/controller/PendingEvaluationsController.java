@@ -428,7 +428,7 @@ public class PendingEvaluationsController implements Initializable {
         cbPendingEvaluations.getItems().clear();
         cbEvaluationsFinalized.getItems().clear();
         listEvaluated.getItems().clear();
-        cbEvaluationsFinalized.getItems().addAll(ObservableListParser.mapListToObsevableString(FXCollections.observableArrayList(filterEvaluationsByState(evaluationDtos, "IN APPLICATION"))));
+        cbPendingEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(FXCollections.observableArrayList(filterEvaluationsByState(evaluationDtos, "IN APPLICATION"))));
         cbEvaluationsFinalized.getItems().addAll(ObservableListParser.mapListToObsevableString(FXCollections.observableArrayList(filterEvaluationsByState(evaluationDtos, "UNDER REVIEW"))));
         cbEvaluationsFinalized.getItems().addAll(ObservableListParser.mapListToObsevableString(FXCollections.observableArrayList(filterEvaluationsByState(evaluationDtos, "COMPLETED"))));
     }
