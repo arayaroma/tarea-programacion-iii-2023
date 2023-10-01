@@ -184,8 +184,9 @@
       </ScrollPane>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" spacing="50.0">
                <children>
+                  <Label fx:id="lblAverageCalification" styleClass="title" text="Average:" />
                   <Label fx:id="lblFinalCalification" styleClass="title" text="Final Calification:" />
                </children>
             </HBox>

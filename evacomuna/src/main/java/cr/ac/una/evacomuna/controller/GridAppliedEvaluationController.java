@@ -9,10 +9,16 @@ import cr.ac.una.evacomuna.dto.EvaluatorDto;
 import cr.ac.una.evacomuna.dto.FinalCalificationDto;
 import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.dto.UserDto;
+import cr.ac.una.evacomuna.services.FinalCalificationService;
 import cr.ac.una.evacomuna.util.CalificationCode;
 import cr.ac.una.evacomuna.util.ExcelGenerator;
+import cr.ac.una.evacomuna.util.Message;
+import cr.ac.una.evacomuna.util.MessageType;
+import cr.ac.una.evacomuna.util.ResponseCode;
+import cr.ac.una.evacomuna.util.ResponseWrapper;
 import cr.ac.una.evacomuna.util.Roles;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -72,22 +78,36 @@ public class GridAppliedEvaluationController implements Initializable {
     private Button btnSaveChanges;
     @FXML
     private Label lblFinalCalification;
+    @FXML
+    private Label lblAverageCalification;
     private UserDto userDto;
     private List<SkillDto> skills;
     private EvaluatedDto evaluatedBuffer;
     private EvaluationDto evaluationBuffer;
+    private FinalCalificationService finalCalificationService = new FinalCalificationService();
     private boolean hasPrivileges = false;
+    private AppliedEvaluationsController appliedEvaluationsController;
+    //private List<HBox> finalCalificationContainers;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML
     private void btnSaveChangesAction(ActionEvent event) {
+        for (FinalCalificationDto finalCalificationDto : evaluatedBuffer.getFinalCalifications()) {
+            finalCalificationDto.setEvaluated(new EvaluatedDto(evaluatedBuffer.getDto()));
+            ResponseWrapper response = finalCalificationService.updateFinalCalification(finalCalificationDto);
+            if (response.getCode() != ResponseCode.OK) {
+                Message.showNotification("ERROR", MessageType.ERROR, response.getMessage());
+                return;
+            }
+            System.out.println(response.getMessage());
+        }
+        appliedEvaluationsController.reloadGridCalification(evaluatedBuffer, evaluationBuffer);
     }
 
     @FXML
@@ -108,8 +128,9 @@ public class GridAppliedEvaluationController implements Initializable {
         addFeedback();
     }
 
-    public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto, boolean hasPrivileges) {
+    public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto, boolean hasPrivileges, AppliedEvaluationsController appliedEvaluationsController) {
         userDto = evaluatedDto.getEvaluated();
+        this.appliedEvaluationsController = appliedEvaluationsController;
         this.hasPrivileges = hasPrivileges;
         evaluationBuffer = evaluationDto;
         evaluatedBuffer = evaluatedDto;
@@ -117,9 +138,10 @@ public class GridAppliedEvaluationController implements Initializable {
         cleanLabels();
         loadLabels();
         loadFeedbackComments();
+        loadPanes();
         loadCalifications();
         loadChecks();
-        loadPanes();
+
         loadPrivileges();
     }
 
@@ -149,7 +171,7 @@ public class GridAppliedEvaluationController implements Initializable {
         rowContainer.getChildren().add(
                 createHeader("Result"));
         rowContainer.getStyleClass().add("gp-header");
-        gp_table.addRow(0, rowContainer);
+        gp_table.add(rowContainer, skills.size() + 1, 0);
     }
 
     private void addSkills() {
@@ -278,14 +300,17 @@ public class GridAppliedEvaluationController implements Initializable {
         }
         return count;
     }
+    Node nodeDragguedBuffer = null;
 
     private void intializeDragAndDrop(Node node) {
+
         node.setOnDragDetected((event) -> {
             Dragboard dragboard = node.startDragAndDrop(TransferMode.MOVE);
             dragboard.setDragView(node.snapshot(null, null));
             ClipboardContent content = new ClipboardContent();
             content.putString("check");
             dragboard.setContent(content);
+            nodeDragguedBuffer = node;
         });
         gp_table.setOnDragOver(event -> {
             if (event.getGestureSource() != gp_table && event.getDragboard().hasString()) {
@@ -296,34 +321,45 @@ public class GridAppliedEvaluationController implements Initializable {
         gp_table.setOnDragDropped(event -> {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
-            System.out.println(event);
             if (dragboard.hasString()) {
-//                if (node instanceof ImageView) {
-//                    ImageView newCheck = new ImageView(((ImageView) node).getImage());
-//                    newCheck.setFitWidth(30);
-//                    newCheck.setFitHeight(30);
-                System.out.println(event.getTarget());
+                //System.out.println(event.getTarget());
                 Integer row = GridPane.getRowIndex((Node) event.getTarget());
                 Integer col = GridPane.getColumnIndex((Node) event.getTarget());
-                System.out.println(row);
-                System.out.println(col);
-                if (event.getTarget() != null && row != null && col != null && col != 0) {
-            
+                if (event.getTarget() != null && row != null && col != null && col != 0 && nodeDragguedBuffer != null) {
+                    if (nodeDragguedBuffer instanceof FinalCalificationDto && updateCalificationDraggued((FinalCalificationDto) nodeDragguedBuffer, row, col)) {
+                        gp_table.getChildren().remove(nodeDragguedBuffer);
+                        gp_table.add(nodeDragguedBuffer, col, row);
+                        int sumFinalCalifications = 0;
+                        for (FinalCalificationDto finalCalificationDto : evaluatedBuffer.getFinalCalifications()) {
+                            sumFinalCalifications += finalCalificationDto.getFinalNote();
+                        }
+                        generateGeneralResult(sumFinalCalifications);
+                    }
                 }
             }
-            // }
             event.setDropCompleted(success);
             event.consume();
         });
+    }
+
+    private boolean updateCalificationDraggued(FinalCalificationDto finalCalificationDto, int row, int col) {
+        Node skillNode = getNodeInGrid(0, col);
+        if (skillNode instanceof SkillDto) {
+            if (finalCalificationDto.getSkill().getID().equals(((SkillDto) skillNode).getID())) {
+                finalCalificationDto.setFinalNote(Long.valueOf(row));
+                return true;
+            }
+        }
+        return false;
     }
 
     private void loadPanes() {
         for (int i = 0; i < gp_table.getColumnCount(); i++) {
             for (int j = 0; j < gp_table.getRowCount(); j++) {
 
-                if (getNodeInGrid(j, i) == null) {
-                    gp_table.add(new Pane(), i, j);
-                }
+                //if (getNodeInGrid(j, i) == null) {
+                gp_table.add(new Pane(), i, j);
+                //}
             }
         }
     }
@@ -341,8 +377,6 @@ public class GridAppliedEvaluationController implements Initializable {
             Integer totalPeers = countTotalEvaluatorsByRoleAndSkill(Roles.PEER, finalCalificationDto.getSkill());
             Integer totalSelf = countTotalEvaluatorsByRoleAndSkill(Roles.SELF, finalCalificationDto.getSkill());
             Integer totalClients = countTotalEvaluatorsByRoleAndSkill(Roles.CLIENT, finalCalificationDto.getSkill());
-            finalCalificationDto.setData(ImageCheck.createImageCheck());
-
             VBox vBox = new VBox(new Label("SUPER: " + totalSupervisors.toString()),
                     new Label("PEER: " + totalPeers.toString()),
                     new Label("SELF: " + totalSelf.toString()),
@@ -367,7 +401,7 @@ public class GridAppliedEvaluationController implements Initializable {
             }
             vBox.setAlignment(Pos.CENTER);
 
-            VBox vBoxCheck = new VBox(finalCalificationDto.getData(), label);
+            VBox vBoxCheck = new VBox(ImageCheck.createImageCheck(), label);
             if (label.getText().isBlank()) {
                 vBoxCheck.getChildren().remove(label);
             }
@@ -375,13 +409,14 @@ public class GridAppliedEvaluationController implements Initializable {
             HBox hBox = new HBox();
             if (hasPrivileges) {
                 hBox.getChildren().addAll(vBoxCheck, vBox);
-                intializeDragAndDrop(hBox);
+                intializeDragAndDrop(finalCalificationDto);
             } else {
                 hBox.getChildren().addAll(vBoxCheck);
             }
             hBox.setSpacing(10);
             hBox.setAlignment(Pos.CENTER);
-            finalCalificationDto.setContainer(hBox);
+            finalCalificationDto.getChildren().clear();
+            finalCalificationDto.getChildren().add(hBox);
 
             String calification = CalificationCode.parseCodeToString(finalCalificationDto.getFinalNote());
             String skill = finalCalificationDto.getSkill().getName();
@@ -403,19 +438,34 @@ public class GridAppliedEvaluationController implements Initializable {
                 }
             }
             if (col != null && row != null) {
-                gp_table.add(finalCalificationDto.getContainer(), col, row);
+                finalCalificationDto.setId(finalCalificationDto.getID().toString());
+                gp_table.add(finalCalificationDto, col, row);
                 sumFinalCalifications += finalCalificationDto.getFinalNote().intValue();
-                // //Load Results here
             }
-            // finalCalificationDto.get
         }
+        generateGeneralResult(sumFinalCalifications);
+    }
 
+    private void generateGeneralResult(int sumFinalCalifications) {
+        cleanGeneralResult();
         ImageView check = ImageCheck.createImageCheck();
         VBox checkVbox = new VBox(check);
         checkVbox.setAlignment(Pos.CENTER);
-        lblFinalCalification.setText("Final Calification: " + String.valueOf((sumFinalCalifications / skills.size())));
-        gp_table.add(checkVbox, skills.size() + 1, (sumFinalCalifications / skills.size()));
+        DecimalFormat format = new DecimalFormat("#.##");
+        Double averageCalification = (double) sumFinalCalifications / (double) skills.size();
+        Long rounding = Math.round(averageCalification);
+        lblAverageCalification.setText("Average: " + format.format(averageCalification));
+        lblFinalCalification.setText("Final Calification: " + format.format((double) (averageCalification * 100) / (double) 4));
+        gp_table.add(checkVbox, skills.size() + 1, rounding.intValue());
+    }
 
+    private void cleanGeneralResult() {
+        for (int i = 1; i < gp_table.getRowCount(); i++) {
+            Node node = getNodeInGrid(i, skills.size() + 1);
+            if (node != null) {
+                gp_table.getChildren().remove(node);
+            }
+        }
     }
 
     private void loadFeedbackComments() {
@@ -440,8 +490,6 @@ public class GridAppliedEvaluationController implements Initializable {
 
     private Node getNodeInGrid(Integer row, Integer col) {
         for (Node node : gp_table.getChildren()) {
-            System.out.println("COLUNM: " + GridPane.getColumnIndex(node));
-            System.out.println("ROW: " + GridPane.getRowIndex(node));
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return node;
             }

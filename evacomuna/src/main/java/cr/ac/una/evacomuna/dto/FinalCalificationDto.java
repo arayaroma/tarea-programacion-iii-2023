@@ -52,8 +52,6 @@ public class FinalCalificationDto extends HBox
         dto.setId(this.id);
         dto.setFinalNote(this.finalNote);
         dto.setAverage(this.average);
-        dto.setEvaluated(this.evaluated.getDto());
-        dto.setSkill(this.skill.getDto());
         dto.setVersion(this.version);
         return dto;
     }

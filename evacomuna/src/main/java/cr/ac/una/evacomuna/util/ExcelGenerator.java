@@ -97,7 +97,7 @@ public class ExcelGenerator {
             cell.setCellStyle(style);
 
             for (FinalCalificationDto finalCalificationDto : evaluatedDto.getFinalCalifications()) {
-                totalCalification += finalCalificationDto.getAverage();
+                totalCalification += finalCalificationDto.getFinalNote();
                 cell = row.createCell(i);
                 cell.setCellValue(finalCalificationDto.getSkill().getName());
                 cell.setCellStyle(style);
@@ -108,7 +108,7 @@ public class ExcelGenerator {
                 // cell
                 sheet.autoSizeColumn(0);
                 cell = calificationRow.createCell(i);
-                cell.setCellValue(finalCalificationDto.getAverage());
+                cell.setCellValue(finalCalificationDto.getFinalNote());
                 i += 1;
             }
             style = createStyleHeader(workbook, HorizontalAlignment.CENTER, IndexedColors.ORANGE);
