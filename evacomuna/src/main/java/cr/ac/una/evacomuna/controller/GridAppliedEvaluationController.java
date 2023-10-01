@@ -10,7 +10,6 @@ import cr.ac.una.evacomuna.dto.FinalCalificationDto;
 import cr.ac.una.evacomuna.dto.SkillDto;
 import cr.ac.una.evacomuna.dto.UserDto;
 import cr.ac.una.evacomuna.util.CalificationCode;
-import cr.ac.una.evacomuna.util.Data;
 import cr.ac.una.evacomuna.util.ExcelGenerator;
 import cr.ac.una.evacomuna.util.Roles;
 import java.net.URL;
@@ -27,7 +26,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -37,6 +35,7 @@ import javafx.scene.layout.VBox;
 /**
  * FXML Controller class
  *
+ * @author arayaroma
  * @author estebannajera
  */
 public class GridAppliedEvaluationController implements Initializable {
@@ -184,7 +183,8 @@ public class GridAppliedEvaluationController implements Initializable {
         lb_evaluatorPosition.setText(userDto.getPosition().getName());
 
         if (evaluationBuffer != null) {
-            lb_evaluationPeriod.setText(evaluationBuffer.getInitialPeriod() + " - " + evaluationBuffer.getFinalPeriod());
+            lb_evaluationPeriod
+                    .setText(evaluationBuffer.getInitialPeriod() + " - " + evaluationBuffer.getFinalPeriod());
             lb_evaluationApplicationDate.setText(evaluationBuffer.getApplicationDate().toString());
         }
     }
@@ -220,27 +220,42 @@ public class GridAppliedEvaluationController implements Initializable {
     }
 
     private List<CalificationDto> getCalificationsBySkill(List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
-        return evaluatorDtos.stream()
-                .flatMap(evaluator -> evaluator.getCalifications().stream()
-                .filter(calification -> calification.getSkill().getID() == skillDto.getID())
-                .map(t -> t)).collect(Collectors.toList());
+        return evaluatorDtos
+                .stream()
+                .flatMap(evaluator -> evaluator.getCalifications()
+                        .stream()
+                        .filter(calification -> calification.getSkill().getID() == skillDto.getID())
+                        .map(t -> t))
+                .collect(Collectors.toList());
     }
 
-    private Long countTotalCalifictionsOverActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+    private Long countTotalCalifictionsOverActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos,
+            SkillDto skillDto) {
         List<CalificationDto> calificationDtos = getCalificationsBySkill(evaluatorDtos, skillDto);
-        Long upperTotal = calificationDtos.stream().filter(t -> CalificationCode.parseStringToCode(t.getCalification()) > actualPosition).count();
+        Long upperTotal = calificationDtos
+                .stream()
+                .filter(t -> CalificationCode.parseStringToCode(t.getCalification()) > actualPosition)
+                .count();
         return upperTotal;
     }
 
-    private Long countTotalCalifictionsLowerActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+    private Long countTotalCalifictionsLowerActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos,
+            SkillDto skillDto) {
         List<CalificationDto> calificationDtos = getCalificationsBySkill(evaluatorDtos, skillDto);
-        Long lowerTotal = calificationDtos.stream().filter(t -> CalificationCode.parseStringToCode(t.getCalification()) < actualPosition).count();
+        Long lowerTotal = calificationDtos
+                .stream()
+                .filter(t -> CalificationCode.parseStringToCode(t.getCalification()) < actualPosition)
+                .count();
         return lowerTotal;
     }
 
-    private Long countTotalCalifictionsActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos, SkillDto skillDto) {
+    private Long countTotalCalifictionsActualPositionBySkill(Long actualPosition, List<EvaluatorDto> evaluatorDtos,
+            SkillDto skillDto) {
         List<CalificationDto> calificationDtos = getCalificationsBySkill(evaluatorDtos, skillDto);
-        Long actualTotal = calificationDtos.stream().filter(t -> CalificationCode.parseStringToCode(t.getCalification()) == actualPosition).count();
+        Long actualTotal = calificationDtos
+                .stream()
+                .filter(t -> CalificationCode.parseStringToCode(t.getCalification()) == actualPosition)
+                .count();
         return actualTotal;
     }
 
@@ -257,7 +272,7 @@ public class GridAppliedEvaluationController implements Initializable {
         return count;
     }
 
-    //private booleanIs
+    // private booleanIs
     private void loadCalifications() {
         List<FinalCalificationDto> finalCalifications = new ArrayList<>();
         if (evaluatedBuffer != null) {
@@ -265,7 +280,8 @@ public class GridAppliedEvaluationController implements Initializable {
         }
         int sumFinalCalifications = 0;
         for (FinalCalificationDto finalCalificationDto : finalCalifications) {
-            Integer totalSupervisors = countTotalEvaluatorsByRoleAndSkill(Roles.SUPERVISOR, finalCalificationDto.getSkill());
+            Integer totalSupervisors = countTotalEvaluatorsByRoleAndSkill(Roles.SUPERVISOR,
+                    finalCalificationDto.getSkill());
             Integer totalPeers = countTotalEvaluatorsByRoleAndSkill(Roles.PEER, finalCalificationDto.getSkill());
             Integer totalSelf = countTotalEvaluatorsByRoleAndSkill(Roles.SELF, finalCalificationDto.getSkill());
             Integer totalClients = countTotalEvaluatorsByRoleAndSkill(Roles.CLIENT, finalCalificationDto.getSkill());
@@ -276,9 +292,12 @@ public class GridAppliedEvaluationController implements Initializable {
                     new Label("SELF: " + totalSelf.toString()),
                     new Label("CLIENT: " + totalClients.toString()));
 
-            Long upper = countTotalCalifictionsOverActualPositionBySkill(finalCalificationDto.getFinalNote(), evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
-            Long lower = countTotalCalifictionsLowerActualPositionBySkill(finalCalificationDto.getFinalNote(), evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
-            Long total = countTotalCalifictionsActualPositionBySkill(finalCalificationDto.getFinalNote(), evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
+            Long upper = countTotalCalifictionsOverActualPositionBySkill(finalCalificationDto.getFinalNote(),
+                    evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
+            Long lower = countTotalCalifictionsLowerActualPositionBySkill(finalCalificationDto.getFinalNote(),
+                    evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
+            Long total = countTotalCalifictionsActualPositionBySkill(finalCalificationDto.getFinalNote(),
+                    evaluatedBuffer.getEvaluators(), finalCalificationDto.getSkill());
             Label label = new Label();
             label.getStyleClass().add("title");
             if (upper > lower && upper > total) {
@@ -328,9 +347,9 @@ public class GridAppliedEvaluationController implements Initializable {
             if (col != null && row != null) {
                 gp_table.add(finalCalificationDto.getContainer(), col, row);
                 sumFinalCalifications += finalCalificationDto.getFinalNote().intValue();
-//                //Load Results here
+                // //Load Results here
             }
-            //finalCalificationDto.get
+            // finalCalificationDto.get
         }
 
         ImageView check = ImageCheck.createImageCheck();
