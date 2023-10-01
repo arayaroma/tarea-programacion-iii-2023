@@ -2,7 +2,6 @@ package cr.ac.una.evacomuna.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
@@ -20,17 +19,17 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
     private List<SkillDto> skills;
 
     @Override
-    public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated, PositionDto dto) {
+    public PositionDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.PositionDto generated,
+            PositionDto dto) {
         dto.setUsers(DtoMapper.fromGeneratedList(generated.getUsers(), UserDto.class).getList());
         dto.setSkills(DtoMapper.fromGeneratedList(generated.getSkills(), SkillDto.class).getList());
         return dto;
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.PositionDto convertFromDTOToGenerated(PositionDto dto, cr.ac.una.evacomunaws.controller.PositionDto generated) {
+    public cr.ac.una.evacomunaws.controller.PositionDto convertFromDTOToGenerated(PositionDto dto,
+            cr.ac.una.evacomunaws.controller.PositionDto generated) {
         dto.getSkills().forEach(t -> generated.getSkills().add(createDtoSkill(t)));
-        //generated.getUsers().addAll(DtoMapper.fromDtoList(dto.getUsers(), cr.ac.una.evacomunaws.controller.UserDto.class).getList());
-        //generated.getSkills().addAll(DtoMapper.fromDtoList(dto.getSkills(), cr.ac.una.evacomunaws.controller.SkillDto.class).getList());
         return generated;
     }
 
@@ -70,11 +69,6 @@ public class PositionDto implements DtoMapper<cr.ac.una.evacomunaws.controller.P
             dto.setState(this.state);
             dto.setId(this.id);
             dto.setVersion(this.version);
-            // dto.getSkills();
-            // skills.forEach(t->dto.getSkills().add(DtoMapper.convertToGenerated(t,
-            // cr.ac.una.evacomunaws.controller.SkillDto.class)));
-            // dto.getSkills().addAll(DtoMapper.fromDtoList(this.skills,
-            // SkillDto.class).getList());
             return dto;
         } catch (Exception e) {
             System.out.println(e.toString());

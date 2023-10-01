@@ -2,7 +2,6 @@ package cr.ac.una.evacomuna.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
@@ -21,18 +20,23 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     private Long version;
 
     @Override
-    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatedDto generated, EvaluatedDto dto) {
+    public EvaluatedDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.EvaluatedDto generated,
+            EvaluatedDto dto) {
         dto.setEvaluated(new UserDto(generated.getEvaluated()));
         dto.setEvaluation(new EvaluationDto(generated.getEvaluation()));
-        dto.setFinalCalifications(DtoMapper.fromGeneratedList(generated.getFinalCalifications(), FinalCalificationDto.class).getList());
+        dto.setFinalCalifications(
+                DtoMapper.fromGeneratedList(generated.getFinalCalifications(), FinalCalificationDto.class).getList());
         return dto;
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.EvaluatedDto convertFromDTOToGenerated(EvaluatedDto dto, cr.ac.una.evacomunaws.controller.EvaluatedDto generated) {
+    public cr.ac.una.evacomunaws.controller.EvaluatedDto convertFromDTOToGenerated(EvaluatedDto dto,
+            cr.ac.una.evacomunaws.controller.EvaluatedDto generated) {
         generated.setEvaluated(dto.getEvaluated().getDto());
         generated.setEvaluation(dto.getEvaluation().getDto());
-        generated.getFinalCalifications().addAll(DtoMapper.fromDtoList(dto.getFinalCalifications(), cr.ac.una.evacomunaws.controller.FinalCalificationDto.class).getList());
+        generated.getFinalCalifications().addAll(DtoMapper
+                .fromDtoList(dto.getFinalCalifications(), cr.ac.una.evacomunaws.controller.FinalCalificationDto.class)
+                .getList());
         return generated;
     }
 
@@ -44,7 +48,6 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     public EvaluatedDto(UserDto evaluated) {
         this();
         this.evaluated = evaluated;
-
     }
 
     public EvaluatedDto(cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated) {
@@ -62,9 +65,7 @@ public class EvaluatedDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     public cr.ac.una.evacomunaws.controller.EvaluatedDto getDto() {
         cr.ac.una.evacomunaws.controller.EvaluatedDto evaluatedDto = new cr.ac.una.evacomunaws.controller.EvaluatedDto();
         evaluatedDto.setId(id);
-//        evaluatedDto.setEvaluated(evaluated.getDto());
         evaluatedDto.setFinalNote(finalNote);
-//        evaluatedDto.setEvaluation(evaluation.getDto());
         evaluatedDto.setVersion(version);
         return evaluatedDto;
     }

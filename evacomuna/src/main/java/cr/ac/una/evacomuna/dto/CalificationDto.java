@@ -23,15 +23,16 @@ public class CalificationDto extends Pane
     private Node data;
 
     @Override
-    public CalificationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.CalificationDto generated, CalificationDto dto) {
+    public CalificationDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.CalificationDto generated,
+            CalificationDto dto) {
         dto.setEvaluator(new EvaluatorDto(generated.getEvaluator()));
         dto.setSkill(new SkillDto(generated.getSkill()));
         return dto;
-
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.CalificationDto convertFromDTOToGenerated(CalificationDto dto, cr.ac.una.evacomunaws.controller.CalificationDto generated) {
+    public cr.ac.una.evacomunaws.controller.CalificationDto convertFromDTOToGenerated(CalificationDto dto,
+            cr.ac.una.evacomunaws.controller.CalificationDto generated) {
         generated.setEvaluator(dto.getEvaluator().getDto());
         generated.setSkill(dto.getSkill().getDto());
         return generated;
@@ -52,10 +53,8 @@ public class CalificationDto extends Pane
     }
 
     public CalificationDto(cr.ac.una.evacomunaws.controller.CalificationDto calificationDto) {
-        
         this.id = calificationDto.getId();
         this.calification = CalificationCode.parseCodeToString(calificationDto.getCalification());
-
         this.version = calificationDto.getVersion();
     }
 
@@ -63,12 +62,6 @@ public class CalificationDto extends Pane
         cr.ac.una.evacomunaws.controller.CalificationDto dto = new cr.ac.una.evacomunaws.controller.CalificationDto();
         dto.setId(this.id);
         dto.setCalification(CalificationCode.parseStringToCode(this.calification));
-//        if (skill != null) {
-//            dto.setSkill(this.skill.getDto());
-//        }
-//        if (evaluator != null) {
-//            dto.setEvaluator(this.evaluator.getDto());
-//        }
         dto.setVersion(this.version);
         return dto;
     }

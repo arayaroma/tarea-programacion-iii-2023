@@ -2,7 +2,6 @@ package cr.ac.una.evacomuna.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
@@ -60,10 +59,8 @@ public class EvaluatorDto implements DtoMapper<cr.ac.una.evacomunaws.controller.
     public cr.ac.una.evacomunaws.controller.EvaluatorDto getDto() {
         cr.ac.una.evacomunaws.controller.EvaluatorDto evaluatorDto = new cr.ac.una.evacomunaws.controller.EvaluatorDto();
         evaluatorDto.setId(this.id);
-        // evaluatorDto.setEvaluator(this.evaluator.getDto());
         evaluatorDto.setRole(this.role);
         evaluatorDto.setFeedback(this.feedback);
-        // evaluatorDto.setEvaluated(this.evaluated.getDto());
         evaluatorDto.setVersion(this.version);
         return evaluatorDto;
     }

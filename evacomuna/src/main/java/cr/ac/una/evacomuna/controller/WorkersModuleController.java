@@ -196,7 +196,6 @@ public class WorkersModuleController implements Initializable {
                     btnEdit.setDisable(true);
 
                 });
-
     }
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import cr.ac.una.evacomuna.util.DtoMapper;
 
 /**
- * API WORKING, REPLICATE OVER ALL DTOS AND SERVICES
  * 
  * @author estebannajera
  * @author arayaroma
@@ -45,13 +44,16 @@ public class UserDto implements DtoMapper<cr.ac.una.evacomunaws.controller.UserD
     }
 
     @Override
-    public cr.ac.una.evacomunaws.controller.UserDto convertFromDTOToGenerated(UserDto dto, cr.ac.una.evacomunaws.controller.UserDto generated) {
+    public cr.ac.una.evacomunaws.controller.UserDto convertFromDTOToGenerated(UserDto dto,
+            cr.ac.una.evacomunaws.controller.UserDto generated) {
         generated.setPosition(dto.getPosition().getDto());
         generated.getPosition().getUsers().addAll(
-                DtoMapper.fromDtoList(dto.getPosition().getUsers(), cr.ac.una.evacomunaws.controller.UserDto.class).getList());
+                DtoMapper.fromDtoList(dto.getPosition().getUsers(), cr.ac.una.evacomunaws.controller.UserDto.class)
+                        .getList());
 
         generated.getPosition().getSkills().addAll(
-                DtoMapper.fromDtoList(dto.getPosition().getSkills(), cr.ac.una.evacomunaws.controller.SkillDto.class).getList());
+                DtoMapper.fromDtoList(dto.getPosition().getSkills(), cr.ac.una.evacomunaws.controller.SkillDto.class)
+                        .getList());
 
         return generated;
     }

@@ -7,7 +7,8 @@ import cr.ac.una.evacomuna.util.DtoMapper;
  * @author estebannajera
  * @author arayaroma
  */
-public class CharacteristicDto implements DtoMapper<cr.ac.una.evacomunaws.controller.CharacteristicDto, CharacteristicDto> {
+public class CharacteristicDto
+        implements DtoMapper<cr.ac.una.evacomunaws.controller.CharacteristicDto, CharacteristicDto> {
 
     private Long id;
     private String name;
@@ -17,14 +18,12 @@ public class CharacteristicDto implements DtoMapper<cr.ac.una.evacomunaws.contro
     @Override
     public CharacteristicDto convertFromGeneratedToDTO(cr.ac.una.evacomunaws.controller.CharacteristicDto generated,
             CharacteristicDto dto) {
-
         return dto;
     }
 
     @Override
     public cr.ac.una.evacomunaws.controller.CharacteristicDto convertFromDTOToGenerated(CharacteristicDto dto,
             cr.ac.una.evacomunaws.controller.CharacteristicDto generated) {
-
         return generated;
     }
 
