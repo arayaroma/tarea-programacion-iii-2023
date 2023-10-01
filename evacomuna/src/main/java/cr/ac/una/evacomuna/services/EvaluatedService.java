@@ -42,11 +42,12 @@ public class EvaluatedService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createEvaluated(entity);
             cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated = (cr.ac.una.evacomunaws.controller.EvaluatedDto) response
                     .getData();
+            evaluatedDto = new EvaluatedDto(evaluated);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated created successfully",
-                    new EvaluatedDto(evaluated));
+                    evaluatedDto.convertFromGeneratedToDTO(evaluated, evaluatedDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -162,11 +163,12 @@ public class EvaluatedService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.updateEvaluated(entity);
             cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated = (cr.ac.una.evacomunaws.controller.EvaluatedDto) response
                     .getData();
+            evaluatedDto = new EvaluatedDto(evaluated);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluated updated successfully",
-                    new EvaluatedDto(evaluated));
+                    evaluatedDto.convertFromGeneratedToDTO(evaluated, evaluatedDto));
 
         } catch (Exception e) {
             return new ResponseWrapper(
