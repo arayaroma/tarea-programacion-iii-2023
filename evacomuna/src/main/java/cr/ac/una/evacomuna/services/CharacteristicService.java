@@ -38,11 +38,12 @@ public class CharacteristicService {
                     .createCharacteristic(characteristicDto.getDto());
             cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) response
                     .getData();
+            characteristicDto = new CharacteristicDto(characteristic);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Characteristic created successfully",
-                    new CharacteristicDto(characteristic));
+                    characteristicDto.convertFromGeneratedToDTO(characteristic, characteristicDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -63,11 +64,12 @@ public class CharacteristicService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCharacteristicByName(name);
             cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) response
                     .getData();
+            CharacteristicDto characteristicDto = new CharacteristicDto(characteristic);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Characteristic found successfully",
-                    new CharacteristicDto(characteristic));
+                    characteristicDto.convertFromGeneratedToDTO(characteristic, characteristicDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
@@ -125,11 +127,12 @@ public class CharacteristicService {
                     .updateCharacteristic(characteristicDto.getDto());
             cr.ac.una.evacomunaws.controller.CharacteristicDto characteristic = (cr.ac.una.evacomunaws.controller.CharacteristicDto) response
                     .getData();
+            characteristicDto = new CharacteristicDto(characteristic);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Characteristic updated successfully",
-                    new CharacteristicDto(characteristic));
+                    characteristicDto.convertFromGeneratedToDTO(characteristic, characteristicDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.NOT_FOUND.getCode(),
