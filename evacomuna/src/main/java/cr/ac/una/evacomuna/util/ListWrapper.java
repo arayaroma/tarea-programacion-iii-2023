@@ -5,9 +5,13 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-
 import java.util.List;
 
+/**
+ * 
+ * @author arayaroma
+ * @param <D> DTO class to be wrapped in a list
+ */
 @XmlRootElement(name = "listWrapper")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListWrapper<D> {

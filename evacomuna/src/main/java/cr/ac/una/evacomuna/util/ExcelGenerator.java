@@ -3,7 +3,6 @@ package cr.ac.una.evacomuna.util;
 import cr.ac.una.evacomuna.dto.EvaluatedDto;
 import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.dto.FinalCalificationDto;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +50,8 @@ public class ExcelGenerator {
         this.evaluatedDto = evaluatedDto;
     }
 
-    public CellStyle createStyleHeader(Workbook workbook, HorizontalAlignment horizontalAlignment, IndexedColors colors) {
+    public CellStyle createStyleHeader(Workbook workbook, HorizontalAlignment horizontalAlignment,
+            IndexedColors colors) {
         CellStyle cellStyle = workbook.createCellStyle();
         Font headerFont = workbook.createFont();
         headerFont.setFontHeightInPoints((short) 14);
@@ -60,7 +60,6 @@ public class ExcelGenerator {
         cellStyle.setAlignment(horizontalAlignment);
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setFillForegroundColor(colors.getIndex());
-
         return cellStyle;
     }
 
@@ -68,13 +67,13 @@ public class ExcelGenerator {
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("Report");
         CellStyle style = createStyleHeader(workbook, HorizontalAlignment.CENTER, IndexedColors.BLUE);
-        //MAIN HEADER
+        // MAIN HEADER
         Row row = sheet.createRow(0);
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, evaluatedDto.getFinalCalifications().size()));//MERGE 
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, evaluatedDto.getFinalCalifications().size()));// MERGE
         Cell cell = row.createCell(0);
         cell.setCellValue(evaluationDto.getName());
         cell.setCellStyle(style);
-        //SUBHEADER SKILLS
+        // SUBHEADER SKILLS
         row = sheet.createRow(1);
         style = createStyleHeader(workbook, HorizontalAlignment.CENTER, IndexedColors.LIGHT_BLUE);
         cell = row.createCell(0);
@@ -106,27 +105,27 @@ public class ExcelGenerator {
                 cell = pointsRow.createCell(i);
                 cell.setCellValue(4);
                 totalPoints += 4;
-                //cell
+                // cell
                 sheet.autoSizeColumn(0);
                 cell = calificationRow.createCell(i);
                 cell.setCellValue(finalCalificationDto.getAverage());
                 i += 1;
             }
             style = createStyleHeader(workbook, HorizontalAlignment.CENTER, IndexedColors.ORANGE);
-            createPointsHeaders(cell, row, sheet, style, i);//Create the headers: total, note, average
-            //points here
-            cell = pointsRow.createCell(i);//Total
+            createPointsHeaders(cell, row, sheet, style, i);// Create the headers: total, note, average
+            // points here
+            cell = pointsRow.createCell(i);// Total
             cell.setCellValue(totalPoints);
             cell = calificationRow.createCell(i);
             cell.setCellValue(totalCalification);
             i += 1;
             cell = pointsRow.createCell(i);
 
-            cell.setCellValue(totalPoints * 100 / totalPoints);//Note
+            cell.setCellValue(totalPoints * 100 / totalPoints);// Note
             cell = calificationRow.createCell(i);
             cell.setCellValue(totalCalification * 100 / totalPoints);
             i += 1;
-            double cantSkills = evaluatedDto.getFinalCalifications().size();//Average
+            double cantSkills = evaluatedDto.getFinalCalifications().size();// Average
             cell = pointsRow.createCell(i);
             cell.setCellValue(totalPoints / cantSkills);
             cell = calificationRow.createCell(i);
@@ -134,11 +133,11 @@ public class ExcelGenerator {
 
         }
         style = createStyleHeader(workbook, HorizontalAlignment.CENTER, IndexedColors.LIGHT_BLUE);
-        //row = sheet.createRow(2);
+        // row = sheet.createRow(2);
 
         try (FileOutputStream outputStream = new FileOutputStream("User Report.xls")) {
             workbook.write(outputStream);
-            //Desktop
+            // Desktop
             Desktop.getDesktop().open(new File("User Report.xls"));
             System.out.println("Archivo Excel creado con éxito.");
         } catch (IOException e) {

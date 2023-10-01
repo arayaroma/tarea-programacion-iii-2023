@@ -6,10 +6,13 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+/**
+ * 
+ * @author arayaroma
+ */
 public class Connection {
 
     static final String PORT = "8080";
-
     static String host;
     static String port = PORT;
 
