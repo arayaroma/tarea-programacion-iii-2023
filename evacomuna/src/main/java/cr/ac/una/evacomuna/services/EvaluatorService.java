@@ -44,11 +44,12 @@ public class EvaluatorService {
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response
                     .getData();
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                evaluatorDto = new EvaluatorDto(evaluator);
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
                         "Evaluator created successfully",
-                        new EvaluatorDto(evaluator));
+                        evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto));
             }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
@@ -76,11 +77,12 @@ public class EvaluatorService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getEvaluatorById(id);
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response
                     .getData();
+            EvaluatorDto evaluatorDto = new EvaluatorDto(evaluator);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator retrieved successfully",
-                    new EvaluatorDto(evaluator));
+                    evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -101,11 +103,12 @@ public class EvaluatorService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getEvaluatorByEvaluatedId(id);
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response
                     .getData();
+            EvaluatorDto evaluatorDto = new EvaluatorDto(evaluator);
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "Evaluator retrieved successfully",
-                    new EvaluatorDto(evaluator));
+                    evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -166,11 +169,12 @@ public class EvaluatorService {
             cr.ac.una.evacomunaws.controller.EvaluatorDto evaluator = (cr.ac.una.evacomunaws.controller.EvaluatorDto) response
                     .getData();
             if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                evaluatorDto = new EvaluatorDto(evaluator);
                 return new ResponseWrapper(
                         ResponseCode.OK.getCode(),
                         ResponseCode.OK,
                         "Evaluator updated successfully",
-                        new EvaluatorDto(evaluator));
+                        evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto));
             }
             return new ResponseWrapper(
                     ResponseCode.OK.getCode(),
