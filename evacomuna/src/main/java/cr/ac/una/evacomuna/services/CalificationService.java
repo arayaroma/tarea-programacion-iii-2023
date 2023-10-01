@@ -38,11 +38,12 @@ public class CalificationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createCalification(entity);
             cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
+            calificationDto = new CalificationDto(calification);
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
                     cr.ac.una.evacomuna.util.ResponseCode.OK,
                     "Calification created successfully",
-                    new CalificationDto(calification));
+                    calificationDto.convertFromGeneratedToDTO(calification, calificationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
@@ -63,11 +64,12 @@ public class CalificationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCalificationById(id);
             cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
+            CalificationDto calificationDto = new CalificationDto(calification);
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
                     cr.ac.una.evacomuna.util.ResponseCode.OK,
                     "Calification found",
-                    new CalificationDto(calification));
+                    calificationDto.convertFromGeneratedToDTO(calification, calificationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.NOT_FOUND.getCode(),
@@ -88,11 +90,12 @@ public class CalificationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.getCalificationNote(id);
             cr.ac.una.evacomunaws.controller.CalificationDto calification = (cr.ac.una.evacomunaws.controller.CalificationDto) response
                     .getData();
+            CalificationDto calificationDto = new CalificationDto(calification);
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
                     cr.ac.una.evacomuna.util.ResponseCode.OK,
                     "Calification found",
-                    new CalificationDto(calification));
+                    calificationDto.convertFromGeneratedToDTO(calification, calificationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.NOT_FOUND.getCode(),
@@ -157,7 +160,7 @@ public class CalificationService {
                     cr.ac.una.evacomuna.util.ResponseCode.OK.getCode(),
                     cr.ac.una.evacomuna.util.ResponseCode.OK,
                     "Calification updated successfully",
-                    calificationDto);
+                    calificationDto.convertFromGeneratedToDTO(calification, calificationDto));
         } catch (Exception e) {
             return new ResponseWrapper(
                     cr.ac.una.evacomuna.util.ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
