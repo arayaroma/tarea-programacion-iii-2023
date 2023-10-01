@@ -1,4 +1,4 @@
--- Insert predefined users
+-- USERS RECORDS
 INSERT INTO EVACOMUNA."TBL_USER" (
     "ID",
     "USERNAME",
@@ -132,5 +132,209 @@ INSERT INTO EVACOMUNA."TBL_USER" (
     'N',
     'N',
     4,
+    1
+);
+
+INSERT INTO EVACOMUNA."TBL_USER" (
+    "ID",
+    "USERNAME",
+    "PASSWORD",
+    "NAME",
+    "LASTNAME",
+    "SECONDLASTNAME",
+    "IDENTIFICATION",
+    "EMAIL",
+    "LANDLINENUMBER",
+    "PHONENUMBER",
+    "ISACTIVE",
+    "ISADMIN",
+    "PASSWORDCHANGED",
+    "USERPOSITIONID",
+    "VERSION"
+) VALUES (
+    5,
+    'user5',
+    'password5',
+    'Elliot',
+    'Alderson',
+    'Wick',
+    '555555555',
+    'elliot@ecorp.com',
+    '55555555',
+    '55556666',
+    'Y',
+    'N',
+    'N',
+    5,
+    1
+);
+
+INSERT INTO EVACOMUNA."TBL_USER" (
+    "ID",
+    "USERNAME",
+    "PASSWORD",
+    "NAME",
+    "LASTNAME",
+    "SECONDLASTNAME",
+    "IDENTIFICATION",
+    "EMAIL",
+    "LANDLINENUMBER",
+    "PHONENUMBER",
+    "ISACTIVE",
+    "ISADMIN",
+    "PASSWORDCHANGED",
+    "USERPOSITIONID",
+    "VERSION"
+) VALUES (
+    6,
+    'user6',
+    'password6',
+    'Angela',
+    'Moss',
+    'Wick',
+    '666666666',
+    'angela@allsafe.com',
+    '66666666',
+    '66667777',
+    'Y',
+    'N',
+    'N',
+    6,
+    1
+);
+
+INSERT INTO EVACOMUNA."TBL_USER" (
+    "ID",
+    "USERNAME",
+    "PASSWORD",
+    "NAME",
+    "LASTNAME",
+    "SECONDLASTNAME",
+    "IDENTIFICATION",
+    "EMAIL",
+    "LANDLINENUMBER",
+    "PHONENUMBER",
+    "ISACTIVE",
+    "ISADMIN",
+    "PASSWORDCHANGED",
+    "USERPOSITIONID",
+    "VERSION"
+) VALUES (
+    7,
+    'user7',
+    'password7',
+    'Darlene',
+    'Alderson',
+    'Wick',
+    '777777777',
+    'darlene@fsociety.com',
+    '77777777',
+    '77778888',
+    'Y',
+    'N',
+    'N',
+    7,
+    1
+);
+
+INSERT INTO EVACOMUNA."TBL_USER" (
+    "ID",
+    "USERNAME",
+    "PASSWORD",
+    "NAME",
+    "LASTNAME",
+    "SECONDLASTNAME",
+    "IDENTIFICATION",
+    "EMAIL",
+    "LANDLINENUMBER",
+    "PHONENUMBER",
+    "ISACTIVE",
+    "ISADMIN",
+    "PASSWORDCHANGED",
+    "USERPOSITIONID",
+    "VERSION"
+) VALUES (
+    8,
+    'user8',
+    'password8',
+    'Phillip',
+    'Price',
+    'Wick',
+    '888888888',
+    'phillip@ecorp.com',
+    '88888888',
+    '88889999',
+    'N',
+    'N',
+    'N',
+    8,
+    1
+);
+
+INSERT INTO EVACOMUNA."TBL_USER" (
+    "ID",
+    "USERNAME",
+    "PASSWORD",
+    "NAME",
+    "LASTNAME",
+    "SECONDLASTNAME",
+    "IDENTIFICATION",
+    "EMAIL",
+    "LANDLINENUMBER",
+    "PHONENUMBER",
+    "ISACTIVE",
+    "ISADMIN",
+    "PASSWORDCHANGED",
+    "USERPOSITIONID",
+    "VERSION"
+) VALUES (
+    9,
+    'user9',
+    'password9',
+    'Terry',
+    'Colby',
+    'Wick',
+    '999999999',
+    'terry@colby.com',
+    '99999999',
+    '99991111',
+    'N',
+    'N',
+    'N',
+    9,
+    1
+);
+
+INSERT INTO EVACOMUNA."TBL_USER" (
+    "ID",
+    "USERNAME",
+    "PASSWORD",
+    "NAME",
+    "LASTNAME",
+    "SECONDLASTNAME",
+    "IDENTIFICATION",
+    "EMAIL",
+    "LANDLINENUMBER",
+    "PHONENUMBER",
+    "ISACTIVE",
+    "ISADMIN",
+    "PASSWORDCHANGED",
+    "USERPOSITIONID",
+    "VERSION"
+) VALUES (
+    10,
+    'user10',
+    'password10',
+    'Gideon',
+    'Goddard',
+    'Wick',
+    '101010101',
+    'gideon@price.com',
+    '10101010',
+    '10101111',
+    'N',
+    'N',
+    'N',
+    10,
     1
 );
