@@ -1,9 +1,6 @@
 .vscode
 .idea
 /evacomuna/target/
-/evacomuna/nbactions.xml
-*.wsdl
 /evacomunaws/target/
-/evacomunaws/nb-configuration.xml
 .DS_Store
 *.iml
