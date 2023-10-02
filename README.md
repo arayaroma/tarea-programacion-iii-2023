@@ -5,7 +5,7 @@
 
 ### Inicio de sesión
 ![Login](snapshots/login.png)
-*Captura de pantalla de la página de inicio de sesión, donde los usuarios pueden iniciar sesión en el sistema.*
+*Captura de pantalla de la página de inicio de sesión, donde los usuarios pueden iniciar sesión en el sistema. Existe un usuario "admin" y password "admin" el cual tiene privilegios para crear positions para poder registrar usuarios posteriormente*
 
 ### Registro de usuario
 ![Registro](snapshots/register.png)
