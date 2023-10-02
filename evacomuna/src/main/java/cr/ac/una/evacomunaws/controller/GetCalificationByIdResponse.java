@@ -8,9 +8,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para getCalificationByIdResponse complex type.
+ * <p>Java class for getCalificationByIdResponse complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="getCalificationByIdResponse"&gt;
@@ -36,7 +36,7 @@ public class GetCalificationByIdResponse {
     protected ResponseWrapper _return;
 
     /**
-     * Obtiene el valor de la propiedad return.
+     * Gets the value of the return property.
      * 
      * @return
      *     possible object is
@@ -48,7 +48,7 @@ public class GetCalificationByIdResponse {
     }
 
     /**
-     * Define el valor de la propiedad return.
+     * Sets the value of the return property.
      * 
      * @param value
      *     allowed object is
