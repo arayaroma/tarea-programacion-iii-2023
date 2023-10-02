@@ -5,7 +5,6 @@ import cr.ac.una.evacomuna.dto.EvaluationDto;
 import cr.ac.una.evacomuna.dto.FinalCalificationDto;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 import java.awt.Desktop;
 import java.io.File;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -83,15 +82,13 @@ public class ExcelGenerator {
 
             cell.setCellStyle(style);
             int i = 1;
-            List<FinalCalificationDto> finalCalificationDtos = evaluatedDto.getFinalCalifications();
             Row pointsRow = sheet.createRow(2);
             Row calificationRow = sheet.createRow(3);
 
-            //
             cell = pointsRow.createCell(0);
             cell.setCellValue("Points");
             cell.setCellStyle(style);
-            //
+
             cell = calificationRow.createCell(0);
             cell.setCellValue(evaluatedDto.getEvaluated().getName() + " " + evaluatedDto.getEvaluated().getLastname());
             cell.setCellStyle(style);

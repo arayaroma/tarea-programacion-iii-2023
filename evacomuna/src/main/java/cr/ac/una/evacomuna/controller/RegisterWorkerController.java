@@ -203,7 +203,7 @@ public class RegisterWorkerController implements Initializable {
      * Added the profile photo to the userDto
      *
      * @param profilePhoto the profile photo of the user
-     * @param args the user data
+     * @param args         the user data
      * @return the new object UserDto with the loaded data
      */
     private UserDto createUser(byte[] profilePhoto, String... args) {
@@ -238,7 +238,7 @@ public class RegisterWorkerController implements Initializable {
     /**
      *
      * @param isFromLogin if the user is from the login view
-     * @param user the user to show in the view
+     * @param user        the user to show in the view
      */
     public void initializeView(boolean isFromLogin, UserDto user) {
         this.isFromLogin = isFromLogin;

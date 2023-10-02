@@ -81,10 +81,11 @@ public class MainController implements Initializable {
             if (userLogged != null) {
                 if (userLogged.getProfilePhoto() != null) {
                     imgProfilePhoto
-                            .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
+                            .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2,
+                                    40));
                     imgProfilePhoto.setImage(ImageLoader.setImage(userLogged.getProfilePhoto()));
                 }
-                if (userLogged.getPasswordChanged().equals("Y")){
+                if (userLogged.getPasswordChanged().equals("Y")) {
                     changePasswordView.setVisible(true);
                     menuPane.setDisable(true);
                     return;

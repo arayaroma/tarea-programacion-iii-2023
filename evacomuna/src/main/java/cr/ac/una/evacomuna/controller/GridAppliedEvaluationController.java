@@ -87,7 +87,7 @@ public class GridAppliedEvaluationController implements Initializable {
     private FinalCalificationService finalCalificationService = new FinalCalificationService();
     private boolean hasPrivileges = false;
     private AppliedEvaluationsController appliedEvaluationsController;
-    //private List<HBox> finalCalificationContainers;
+    // private List<HBox> finalCalificationContainers;
 
     /**
      * Initializes the controller class.
@@ -128,7 +128,8 @@ public class GridAppliedEvaluationController implements Initializable {
         addFeedback();
     }
 
-    public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto, boolean hasPrivileges, AppliedEvaluationsController appliedEvaluationsController) {
+    public void initializeView(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto, boolean hasPrivileges,
+            AppliedEvaluationsController appliedEvaluationsController) {
         userDto = evaluatedDto.getEvaluated();
         this.appliedEvaluationsController = appliedEvaluationsController;
         this.hasPrivileges = hasPrivileges;
@@ -300,6 +301,7 @@ public class GridAppliedEvaluationController implements Initializable {
         }
         return count;
     }
+
     Node nodeDragguedBuffer = null;
 
     private void intializeDragAndDrop(Node node) {
@@ -322,11 +324,13 @@ public class GridAppliedEvaluationController implements Initializable {
             Dragboard dragboard = event.getDragboard();
             boolean success = false;
             if (dragboard.hasString()) {
-                //System.out.println(event.getTarget());
+                // System.out.println(event.getTarget());
                 Integer row = GridPane.getRowIndex((Node) event.getTarget());
                 Integer col = GridPane.getColumnIndex((Node) event.getTarget());
-                if (event.getTarget() != null && row != null && col != null && col != 0 && nodeDragguedBuffer != null && row>0) {
-                    if (nodeDragguedBuffer instanceof FinalCalificationDto && updateCalificationDraggued((FinalCalificationDto) nodeDragguedBuffer, row, col)) {
+                if (event.getTarget() != null && row != null && col != null && col != 0 && nodeDragguedBuffer != null
+                        && row > 0) {
+                    if (nodeDragguedBuffer instanceof FinalCalificationDto
+                            && updateCalificationDraggued((FinalCalificationDto) nodeDragguedBuffer, row, col)) {
                         gp_table.getChildren().remove(nodeDragguedBuffer);
                         gp_table.add(nodeDragguedBuffer, col, row);
                         int sumFinalCalifications = 0;
@@ -357,14 +361,14 @@ public class GridAppliedEvaluationController implements Initializable {
         for (int i = 0; i < gp_table.getColumnCount(); i++) {
             for (int j = 0; j < gp_table.getRowCount(); j++) {
 
-                //if (getNodeInGrid(j, i) == null) {
+                // if (getNodeInGrid(j, i) == null) {
                 gp_table.add(new Pane(), i, j);
-                //}
+                // }
             }
         }
     }
 
-    //private booleanIs
+    // private booleanIs
     private void loadCalifications() {
         List<FinalCalificationDto> finalCalifications = new ArrayList<>();
         if (evaluatedBuffer != null) {
@@ -455,7 +459,8 @@ public class GridAppliedEvaluationController implements Initializable {
         Double averageCalification = (double) sumFinalCalifications / (double) skills.size();
         Long rounding = Math.round(averageCalification);
         lblAverageCalification.setText("Average: " + format.format(averageCalification));
-        lblFinalCalification.setText("Final Calification: " + format.format((double) (averageCalification * 100) / (double) 4));
+        lblFinalCalification
+                .setText("Final Calification: " + format.format((double) (averageCalification * 100) / (double) 4));
         gp_table.add(checkVbox, skills.size() + 1, rounding.intValue());
     }
 

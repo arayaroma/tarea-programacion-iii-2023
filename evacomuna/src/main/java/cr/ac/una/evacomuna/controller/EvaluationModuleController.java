@@ -128,7 +128,8 @@ public class EvaluationModuleController implements Initializable {
         if (finalEvaluatedBuffer != null) {
             System.out.println(evaluatorBuffer.getId());
             if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream()
-                    .anyMatch(t -> t.getId() != null && Objects.equals(t.getEvaluator().getId(), evaluatorBuffer.getId()))) {
+                    .anyMatch(t -> t.getId() != null
+                            && Objects.equals(t.getEvaluator().getId(), evaluatorBuffer.getId()))) {
                 System.out.println(listEvaluatorsFix.getItems().remove(evaluatorBuffer));
                 setRole(evaluatorBuffer);
                 listEvaluatorsFix.getItems().add(evaluatorBuffer);
@@ -433,11 +434,11 @@ public class EvaluationModuleController implements Initializable {
                         });
                     } else {
                         roleBuffer = null;
-                        //rbSelf.setSelected(false);
+                        // rbSelf.setSelected(false);
                         role.getToggles().forEach(t -> {
                             if (t instanceof RadioButton) {
                                 ((RadioButton) t).setDisable(false);
-                                ((RadioButton)t).setSelected(false);
+                                ((RadioButton) t).setSelected(false);
                                 if (((RadioButton) t).getText().equals("SELF")) {
                                     ((RadioButton) t).setDisable(true);
                                 }
@@ -527,7 +528,8 @@ public class EvaluationModuleController implements Initializable {
     private void generateFinalCalifications(EvaluationDto evaluation) {
         Map<Long, Long> calificationBySkill = new HashMap<>();
         // Map<Long, Long> calificationBySkill = new HashMap<>();
-        if (evaluation != null && (evaluation.getState().equals("UNDER REVIEW") || evaluation.getState().equals("COMPLETED"))) {
+        if (evaluation != null
+                && (evaluation.getState().equals("UNDER REVIEW") || evaluation.getState().equals("COMPLETED"))) {
             for (EvaluatedDto evaluatedDto : evaluation.getEvaluated()) {
                 if (evaluatedDto.getFinalCalifications() != null && evaluatedDto.getFinalCalifications().isEmpty()) {
                     for (EvaluatorDto evaluatorDto : evaluatedDto.getEvaluators()) {
