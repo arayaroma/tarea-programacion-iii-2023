@@ -45,11 +45,19 @@ public class EvaluatedService {
             cr.ac.una.evacomunaws.controller.EvaluatedDto evaluated = (cr.ac.una.evacomunaws.controller.EvaluatedDto) response
                     .getData();
             evaluatedDto = new EvaluatedDto(evaluated);
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Evaluated created successfully",
+                        evaluatedDto.convertFromGeneratedToDTO(evaluated, evaluatedDto));
+            }
+
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Evaluated created successfully",
-                    evaluatedDto.convertFromGeneratedToDTO(evaluated, evaluatedDto));
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating Evaluated: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

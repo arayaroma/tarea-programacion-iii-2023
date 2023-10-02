@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.awt.Desktop;
 import java.io.File;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -60,6 +62,20 @@ public class ExcelGenerator {
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setFillForegroundColor(colors.getIndex());
         return cellStyle;
+    }
+
+    private String chooseSavePath() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Archivo");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Archivos de Excel", "*.xls")
+        );
+        File file = fileChooser.showSaveDialog(new Stage());
+        if (file != null) {
+            return file.getAbsolutePath();
+
+        }
+        return "";
     }
 
     public void generateExcelReport() {
@@ -132,11 +148,12 @@ public class ExcelGenerator {
         style = createStyleHeader(workbook, HorizontalAlignment.CENTER, IndexedColors.LIGHT_BLUE);
         // row = sheet.createRow(2);
 
-        try (FileOutputStream outputStream = new FileOutputStream("User Report.xls")) {
+        String absolutePath = chooseSavePath();
+
+        try (FileOutputStream outputStream = new FileOutputStream(absolutePath)) {
             workbook.write(outputStream);
             // Desktop
-            Desktop.getDesktop().open(new File("User Report.xls"));
-            System.out.println("Archivo Excel creado con éxito.");
+            Desktop.getDesktop().open(new File(absolutePath));
         } catch (IOException e) {
             e.printStackTrace();
         }

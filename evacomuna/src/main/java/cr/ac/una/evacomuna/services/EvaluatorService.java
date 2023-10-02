@@ -52,9 +52,9 @@ public class EvaluatorService {
                         evaluatorDto.convertFromGeneratedToDTO(evaluator, evaluatorDto));
             }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Error creating evaluator",
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating evaluator: " + response.getMessage(),
                     null);
 
         } catch (Exception e) {

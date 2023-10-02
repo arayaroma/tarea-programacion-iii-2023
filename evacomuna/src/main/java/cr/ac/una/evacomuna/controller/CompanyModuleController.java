@@ -57,7 +57,7 @@ public class CompanyModuleController implements Initializable {
         imgPhoto.setClip(new Circle(imgPhoto.getFitWidth() / 2, imgPhoto.getFitHeight() / 2, 75));
         companyService = new GeneralInformationService();
         companyBuffer = (GeneralInformationDto) companyService.getGeneralInformation().getData();
-        if (companyBuffer.getId() != null) {
+        if (companyBuffer!=null && companyBuffer.getId() != null) {
             isEditing = true;
         }
         initializeView();

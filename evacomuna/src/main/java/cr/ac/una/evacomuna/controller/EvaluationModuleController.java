@@ -51,7 +51,7 @@ import javafx.scene.input.KeyEvent;
  * @author estebannajera
  */
 public class EvaluationModuleController implements Initializable {
-
+    
     @FXML
     private Button btnCreate;
     @FXML
@@ -97,11 +97,11 @@ public class EvaluationModuleController implements Initializable {
     private FinalCalificationService finalCalificationService = new FinalCalificationService();
     private List<EvaluatorDto> evaluatorDtos = new ArrayList<>();
     private List<EvaluatedDto> evaluatedDtos = new ArrayList<>();
-
+    
     private String roleBuffer;
     @FXML
     private RadioButton rbSelf;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -112,13 +112,13 @@ public class EvaluationModuleController implements Initializable {
             // initializeView();
             initializeView();
         } catch (Exception e) {
-
+            
             System.out.println(e.toString());
         }
         initilizeLists();
-
+        
     }
-
+    
     @FXML
     private void btnAddEvaluator(ActionEvent event) {
         if (roleBuffer == null) {
@@ -126,20 +126,21 @@ public class EvaluationModuleController implements Initializable {
             return;
         }
         if (finalEvaluatedBuffer != null) {
-            System.out.println(evaluatorBuffer.getId());
             if (evaluatorBuffer != null && !listEvaluatorsFix.getItems().stream()
                     .anyMatch(t -> t.getId() != null
-                            && Objects.equals(t.getEvaluator().getId(), evaluatorBuffer.getId()))) {
-                System.out.println(listEvaluatorsFix.getItems().remove(evaluatorBuffer));
+                    && Objects.equals(t.getEvaluator().getId(), evaluatorBuffer.getId()))) {
                 setRole(evaluatorBuffer);
+                listEvaluatorsFix.getItems().remove(evaluatorBuffer);
                 listEvaluatorsFix.getItems().add(evaluatorBuffer);
+                
+                System.out.println(finalEvaluatedBuffer.getEvaluators().remove(evaluatorBuffer));
                 finalEvaluatedBuffer.getEvaluators().add(evaluatorBuffer);
             }
         } else {
             Message.showNotification("Alert", MessageType.INFO, "You must to choose a Evaluated to set the evaluators");
         }
     }
-
+    
     @FXML
     private void btnDeleteEvaluator(ActionEvent event) {
         if (finalEvaluatorBuffer != null) {
@@ -151,7 +152,7 @@ public class EvaluationModuleController implements Initializable {
             listEvaluatorsFix.getItems().remove(finalEvaluatorBuffer);
         }
     }
-
+    
     @FXML
     private void btnAddEvaluated(ActionEvent event) {
         if (evaluatedBuffer != null && !listEvaluatedFix.getItems().stream()
@@ -160,7 +161,7 @@ public class EvaluationModuleController implements Initializable {
             listEvaluatedFix.getItems().add(evaluatedBuffer);
         }
     }
-
+    
     @FXML
     private void btnDeleteEvaluated(ActionEvent event) {
         if (finalEvaluatedBuffer != null) {
@@ -171,7 +172,7 @@ public class EvaluationModuleController implements Initializable {
             listEvaluatorsFix.getItems().clear();
         }
     }
-
+    
     @FXML
     private void searchByRoleAction(ActionEvent event) {
         String name = cbRoles.getValue();
@@ -184,7 +185,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void deleteEvaluationAction(ActionEvent event) {
         if (evaluationBuffer != null) {
@@ -208,7 +209,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void createEvaluationAction(ActionEvent event) {
         if (evaluationBuffer != null) {
@@ -246,7 +247,7 @@ public class EvaluationModuleController implements Initializable {
         }
         Message.showNotification("ERROR", MessageType.INFO, "Error creating evaluation");
     }
-
+    
     @FXML
     private void saveChangesAction(ActionEvent event) {
         String name = txfNameEvaluation.getText(), state = cbState.getValue();
@@ -275,7 +276,7 @@ public class EvaluationModuleController implements Initializable {
         }
         Message.showNotification(response.getCode().name(), MessageType.INFO, response.getMessage());
     }
-
+    
     @FXML
     private void searchByIdentification(KeyEvent event) {
         String identificationToSearch = txfSearchEvaluators.getText();
@@ -289,7 +290,7 @@ public class EvaluationModuleController implements Initializable {
         }
         listEvaluators.getItems().addAll(evaluatorDtos);
     }
-
+    
     @FXML
     private void selectEvaluation(ActionEvent event) {
         String name = cbEvaluations.getValue();
@@ -300,7 +301,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-
+    
     @FXML
     private void searchEvaluationInput(KeyEvent event) {
         if (event.getCode().isLetterKey()) {
@@ -320,7 +321,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-
+    
     public void initializeView() {
         cbState.getItems().addAll("UNDER CONSTRUCTION", "IN APPLICATION", "UNDER REVIEW", "COMPLETED");
         cbRoles.getItems().addAll(ObservableListParser.mapListToObsevableString(ObservableListParser.loadPositions()));
@@ -333,7 +334,7 @@ public class EvaluationModuleController implements Initializable {
             listEvaluators.getItems().addAll(evaluatorDtos);
         }
     }
-
+    
     public void cleanView() {
         cbState.getItems().clear();
         cbRoles.getItems().clear();
@@ -352,7 +353,7 @@ public class EvaluationModuleController implements Initializable {
         btnSave.setDisable(true);
         btnCreate.setText("Create Evaluation");
     }
-
+    
     public void loadFields(EvaluationDto evaluationDto) {
         txfNameEvaluation.setText(evaluationDto.getName());
         dpAplicationDate.setValue(evaluationDto.getApplicationDate());
@@ -366,7 +367,7 @@ public class EvaluationModuleController implements Initializable {
         }
         btnCreate.setText("+New Evaluation");
     }
-
+    
     public void initilizeLists() {
         listEvaluated.setCellFactory((param) -> new ListCell<EvaluatedDto>() {
             @Override
@@ -467,7 +468,7 @@ public class EvaluationModuleController implements Initializable {
             }
         });
     }
-
+    
     public boolean deleteEvaluated(EvaluatedDto evaluated) {
         ResponseWrapper response = null;
         boolean evaluatorsDeleted = true;
@@ -477,7 +478,7 @@ public class EvaluationModuleController implements Initializable {
             evaluatorsDeleted = response.getCode() == ResponseCode.OK;
         }
         if (evaluatorsDeleted) {
-
+            
             response = evaluatedService.deleteEvaluatedById(evaluated);
             evaluatedDeleted = response.getCode() == ResponseCode.OK;
             return evaluatorsDeleted;
@@ -486,7 +487,7 @@ public class EvaluationModuleController implements Initializable {
         }
         return evaluatorsDeleted;
     }
-
+    
     public boolean createEvaluated(EvaluatedDto evaluated, EvaluationDto evaluationDto) {
         ResponseWrapper response = null;
         boolean allIsSaved = false;
@@ -498,7 +499,7 @@ public class EvaluationModuleController implements Initializable {
             // Create Evaluator
             EvaluatedDto evaluatedDtoSaved = response == null ? evaluated : (EvaluatedDto) response.getData();
             for (EvaluatorDto evaluator : evaluated.getEvaluators()) {
-                evaluator.setEvaluated(evaluatedDtoSaved);
+                evaluator.setEvaluated(new EvaluatedDto(evaluatedDtoSaved.getDto()));
                 if (evaluator.getId() == null) {
                     response = evaluatorService.createEvaluator(evaluator);
                     if (response.getCode() == ResponseCode.OK) {
@@ -509,7 +510,7 @@ public class EvaluationModuleController implements Initializable {
         }
         return allIsSaved;
     }
-
+    
     private void setRole(EvaluatorDto evaluatorDto) {
         if (!isTheSameUserEvaluator(evaluatorDto)) {
             evaluatorDto.setRole(roleBuffer);
@@ -517,14 +518,14 @@ public class EvaluationModuleController implements Initializable {
         }
         evaluatorDto.setRole("SELF");
     }
-
+    
     private boolean isTheSameUserEvaluator(EvaluatorDto evaluator) {
         if (finalEvaluatedBuffer != null && evaluator != null) {
             return finalEvaluatedBuffer.getEvaluated().getId().equals(evaluator.getEvaluator().getId());
         }
         return false;
     }
-
+    
     private void generateFinalCalifications(EvaluationDto evaluation) {
         Map<Long, Long> calificationBySkill = new HashMap<>();
         // Map<Long, Long> calificationBySkill = new HashMap<>();
@@ -539,7 +540,7 @@ public class EvaluationModuleController implements Initializable {
                     }
                     for (Map.Entry<Long, Long> entry : calificationBySkill.entrySet()) {
                         FinalCalificationDto finalCalificationDto = new FinalCalificationDto();
-
+                        
                         Double average = (double) entry.getValue() / (double) evaluatedDto.getEvaluators().size();
                         Long result = Math.round(average);
                         if (result < 1) {
@@ -562,7 +563,7 @@ public class EvaluationModuleController implements Initializable {
             }
         }
     }
-
+    
     private void fillCalificationBySkill(Map<Long, Long> map, SkillDto skill, CalificationDto calificationDto) {
         Long valueCalification = CalificationCode.parseStringToCode(calificationDto.getCalification());
         if (!map.containsKey(skill.getID())) {
@@ -572,5 +573,5 @@ public class EvaluationModuleController implements Initializable {
         Long newValue = map.get(skill.getID());
         map.replace(skill.getID(), newValue + valueCalification);
     }
-
+    
 }
