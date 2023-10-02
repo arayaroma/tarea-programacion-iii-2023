@@ -79,10 +79,12 @@ public class MainController implements Initializable {
             userLogged = Data.getUserLogged();
             // Cut over the photo to make a circula effect
             if (userLogged != null) {
-                imgProfilePhoto
-                        .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
-                imgProfilePhoto.setImage(ImageLoader.setImage(userLogged.getProfilePhoto()));
-                if (userLogged.getPasswordChanged() == "Y") {
+                if (userLogged.getProfilePhoto() != null) {
+                    imgProfilePhoto
+                            .setClip(new Circle(imgProfilePhoto.getFitWidth() / 2, imgProfilePhoto.getFitHeight() / 2, 40));
+                    imgProfilePhoto.setImage(ImageLoader.setImage(userLogged.getProfilePhoto()));
+                }
+                if (userLogged.getPasswordChanged().equals("Y")){
                     changePasswordView.setVisible(true);
                     menuPane.setDisable(true);
                     return;

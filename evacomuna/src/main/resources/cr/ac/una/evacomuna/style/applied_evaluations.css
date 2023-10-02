@@ -193,3 +193,9 @@
     -fx-border-width: 0 0 1 0;
     -fx-padding: 0 0 5 0; /* Opcional: añade un espacio inferior para separar los elementos */
 }
+.drag:hover{
+    -fx-cursor: open-hand;
+}
+.drag:pressed{
+    -fx-cursor: closed-hand;
+}

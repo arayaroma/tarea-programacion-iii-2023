@@ -433,10 +433,11 @@ public class EvaluationModuleController implements Initializable {
                         });
                     } else {
                         roleBuffer = null;
-                        rbSelf.setSelected(false);
+                        //rbSelf.setSelected(false);
                         role.getToggles().forEach(t -> {
                             if (t instanceof RadioButton) {
                                 ((RadioButton) t).setDisable(false);
+                                ((RadioButton)t).setSelected(false);
                                 if (((RadioButton) t).getText().equals("SELF")) {
                                     ((RadioButton) t).setDisable(true);
                                 }

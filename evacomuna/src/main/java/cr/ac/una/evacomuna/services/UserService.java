@@ -36,7 +36,7 @@ public class UserService {
 
     /**
      * Create a new user
-     * 
+     *
      * @param userDto user to create
      * @return ResponseWrapper with the response of the request
      */
@@ -64,7 +64,7 @@ public class UserService {
 
     /**
      * Update a user
-     * 
+     *
      * @param userDto user to update
      * @return ResponseWrapper with the response of the request
      */
@@ -74,23 +74,30 @@ public class UserService {
             cr.ac.una.evacomunaws.controller.UserDto user = (cr.ac.una.evacomunaws.controller.UserDto) response
                     .getData();
             userDto = new UserDto(user);
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "User updated successfully",
+                        userDto);
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "User updated successfully",
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error updating User",
                     userDto);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
                     ResponseCode.INTERNAL_SERVER_ERROR,
-                    "Error updating user",
+                    "Error updating user: " + e.toString(),
                     null);
         }
     }
 
     /**
      * Get a user by id
-     * 
+     *
      * @param id of the user
      * @return ResponseWrapper with the response of the request
      */
@@ -116,7 +123,7 @@ public class UserService {
 
     /**
      * Get a user by username and password
-     * 
+     *
      * @param username of the user
      * @param password of the user
      * @return ResponseWrapper with the response of the request
@@ -145,7 +152,7 @@ public class UserService {
 
     /**
      * Get all users
-     * 
+     *
      * @return ResponseWrapper with the response of the request
      */
     public ResponseWrapper getUsers() {
@@ -182,7 +189,7 @@ public class UserService {
 
     /**
      * Recover a password
-     * 
+     *
      * @param email of the user
      * @return ResponseWrapper with the response of the request
      */
@@ -207,8 +214,8 @@ public class UserService {
 
     /**
      * Change a password
-     * 
-     * @param id          of the user
+     *
+     * @param id of the user
      * @param oldPassword of the user
      * @param newPassword of the user
      * @return ResponseWrapper with the response of the request
@@ -235,7 +242,7 @@ public class UserService {
 
     /**
      * Delete a user by id
-     * 
+     *
      * @param id of the user
      * @return ResponseWrapper with the response of the request
      */

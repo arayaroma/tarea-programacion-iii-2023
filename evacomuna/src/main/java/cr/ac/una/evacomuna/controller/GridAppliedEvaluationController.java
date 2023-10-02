@@ -303,7 +303,7 @@ public class GridAppliedEvaluationController implements Initializable {
     Node nodeDragguedBuffer = null;
 
     private void intializeDragAndDrop(Node node) {
-
+        node.getStyleClass().add("drag");
         node.setOnDragDetected((event) -> {
             Dragboard dragboard = node.startDragAndDrop(TransferMode.MOVE);
             dragboard.setDragView(node.snapshot(null, null));
@@ -325,7 +325,7 @@ public class GridAppliedEvaluationController implements Initializable {
                 //System.out.println(event.getTarget());
                 Integer row = GridPane.getRowIndex((Node) event.getTarget());
                 Integer col = GridPane.getColumnIndex((Node) event.getTarget());
-                if (event.getTarget() != null && row != null && col != null && col != 0 && nodeDragguedBuffer != null) {
+                if (event.getTarget() != null && row != null && col != null && col != 0 && nodeDragguedBuffer != null && row>0) {
                     if (nodeDragguedBuffer instanceof FinalCalificationDto && updateCalificationDraggued((FinalCalificationDto) nodeDragguedBuffer, row, col)) {
                         gp_table.getChildren().remove(nodeDragguedBuffer);
                         gp_table.add(nodeDragguedBuffer, col, row);

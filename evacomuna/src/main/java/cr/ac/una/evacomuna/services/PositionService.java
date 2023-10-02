@@ -187,11 +187,18 @@ public class PositionService {
     public ResponseWrapper deletePositionById(Long id) {
         try {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.deletePositionById(id);
+            if (response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK) {
+                return new ResponseWrapper(
+                        ResponseCode.OK.getCode(),
+                        ResponseCode.OK,
+                        "Position deleted successfully",
+                        response.getData());
+            }
             return new ResponseWrapper(
-                    ResponseCode.OK.getCode(),
-                    ResponseCode.OK,
-                    "Position deleted successfully",
-                    response.getData());
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error removing Position: " + response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),

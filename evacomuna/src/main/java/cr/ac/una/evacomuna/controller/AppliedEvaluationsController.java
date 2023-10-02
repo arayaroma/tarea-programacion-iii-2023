@@ -32,14 +32,14 @@ import javafx.scene.layout.VBox;
  * @author arayaroma
  */
 public class AppliedEvaluationsController implements Initializable {
-    
+
     @FXML
     private ComboBox<String> cbEvaluations;
     @FXML
     private ComboBox<String> cbAllEvaluations;
     @FXML
     private ListView<EvaluatedDto> listEvaluated;
-    
+
     @FXML
     private VBox container;
     private UserService userService;
@@ -49,11 +49,11 @@ public class AppliedEvaluationsController implements Initializable {
     private UserDto userDto;
     private EvaluatedDto evaluatedBuffer;
     private EvaluationDto evaluationBuffer;
-    
+
     Integer totalSupervisors = 0, totalPeers = 0, totalSelf = 0, totalClients = 0;
-    
+
     ColumnConstraints columnConstraints = new ColumnConstraints(150);
-    
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         userService = new UserService();
@@ -64,12 +64,20 @@ public class AppliedEvaluationsController implements Initializable {
         cbEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(
                 FXCollections.observableArrayList(filterEvaluations(ObservableListParser.loadEvaluations()))));
         cbAllEvaluations.getItems().addAll(ObservableListParser.mapListToObsevableString(
-                FXCollections.observableArrayList(ObservableListParser.loadEvaluations())));
+                FXCollections.observableArrayList(filterAdminEvaluationsPrivileges(ObservableListParser.loadEvaluations()))));
         initializeList();
         loadPrivileges();
-        
+
     }
-    
+
+    private List<EvaluationDto> filterAdminEvaluationsPrivileges(List<EvaluationDto> evaluationDtos) {
+        List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
+                .filter(evaluation -> evaluation.getState().equals("COMPLETED")
+                || evaluation.getState().equals("UNDER REVIEW"))
+                .collect(Collectors.toList());
+        return evaluationDtosFiltered;
+    }
+
     private void loadGrid() {
         try {
             FXMLLoader loader = App.getFXMLLoader("GridAppliedEvaluation");
@@ -85,22 +93,22 @@ public class AppliedEvaluationsController implements Initializable {
             System.out.println(e.toString());
         }
     }
-    
+
     private void loadPrivileges() {
         if (userDto.getIsAdmin().equals("N")) {
             listEvaluated.setVisible(false);
             cbAllEvaluations.setVisible(false);
         }
     }
-    
+
     private void initializeList() {
         listEvaluated.setCellFactory((param) -> new ListCell<EvaluatedDto>() {
             @Override
             protected void updateItem(EvaluatedDto item, boolean empty) {
                 super.updateItem(item, empty);
-                
+
                 setText(empty || item == null ? null : ((EvaluatedDto) item).getEvaluated().getName() + " " + ((EvaluatedDto) item).getEvaluated().getSecondLastname());
-                
+
             }
         });
         // LISTENERS
@@ -113,11 +121,11 @@ public class AppliedEvaluationsController implements Initializable {
                     }
                 });
     }
-    
+
     private void calculateCalification() {
-        
+
     }
-    
+
     @FXML
     private void selectEvaluation(ActionEvent event) {
         String name = cbEvaluations.getValue();
@@ -130,10 +138,10 @@ public class AppliedEvaluationsController implements Initializable {
             }
         }
     }
-    
+
     @FXML
     private void selectAllEvaluation(ActionEvent event) {// Arreglar para que se carguen las calificaciones finales
-                                                         // desde el usuario admin
+        // desde el usuario admin
         String name = cbAllEvaluations.getValue();
         if (name != null) {
             evaluationBuffer = (EvaluationDto) evaluationService.getEvaluationByName(name).getData();
@@ -144,9 +152,9 @@ public class AppliedEvaluationsController implements Initializable {
 //                loadGrid();
             }
         }
-        
+
     }
-    
+
     private EvaluatedDto loadEvaluatedByEvaluation(EvaluationDto evaluationDto) {
         if (evaluationDto != null) {
             for (EvaluatedDto i : evaluationDto.getEvaluated()) {
@@ -157,23 +165,22 @@ public class AppliedEvaluationsController implements Initializable {
         }
         return null;
     }
-    
+
     private List<EvaluationDto> filterEvaluations(List<EvaluationDto> evaluationDtos) {
         Predicate<EvaluationDto> hasEvaluated = evaluationDto -> evaluationDto.getEvaluated()
                 .stream()
                 .anyMatch(evaluatedDto -> evaluatedDto.getEvaluated().getId() == userDto.getId());
         List<EvaluationDto> evaluationDtosFiltered = evaluationDtos.stream()
                 .filter(hasEvaluated.and(evaluation -> evaluation.getState().equals("COMPLETED")
-                        || evaluation.getState().equals("UNDER REVIEW")))
+                || evaluation.getState().equals("UNDER REVIEW")))
                 .collect(Collectors.toList());
         return evaluationDtosFiltered;
     }
-    
-    public void reloadGridCalification(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto){
+
+    public void reloadGridCalification(EvaluatedDto evaluatedDto, EvaluationDto evaluationDto) {
         evaluatedBuffer = evaluatedDto;
         evaluationBuffer = evaluationDto;
         loadGrid();
-        
     }
-    
+
 }

@@ -102,8 +102,13 @@ public class PositionModuleController implements Initializable {
     @FXML
     private void btnDeleteRole(ActionEvent event) {
         if (bufferRole != null) {
-            positionService.deletePositionById(bufferRole.getId());
-            initializeMainView();
+
+            ResponseWrapper response = positionService.deletePositionById(bufferRole.getId());
+            if (response.getCode() == ResponseCode.OK) {
+                initializeMainView();
+            } else {
+                Message.showNotification(response.getCode().name(), MessageType.ERROR, response.getMessage());
+            }
         }
     }
 

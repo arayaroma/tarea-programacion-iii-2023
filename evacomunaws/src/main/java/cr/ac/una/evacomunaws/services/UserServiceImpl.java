@@ -753,13 +753,13 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean verifyUniqueUsername(String username) {
-        return em.createNamedQuery("user.findByUsername", User.class)
+        return em.createNamedQuery("User.findByUsername", User.class)
                 .setParameter("username", username)
                 .getResultList().isEmpty();
     }
 
     private boolean verifyUniqueIdentification(String identification) {
-        return em.createNamedQuery("user.findByIdentification", User.class)
+        return em.createNamedQuery("User.findByIdentification", User.class)
                 .setParameter("identification", identification)
                 .getResultList().isEmpty();
     }

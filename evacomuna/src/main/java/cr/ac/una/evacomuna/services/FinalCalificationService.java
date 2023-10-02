@@ -37,11 +37,18 @@ public class FinalCalificationService {
             cr.ac.una.evacomunaws.controller.ResponseWrapper response = port.createFinalCalification(finalCalificationDto.convertFromDTOToGenerated(finalCalificationDto, entity));
             cr.ac.una.evacomunaws.controller.FinalCalificationDto finalCalification = (cr.ac.una.evacomunaws.controller.FinalCalificationDto) response
                     .getData();
+            if(response.getCode() == cr.ac.una.evacomunaws.controller.ResponseCode.OK){
             return new cr.ac.una.evacomuna.util.ResponseWrapper(
                     ResponseCode.OK.getCode(),
                     ResponseCode.OK,
                     "FinalCalification created successfully",
                     new FinalCalificationDto(finalCalification));
+            }
+            return new cr.ac.una.evacomuna.util.ResponseWrapper(
+                    ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
+                    ResponseCode.INTERNAL_SERVER_ERROR,
+                    "Error creating Final Calification: "+response.getMessage(),
+                    null);
         } catch (Exception e) {
             return new ResponseWrapper(
                     ResponseCode.INTERNAL_SERVER_ERROR.getCode(),
