@@ -3,7 +3,6 @@ package cr.ac.una.evacomunaws.services;
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.util.ResponseCode;
 import cr.ac.una.evacomunaws.dto.EvaluatedDto;
-import cr.ac.una.evacomunaws.util.DtoMapper;
 import cr.ac.una.evacomunaws.util.EntityUtil;
 import cr.ac.una.evacomunaws.util.ListWrapper;
 import cr.ac.una.evacomunaws.util.ResponseWrapper;
@@ -12,7 +11,6 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import static cr.ac.una.evacomunaws.util.Constants.PERSISTENCE_UNIT_NAME;
-import cr.ac.una.evacomunaws.dto.EvaluatorDto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,9 +99,10 @@ public class EvaluatedServiceImpl implements EvaluatedService {
             }
 
             EvaluatedDto evaluatedDto = new EvaluatedDto(evaluated);
-            
-//            evaluatedDto.setEvaluators(
-//                    DtoMapper.fromEntityList(evaluated.getEvaluators(), EvaluatorDto.class).getList());
+
+            // evaluatedDto.setEvaluators(
+            // DtoMapper.fromEntityList(evaluated.getEvaluators(),
+            // EvaluatorDto.class).getList());
 
             return new ResponseWrapper(ResponseCode.OK.getCode(),
                     ResponseCode.OK,

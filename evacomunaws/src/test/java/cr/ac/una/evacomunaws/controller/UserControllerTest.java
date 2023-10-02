@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import cr.ac.una.evacomunaws.controller.UserController;
 import cr.ac.una.evacomunaws.dto.UserDto;
 import cr.ac.una.evacomunaws.services.UserService;
 import cr.ac.una.evacomunaws.util.ResponseCode;

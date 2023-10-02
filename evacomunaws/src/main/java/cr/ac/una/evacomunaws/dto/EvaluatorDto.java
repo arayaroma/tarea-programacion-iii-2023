@@ -1,6 +1,5 @@
 package cr.ac.una.evacomunaws.dto;
 
-import cr.ac.una.evacomunaws.entities.Calification;
 import cr.ac.una.evacomunaws.entities.Evaluated;
 import cr.ac.una.evacomunaws.entities.Evaluator;
 import cr.ac.una.evacomunaws.entities.User;
@@ -54,7 +53,8 @@ public class EvaluatorDto implements DtoMapper<Evaluator, EvaluatorDto> {
     public Evaluator convertFromDTOToEntity(EvaluatorDto dto, Evaluator entity) {
         entity.setEvaluated(new Evaluated(dto.getEvaluated()));
         entity.setEvaluator(new User(dto.getEvaluator()));
-        //entity.setCalifications(DtoMapper.fromDtoList(dto.getCalifications(), Calification.class).getList());
+        // entity.setCalifications(DtoMapper.fromDtoList(dto.getCalifications(),
+        // Calification.class).getList());
         return entity;
     }
 }

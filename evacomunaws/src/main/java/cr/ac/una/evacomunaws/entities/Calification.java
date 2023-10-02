@@ -21,8 +21,6 @@ import static cr.ac.una.evacomunaws.util.Constants.SCHEMA;
 import static cr.ac.una.evacomunaws.util.DatabaseSequences.SEQ_CALIFICATION;
 import java.io.Serializable;
 import cr.ac.una.evacomunaws.dto.CalificationDto;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 
 /**
  *
