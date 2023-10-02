@@ -33,7 +33,11 @@
   - [Cómo ejecutar el proyecto cliente](#cómo-ejecutar-el-proyecto-cliente)
     - [Jar](#jar)
     - [Windows](#windows)
+    - [Configuración de la variable de entorno](#configuración-de-la-variable-de-entorno)
+    - [Ejecución del script](#ejecución-del-script)
     - [Unix/Linux \& MacOS](#unixlinux--macos)
+    - [Configuración de la variable de entorno](#configuración-de-la-variable-de-entorno-1)
+    - [Ejecución del script](#ejecución-del-script-1)
   - [Base de Datos](#base-de-datos)
     - [Aclaración para la ejecución de los scripts](#aclaración-para-la-ejecución-de-los-scripts)
     - [Script de creación de la base de datos](#script-de-creación-de-la-base-de-datos)
@@ -75,12 +79,34 @@ El [Jar](evacomuna/evacomuna.jar) se encuentra en la carpeta `evacomuna/evacomun
 Para ejecutar el jar, se crearon dos scripts, uno para Windows y otro para Unix/Linux & MacOS.
 
 ### Windows
+
+### Configuraci&oacute;n de la variable de entorno
+Primeramente se debe de configurar la variable de entorno donde se encuentra el [JavaFX SDK](https://openjfx.io/). Para esto se crea una nueva variable de entorno llamada `JAVAFX_SDK`, y se le asigna el valor de la ruta donde se encuentra el JavaFX SDK. Es importante que el nombre de la variable sea exactamente igual al que se mencion&oacute; anteriormente. Ya que el script utiliza esta variable para poder ejecutar el jar.
+
+Por ejemplo en este caso se prob&oacute; con una m&aacute;quina
+virtual en Windows 10, y se instal&oacute; el JavaFX SDK en la siguiente ruta:
+```
+C:\Program Files\Java\javafx-sdk-21
+```
+
+### Ejecuci&oacute;n del script
 En la carpeta ra&iacute;z del proyecto, ejecutar el siguiente comando:
 ```bat
 evacomuna.bat
 ```
 
 ### Unix/Linux & MacOS
+
+### Configuraci&oacute;n de la variable de entorno
+Primeramente se debe de configurar la variable de entorno donde se encuentra el [JavaFX SDK](https://openjfx.io/). Para esto se crea una nueva variable de entorno llamada `JAVAFX_SDK`, y se le asigna el valor de la ruta donde se encuentra el JavaFX SDK. Es importante que el nombre de la variable sea exactamente igual al que se mencion&oacute; anteriormente. Ya que el script utiliza esta variable para poder ejecutar el jar.
+
+Por ejemplo en este caso se prob&oacute; con una m&aacute;quina
+virtual en archlinux, y se instal&oacute; el JavaFX SDK en la siguiente ruta:
+```
+/opt/javafx-sdk-21
+```
+
+### Ejecuci&oacute;n del script
 En la carpeta ra&iacute;z del proyecto, ejecutar el siguiente comando:
 ```bash
 ./evacomuna.sh
